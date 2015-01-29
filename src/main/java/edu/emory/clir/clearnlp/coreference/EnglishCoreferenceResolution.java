@@ -37,6 +37,7 @@ public class EnglishCoreferenceResolution extends AbstractCoreferenceResolution
 		m_detector = new EnglishMentionDetector();
 	}
 	
+	@Override
 	public Pair<List<Mention>,DisjointSet> getEntities(List<DEPTree> trees)
 	{
 		List<Mention> mentions = m_detector.getMentionList(trees);
