@@ -48,6 +48,9 @@ public class EnglishMentionDetector extends AbstractMentionDetector
 	
 	public EnglishMentionDetector()
 	{
+		m_femaleNames = new IncMap1<>();
+		m_maleNames   = new IncMap1<>();
+		
 		addFemaleNames(IOUtils.getInputStreamsFromClasspath(PathNamedEntity.US_FEMALE_NAMES));
 		addMaleNames  (IOUtils.getInputStreamsFromClasspath(PathNamedEntity.US_MALE_NAMES));
 		s_mentionLabels = initMentionLabels();
