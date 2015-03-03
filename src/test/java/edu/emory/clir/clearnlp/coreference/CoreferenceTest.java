@@ -36,7 +36,7 @@ public class CoreferenceTest
 	public void demo() throws Exception
 	{
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 4, 5, 6, 7);
-		reader.open(new FileInputStream("inputFile.cnlp"));
+		reader.open(new FileInputStream("src/test/resources/arith-qs.ak.cnlp"));
 		List<DEPTree> trees = new ArrayList<>();
 		DEPTree tree;
 		
@@ -45,6 +45,14 @@ public class CoreferenceTest
 		
 		AbstractCoreferenceResolution coref = new EnglishCoreferenceResolution();
 		Pair<List<Mention>,DisjointSet> entities = coref.getEntities(trees);
-		entities.o2.inSameSet(0, 1);
+		List<Mention> mentions = entities.o1;
+		DisjointSet set = entities.o2;
+		
+		for (int i=0; i<mentions.size(); i++)
+			System.out.println(i+": "+mentions.get(i).getNode().getWordForm());
+		
+		for (int i=0; i<mentions.size()-1; i++)
+			for (int j=i+1; j<mentions.size(); j++)
+				System.out.println("("+i+","+j+") "+set.inSameSet(i, j));
 	}
 }

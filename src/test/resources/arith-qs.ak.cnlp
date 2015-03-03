@@ -1,0 +1,26 @@
+1	Sam	sam	NNP	_	2	nsubj	2:A0=PAG
+2	had	have	VBD	pb=have.03	0	root	_
+3	9	0	CD	_	4	num	_
+4	dimes	dime	NNS	_	2	dobj	2:A1=PPT
+5	in	in	IN	_	2	prep	2:AM-LOC
+6	his	his	PRP$	_	7	poss	_
+7	bank	bank	NN	_	5	pobj	_
+8	.	.	.	_	2	punct	_
+
+1	His	his	PRP$	_	2	poss	_
+2	dad	dad	NN	_	3	nsubj	3:A0=PAG
+3	gave	give	VBD	pb=give.01	0	root	_
+4	him	him	PRP	_	3	iobj	3:A2=GOL
+5	7	0	CD	_	6	num	_
+6	dimes	dime	NNS	_	3	dobj	3:A1=PPT
+7	.	.	.	_	3	punct	_
+
+1	How	how	WRB	_	2	advmod	_
+2	many	many	JJ	_	3	amod	_
+3	dimes	dime	NNS	_	6	dobj	6:R-A1
+4	does	do	VBZ	_	6	aux	_
+5	Sam	sam	NNP	_	6	nsubj	6:A0=PAG
+6	have	have	VB	p2=VBP|pb=have.03	0	root	_
+7	now	now	RB	_	6	advmod	6:AM-TMP
+8	?	?	.	_	6	punct	_
+

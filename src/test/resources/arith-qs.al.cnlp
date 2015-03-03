@@ -1,0 +1,33 @@
+1	Alyssa	alyssa	NNP	_	3	poss	_
+2	's	's	POS	_	1	possessive	_
+3	dog	dog	NN	_	4	nsubj	4:A0=PAG
+4	had	have	VBD	pb=have.03	0	root	_
+5	puppies	puppy	NNS	_	4	dobj	4:A1=PPT
+6	.	.	.	_	4	punct	_
+
+1	She	she	PRP	_	2	nsubj	2:A0=PAG
+2	gave	give	VBD	pb=give.01	0	root	_
+3	7	0	CD	_	2	dobj	2:A1=PPT
+4	to	to	IN	_	2	prep	2:A2=GOL
+5	her	her	PRP$	_	6	poss	_
+6	friends	friend	NNS	_	4	pobj	_
+7	.	.	.	_	2	punct	_
+
+1	She	she	PRP	_	3	nsubj	3:A0=PAG
+2	now	now	RB	_	3	advmod	3:AM-TMP
+3	has	have	VBZ	pb=have.03	0	root	_
+4	5	0	CD	_	5	num	_
+5	puppies	puppy	NNS	_	3	dobj	3:A1=PPT
+6	.	.	.	_	3	punct	_
+
+1	How	how	WRB	_	2	advmod	_
+2	many	many	JJ	_	3	amod	_
+3	puppies	puppy	NNS	_	6	dobj	_
+4	did	do	VBD	_	6	aux	_
+5	she	she	PRP	_	6	nsubj	8:A0=PAG
+6	have	have	VB	pb=have.02	0	root	_
+7	to	to	TO	_	8	aux	_
+8	start	start	VB	pb=start.01	6	xcomp	_
+9	with	with	IN	_	8	prep	8:A2=MNR
+10	?	?	.	_	6	punct	_
+

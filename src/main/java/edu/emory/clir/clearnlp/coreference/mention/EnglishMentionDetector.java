@@ -97,9 +97,11 @@ public class EnglishMentionDetector extends AbstractMentionDetector
 	
 	public Mention getPronounMention(DEPTree tree, DEPNode node)
 	{
+		Mention mention = null;
+		
 		if (node.isPOSTag(CTLibEn.POS_PRP) || node.isPOSTag(CTLibEn.POS_PRPS))
 		{
-			Mention mention = new Mention(tree, node);
+			mention = new Mention(tree, node);
 			
 			if (S_FEMALE_PRONOUN.contains(node.getLemma()))
 			{
@@ -123,7 +125,7 @@ public class EnglishMentionDetector extends AbstractMentionDetector
 			}
 		}
 		
-		return null;
+		return mention;
 	}
 	
 	public Mention getPersonMention(DEPTree tree, DEPNode node)
