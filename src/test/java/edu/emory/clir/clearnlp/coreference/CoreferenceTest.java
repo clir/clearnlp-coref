@@ -49,7 +49,7 @@ public class CoreferenceTest
 		DisjointSet set = entities.o2;
 		
 		for (int i=0; i<mentions.size(); i++)
-			System.out.println(i+": "+mentions.get(i).getNode().getWordForm());
+			System.out.println(i+": "+mentions.get(i).getNode().getWordForm()+" "+mentions.get(i).getEntityType()+" "+mentions.get(i).getNumberType());
 		
 		for (int i=0; i<mentions.size()-1; i++)
 			for (int j=i+1; j<mentions.size(); j++)

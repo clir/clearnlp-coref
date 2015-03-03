@@ -51,7 +51,7 @@ public class EnglishCoreferenceResolution extends AbstractCoreferenceResolution
 			
 			for (j=i-1; j>=0; j--)
 			{
-				prev = mentions.get(i);
+				prev = mentions.get(j);
 				
 				if (matchesPerson(curr, prev) || matchesPronoun(curr, prev) || matchesCommonNoun(curr, prev))
 				{
