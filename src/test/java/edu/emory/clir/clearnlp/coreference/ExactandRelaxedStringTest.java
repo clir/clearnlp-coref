@@ -6,11 +6,13 @@ import java.util.List;
 
 import org.junit.Test;
 
-import sieve.ExactStringMatch;
-import sieve.RelaxedStringMatch;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.mention.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
+import edu.emory.clir.clearnlp.coreference.sieve.ExactStringMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 
@@ -27,7 +29,7 @@ public class ExactandRelaxedStringTest
 		while ((tree = reader.next()) != null)
 			trees.add(tree);
 		
-		AbstractCoreferenceResolution coref = new ExactStringMatch();
+		AbstractSieve coref = new ExactStringMatch(new EnglishMentionDetector());
 		Pair<List<Mention>,DisjointSet> entities = coref.getEntities(trees);
 		entities.o2.inSameSet(0, 1);
 	}
@@ -43,7 +45,7 @@ public class ExactandRelaxedStringTest
 		while ((tree = reader.next()) != null)
 			trees.add(tree);
 		
-		AbstractCoreferenceResolution coref = new RelaxedStringMatch();
+		AbstractSieve coref = new RelaxedStringMatch(new EnglishMentionDetector());
 		Pair<List<Mention>,DisjointSet> entities = coref.getEntities(trees);
 		entities.o2.inSameSet(0, 1);
 	}
