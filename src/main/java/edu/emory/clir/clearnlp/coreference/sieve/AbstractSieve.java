@@ -13,27 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sieve;
+package edu.emory.clir.clearnlp.coreference.sieve;
 
-import java.io.IOException;
-
+import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMentionDetector;
-import edu.emory.clir.clearnlp.coreference.mention.EnglishMentionDetector;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
  * @since 	Mar 23, 2015
  */
-public class SieveSystem {
-	private AbstractMentionDetector detector;
-	
-	public SieveSystem() throws IOException{
-		// Mention Detector declaration
-		detector = new EnglishMentionDetector();
-		
-		// Sieve layer class declarations
-		AbstractSieve sieve1 = new ExactStringMatch(detector);
-		AbstractSieve sieve2 = new RelaxedStringMatch(detector);
-	}
+abstract public class AbstractSieve extends AbstractCoreferenceResolution {
+	protected AbstractMentionDetector detector;
+	public AbstractSieve(AbstractMentionDetector d){ detector = d; }
 }

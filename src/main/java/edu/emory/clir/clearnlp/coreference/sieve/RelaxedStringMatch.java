@@ -1,4 +1,4 @@
-package sieve;
+package edu.emory.clir.clearnlp.coreference.sieve;
 
 import java.util.List;
 
