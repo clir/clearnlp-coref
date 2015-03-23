@@ -21,6 +21,7 @@ package edu.emory.clir.clearnlp.coreference.type;
  */
 public enum EntityType
 {
+	PRONOUN_WILDCARD,
 	PRONOUN_NEUTRAL,
 	PRONOUN_FEMALE,
 	PRONOUN_MALE,

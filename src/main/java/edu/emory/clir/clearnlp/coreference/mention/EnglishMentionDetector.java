@@ -15,6 +15,7 @@
  */
 package edu.emory.clir.clearnlp.coreference.mention;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +26,7 @@ import edu.emory.clir.clearnlp.collection.map.IncMap1;
 import edu.emory.clir.clearnlp.constituent.CTLibEn;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
+import edu.emory.clir.clearnlp.coreference.wildcard_Pronoun.WildcardPronoun_Identifier;
 import edu.emory.clir.clearnlp.dependency.DEPLibEn;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -42,12 +44,18 @@ public class EnglishMentionDetector extends AbstractMentionDetector
 	static private final Set<String> S_SINGULAR_PRONOUN	= Sets.newHashSet("it","its","itself");
 	static private final Set<String> S_PLURAL_PRONOUN	= Sets.newHashSet("they","them","their","theirs","themselves");
 	
+	private WildcardPronoun_Identifier WILDCARD_PRONOUN_IDENTIFIER;
+	
 	private IncMap1<String> m_femaleNames;
 	private IncMap1<String> m_maleNames;
 	Set<String> s_mentionLabels;
 	
-	public EnglishMentionDetector()
+	public EnglishMentionDetector() throws IOException
 	{
+		m_femaleNames = new IncMap1<>();
+		m_maleNames = new IncMap1<>();
+		WILDCARD_PRONOUN_IDENTIFIER = new WildcardPronoun_Identifier("/Users/HenryChen/Dropbox/Developement/ClearNLP-QA/dictionary/WildcardPronoun.txt");
+		
 		addFemaleNames(IOUtils.getInputStreamsFromClasspath(PathNamedEntity.US_FEMALE_NAMES));
 		addMaleNames  (IOUtils.getInputStreamsFromClasspath(PathNamedEntity.US_MALE_NAMES));
 		s_mentionLabels = initMentionLabels();
@@ -87,6 +95,7 @@ public class EnglishMentionDetector extends AbstractMentionDetector
 		Mention mention;
 		
 		if ((mention = getPronounMention(tree, node)) != null)	return mention;
+		if ((mention = getWildcarPronounMention(tree, node)) != null)		return mention;
 		if ((mention = getPersonMention (tree, node)) != null)	return mention;
 		
 		return null;
@@ -118,9 +127,15 @@ public class EnglishMentionDetector extends AbstractMentionDetector
 				mention.setEntityType(EntityType.PRONOUN_NEUTRAL);
 				mention.setNumberType(NumberType.PLURAL);
 			}
+
+			return mention;
 		}
 		
 		return null;
+	}
+
+	public Mention getWildcarPronounMention(DEPTree tree, DEPNode node){
+		return WILDCARD_PRONOUN_IDENTIFIER.getMention(tree, node);
 	}
 	
 	public Mention getPersonMention(DEPTree tree, DEPNode node)

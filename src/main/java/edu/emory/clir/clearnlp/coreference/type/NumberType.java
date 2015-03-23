@@ -22,5 +22,6 @@ public enum NumberType
 {
 	SINGULAR,
 	PLURAL,
-	UNCOUNTABLE;
+	UNCOUNTABLE,
+	UNKNOWN;
 }
