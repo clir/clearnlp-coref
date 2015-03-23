@@ -1,23 +1,20 @@
-package edu.emory.clir.clearnlp.coreference;
+package sieve;
 
 import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMentionDetector;
-import edu.emory.clir.clearnlp.coreference.mention.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
-
-public class RelaxedStringMatch extends AbstractCoreferenceResolution
-{
+/**
+ * 
+ * @author alexlutz
+ * this will be the first sieve that performs exact string matching between mentions
+ */
+public class ExactStringMatch extends AbstractSieve {
 	
-	private AbstractMentionDetector detector;
-	
-	public RelaxedStringMatch() 
-	{	
-		detector = new EnglishMentionDetector();	//need to create my own in order to get larger number of mentions
-	}
+	public ExactStringMatch(AbstractMentionDetector d){ super(d); }
 	
 	public Pair<List<Mention>,DisjointSet> getEntities(List<DEPTree> trees)
 	{
@@ -34,7 +31,7 @@ public class RelaxedStringMatch extends AbstractCoreferenceResolution
 			{
 				prev = mentions.get(i);
 				
-				if (headMatch(prev, curr))
+				if (exactMatch(prev, curr))
 				{
 					set.union(i, j);
 					break;
@@ -45,9 +42,10 @@ public class RelaxedStringMatch extends AbstractCoreferenceResolution
 		return new Pair<List<Mention>, DisjointSet>(mentions, set);
 	}
 	
-	private boolean headMatch(Mention prev, Mention curr)
+	private boolean exactMatch(Mention prev, Mention curr)
 	{
-		return prev.getNode().getHead().getWordForm().equals(curr.getNode().getHead().getWordForm());
+		return prev.getNode().getWordForm().equals(curr.getNode().getWordForm());
 	}
 	
+
 }
