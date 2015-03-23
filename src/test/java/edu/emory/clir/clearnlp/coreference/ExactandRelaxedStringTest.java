@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import sieve.ExactStringMatch;
+import sieve.RelaxedStringMatch;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
