@@ -26,6 +26,8 @@ import edu.emory.clir.clearnlp.coreference.mention.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
 import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
 import edu.emory.clir.clearnlp.coreference.sieve.ExactStringMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.PronounMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.RelaxedHeadMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
@@ -44,8 +46,11 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 		detector = new EnglishMentionDetector();
 		
 		// Sieve layer class declarations
-		sieves.add(new ExactStringMatch());
-		sieves.add(new RelaxedStringMatch());
+		/* Sieve 1 : Exact String Match */		sieves.add(new ExactStringMatch());
+		/* Sieve 2 : Relaxed String Match */	sieves.add(new RelaxedStringMatch());
+		
+		/* Sieve 9 : Relaxed Head Match */		sieves.add(new RelaxedHeadMatch());
+		/* Sieve 10 : Pronoun Match */			sieves.add(new PronounMatch());
 	}
 
 	@Override
