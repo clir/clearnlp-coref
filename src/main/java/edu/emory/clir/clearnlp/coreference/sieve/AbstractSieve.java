@@ -15,15 +15,17 @@
  */
 package edu.emory.clir.clearnlp.coreference.sieve;
 
-import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
-import edu.emory.clir.clearnlp.coreference.mention.AbstractMentionDetector;
+import java.util.List;
+
+import utils.DisjointSetWithConfidence;
+import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
  * @since 	Mar 23, 2015
  */
-abstract public class AbstractSieve extends AbstractCoreferenceResolution {
-	protected AbstractMentionDetector detector;
-	public AbstractSieve(AbstractMentionDetector d){ detector = d; }
+abstract public class AbstractSieve{
+	abstract public DisjointSetWithConfidence resolute(List<DEPTree> trees, List<Mention> mentions, DisjointSetWithConfidence mentionLinks);
 }
