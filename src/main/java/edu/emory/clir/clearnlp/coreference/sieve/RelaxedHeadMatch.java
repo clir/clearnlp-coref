@@ -29,9 +29,8 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
 public class RelaxedHeadMatch extends AbstractSieve {
 
 	@Override
-	public DisjointSetWithConfidence resolute(List<DEPTree> trees, List<Mention> mentions, DisjointSetWithConfidence mentionLinks) {
+	public void resolute(List<DEPTree> trees, List<Mention> mentions, DisjointSetWithConfidence mentionLinks) {
 		
 		
-		return mentionLinks;
 	}
 }
