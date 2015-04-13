@@ -16,24 +16,42 @@
 package edu.emory.clir.clearnlp.coreference.sieve;
 
 import java.io.IOException;
+import java.util.List;
 
+import utils.DisjointSetWithConfidence;
+import edu.emory.clir.clearnlp.collection.pair.Pair;
+import edu.emory.clir.clearnlp.collection.set.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.EnglishMentionDetector;
+import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
  * @since 	Mar 23, 2015
  */
-public class SieveSystem {
+public class SieveSystem extends AbstractCoreferenceResolution{
 	private AbstractMentionDetector detector;
+	private List<AbstractSieve> sieves;
 	
 	public SieveSystem() throws IOException{
 		// Mention Detector declaration
 		detector = new EnglishMentionDetector();
 		
 		// Sieve layer class declarations
-		AbstractSieve sieve1 = new ExactStringMatch(detector);
-		AbstractSieve sieve2 = new RelaxedStringMatch(detector);
+		sieves.add(new ExactStringMatch());
+		sieves.add(new RelaxedStringMatch());
+	}
+
+	@Override
+	public Pair<List<Mention>, DisjointSet> getEntities(List<DEPTree> trees) {
+		List<Mention> mentions = detector.getMentionList(trees);
+		DisjointSetWithConfidence mentionLinks = new DisjointSetWithConfidence(mentions.size());
+		
+		for(AbstractSieve sieve : sieves) 
+			mentionLinks = sieve.resolute(trees, mentions, mentionLinks);
+		return new Pair<List<Mention>, DisjointSet>(mentions, mentionLinks);
 	}
 }
