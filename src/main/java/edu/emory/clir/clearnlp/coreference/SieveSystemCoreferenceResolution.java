@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.sieve;
+package edu.emory.clir.clearnlp.coreference;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,10 +21,12 @@ import java.util.List;
 import utils.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
-import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
+import edu.emory.clir.clearnlp.coreference.sieve.ExactStringMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
@@ -32,11 +34,12 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
  * @version	1.0
  * @since 	Mar 23, 2015
  */
-public class SieveSystem extends AbstractCoreferenceResolution{
+public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolution{
 	private AbstractMentionDetector detector;
 	private List<AbstractSieve> sieves;
 	
-	public SieveSystem() throws IOException{
+	public SieveSystemCoreferenceResolution() throws IOException{
+		
 		// Mention Detector declaration
 		detector = new EnglishMentionDetector();
 		
@@ -47,11 +50,14 @@ public class SieveSystem extends AbstractCoreferenceResolution{
 
 	@Override
 	public Pair<List<Mention>, DisjointSet> getEntities(List<DEPTree> trees) {
+
+		// Mention Detection
 		List<Mention> mentions = detector.getMentionList(trees);
 		DisjointSetWithConfidence mentionLinks = new DisjointSetWithConfidence(mentions.size());
 		
-		for(AbstractSieve sieve : sieves) 
-			mentionLinks = sieve.resolute(trees, mentions, mentionLinks);
+		// Coreference Resolution
+		for(AbstractSieve sieve : sieves) mentionLinks = sieve.resolute(trees, mentions, mentionLinks);
+		
 		return new Pair<List<Mention>, DisjointSet>(mentions, mentionLinks);
 	}
 }
