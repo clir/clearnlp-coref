@@ -16,6 +16,7 @@
 package edu.emory.clir.clearnlp.coreference;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import utils.DisjointSetWithConfidence;
@@ -46,6 +47,7 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 		detector = new EnglishMentionDetector();
 		
 		// Sieve layer class declarations
+		sieves = new ArrayList<>();
 		/* Sieve 1 : Exact String Match */		sieves.add(new ExactStringMatch());
 		/* Sieve 2 : Relaxed String Match */	sieves.add(new RelaxedStringMatch());
 		
@@ -61,7 +63,7 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 		DisjointSetWithConfidence mentionLinks = new DisjointSetWithConfidence(mentions.size());
 		
 		// Coreference Resolution
-		for(AbstractSieve sieve : sieves) mentionLinks = sieve.resolute(trees, mentions, mentionLinks);
+		for(AbstractSieve sieve : sieves) sieve.resolute(trees, mentions, mentionLinks);
 		
 		return new Pair<List<Mention>, DisjointSet>(mentions, mentionLinks);
 	}

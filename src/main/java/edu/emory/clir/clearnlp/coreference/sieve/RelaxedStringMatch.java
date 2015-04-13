@@ -9,7 +9,7 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
 public class RelaxedStringMatch extends AbstractSieve{
 	
 	@Override
-	public DisjointSetWithConfidence resolute(List<DEPTree> trees, List<Mention> mentions, DisjointSetWithConfidence mentionLinks) {
+	public void resolute(List<DEPTree> trees, List<Mention> mentions, DisjointSetWithConfidence mentionLinks) {
 		Mention curr, prev;
 		int i, j, size = mentions.size();
 		
@@ -25,8 +25,6 @@ public class RelaxedStringMatch extends AbstractSieve{
 				}
 			}
 		}
-		
-		return mentionLinks;
 	}
 	
 	private boolean headMatch(Mention prev, Mention curr){
