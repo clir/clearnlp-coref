@@ -18,7 +18,6 @@ import java.util.Set;
  * Acronym
  * Demonym
  * Relative Pronoun
- * appositive - easy
  */
 public class PredicateNominativeMatch extends AbstractStringMatch
 {
@@ -28,7 +27,7 @@ public class PredicateNominativeMatch extends AbstractStringMatch
     protected boolean match(Mention prev, Mention curr)
     {
         //either want the lemma or simplified word form to make sure that the verb is a transitive verb
-        if (prev.getNode().getPOSTag().equals("subj") && curr.getNode().getPOSTag().equals("dobj")
+        if (prev.getNode().getLabel().equals("subj") && curr.getNode().getLabel().equals("dobj")
                 && LV.contains(curr.getNode().getHead().getSimplifiedWordForm())) {
             return true;
         }

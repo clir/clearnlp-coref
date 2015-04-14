@@ -3,16 +3,14 @@ package edu.emory.clir.clearnlp.coreference.sieve;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
 
 /**
- * @author Alex Lutz
+ * Created by alexlutz on 4/14/15.
  */
-public class AppositiveMatch extends AbstractStringMatch
+public class RelativePronounMatch extends AbstractStringMatch
 {
     @Override
     protected boolean match(Mention prev, Mention curr)
     {
-        if (curr.getNode().getLabel().equals("appos") && curr.getNode().getHead() == prev.getNode()) {
-            return true;
-        }
+        if ()
         return false;
     }
 }
