@@ -32,7 +32,7 @@ public class EnglishCoreferenceResolution extends AbstractCoreferenceResolution
 {
 	private AbstractMentionDetector m_detector;
 	
-	public EnglishCoreferenceResolution()
+	public EnglishCoreferenceResolution() throws Exception
 	{
 		m_detector = new EnglishMentionDetector();
 	}
@@ -51,9 +51,9 @@ public class EnglishCoreferenceResolution extends AbstractCoreferenceResolution
 			
 			for (j=i-1; j>=0; j--)
 			{
-				prev = mentions.get(i);
+				prev = mentions.get(j);
 				
-				if (matchesPerson(curr, prev) || matchesPronoun(curr, prev) || matchesCommonNoun(curr, prev))
+				if (matchesPerson(curr, prev) || matchesPronoun(curr, prev) || matchesCommonNoun(curr, prev) || matchesWildcardPronoun(curr, prev))
 				{
 					set.union(i, j);
 					break;
@@ -79,6 +79,12 @@ public class EnglishCoreferenceResolution extends AbstractCoreferenceResolution
 	private boolean matchesCommonNoun(Mention curr, Mention prev)
 	{
 		// we need to deal with common nouns
+		return false;
+	}
+	
+	private boolean matchesWildcardPronoun(Mention curr, Mention prev)
+	{
+		// Yet to be implemented
 		return false;
 	}
 }
