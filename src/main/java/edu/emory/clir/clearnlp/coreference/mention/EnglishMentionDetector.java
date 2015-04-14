@@ -17,12 +17,11 @@ package edu.emory.clir.clearnlp.coreference.mention;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.google.common.collect.Sets;
-
-import edu.emory.clir.clearnlp.collection.map.IncMap1;
+import edu.emory.clir.clearnlp.collection.ngram.Unigram;
 import edu.emory.clir.clearnlp.constituent.CTLibEn;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
@@ -39,21 +38,21 @@ import edu.emory.clir.clearnlp.util.IOUtils;
  */
 public class EnglishMentionDetector extends AbstractMentionDetector
 {
-	static private final Set<String> S_FEMALE_PRONOUN	= Sets.newHashSet("she","her","hers","herself");
-	static private final Set<String> S_MALE_PRONOUN		= Sets.newHashSet("he","him","his","himself");
-	static private final Set<String> S_SINGULAR_PRONOUN	= Sets.newHashSet("it","its","itself");
-	static private final Set<String> S_PLURAL_PRONOUN	= Sets.newHashSet("they","them","their","theirs","themselves");
+	static private final Set<String> S_FEMALE_PRONOUN	= new HashSet<>(Arrays.asList("she","her","hers","herself"));
+	static private final Set<String> S_MALE_PRONOUN		= new HashSet<>(Arrays.asList("he","him","his","himself"));
+	static private final Set<String> S_SINGULAR_PRONOUN	= new HashSet<>(Arrays.asList("it","its","itself"));
+	static private final Set<String> S_PLURAL_PRONOUN	= new HashSet<>(Arrays.asList("they","them","their","theirs","themselves"));
 	
 	private WildcardPronoun_Identifier WILDCARD_PRONOUN_IDENTIFIER;
 	
-	private IncMap1<String> m_femaleNames;
-	private IncMap1<String> m_maleNames;
+	private Unigram<String> m_femaleNames;
+	private Unigram<String> m_maleNames;
 	Set<String> s_mentionLabels;
 	
 	public EnglishMentionDetector() throws IOException
 	{
-		m_femaleNames = new IncMap1<>();
-		m_maleNames = new IncMap1<>();
+		m_femaleNames = new Unigram<>();
+		m_maleNames = new Unigram<>();
 		WILDCARD_PRONOUN_IDENTIFIER = new WildcardPronoun_Identifier("/Users/HenryChen/Dropbox/Developement/ClearNLP-QA/dictionary/WildcardPronoun.txt");
 		
 		addFemaleNames(IOUtils.getInputStreamsFromClasspath(PathNamedEntity.US_FEMALE_NAMES));
