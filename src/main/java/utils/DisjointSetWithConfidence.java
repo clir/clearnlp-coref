@@ -15,8 +15,7 @@
  */
 package utils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 import edu.emory.clir.clearnlp.collection.pair.DoubleIntPair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
@@ -28,38 +27,34 @@ import edu.emory.clir.clearnlp.collection.set.DisjointSet;
  */
 public class DisjointSetWithConfidence extends DisjointSet{
 
-	private int[] headIndex;
 	private double[] confidence;
 	
 	public DisjointSetWithConfidence(int size) {
 		// Initialize variables size
 		super(size);
-		headIndex = new int[size];
 		confidence = new double[size];
 		
 		// Initialize variables values
-		for(int i = 0; i < size; i++){
-			headIndex[i] = i;
-			confidence[i] = -1d;
-		}
+		for(int i = 0; i < size; i++)	confidence[i] = -1d;
 	}
 	
 	public int union(int head, int child, double score){
-		headIndex[child] = head;
 		confidence[child] = score;
 		return union(head, child);
 	}
 
-	public List<Integer> findChainedIndex(int id){
-		int head, child;
-		List<Integer> list = new ArrayList<>();
-
-		for(child = id, head = headIndex[child]; head != child; child = head, head = headIndex[child]) list.add(head);
-		
-		return list;
+	public DoubleIntPair getHeadConfidence(int id){
+		return new DoubleIntPair(confidence[id], find(id));
 	}
 	
-	public DoubleIntPair getHeadConfidenc(int id){
-		return new DoubleIntPair(confidence[id], headIndex[id]);
+	@Override
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Disjoint Set with Cofidence:\n");
+		sb.append("Clusters:\t"+super.toString()+"\n");
+		sb.append("Confidence:\t"+Arrays.toString(confidence)+"\n");
+		
+		return sb.toString();
 	}
 }

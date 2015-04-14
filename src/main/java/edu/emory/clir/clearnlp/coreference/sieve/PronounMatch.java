@@ -19,6 +19,7 @@ import java.util.List;
 
 import utils.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
@@ -30,6 +31,40 @@ public class PronounMatch extends AbstractSieve {
 
 	@Override
 	public void resolute(List<DEPTree> trees, List<Mention> mentions, DisjointSetWithConfidence mentionLinks) {
-
+		Mention curr, prev;
+		int i, j, size = mentions.size();
+		
+		for (i = 1; i < size; i++){
+			curr = mentions.get(i);
+			
+			for (j = i-1; j >= 0; j--){
+				prev = mentions.get(i);
+				if (matchesPerson(curr, prev) || 
+					matchesPronoun(curr, prev) || 
+					matchesCommonNoun(curr, prev) || 
+					matchesWildcardPronoun(curr, prev)){
+					
+					mentionLinks.union(i, j, 0); break;
+				}
+			}
+		}		
+	}
+	
+	private boolean matchesPerson(Mention curr, Mention prev){
+		return (curr.isEntityType(EntityType.PERSON_FEMALE) && prev.isEntityType(EntityType.PERSON_FEMALE)) || (curr.isEntityType(EntityType.PERSON_MALE)   && prev.isEntityType(EntityType.PERSON_MALE));
+	}
+	
+	private boolean matchesPronoun(Mention curr, Mention prev){
+		return (curr.isEntityType(EntityType.PRONOUN_FEMALE) && (prev.isEntityType(EntityType.PRONOUN_FEMALE) || prev.isEntityType(EntityType.PERSON_FEMALE))) || (curr.isEntityType(EntityType.PRONOUN_MALE)   && (prev.isEntityType(EntityType.PRONOUN_MALE)   || prev.isEntityType(EntityType.PERSON_MALE)));
+	}
+	
+	private boolean matchesCommonNoun(Mention curr, Mention prev){
+		// we need to deal with common nouns
+		return false;
+	}
+	
+	private boolean matchesWildcardPronoun(Mention curr, Mention prev){
+		// Yet to be implemented
+		return false;
 	}
 }
