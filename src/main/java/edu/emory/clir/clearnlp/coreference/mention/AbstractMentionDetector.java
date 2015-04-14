@@ -21,7 +21,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.emory.clir.clearnlp.collection.map.IncMap1;
+import edu.emory.clir.clearnlp.collection.ngram.Unigram;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.IOUtils;
@@ -36,7 +36,7 @@ public abstract class AbstractMentionDetector
 {
 //	====================================== LEXICA ======================================
 	
-	protected void addDictionary(InputStream in, IncMap1<String> map)
+	protected void addDictionary(InputStream in, Unigram<String> map)
 	{
 		BufferedReader reader = IOUtils.createBufferedReader(in);
 		String line, token;
