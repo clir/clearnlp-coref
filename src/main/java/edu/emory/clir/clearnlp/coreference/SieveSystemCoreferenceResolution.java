@@ -19,13 +19,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.emory.clir.clearnlp.coreference.sieve.*;
 import utils.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
+import edu.emory.clir.clearnlp.coreference.sieve.ExactStringMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.PronounMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
@@ -44,22 +47,11 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 		
 		// Sieve layer class declarations
 		sieves = new ArrayList<>();
-
-		/* Sieve 1 : Speaker Identification */
-		sieves.add(new SpeakerIdentification());
-
-		/* Sieve 2 : Exact String Match */
-		sieves.add(new ExactStringMatch());
-
-		/* Sieve 3 : Relaxed String Match */
-		sieves.add(new RelaxedStringMatch());
-
-		/* Sieve 4 : Precise Constructs */
-		sieves.add(new PredicateNominativeMatch());
-		sieves.add(new AppositiveMatch());
-
-		/* Sieve 10 : Pronoun Match */
-		sieves.add(new PronounMatch());
+		
+		/* Sieve 1 : Exact String Match */		sieves.add(new ExactStringMatch());
+		/* Sieve 2 : Relaxed String Match */	sieves.add(new RelaxedStringMatch());
+		
+		/* Sieve 10 : Pronoun Match */			sieves.add(new PronounMatch());
 	}
 
 	@Override

@@ -36,23 +36,22 @@ public class CoreferenceTest
 	public void demo() throws Exception
 	{
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 4, 5, 6, 7);
-		reader.open(new FileInputStream("src/test/resources/arith-qs.ak.cnlp"));
+		reader.open(new FileInputStream("Inclusive_Stat.srl"));
 		List<DEPTree> trees = new ArrayList<>();
 		DEPTree tree;
+
 		
 		while ((tree = reader.next()) != null)
 			trees.add(tree);
 		
+		
 		AbstractCoreferenceResolution coref = new EnglishCoreferenceResolution();
 		Pair<List<Mention>,DisjointSet> entities = coref.getEntities(trees);
-		List<Mention> mentions = entities.o1;
-		DisjointSet set = entities.o2;
 		
-		for (int i=0; i<mentions.size(); i++)
-			System.out.println(i+": "+mentions.get(i).getNode().getWordForm()+" "+mentions.get(i).getEntityType()+" "+mentions.get(i).getNumberType());
-		
-		for (int i=0; i<mentions.size()-1; i++)
-			for (int j=i+1; j<mentions.size(); j++)
-				System.out.println("("+i+","+j+") "+set.inSameSet(i, j));
+		//DEBUG OUTPUT
+		int c = 0;
+		for(Mention m : entities.o1)	System.out.println(c++ + ": " + m.toString());
+		System.out.println(entities.o2);
+		//////////////
 	}
 }

@@ -26,7 +26,6 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
  * @version	1.0
  * @since 	Mar 23, 2015
  */
-abstract public class AbstractSieve
-{
+abstract public class AbstractSieve{
 	abstract public void resolute(List<DEPTree> trees, List<Mention> mentions, DisjointSetWithConfidence mentionLinks);
 }
