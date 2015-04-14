@@ -46,11 +46,5 @@ public class SieveSystemTest {
 		
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution();
 		Pair<List<Mention>,DisjointSet> entities = coref.getEntities(trees);
-		
-		//DEBUG OUTPUT
-		int c = 0;
-		for(Mention m : entities.o1)	System.out.println(c++ + ": " + m.toString());
-		System.out.println(entities.o2);
-		//////////////
 	}
 }
