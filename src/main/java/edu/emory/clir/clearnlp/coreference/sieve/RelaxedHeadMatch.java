@@ -1,5 +1,5 @@
 /**
- * Copyright 2014, Emory University
+ * Copyright 2015, Emory University
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,25 +15,22 @@
  */
 package edu.emory.clir.clearnlp.coreference.sieve;
 
-import java.io.IOException;
+import java.util.List;
 
-import edu.emory.clir.clearnlp.coreference.mention.AbstractMentionDetector;
-import edu.emory.clir.clearnlp.coreference.mention.EnglishMentionDetector;
+import utils.DisjointSetWithConfidence;
+import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	Mar 23, 2015
+ * @since 	Apr 13, 2015
  */
-public class SieveSystem {
-	private AbstractMentionDetector detector;
-	
-	public SieveSystem() throws IOException{
-		// Mention Detector declaration
-		detector = new EnglishMentionDetector();
+public class RelaxedHeadMatch extends AbstractSieve {
+
+	@Override
+	public void resolute(List<DEPTree> trees, List<Mention> mentions, DisjointSetWithConfidence mentionLinks) {
 		
-		// Sieve layer class declarations
-		AbstractSieve sieve1 = new ExactStringMatch(detector);
-		AbstractSieve sieve2 = new RelaxedStringMatch(detector);
+		
 	}
 }
