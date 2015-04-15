@@ -5,9 +5,7 @@ import java.util.StringJoiner;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 /**
- * 
- * @author alexlutz
- * this will be the first sieve that performs exact string matching between mentions
+ * @author Alex Lutz ({@code ajlutz@emory.edu})
  */
 public class ExactStringMatch extends AbstractStringMatch {
 	

@@ -93,9 +93,9 @@ public class EnglishMentionDetector extends AbstractMentionDetector
 	{
 		Mention mention;
 		
-		if ((mention = getPronounMention(tree, node)) != null)	return mention;
+		if ((mention = getPronounMention(tree, node)) != null)				return mention;
 		if ((mention = getWildcarPronounMention(tree, node)) != null)		return mention;
-		if ((mention = getPersonMention (tree, node)) != null)	return mention;
+		if ((mention = getPersonMention (tree, node)) != null)				return mention;
 		
 		return null;
 	}

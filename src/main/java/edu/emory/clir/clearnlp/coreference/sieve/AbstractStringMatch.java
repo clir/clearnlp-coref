@@ -6,9 +6,7 @@ import utils.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 /**
- * 
- * @author alexlutz
- * this will be the first sieve that performs exact string matching between mentions
+ * @author Alex Lutz ({@code ajlutz@emory.edu})
  */
 public abstract class AbstractStringMatch extends AbstractSieve {
 	@Override
