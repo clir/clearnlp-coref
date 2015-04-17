@@ -50,8 +50,7 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 		/* Sieve 3 : Relaxed String Match */
 		sieves.add(new RelaxedStringMatch());
 		/* Sieve 4 : Precise Constructs */
-		sieves.add(new AppositiveMatch());	//might want to condense into one class - need to make sure corefence rules are consistent
-		sieves.add(new AcronymMatcher());
+		sieves.add(new PreciseConstructMatch());
 		/* Sieve 10 : Pronoun Match */
 		sieves.add(new PronounMatch());
 	}

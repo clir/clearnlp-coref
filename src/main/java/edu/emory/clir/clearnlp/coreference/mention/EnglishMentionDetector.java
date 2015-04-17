@@ -30,6 +30,7 @@ import edu.emory.clir.clearnlp.dependency.DEPLibEn;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.dictionary.PathNamedEntity;
+import edu.emory.clir.clearnlp.pos.POSLibEn;
 import edu.emory.clir.clearnlp.util.IOUtils;
 
 
@@ -42,7 +43,8 @@ public class EnglishMentionDetector extends AbstractMentionDetector
 	static private final Set<String> S_MALE_PRONOUN		= new HashSet<>(Arrays.asList("he","him","his","himself"));
 	static private final Set<String> S_SINGULAR_PRONOUN	= new HashSet<>(Arrays.asList("it","its","itself"));
 	static private final Set<String> S_PLURAL_PRONOUN	= new HashSet<>(Arrays.asList("they","them","their","theirs","themselves"));
-	
+	static private final Set<String> Demonym			=
+
 	private WildcardPronoun_Identifier WILDCARD_PRONOUN_IDENTIFIER;
 	
 	private Unigram<String> m_femaleNames;
@@ -95,14 +97,14 @@ public class EnglishMentionDetector extends AbstractMentionDetector
 		
 		if ((mention = getPronounMention(tree, node)) != null)				return mention;
 		if ((mention = getWildcarPronounMention(tree, node)) != null)		return mention;
-		if ((mention = getPersonMention (tree, node)) != null)				return mention;
-		
+		if ((mention = getPersonMention(tree, node)) != null)				return mention;
+		if ((mention = getNounMentions(tree, node)) != null)			return mention;
 		return null;
 	}
 	
 	public Mention getPronounMention(DEPTree tree, DEPNode node)
 	{
-		if (node.isPOSTag(CTLibEn.POS_PRP) || node.isPOSTag(CTLibEn.POS_PRPS))
+		if (node.isPOSTag(CTLibEn.POS_PRP) || node.isPOSTag(CTLibEn.POS_PRPS))	//why not replace with POSLibEn.isPronoun(node.getPOSTag());
 		{
 			Mention mention = new Mention(tree, node);
 			
@@ -130,6 +132,13 @@ public class EnglishMentionDetector extends AbstractMentionDetector
 			return mention;
 		}
 		
+		return null;
+	}
+
+	public Mention getNounMentions(DEPTree tree, DEPNode node)
+	{
+		if (POSLibEn.isCommonOrProperNoun(node.getPOSTag())) return new Mention(tree, node);
+
 		return null;
 	}
 
