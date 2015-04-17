@@ -32,6 +32,7 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.dictionary.PathNamedEntity;
 import edu.emory.clir.clearnlp.pos.POSLibEn;
 import edu.emory.clir.clearnlp.util.IOUtils;
+import utils.Demonym_DictReader;
 
 
 /**
@@ -43,7 +44,6 @@ public class EnglishMentionDetector extends AbstractMentionDetector
 	static private final Set<String> S_MALE_PRONOUN		= new HashSet<>(Arrays.asList("he","him","his","himself"));
 	static private final Set<String> S_SINGULAR_PRONOUN	= new HashSet<>(Arrays.asList("it","its","itself"));
 	static private final Set<String> S_PLURAL_PRONOUN	= new HashSet<>(Arrays.asList("they","them","their","theirs","themselves"));
-	static private final Set<String> Demonym			=
 
 	private WildcardPronoun_Identifier WILDCARD_PRONOUN_IDENTIFIER;
 	
@@ -94,11 +94,15 @@ public class EnglishMentionDetector extends AbstractMentionDetector
 	public Mention getMention(DEPTree tree, DEPNode node)
 	{
 		Mention mention;
-		
+
+		//might want to change in order to make SpeakerIdentification easier
+		//String POSTag = node.getPOSTag();
+		//if (POSLibEn.isCommonOrProperNoun(POSTag) || POSLibEn.isPronoun(POSTag) || POSLibEn.isPunctuation(POSTag)) {
+		//would need to incorporate setting the types for pronouns as done below
 		if ((mention = getPronounMention(tree, node)) != null)				return mention;
 		if ((mention = getWildcarPronounMention(tree, node)) != null)		return mention;
 		if ((mention = getPersonMention(tree, node)) != null)				return mention;
-		if ((mention = getNounMentions(tree, node)) != null)			return mention;
+		if ((mention = getNounMentions(tree, node)) != null)				return mention;
 		return null;
 	}
 	

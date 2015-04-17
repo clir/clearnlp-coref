@@ -5,15 +5,25 @@ import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.pos.POSTagEn;
+import utils.Demonym_DictReader;
 import utils.DisjointSetWithConfidence;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
- * Created by alexlutz on 4/14/15.
+ * Created by alexlutz
+ * need to still add relative pronoun match
  */
 public class PreciseConstructMatch extends AbstractSieve
 {
+    private Map<String, Set<String>> DemonymMap;
+
+    public PreciseConstructMatch(String filepath) throws IOException
+    {
+        DemonymMap = Demonym_DictReader.init(filepath);
+    }
+
     @Override
     public void resolute(List<DEPTree> trees, List<Mention> mentions, DisjointSetWithConfidence mentionLinks)
     {
@@ -59,7 +69,7 @@ public class PreciseConstructMatch extends AbstractSieve
 
     private boolean demonymMatch(Mention curr, Mention prev)
     {
-        Set<String> demonym =
+         return (DemonymMap.keySet().contains(prev.toString()) && DemonymMap.values().contains(curr.toString()));
     }
 
     private boolean predicateNominativeMatch(Mention curr, Mention prev)
