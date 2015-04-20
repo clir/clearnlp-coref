@@ -1,14 +1,14 @@
-package edu.emory.clir.clearnlp.coreference.wildcard_Pronoun;
+package edu.emory.clir.clearnlp.coreference.mention.wildcardPronoun;
 
 import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 
-import utils.WildcardPronoun_DictReader;
 import edu.emory.clir.clearnlp.constituent.CTLibEn;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.WildcardPronounType;
+import edu.emory.clir.clearnlp.coreference.utils.WildcardPronoun_DictReader;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.pos.POSLibEn;

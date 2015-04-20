@@ -23,9 +23,9 @@ import java.util.Set;
 
 import edu.emory.clir.clearnlp.collection.ngram.Unigram;
 import edu.emory.clir.clearnlp.constituent.CTLibEn;
+import edu.emory.clir.clearnlp.coreference.mention.wildcardPronoun.WildcardPronoun_Identifier;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
-import edu.emory.clir.clearnlp.coreference.wildcard_Pronoun.WildcardPronoun_Identifier;
 import edu.emory.clir.clearnlp.dependency.DEPLibEn;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;

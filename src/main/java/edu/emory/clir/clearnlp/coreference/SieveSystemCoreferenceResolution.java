@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMentionDetector;
@@ -29,6 +28,7 @@ import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
 import edu.emory.clir.clearnlp.coreference.sieve.ExactStringMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.PronounMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
+import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
