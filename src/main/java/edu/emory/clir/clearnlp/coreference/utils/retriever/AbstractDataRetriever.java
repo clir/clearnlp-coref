@@ -1,5 +1,5 @@
 /**
- * Copyright 2014, Emory University
+ * Copyright 2015, Emory University
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,19 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.sieve;
+package edu.emory.clir.clearnlp.coreference.utils.retriever;
 
-import java.util.List;
-
-import edu.emory.clir.clearnlp.coreference.mention.Mention;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
-import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	Mar 23, 2015
+ * @since 	Apr 19, 2015
  */
-abstract public class AbstractSieve{
-	abstract public void resolute(List<DEPTree> trees, List<Mention> mentions, DisjointSetWithConfidence mentionLinks);
+abstract public class AbstractDataRetriever {
+	
 }

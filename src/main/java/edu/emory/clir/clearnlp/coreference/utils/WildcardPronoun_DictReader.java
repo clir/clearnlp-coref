@@ -1,4 +1,4 @@
-package utils;
+package edu.emory.clir.clearnlp.coreference.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
