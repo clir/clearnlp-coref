@@ -15,7 +15,9 @@
  */
 package edu.emory.clir.clearnlp.coreference.utils.retriever;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
@@ -39,9 +41,27 @@ abstract public class AbstractRestAPIDataRetriever extends AbstractDataRetriever
 		API_URL = url;
 	}
 	
+	protected String getSourceCode(String s) throws Exception {
+		URL url = new URL(s);
+        URLConnection yc = url.openConnection();
+        BufferedReader in = new BufferedReader(new InputStreamReader(
+                yc.getInputStream(), "UTF-8"));
+        String inputLine;
+        StringBuilder a = new StringBuilder();
+        while ((inputLine = in.readLine()) != null){
+            a.append(inputLine);
+            a.append(' ');
+        }
+        in.close();
+
+        return a.toString().trim();
+	}
+	
 	protected String REST_GetRequest(String queryString, ParameterPair... parameters) throws Exception{
 		// Generating queryURL
-		String queryURL = CoreferenceStringUtils.connectStrings(API_URL, "/", queryString, "?", getParameterString(parameters));
+		String queryURL = (queryString.isEmpty())?
+				CoreferenceStringUtils.connectStrings(API_URL, "/", queryString) :
+				CoreferenceStringUtils.connectStrings(API_URL, "/", queryString, "?", getParameterString(parameters));
 		// HTTP Connection
 		URLConnection connection = new URL(queryURL).openConnection();
 		connection.setRequestProperty("Accept-Charset", charset);

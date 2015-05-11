@@ -15,6 +15,11 @@
  */
 package edu.emory.clir.clearnlp.coreference.utils.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import edu.emory.clir.clearnlp.coreference.utils.structures.StringStringPair;
+
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
