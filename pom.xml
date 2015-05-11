@@ -73,12 +73,27 @@
     <dependency>
       <groupId>edu.emory.clir</groupId>
       <artifactId>clearnlp</artifactId>
-      <version>3.0.3-SNAPSHOT</version>
+      <version>3.1.2</version>
     </dependency>
     <dependency>
-      <groupId>edu.emory.clir</groupId>
+    <groupId>edu.emory.clir</groupId>
       <artifactId>clearnlp-dictionary</artifactId>
+      <version>3.1</version>
+	</dependency>
+	<dependency>
+      <groupId>edu.emory.clir</groupId>
+      <artifactId>clearnlp-global-lexica</artifactId>
+      <version>3.1</version>
+	</dependency>
+    <dependency>
+      <groupId>edu.emory.clir</groupId>
+      <artifactId>clearnlp-general-en-ner</artifactId>
+      <version>3.1</version>
+	</dependency>
+	<dependency>
+      <groupId>edu.emory.clir</groupId>
+      <artifactId>clearnlp-general-en-ner-gazetteer</artifactId>
       <version>3.0</version>
-    </dependency>
+	</dependency>
   </dependencies>
 </project>
