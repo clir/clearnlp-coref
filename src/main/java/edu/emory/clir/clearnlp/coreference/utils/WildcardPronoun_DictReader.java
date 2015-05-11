@@ -7,10 +7,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import edu.emory.clir.clearnlp.coreference.type.WildcardPronounType;
+import edu.emory.clir.clearnlp.coreference.type.PronounType;
 
 public class WildcardPronoun_DictReader{
-	private Map<String, WildcardPronounType> pronounMap;
+	private Map<String, PronounType> pronounMap;
 	
 	public WildcardPronoun_DictReader(String FILEPATH) throws IOException{
 		init(new FileInputStream(new File(FILEPATH)));
@@ -26,7 +26,7 @@ public class WildcardPronoun_DictReader{
 				int index = line.indexOf('\t');
 				String name = line.substring(0, index);
 				String type = line.substring(index+1);
-				pronounMap.put(name, WildcardPronounType.valueOf(type));
+				pronounMap.put(name, PronounType.valueOf(type));
 				line = "";
 			}
 		}
@@ -35,7 +35,7 @@ public class WildcardPronoun_DictReader{
 	public Set<String> getStringSet(){
 		return pronounMap.keySet();
 	}
-	public Map<String, WildcardPronounType> getPronounMap(){
+	public Map<String, PronounType> getPronounMap(){
 		return pronounMap;
 	}
 }
