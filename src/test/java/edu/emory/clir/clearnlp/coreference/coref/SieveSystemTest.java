@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference;
+package edu.emory.clir.clearnlp.coreference.coref;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -23,6 +23,8 @@ import org.junit.Test;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
+import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;

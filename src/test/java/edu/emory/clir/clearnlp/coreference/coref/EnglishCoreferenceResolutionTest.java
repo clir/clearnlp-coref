@@ -13,13 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference;
+package edu.emory.clir.clearnlp.coreference.coref;
 
 import java.io.InputStream;
 import java.util.List;
 
 import org.junit.Test;
 
+import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
+import edu.emory.clir.clearnlp.coreference.EnglishCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
 
 /**
