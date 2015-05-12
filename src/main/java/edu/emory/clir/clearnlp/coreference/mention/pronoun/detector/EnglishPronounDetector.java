@@ -22,6 +22,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.emory.clir.clearnlp.constituent.CTLibEn;
 import edu.emory.clir.clearnlp.coreference.dictionary.PathMention;
 import edu.emory.clir.clearnlp.coreference.mention.pronoun.Pronoun;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
@@ -37,7 +38,9 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
 public class EnglishPronounDetector extends AbstractPronounDetector {
 	private static final long serialVersionUID = -8181557080414575892L;
 		
-	public EnglishPronounDetector() { super(TLanguage.ENGLISH); }
+	public EnglishPronounDetector() { 
+		super(TLanguage.ENGLISH); 
+	}
 	
 	@Override
 	protected Map<String, Pronoun> initDictionary() {
@@ -63,14 +66,14 @@ public class EnglishPronounDetector extends AbstractPronounDetector {
 
 	@Override
 	public boolean isPronoun(DEPTree tree, DEPNode node) {
-		// TODO Auto-generated method stub
-		return false;
+		// Common pronoun
+		return node.isPOSTag(CTLibEn.POS_PRP) || node.isPOSTag(CTLibEn.POS_PRPS);
 	}
 
 	@Override
 	public Pronoun getPronoun(DEPTree tree, DEPNode node) {
-		// TODO Auto-generated method stub
-		return null;
+		// Common pronoun
+		return getPronoun(node.getLemma());
 	}
 	
 }

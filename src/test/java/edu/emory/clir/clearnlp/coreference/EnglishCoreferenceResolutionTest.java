@@ -15,18 +15,27 @@
  */
 package edu.emory.clir.clearnlp.coreference;
 
+import java.io.InputStream;
+import java.util.List;
+
 import org.junit.Test;
 
-import edu.emory.clir.clearnlp.coreference.mention.pronoun.detector.EnglishPronounDetector;
+import edu.emory.clir.clearnlp.coreference.mention.Mention;
 
 /**
- * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
- * @version	1.0
- * @since 	May 11, 2015
+ * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class EnglishPronounDictuonaryTest {
+public class EnglishCoreferenceResolutionTest
+{
 	@Test
-	public void initDictionary(){
-		EnglishPronounDetector dict = new EnglishPronounDetector();
+	public void rawDataTest(){
+		AbstractCoreferenceResolution coref = new EnglishCoreferenceResolution();
+		InputStream in = getClass().getResourceAsStream("/edu/emory/clir/clearnlp/coreference/data/testInput.raw.coref");
+		
+		//Mention Detection
+		List<Mention> mentions = coref.getMentions(in);
+		
+		for(Mention mention : mentions)
+			System.out.println(mention);
 	}
 }

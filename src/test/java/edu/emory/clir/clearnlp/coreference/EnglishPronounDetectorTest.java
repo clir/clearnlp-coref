@@ -13,18 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.dictionary;
+package edu.emory.clir.clearnlp.coreference;
+
+import org.junit.Test;
+
+import edu.emory.clir.clearnlp.coreference.mention.pronoun.detector.EnglishPronounDetector;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
  * @since 	May 11, 2015
  */
-public interface PathMention {
-	String ROOT = "/edu/emory/clir/clearnlp/coreference/dictionary/";
-	String ENG = ROOT + "eng/";
-	
-	// English (ENG)
-	String ENG_PRONOUN = ENG + "EnglishPronoun.txt";
-			
+public class EnglishPronounDetectorTest {
+	@Test
+	public void initDetector(){
+		EnglishPronounDetector detector = new EnglishPronounDetector();
+	}
 }

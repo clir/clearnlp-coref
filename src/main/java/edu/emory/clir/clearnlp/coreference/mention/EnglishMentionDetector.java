@@ -15,11 +15,11 @@
  */
 package edu.emory.clir.clearnlp.coreference.mention;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import edu.emory.clir.clearnlp.constituent.CTLibEn;
+import edu.emory.clir.clearnlp.coreference.mention.common.CommonNoun;
+import edu.emory.clir.clearnlp.coreference.mention.common.detector.EnglishCommonNounDetector;
 import edu.emory.clir.clearnlp.coreference.mention.pronoun.Pronoun;
 import edu.emory.clir.clearnlp.coreference.mention.pronoun.detector.EnglishPronounDetector;
 import edu.emory.clir.clearnlp.dependency.DEPLibEn;
@@ -32,11 +32,13 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
  */
 public class EnglishMentionDetector extends AbstractMentionDetector{
 
-	EnglishPronounDetector pronounDictionary;
+	EnglishPronounDetector pronounDetector;
+	EnglishCommonNounDetector commonNounDetector;
 	Set<String> s_mentionLabels;
 	
-	public EnglishMentionDetector() throws IOException{
-		pronounDictionary = new EnglishPronounDetector();
+	public EnglishMentionDetector(){
+		pronounDetector = new EnglishPronounDetector();
+		commonNounDetector = new EnglishCommonNounDetector();
 		s_mentionLabels = initMentionLabels();
 	}
 	
@@ -62,29 +64,33 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 		Mention mention;
 		
 		if ((mention = getPronounMention(tree, node)) != null)	return mention;
+		if ((mention = getCommonMention(tree, node)) != null)	return mention;
 		if ((mention = getPersonMention (tree, node)) != null)	return mention;
 		
 		return null;
 	}
 	
-	public Mention getPronounMention(DEPTree tree, DEPNode node){
+	protected Mention getPronounMention(DEPTree tree, DEPNode node){
 		
-		if (node.isPOSTag(CTLibEn.POS_PRP) || node.isPOSTag(CTLibEn.POS_PRPS)){
-			Pronoun pronoun;
-			Mention mention = new Mention(tree, node);
-			
-			if( (pronoun = pronounDictionary.getPronoun(node.getLemma())) != null) {
-				mention.setEntityType(pronoun.e_type);
-				mention.setNumberType(pronoun.n_type);
-			}
-
-			return mention;
+		if (pronounDetector.isPronoun(tree, node)){
+			Pronoun pronoun = pronounDetector.getPronoun(tree, node);
+			if(pronoun != null) return pronoun.toMention(tree, node);
+		}
+		
+		return null;
+	}
+	
+	protected Mention getCommonMention(DEPTree tree, DEPNode node){
+		
+		if (commonNounDetector.isCommonNoun(tree, node)){
+			CommonNoun commonNoun = commonNounDetector.getCommonNoun(tree, node);
+			if(commonNoun != null) return commonNoun.toMention(tree, node);
 		}
 		
 		return null;
 	}
 
-	public Mention getPersonMention(DEPTree tree, DEPNode node){
+	protected Mention getPersonMention(DEPTree tree, DEPNode node){
 
 		return null;
 	}
