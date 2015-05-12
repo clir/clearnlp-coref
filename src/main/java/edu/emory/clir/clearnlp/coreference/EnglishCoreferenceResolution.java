@@ -19,21 +19,19 @@ import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
-import edu.emory.clir.clearnlp.coreference.mention.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class EnglishCoreferenceResolution extends AbstractCoreferenceResolution
-{
-	private AbstractMentionDetector m_detector;
+public class EnglishCoreferenceResolution extends AbstractCoreferenceResolution {
 	
-	public EnglishCoreferenceResolution() throws Exception
-	{
+	public EnglishCoreferenceResolution() {
+		super(TLanguage.ENGLISH);
 		m_detector = new EnglishMentionDetector();
 	}
 	

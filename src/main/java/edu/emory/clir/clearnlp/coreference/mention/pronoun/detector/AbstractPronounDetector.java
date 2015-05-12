@@ -42,16 +42,17 @@ public abstract class AbstractPronounDetector implements Serializable{
 	protected Map<String, Pronoun> m_pronouns;
 	
 	public AbstractPronounDetector(TLanguage l){ 
-		language = l;
+		language = l; 
 		m_pronouns = initDictionary();
 	}
+	
 	abstract protected  Map<String, Pronoun> initDictionary();
 	
 	public Map<String, Pronoun> getDictionary() {	
 		return m_pronouns; 
 	}
 	
-	public boolean isPronoun(String word){	
+	public boolean isPronoun(String word){
 		return m_pronouns.containsKey(word); 
 	}
 	abstract public boolean isPronoun(DEPTree tree, DEPNode node);

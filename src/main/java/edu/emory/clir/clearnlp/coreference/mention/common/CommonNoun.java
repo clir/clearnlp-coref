@@ -17,8 +17,11 @@ package edu.emory.clir.clearnlp.coreference.mention.common;
 
 import java.io.Serializable;
 
+import edu.emory.clir.clearnlp.coreference.mention.Mention;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
+import edu.emory.clir.clearnlp.dependency.DEPNode;
+import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -48,6 +51,13 @@ public class CommonNoun implements Serializable{
 		wordFrom = s;
 		e_type = EntityType.valueOf(e);
 		n_type = NumberType.valueOf(n);
+	}
+	
+	public Mention toMention(DEPTree tree, DEPNode node){
+		Mention mention = new Mention(tree, node);
+		mention.setEntityType(e_type);
+		mention.setNumberType(n_type);
+		return mention;
 	}
 	
 	@Override

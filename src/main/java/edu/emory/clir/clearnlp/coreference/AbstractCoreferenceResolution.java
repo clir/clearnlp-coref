@@ -15,18 +15,95 @@
  */
 package edu.emory.clir.clearnlp.coreference;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
+import edu.emory.clir.clearnlp.component.AbstractComponent;
+import edu.emory.clir.clearnlp.component.mode.dep.DEPConfiguration;
+import edu.emory.clir.clearnlp.component.utils.GlobalLexica;
+import edu.emory.clir.clearnlp.component.utils.NLPUtils;
+import edu.emory.clir.clearnlp.coreference.mention.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.tokenization.AbstractTokenizer;
+import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class AbstractCoreferenceResolution
-{
+public abstract class AbstractCoreferenceResolution {
+
+	protected AbstractTokenizer tokenizer;
+	protected AbstractComponent[] components;
+	protected AbstractMentionDetector m_detector;
+
+	public AbstractCoreferenceResolution(TLanguage language){
+		tokenizer = NLPUtils.getTokenizer(language);
+		components = getGeneralModels(language);
+	}
+	
+	private AbstractComponent[] getGeneralModels(TLanguage language){
+		// initialize global lexicons
+		List<String> paths = new ArrayList<>();
+		paths.add("brown-rcv1.clean.tokenized-CoNLL03.txt-c1000-freq1.txt.xz");
+		
+		GlobalLexica.initDistributionalSemanticsWords(paths);
+		GlobalLexica.initNamedEntityDictionary("general-en-ner-gazetteer.xz");
+		
+		// initialize statistical models
+		AbstractComponent morph = NLPUtils.getMPAnalyzer(language);
+		AbstractComponent pos = NLPUtils.getPOSTagger   (language, "general-en-pos.xz");
+		AbstractComponent dep = NLPUtils.getDEPParser   (language, "general-en-dep.xz", new DEPConfiguration("root"));
+		AbstractComponent ner = NLPUtils.getNERecognizer(language, "general-en-ner.xz");
+		
+		return new AbstractComponent[]{pos, morph, dep, ner};
+	}
+	
+	// Input Processing
+	protected DEPTree toDEPTree(String line){
+		List<String> tokens = tokenizer.tokenize(line);
+		DEPTree tree = new DEPTree(tokens);
+		
+		for (AbstractComponent component : components) component.process(tree);
+		
+		return tree;
+	}
+	
+	protected List<DEPTree> toDEPTrees(InputStream stream){
+		List<DEPTree> trees = new ArrayList<>();
+		String line;
+		
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+			while((line = reader.readLine()) != null) trees.add(toDEPTree(line));
+		} catch (Exception e) { e.printStackTrace(); }
+		
+		return trees;
+	}
+	
+	// Mention Detection
+	public List<Mention> getMentions(String line){
+		return m_detector.getMentionList(toDEPTree(line));
+	}
+	
+	public List<Mention> getMentions(InputStream stream){
+		return m_detector.getMentionList(toDEPTrees(stream));
+	}
+	
+	public List<Mention> getMentions(DEPTree tree){
+		return m_detector.getMentionList(tree);
+	}
+	
+	public List<Mention> getMentions(List<DEPTree> trees){
+		return m_detector.getMentionList(trees);
+	}
+	
+	// Coreference Resolution
 	public abstract Pair<List<Mention>,DisjointSet> getEntities(List<DEPTree> trees);
 }
