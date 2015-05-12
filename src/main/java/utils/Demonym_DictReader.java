@@ -13,8 +13,8 @@ import java.util.*;
  */
 public class Demonym_DictReader
 {
-    private static Set<Character> stopCharacters = new HashSet<>(Arrays.asList('\t', '\"', '\\', ',', '/', ' '));
-    private static final char KEYBREAK = '_';
+    private static final char STOPCHAR = ',';
+    private static final char KEYBREAK = '\t';
     private static final char NEWLINE = '\n';
 
     public static Map<String, Set<String>> init(String filepath) throws IOException
@@ -25,7 +25,8 @@ public class Demonym_DictReader
         int i = 0; String key = ""; String line = "";
 
         while((i = input.read()) != 0) {
-            if ((char) i == KEYBREAK) {
+        	if ((char) i != STOPCHAR) line += i;
+        	else if ((char) i == KEYBREAK) {
                 key = line.trim();
                 line = "";
             } else if ((char) i == NEWLINE) {
@@ -34,7 +35,6 @@ public class Demonym_DictReader
                 key = "";
                 line = "";
             }
-            if (!stopCharacters.contains((char) i)) line += i;
             else {
                 DemonymSet.add(line.trim());
                 line = "";
