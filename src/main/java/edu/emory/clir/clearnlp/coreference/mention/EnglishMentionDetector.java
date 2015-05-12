@@ -63,11 +63,11 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 	public Mention getMention(DEPTree tree, DEPNode node){
 		Mention mention;
 		
-		if ((mention = getPronounMention(tree, node)) != null)	return mention;
-		if ((mention = getCommonMention(tree, node)) != null)	return mention;
-		if ((mention = getPersonMention (tree, node)) != null)	return mention;
+		if ((mention = getPronounMention(tree, node)) != null);
+		else if ((mention = getCommonMention(tree, node)) != null);
+		else if ((mention = getPersonMention (tree, node)) != null);
 		
-		return null;
+		return (mention == null)? null : processMention(mention);
 	}
 	
 	protected Mention getPronounMention(DEPTree tree, DEPNode node){
@@ -93,5 +93,10 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 	protected Mention getPersonMention(DEPTree tree, DEPNode node){
 
 		return null;
+	}
+	
+//	====================================== MENTION ATTR ======================================
+	protected Mention processMention(Mention mention){
+		return mention;
 	}
 }

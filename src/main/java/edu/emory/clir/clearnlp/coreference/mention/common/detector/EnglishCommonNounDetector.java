@@ -40,7 +40,7 @@ public class EnglishCommonNounDetector extends AbstractCommonNounDetector{
 	public CommonNoun getCommonNoun(DEPTree tree, DEPNode node) {
 		CommonNoun commonNoun = new CommonNoun(node.getLemma());
 		
-		// Setting common 3noun attributes 
+		// Setting common noun attributes 
 		
 		return commonNoun;
 	}
