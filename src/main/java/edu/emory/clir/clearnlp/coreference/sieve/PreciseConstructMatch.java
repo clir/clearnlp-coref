@@ -10,6 +10,7 @@ import utils.DisjointSetWithConfidence;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * Created by alexlutz
@@ -59,7 +60,8 @@ public class PreciseConstructMatch extends AbstractSieve
 
     private boolean acronymTest(String prev, String curr)
     {
-        return (curr.equals(prev.replaceAll("[^A-Z]","")) || prev.equals(curr.replaceAll("[^A-Z]","")));
+    	return Pattern.matches("[^A-Z]", prev) || Pattern.matches("[^A-Z]", curr); 
+//        return (curr.equals(prev.replaceAll("[^A-Z]","")) || prev.equals(curr.replaceAll("[^A-Z]","")));
     }
 
     private boolean appositiveMatch(Mention curr, Mention prev)

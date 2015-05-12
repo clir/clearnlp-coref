@@ -55,7 +55,8 @@ public class PronounMatch extends AbstractSieve {
 	}
 	
 	private boolean matchesPronoun(Mention curr, Mention prev){
-		return (curr.isEntityType(EntityType.PRONOUN_FEMALE) && (prev.isEntityType(EntityType.PRONOUN_FEMALE) || prev.isEntityType(EntityType.PERSON_FEMALE))) || (curr.isEntityType(EntityType.PRONOUN_MALE)   && (prev.isEntityType(EntityType.PRONOUN_MALE)   || prev.isEntityType(EntityType.PERSON_MALE)));
+		return (curr.isEntityType(EntityType.PRONOUN_FEMALE) && (prev.isEntityType(EntityType.PRONOUN_FEMALE) || prev.isEntityType(EntityType.PERSON_FEMALE))) 
+				|| (curr.isEntityType(EntityType.PRONOUN_MALE)   && (prev.isEntityType(EntityType.PRONOUN_MALE)   || prev.isEntityType(EntityType.PERSON_MALE)));
 	}
 	
 	private boolean matchesCommonNoun(Mention curr, Mention prev){

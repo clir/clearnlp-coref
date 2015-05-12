@@ -19,6 +19,6 @@ public class ProperHeadWordMatch extends AbstractStringMatch
         Set<String> location = new HashSet<>(Arrays.asList("southern", "northern", "eastern", "western"));
 
         Set<DEPNode> ancestor = prev.getNode().getAncestorSet();
-        return ancestor.stream().anyMatch(x -> x.getWordForm().contains(curr.toString()) && !curr.getNode().isDescendantOf(prev.getNode()));
+        return ancestor.stream().anyMatch(x -> x.getWordForm().contains(curr.toString()) && !curr.getNode().isDescendantOf(prev.getNode()) && !x.containsDependent(".*\\d+.*"));
     }
 }
