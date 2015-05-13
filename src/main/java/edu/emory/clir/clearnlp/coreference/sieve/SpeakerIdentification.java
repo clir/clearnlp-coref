@@ -22,6 +22,6 @@ public class SpeakerIdentification extends AbstractSieve
     @Override
     public void resolute(List<DEPTree> trees, List<Mention> mentions, DisjointSetWithConfidence mentionLinks)
     {
-    		
+    	
     }
 }
