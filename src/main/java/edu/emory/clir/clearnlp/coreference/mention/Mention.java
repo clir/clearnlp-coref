@@ -126,7 +126,7 @@ public class Mention
 	@Override
 	public String toString(){
 		String wordfrom = (!d_node.isPOSTag(CTLibEn.POS_CD))? d_node.getLemma() : d_node.getWordForm();
-		return wordfrom + " " + t_entity + " " + t_number + " " + t_pronoun;
+		return wordfrom + "\t" + t_entity + "\t" + t_number + "\t" + t_pronoun;
 		
 	}
 }

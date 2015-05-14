@@ -19,7 +19,6 @@ import java.io.Serializable;
 import java.util.Map;
 
 import edu.emory.clir.clearnlp.coreference.mention.common.CommonNoun;
-import edu.emory.clir.clearnlp.coreference.mention.pronoun.Pronoun;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;

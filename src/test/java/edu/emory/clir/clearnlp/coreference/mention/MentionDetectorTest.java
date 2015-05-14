@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 

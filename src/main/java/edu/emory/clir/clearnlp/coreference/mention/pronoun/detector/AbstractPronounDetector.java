@@ -15,19 +15,12 @@
  */
 package edu.emory.clir.clearnlp.coreference.mention.pronoun.detector;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Map;
 
-import edu.emory.clir.clearnlp.collection.ngram.Unigram;
 import edu.emory.clir.clearnlp.coreference.mention.pronoun.Pronoun;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
-import edu.emory.clir.clearnlp.util.IOUtils;
-import edu.emory.clir.clearnlp.util.Splitter;
-import edu.emory.clir.clearnlp.util.StringUtils;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
 /**
