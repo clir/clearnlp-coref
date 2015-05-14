@@ -73,8 +73,7 @@ public abstract class AbstractMentionDetector
 		List<Mention> list = new ArrayList<>();
 		Mention mention;
 		
-		for (DEPNode node : tree)
-		{
+		for (DEPNode node : tree){
 			mention = getMention(tree, node);
 			if (mention != null) list.add(mention);
 		}
