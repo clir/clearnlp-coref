@@ -15,14 +15,10 @@
  */
 package edu.emory.clir.clearnlp.coreference.coref;
 
-import java.io.InputStream;
-import java.util.List;
-
 import org.junit.Test;
 
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.EnglishCoreferenceResolution;
-import edu.emory.clir.clearnlp.coreference.mention.Mention;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -32,12 +28,12 @@ public class EnglishCoreferenceResolutionTest
 	@Test
 	public void rawDataTest(){
 		AbstractCoreferenceResolution coref = new EnglishCoreferenceResolution();
-		InputStream in = getClass().getResourceAsStream("/edu/emory/clir/clearnlp/coreference/data/testInput.raw.coref");
+//		InputStream in = getClass().getResourceAsStream("/edu/emory/clir/clearnlp/coreference/data/testInput.raw.coref");
 		
 		//Mention Detection
-		List<Mention> mentions = coref.getMentions(in);
-		
-		for(Mention mention : mentions)
-			System.out.println(mention);
+//		List<Mention> mentions = coref.getMentions(in);
+//		
+//		for(Mention mention : mentions)
+//			System.out.println(mention);
 	}
 }

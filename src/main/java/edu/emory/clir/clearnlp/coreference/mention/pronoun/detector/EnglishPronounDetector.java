@@ -16,6 +16,7 @@
 package edu.emory.clir.clearnlp.coreference.mention.pronoun.detector;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -47,9 +48,9 @@ public class EnglishPronounDetector extends AbstractPronounDetector {
 		Map<String, Pronoun> map = new HashMap<>();
 		
 		try {
-			InputStream dict = getClass().getResourceAsStream(PathMention.ENG_PRONOUN);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(dict));
+			InputStream dict = new FileInputStream(PathMention.ENG_PRONOUN);
 			
+			BufferedReader reader = new BufferedReader(new InputStreamReader(dict));
 			String line; String[] attr;
 			while((line = reader.readLine()) != null){
 				attr = Splitter.splitTabs(line);

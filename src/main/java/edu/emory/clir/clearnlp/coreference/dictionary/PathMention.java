@@ -21,10 +21,10 @@ package edu.emory.clir.clearnlp.coreference.dictionary;
  * @since 	May 11, 2015
  */
 public interface PathMention {
-	String ROOT = "/edu/emory/clir/clearnlp/coreference/dictionary/";
-	String ENG = ROOT + "eng/";
+	String ROOT = "src/main/resources/edu/emory/clir/clearnlp/dictionary/coreference/mention/";
 	
 	// English (ENG)
-	String ENG_PRONOUN = ENG + "EnglishPronoun.txt";
-			
+	String ENG_PRONOUN = ROOT + "english_pronouns.txt",
+		   ENG_COMMON_NOUN = ROOT + "english_common_nouns.txt";
+	
 }

@@ -16,8 +16,10 @@
 package edu.emory.clir.clearnlp.coreference.mention.common.detector;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import edu.emory.clir.clearnlp.coreference.mention.common.CommonNoun;
+import edu.emory.clir.clearnlp.coreference.mention.pronoun.Pronoun;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
@@ -31,9 +33,15 @@ public abstract class AbstractCommonNounDetector implements Serializable{
 	private static final long serialVersionUID = -4535842837728435354L;
 
 	protected TLanguage language;
+	protected Map<String, CommonNoun> m_common_nouns;
 	
-	public AbstractCommonNounDetector(TLanguage l){ language = l; }
+	public AbstractCommonNounDetector(TLanguage l){ 
+		language = l;
+		m_common_nouns = initDictionary();
+	}
 
+	abstract protected  Map<String, CommonNoun> initDictionary();
+	
 	abstract public boolean isCommonNoun(DEPTree tree, DEPNode node);
 	
 	abstract public CommonNoun getCommonNoun(DEPTree tree, DEPNode node);

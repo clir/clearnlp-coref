@@ -15,15 +15,15 @@
  */
 package edu.emory.clir.clearnlp.coreference.mention;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import edu.emory.clir.clearnlp.coreference.mention.AbstractMentionDetector;
-import edu.emory.clir.clearnlp.coreference.mention.EnglishMentionDetector;
-import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 
@@ -35,18 +35,18 @@ import edu.emory.clir.clearnlp.reader.TSVReader;
 public class MentionDetectorTest {
 	
 	@Test
-	public void getMentionsTest(){
-		InputStream in = getClass().getResourceAsStream("/edu/emory/clir/clearnlp/coreference/data/testInput.cnlp.mention");
-		System.out.println(in);
-		TSVReader reader = new TSVReader(0, 1, 2, 3, 4, 5, 6, 7);
+	public void getMentionsTest() throws IOException{
+		InputStream in = new FileInputStream("src/test/resources/edu/emory/clir/clearnlp/coreference/mention/input.mention.cnlp");
+		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
 		reader.open(in);
 		
 		DEPTree tree;
+		int i = 0, cutoff = 4;
 		List<Mention> mentions;
 		List<DEPTree> trees = new ArrayList<>();
 		
 		
-		while ((tree = reader.next()) != null) trees.add(tree);
+		while (i++ < cutoff && (tree = reader.next()) != null) trees.add(tree);
 		
 		AbstractMentionDetector detector = new EnglishMentionDetector();
 		mentions = detector.getMentionList(trees);
