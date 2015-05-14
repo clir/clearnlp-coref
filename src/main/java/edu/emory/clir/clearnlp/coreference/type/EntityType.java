@@ -36,8 +36,11 @@ public enum EntityType{
 	// Named entity
 	PERSON_FEMALE,
 	PERSON_MALE,
+	PERSON_NEUTRAL,
+	PERSON_UNKNOWN,
 	ORGANIZATION,
 	LOCATION,
+	PROPER_UNKOWN,
 	
 	// Other
 	UNKNOWN,

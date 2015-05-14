@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.mention.pronoun.detector;
+package edu.emory.clir.clearnlp.coreference.mention.proper.detector;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.util.Map;
 
 import edu.emory.clir.clearnlp.collection.ngram.Unigram;
-import edu.emory.clir.clearnlp.coreference.mention.pronoun.Pronoun;
+import edu.emory.clir.clearnlp.coreference.mention.proper.ProperNoun;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.IOUtils;
@@ -33,32 +32,33 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	May 11, 2015
+ * @since 	May 13, 2015
  */
-public abstract class AbstractPronounDetector implements Serializable{
-	private static final long serialVersionUID = -4449253641861306153L;
+public abstract class AbstractProperNounDetector implements Serializable{
+	private static final long serialVersionUID = -241011226924650852L;
 	
 	protected TLanguage language;
-	protected Map<String, Pronoun> m_pronouns;
 	
-	public AbstractPronounDetector(TLanguage l){ 
-		language = l; 
-		m_pronouns = initDictionary();
+	public AbstractProperNounDetector(TLanguage l){ language = l; }
+	
+	abstract public boolean isProperNoun(DEPTree tree, DEPNode node);
+	
+	abstract public ProperNoun getProperNoun(DEPTree tree, DEPNode node);
+	
+	protected void addDictionary(InputStream in, Unigram<String> map){
+		BufferedReader reader = IOUtils.createBufferedReader(in);
+		String line, token;
+		String[] t;
+		int count;
+		
+		try{
+			while ((line = reader.readLine()) != null){
+				t = Splitter.splitTabs(line);
+				token = StringUtils.toLowerCase(t[0]);
+				count = Integer.parseInt(t[1]);
+				map.add(token, count);
+			}
+		}
+		catch (IOException e) {e.printStackTrace();}
 	}
-	
-	abstract protected  Map<String, Pronoun> initDictionary();
-	
-	public Map<String, Pronoun> getDictionary() {	
-		return m_pronouns; 
-	}
-	
-	public boolean isPronoun(String word){
-		return m_pronouns.containsKey(word); 
-	}
-	abstract public boolean isPronoun(DEPTree tree, DEPNode node);
-	
-	public Pronoun getPronoun(String word){	
-		return m_pronouns.get(word); 
-	}
-	abstract public Pronoun getPronoun(DEPTree tree, DEPNode node);
 }

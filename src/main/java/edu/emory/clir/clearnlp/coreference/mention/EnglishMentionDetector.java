@@ -22,6 +22,8 @@ import edu.emory.clir.clearnlp.coreference.mention.common.CommonNoun;
 import edu.emory.clir.clearnlp.coreference.mention.common.detector.EnglishCommonNounDetector;
 import edu.emory.clir.clearnlp.coreference.mention.pronoun.Pronoun;
 import edu.emory.clir.clearnlp.coreference.mention.pronoun.detector.EnglishPronounDetector;
+import edu.emory.clir.clearnlp.coreference.mention.proper.ProperNoun;
+import edu.emory.clir.clearnlp.coreference.mention.proper.detector.EnglishProperNounDetector;
 import edu.emory.clir.clearnlp.dependency.DEPLibEn;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -32,13 +34,15 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
  */
 public class EnglishMentionDetector extends AbstractMentionDetector{
 
-	EnglishPronounDetector pronounDetector;
-	EnglishCommonNounDetector commonNounDetector;
-	Set<String> s_mentionLabels;
+	private EnglishPronounDetector pronounDetector;
+	private EnglishCommonNounDetector commonNounDetector;
+	private EnglishProperNounDetector properNounDetector;
+	private Set<String> s_mentionLabels;
 	
 	public EnglishMentionDetector(){
 		pronounDetector = new EnglishPronounDetector();
 		commonNounDetector = new EnglishCommonNounDetector();
+		properNounDetector = new EnglishProperNounDetector(); 
 		s_mentionLabels = initMentionLabels();
 	}
 	
@@ -63,11 +67,11 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 	public Mention getMention(DEPTree tree, DEPNode node){
 		Mention mention;
 		
-		if ((mention = getPronounMention(tree, node)) != null);
-		else if ((mention = getCommonMention(tree, node)) != null);
-		else if ((mention = getPersonMention (tree, node)) != null);
+		if ((mention = getPronounMention(tree, node)) != null )	return processMention(mention);
+		if ((mention = getCommonMention(tree, node)) != null)	return processMention(mention);
+		if ((mention = getPersonMention (tree, node)) != null)	return processMention(mention);
 		
-		return (mention == null)? null : processMention(mention);
+		return null;
 	}
 	
 	protected Mention getPronounMention(DEPTree tree, DEPNode node){
@@ -91,7 +95,12 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 	}
 
 	protected Mention getPersonMention(DEPTree tree, DEPNode node){
-
+		
+		if (properNounDetector.isProperNoun(tree, node)){
+			ProperNoun properNoun = properNounDetector.getProperNoun(tree, node);
+			if(properNoun != null) return properNoun.toMention(tree, node);
+		}
+		
 		return null;
 	}
 	
