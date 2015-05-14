@@ -15,138 +15,76 @@
  */
 package edu.emory.clir.clearnlp.coreference.mention;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
-import edu.emory.clir.clearnlp.collection.ngram.Unigram;
-import edu.emory.clir.clearnlp.constituent.CTLibEn;
-import edu.emory.clir.clearnlp.coreference.type.EntityType;
-import edu.emory.clir.clearnlp.coreference.type.NumberType;
-import edu.emory.clir.clearnlp.coreference.wildcard_Pronoun.WildcardPronoun_Identifier;
-import edu.emory.clir.clearnlp.dependency.DEPLibEn;
+import edu.emory.clir.clearnlp.coreference.mention.common.CommonNoun;
+import edu.emory.clir.clearnlp.coreference.mention.common.detector.EnglishCommonNounDetector;
+import edu.emory.clir.clearnlp.coreference.mention.pronoun.Pronoun;
+import edu.emory.clir.clearnlp.coreference.mention.pronoun.detector.EnglishPronounDetector;
+import edu.emory.clir.clearnlp.coreference.mention.proper.ProperNoun;
+import edu.emory.clir.clearnlp.coreference.mention.proper.detector.EnglishProperNounDetector;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
-import edu.emory.clir.clearnlp.dictionary.PathNamedEntity;
-import edu.emory.clir.clearnlp.util.IOUtils;
 
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class EnglishMentionDetector extends AbstractMentionDetector
-{
-	static private final Set<String> S_FEMALE_PRONOUN	= new HashSet<>(Arrays.asList("she","her","hers","herself"));
-	static private final Set<String> S_MALE_PRONOUN		= new HashSet<>(Arrays.asList("he","him","his","himself"));
-	static private final Set<String> S_SINGULAR_PRONOUN	= new HashSet<>(Arrays.asList("it","its","itself"));
-	static private final Set<String> S_PLURAL_PRONOUN	= new HashSet<>(Arrays.asList("they","them","their","theirs","themselves"));
-	
-	private WildcardPronoun_Identifier WILDCARD_PRONOUN_IDENTIFIER;
-	
-	private Unigram<String> m_femaleNames;
-	private Unigram<String> m_maleNames;
-	Set<String> s_mentionLabels;
-	
-	public EnglishMentionDetector() throws IOException
-	{
-		m_femaleNames = new Unigram<>();
-		m_maleNames = new Unigram<>();
-		WILDCARD_PRONOUN_IDENTIFIER = new WildcardPronoun_Identifier("/Users/HenryChen/Dropbox/Developement/ClearNLP-QA/dictionary/WildcardPronoun.txt");
-		
-		addFemaleNames(IOUtils.getInputStreamsFromClasspath(PathNamedEntity.US_FEMALE_NAMES));
-		addMaleNames  (IOUtils.getInputStreamsFromClasspath(PathNamedEntity.US_MALE_NAMES));
-		s_mentionLabels = initMentionLabels();
-	}
-	
-//	====================================== LEXICA ======================================
+public class EnglishMentionDetector extends AbstractMentionDetector{
 
-	public void addFemaleNames(InputStream in)
-	{
-		addDictionary(in, m_femaleNames);
-	}
+	private EnglishPronounDetector pronounDetector;
+	private EnglishCommonNounDetector commonNounDetector;
+	private EnglishProperNounDetector properNounDetector;
 	
-	public void addMaleNames(InputStream in)
-	{
-		addDictionary(in, m_maleNames);
+	public EnglishMentionDetector(){
+		pronounDetector = new EnglishPronounDetector();
+		commonNounDetector = new EnglishCommonNounDetector();
+		properNounDetector = new EnglishProperNounDetector(); 
 	}
-	
-	private Set<String> initMentionLabels()
-	{
-		Set<String> set = new HashSet<>();
-		
-		set.add(DEPLibEn.DEP_NSUBJ);
-		set.add(DEPLibEn.DEP_NSUBJPASS);
-		set.add(DEPLibEn.DEP_AGENT);
-		set.add(DEPLibEn.DEP_DOBJ);
-		set.add(DEPLibEn.DEP_IOBJ);
-		set.add(DEPLibEn.DEP_POBJ);
-		
-		return set;
-	}
-	
+
 //	====================================== MENTION TYPE ======================================
 	
 	@Override
-	public Mention getMention(DEPTree tree, DEPNode node)
-	{
+	public Mention getMention(DEPTree tree, DEPNode node){
 		Mention mention;
 		
-		if ((mention = getPronounMention(tree, node)) != null)	return mention;
-		if ((mention = getWildcarPronounMention(tree, node)) != null)		return mention;
-		if ((mention = getPersonMention (tree, node)) != null)	return mention;
+		if ((mention = getPronounMention(tree, node)) != null )	return processMention(mention);
+		if ((mention = getCommonMention(tree, node)) != null)	return processMention(mention);
+		if ((mention = getPersonMention (tree, node)) != null)	return processMention(mention);
 		
 		return null;
 	}
 	
-	public Mention getPronounMention(DEPTree tree, DEPNode node)
-	{
-		if (node.isPOSTag(CTLibEn.POS_PRP) || node.isPOSTag(CTLibEn.POS_PRPS))
-		{
-			Mention mention = new Mention(tree, node);
-			
-			if (S_FEMALE_PRONOUN.contains(node.getLemma()))
-			{
-				mention.setEntityType(EntityType.PRONOUN_FEMALE);
-				mention.setNumberType(NumberType.SINGULAR);
-			}
-			else if (S_MALE_PRONOUN.contains(node.getLemma()))
-			{
-				mention.setEntityType(EntityType.PRONOUN_MALE);
-				mention.setNumberType(NumberType.SINGULAR);
-			}
-			else if (S_SINGULAR_PRONOUN.contains(node.getLemma()))
-			{
-				mention.setEntityType(EntityType.PRONOUN_NEUTRAL);
-				mention.setNumberType(NumberType.SINGULAR);
-			}
-			else if (S_PLURAL_PRONOUN.contains(node.getLemma()))
-			{
-				mention.setEntityType(EntityType.PRONOUN_NEUTRAL);
-				mention.setNumberType(NumberType.PLURAL);
-			}
-
-			return mention;
+	protected Mention getPronounMention(DEPTree tree, DEPNode node){
+		
+		if (pronounDetector.isPronoun(tree, node)){
+			Pronoun pronoun = pronounDetector.getPronoun(tree, node);
+			if(pronoun != null) return pronoun.toMention(tree, node);
+		}
+		
+		return null;
+	}
+	
+	protected Mention getCommonMention(DEPTree tree, DEPNode node){
+		
+		if (commonNounDetector.isCommonNoun(tree, node)){
+			CommonNoun commonNoun = commonNounDetector.getCommonNoun(tree, node);
+			if(commonNoun != null) return commonNoun.toMention(tree, node);
 		}
 		
 		return null;
 	}
 
-	public Mention getWildcarPronounMention(DEPTree tree, DEPNode node){
-		return WILDCARD_PRONOUN_IDENTIFIER.getMention(tree, node);
+	protected Mention getPersonMention(DEPTree tree, DEPNode node){
+		
+		if (properNounDetector.isProperNoun(tree, node)){
+			ProperNoun properNoun = properNounDetector.getProperNoun(tree, node);
+			if(properNoun != null) return properNoun.toMention(tree, node);
+		}
+		
+		return null;
 	}
 	
-	public Mention getPersonMention(DEPTree tree, DEPNode node)
-	{
-		double f = m_femaleNames.getProbability(node.getLemma());
-		double m = m_maleNames  .getProbability(node.getLemma());
-		if (f == 0 && m == 0) return null;
-		
-		Mention mention = new Mention(tree, node, NumberType.SINGULAR);
-		if (f > m)	mention.setEntityType(EntityType.PERSON_FEMALE);
-		else		mention.setEntityType(EntityType.PERSON_MALE);
-		
+//	====================================== MENTION ATTR ======================================
+	protected Mention processMention(Mention mention){
 		return mention;
 	}
 }

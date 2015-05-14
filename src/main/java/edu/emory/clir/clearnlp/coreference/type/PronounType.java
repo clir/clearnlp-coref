@@ -1,6 +1,7 @@
 package edu.emory.clir.clearnlp.coreference.type;
 
-public enum WildcardPronounType {
+public enum PronounType {
+	REGULAR,
 	RELATIVE,
 	QUANMOD,
 	ABSTRACTQUAN,
@@ -8,8 +9,8 @@ public enum WildcardPronounType {
 	INCLUSIVE_STAT,
 	UNKNOWN;
 	
-	public static WildcardPronounType toPronounType(String s){
-		for(WildcardPronounType type : WildcardPronounType.values()){
+	public static PronounType toPronounType(String s){
+		for(PronounType type : PronounType.values()){
 			if(type.toString().equals(s))
 				return type;
 		}

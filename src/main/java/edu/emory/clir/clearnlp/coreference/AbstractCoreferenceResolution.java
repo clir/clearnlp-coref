@@ -19,14 +19,34 @@ import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.mention.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class AbstractCoreferenceResolution
-{
+public abstract class AbstractCoreferenceResolution {
+	
+	protected TLanguage language;
+	protected AbstractMentionDetector m_detector;
+
+	public AbstractCoreferenceResolution(TLanguage l){
+		language = l;
+	}
+
+	
+	// Mention Detection
+	public List<Mention> getMentions(DEPTree tree){
+		return m_detector.getMentionList(tree);
+	}
+	
+	public List<Mention> getMentions(List<DEPTree> trees){
+		return m_detector.getMentionList(trees);
+	}
+	
+	// Coreference Resolution
 	public abstract Pair<List<Mention>,DisjointSet> getEntities(List<DEPTree> trees);
 }

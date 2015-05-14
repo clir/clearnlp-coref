@@ -18,7 +18,7 @@ package edu.emory.clir.clearnlp.coreference.mention;
 import edu.emory.clir.clearnlp.constituent.CTLibEn;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
-import edu.emory.clir.clearnlp.coreference.type.WildcardPronounType;
+import edu.emory.clir.clearnlp.coreference.type.PronounType;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
@@ -29,7 +29,7 @@ public class Mention
 {
 	private EntityType t_entity;
 	private NumberType t_number;
-	private WildcardPronounType t_pronoun;
+	private PronounType t_pronoun;
 	private DEPTree    d_tree;
 	private DEPNode    d_node;
 	
@@ -54,7 +54,7 @@ public class Mention
 		setNumberType(numberType);
 	}
 	
-	public Mention(DEPTree tree, DEPNode node, EntityType entityType, NumberType numberType, WildcardPronounType pronounType)
+	public Mention(DEPTree tree, DEPNode node, EntityType entityType, NumberType numberType, PronounType pronounType)
 	{
 		setTree(tree);
 		setNode(node);
@@ -103,7 +103,7 @@ public class Mention
 		t_number = type;
 	}
 	
-	public void setPronounType(WildcardPronounType type)
+	public void setPronounType(PronounType type)
 	{
 		t_pronoun = type;
 	}
@@ -118,7 +118,7 @@ public class Mention
 		return t_number == type;
 	}
 	
-	public boolean isPronounType(WildcardPronounType type)
+	public boolean isPronounType(PronounType type)
 	{
 		return t_pronoun == type;
 	}
@@ -126,7 +126,7 @@ public class Mention
 	@Override
 	public String toString(){
 		String wordfrom = (!d_node.isPOSTag(CTLibEn.POS_CD))? d_node.getLemma() : d_node.getWordForm();
-		return wordfrom + " " + t_entity + " " + t_number + " " + t_pronoun;
+		return wordfrom + "\t" + t_entity + "\t" + t_number + "\t" + t_pronoun;
 		
 	}
 }

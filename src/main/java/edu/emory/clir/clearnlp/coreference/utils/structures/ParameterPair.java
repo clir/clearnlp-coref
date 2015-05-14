@@ -1,5 +1,5 @@
 /**
- * Copyright 2014, Emory University
+ * Copyright 2015, Emory University
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,19 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.sieve;
+package edu.emory.clir.clearnlp.coreference.utils.structures;
 
-import java.util.List;
-
-import edu.emory.clir.clearnlp.coreference.mention.Mention;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
-import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceStringUtils;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	Mar 23, 2015
+ * @since 	Apr 19, 2015
  */
-abstract public class AbstractSieve{
-	abstract public void resolute(List<DEPTree> trees, List<Mention> mentions, DisjointSetWithConfidence mentionLinks);
+public class ParameterPair extends StringStringPair{
+
+	public ParameterPair(String n, String v){	super(n, v); }
+	
+	public String getName(){	return s1; }
+	public String getValue(){	return s2; }
+	
+	public void setName(String n){	s1 = n; }
+	public void setValue(String v){	s2 = v; }
+	
+	@Override
+	public String toString(){	return CoreferenceStringUtils.connectStrings(s1, "=", s2); }
 }

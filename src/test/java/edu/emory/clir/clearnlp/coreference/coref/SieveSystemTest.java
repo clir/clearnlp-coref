@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference;
+package edu.emory.clir.clearnlp.coreference.coref;
 
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,8 @@ import org.junit.Test;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
+import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
@@ -33,18 +37,20 @@ import edu.emory.clir.clearnlp.reader.TSVReader;
  * @since 	Apr 13, 2015
  */
 public class SieveSystemTest {
+	
 	@Test
-	public void test() throws Exception
-	{
-		TSVReader reader = new TSVReader(0, 1, 2, 3, 4, 5, 6, 7);
-		reader.open(new FileInputStream("/Users/HenryChen/Documents/ClearNLP-QA/testExamples/Coreference_Resolution/simpleInput.coref"));
-		List<DEPTree> trees = new ArrayList<>();
+	public void corefTest() throws IOException{
+		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution();
+		InputStream in = new FileInputStream("src/test/resources/edu/emory/clir/clearnlp/coreference/mention/input.mention.cnlp");
+		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
+		reader.open(in);
 		
 		DEPTree tree;
+		List<DEPTree> trees = new ArrayList<>();
+		
 		while ((tree = reader.next()) != null) trees.add(tree);
-		
-		
-		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution();
-		Pair<List<Mention>,DisjointSet> entities = coref.getEntities(trees);
+
+		Pair<List<Mention>, DisjointSet> resolution = coref.getEntities(trees);
+		System.out.println(resolution);
 	}
 }

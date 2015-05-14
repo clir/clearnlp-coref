@@ -2,8 +2,8 @@ package edu.emory.clir.clearnlp.coreference.sieve;
 
 import java.util.List;
 
-import utils.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 /**
  * 

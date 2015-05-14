@@ -1,5 +1,5 @@
 /**
- * Copyright 2014, Emory University
+ * Copyright 2015, Emory University
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,36 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.type;
+package edu.emory.clir.clearnlp.coreference.mention.detector;
+
+import org.junit.Test;
+
+import edu.emory.clir.clearnlp.coreference.mention.pronoun.detector.EnglishPronounDetector;
 
 /**
- * @since 3.0.0
- * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
+ * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
+ * @version	1.0
+ * @since 	May 11, 2015
  */
-public enum EntityType{	
-	// Pronoun
-	PRONOUN_UNKNOWN,
-	PRONOUN_WILDCARD,
-	PRONOUN_NEUTRAL,
-	PRONOUN_FEMALE,
-	PRONOUN_MALE,
-	
-	// Common noun
-	COMMON_UNKNOWN,
-	COMMON_MALE,
-	COMMON_FEMALE,
-	COMMON_NEUTRAL,
-	
-	// Named entity
-	PERSON_FEMALE,
-	PERSON_MALE,
-	PERSON_NEUTRAL,
-	PERSON_UNKNOWN,
-	ORGANIZATION,
-	LOCATION,
-	PROPER_UNKOWN,
-	
-	// Other
-	UNKNOWN,
-	MISC;
+public class EnglishPronounDetectorTest {
+	@Test
+	public void initDetector(){
+		EnglishPronounDetector detector = new EnglishPronounDetector();
+	}
 }

@@ -15,11 +15,9 @@
  */
 package edu.emory.clir.clearnlp.coreference;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMentionDetector;
@@ -29,7 +27,9 @@ import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
 import edu.emory.clir.clearnlp.coreference.sieve.ExactStringMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.PronounMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
+import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -40,10 +40,11 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 	private AbstractMentionDetector detector;
 	private List<AbstractSieve> sieves;
 	
-	public SieveSystemCoreferenceResolution() throws IOException{
+	public SieveSystemCoreferenceResolution() {
 		
 		// Mention Detector declaration
-		detector = new EnglishMentionDetector();
+		super(TLanguage.ENGLISH);
+		m_detector = new EnglishMentionDetector();
 		
 		// Sieve layer class declarations
 		sieves = new ArrayList<>();
