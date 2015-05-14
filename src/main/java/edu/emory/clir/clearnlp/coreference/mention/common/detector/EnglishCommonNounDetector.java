@@ -79,7 +79,7 @@ public class EnglishCommonNounDetector extends AbstractCommonNounDetector{
 		if(m_common_nouns.containsKey(wordForm))
 			commonNoun = m_common_nouns.get(wordForm);
 		else
-			commonNoun = new CommonNoun(node.getLemma());
+			commonNoun = new CommonNoun(node.getWordForm());
 		
 		// Setting common noun attributes 
 		

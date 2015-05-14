@@ -15,6 +15,11 @@
  */
 package edu.emory.clir.clearnlp.coreference.mention;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.emory.clir.clearnlp.collection.pair.IntIntPair;
+import edu.emory.clir.clearnlp.constituent.CTLibEn;
 import edu.emory.clir.clearnlp.coreference.mention.common.CommonNoun;
 import edu.emory.clir.clearnlp.coreference.mention.common.detector.EnglishCommonNounDetector;
 import edu.emory.clir.clearnlp.coreference.mention.pronoun.Pronoun;
@@ -46,9 +51,9 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 	public Mention getMention(DEPTree tree, DEPNode node){
 		Mention mention;
 		
-		if ((mention = getPronounMention(tree, node)) != null )	return processMention(mention);
-		if ((mention = getCommonMention(tree, node)) != null)	return processMention(mention);
-		if ((mention = getPersonMention (tree, node)) != null)	return processMention(mention);
+		if ((mention = getPronounMention(tree, node)) != null )	return mention;
+		if ((mention = getCommonMention(tree, node)) != null)	return mention;
+		if ((mention = getPersonMention (tree, node)) != null)	return mention;
 		
 		return null;
 	}
@@ -84,7 +89,29 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 	}
 	
 //	====================================== MENTION ATTR ======================================
-	protected Mention processMention(Mention mention){
-		return mention;
+	@Override
+	protected void processMentions(DEPTree tree, List<Mention> mentions){
+		// Inside quotation detection
+		int start = -1, end = -1;
+		List<IntIntPair> boundaries = new ArrayList<>();
+		for(DEPNode node : tree){
+			
+			if(node.isPOSTag(CTLibEn.POS_LQ)) start = node.getID();
+			if(node.isPOSTag(CTLibEn.POS_RQ)) start = node.getID();
+			
+			if(start >= 0 && end >= 0){
+				boundaries.add(new IntIntPair(start, end));
+				start = -1; end = -1;
+			}
+		}
+		
+		int pos;
+		for(Mention mention : mentions){
+			pos = mention.getNode().getID();
+			
+			for(IntIntPair boundary : boundaries)
+				if(boundary.i1 < pos && pos < boundary.i2)
+					mention.addFeature(MentionFeatureType.QUOTE);
+		}
 	}
 }

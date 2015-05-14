@@ -13,19 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.dictionary;
+package edu.emory.clir.clearnlp.coreference.mention;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	May 11, 2015
+ * @since 	May 14, 2015
  */
-public interface PathMention {
-	String ROOT = "src/main/resources/edu/emory/clir/clearnlp/dictionary/coreference/mention/";
-	
-	// English (ENG)
-	String ENG_PRONOUN = ROOT + "english_pronouns.txt",
-		   ENG_WILDCARD_PRONOUN = ROOT + "english_wildcard_pronouns.txt",
-		   ENG_COMMON_NOUN = ROOT + "english_common_nouns.txt";
-	
+public interface MentionFeatureType {
+	String QUOTE = "QUOTE";
 }

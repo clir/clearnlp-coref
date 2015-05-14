@@ -62,8 +62,7 @@ public abstract class AbstractMentionDetector
 	{
 		List<Mention> list = new ArrayList<>();
 		
-		for (DEPTree tree : trees)
-			list.addAll(getMentionList(tree));
+		for (DEPTree tree : trees) list.addAll(getMentionList(tree));
 		
 		return list;
 	}
@@ -78,8 +77,11 @@ public abstract class AbstractMentionDetector
 			if (mention != null) list.add(mention);
 		}
 		
+		processMentions(tree, list);
+		
 		return list;
 	}
 	
 	public abstract Mention getMention(DEPTree tree, DEPNode node);
+	protected abstract void processMentions(DEPTree tree, List<Mention> mentions);
 }
