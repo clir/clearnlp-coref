@@ -15,10 +15,21 @@
  */
 package edu.emory.clir.clearnlp.coreference.coref;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
+import edu.emory.clir.clearnlp.collection.pair.Pair;
+import edu.emory.clir.clearnlp.collection.set.DisjointSet;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.EnglishCoreferenceResolution;
+import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.reader.TSVReader;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -26,14 +37,18 @@ import edu.emory.clir.clearnlp.coreference.EnglishCoreferenceResolution;
 public class EnglishCoreferenceResolutionTest
 {
 	@Test
-	public void rawDataTest(){
+	public void corefTest() throws IOException{
 		AbstractCoreferenceResolution coref = new EnglishCoreferenceResolution();
-//		InputStream in = getClass().getResourceAsStream("/edu/emory/clir/clearnlp/coreference/data/testInput.raw.coref");
+		InputStream in = new FileInputStream("src/test/resources/edu/emory/clir/clearnlp/coreference/mention/input.mention.cnlp");
+		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
+		reader.open(in);
 		
-		//Mention Detection
-//		List<Mention> mentions = coref.getMentions(in);
-//		
-//		for(Mention mention : mentions)
-//			System.out.println(mention);
+		DEPTree tree;
+		List<DEPTree> trees = new ArrayList<>();
+		
+		while ((tree = reader.next()) != null) trees.add(tree);
+
+		Pair<List<Mention>, DisjointSet> resolution = coref.getEntities(trees);
+		System.out.println(resolution);
 	}
 }

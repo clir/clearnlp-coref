@@ -15,16 +15,12 @@
  */
 package edu.emory.clir.clearnlp.coreference.mention;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import edu.emory.clir.clearnlp.coreference.mention.common.CommonNoun;
 import edu.emory.clir.clearnlp.coreference.mention.common.detector.EnglishCommonNounDetector;
 import edu.emory.clir.clearnlp.coreference.mention.pronoun.Pronoun;
 import edu.emory.clir.clearnlp.coreference.mention.pronoun.detector.EnglishPronounDetector;
 import edu.emory.clir.clearnlp.coreference.mention.proper.ProperNoun;
 import edu.emory.clir.clearnlp.coreference.mention.proper.detector.EnglishProperNounDetector;
-import edu.emory.clir.clearnlp.dependency.DEPLibEn;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
@@ -37,30 +33,13 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 	private EnglishPronounDetector pronounDetector;
 	private EnglishCommonNounDetector commonNounDetector;
 	private EnglishProperNounDetector properNounDetector;
-	private Set<String> s_mentionLabels;
 	
 	public EnglishMentionDetector(){
 		pronounDetector = new EnglishPronounDetector();
 		commonNounDetector = new EnglishCommonNounDetector();
 		properNounDetector = new EnglishProperNounDetector(); 
-		s_mentionLabels = initMentionLabels();
 	}
-	
-//	====================================== LEXICA ======================================
 
-	private Set<String> initMentionLabels(){
-		Set<String> set = new HashSet<>();
-		
-		set.add(DEPLibEn.DEP_NSUBJ);
-		set.add(DEPLibEn.DEP_NSUBJPASS);
-		set.add(DEPLibEn.DEP_AGENT);
-		set.add(DEPLibEn.DEP_DOBJ);
-		set.add(DEPLibEn.DEP_IOBJ);
-		set.add(DEPLibEn.DEP_POBJ);
-		
-		return set;
-	}
-	
 //	====================================== MENTION TYPE ======================================
 	
 	@Override

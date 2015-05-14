@@ -27,6 +27,7 @@ import edu.emory.clir.clearnlp.constituent.CTLibEn;
 import edu.emory.clir.clearnlp.coreference.dictionary.PathMention;
 import edu.emory.clir.clearnlp.coreference.mention.common.CommonNoun;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
+import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.Splitter;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
@@ -65,13 +66,15 @@ public class EnglishCommonNounDetector extends AbstractCommonNounDetector{
 	
 	@Override
 	public boolean isCommonNoun(DEPTree tree, DEPNode node) {
-		return node.isPOSTag(CTLibEn.POS_NN) || node.isPOSTag(CTLibEn.POS_NNS) ; 
+		return !node.isLabel(DEPTagEn.DEP_COMPOUND) && (node.isPOSTag(CTLibEn.POS_NN) || node.isPOSTag(CTLibEn.POS_NNS)) ; 
 	}
 
 	@Override
 	public CommonNoun getCommonNoun(DEPTree tree, DEPNode node) {
 		CommonNoun commonNoun;
 		String wordForm = node.getLemma();
+		
+		
 		
 		if(m_common_nouns.containsKey(wordForm))
 			commonNoun = m_common_nouns.get(wordForm);
