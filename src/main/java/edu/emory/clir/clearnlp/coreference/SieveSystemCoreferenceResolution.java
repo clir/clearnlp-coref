@@ -15,6 +15,7 @@
  */
 package edu.emory.clir.clearnlp.coreference;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +26,11 @@ import edu.emory.clir.clearnlp.coreference.mention.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
 import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
 import edu.emory.clir.clearnlp.coreference.sieve.ExactStringMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.PreciseConstructMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.PronounMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.ProperHeadWordMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.StrictHeadMatch;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
@@ -35,12 +39,15 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
  * @since 	Mar 23, 2015
+ * need to add Speaker Identification
+ * might want to look more into versions of Strict Head Match
+ * might want to add Relaxed Head Match?
  */
 public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolution{
 	private AbstractMentionDetector detector;
 	private List<AbstractSieve> sieves;
 	
-	public SieveSystemCoreferenceResolution() {
+	public SieveSystemCoreferenceResolution() throws IOException {
 		
 		// Mention Detector declaration
 		super(TLanguage.ENGLISH);
@@ -49,10 +56,18 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 		// Sieve layer class declarations
 		sieves = new ArrayList<>();
 		
-		/* Sieve 1 : Exact String Match */		sieves.add(new ExactStringMatch());
-		/* Sieve 2 : Relaxed String Match */	sieves.add(new RelaxedStringMatch());
-		
-		/* Sieve 10 : Pronoun Match */			sieves.add(new PronounMatch());
+		/* Sieve 2 : Exact String Match */		
+		sieves.add(new ExactStringMatch());
+		/* Sieve 3 : Relaxed String Match */	
+		sieves.add(new RelaxedStringMatch());
+		/* Sieve 4 : Precise Constructs */
+		sieves.add(new PreciseConstructMatch("src/main/resources/edu/emory/clir/clearnlp/dictionary/coreference/sieve/DemonymList.txt"));
+		/* Sieve 5 : Strict Head Match */
+		sieves.add(new StrictHeadMatch());
+		/* Sieve 8 : Proper Head Word Match */
+		sieves.add(new ProperHeadWordMatch());
+		/* Sieve 10 : Pronoun Match */			
+		sieves.add(new PronounMatch());
 	}
 
 	@Override
