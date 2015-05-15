@@ -1,0 +1,782 @@
+Africa	Africans
+Afro-Eurasia	Afro-Eurasians
+Antarctica	Antarctican
+Americas	Americansa
+Asia	Asians
+Middle East	Middle Easterners
+Australasia	Australasians
+Australia	Australians
+Eurasia	Eurasians
+Europe	Europeans
+North America	North Americans
+Central America	Central Americans
+Oceania	Oceanians
+South America	South Americans
+Australian Capital Territory	Canberrans
+New South Wales	New South Welshmen	Waratahs, Cockroaches, Blues
+Northern Territory	Territorians	Top Enders
+Queensland	Queenslanders	Banana Benders, Cane Toads, Maroons
+South Australia	South Australians	Crow Eaters
+Tasmania	Tasmanians	Apple Eaters, Taswegians, Tazzies
+Victoria	Victorians	Vics, Mexicans
+Western Australia	Western Australians, Sandgropers, Westralians
+Alberta	Albertans
+British Columbia  	British Columbians, B.C.ers
+Manitoba	Manitobans
+New Brunswick	New Brunswickers
+Newfoundland and Labrador	Newfoundlanders, Labradorians, Newfies
+Northwest Territories	Northwest Territorians, N.W.T.ers
+Nunavut	Nunavummiut 
+Nova Scotia	Nova Scotians, Bluenosers
+Ontario	Ontarians
+Prince Edward Island	P.E.I., Island	Islanders
+Quebec	Quebec
+Saskatchewan	Saskatchewanians, Flat-Landers
+Yukon	Yukoners, Sourdoughs
+Andaman and Nicobar Islands	Andaman, Andamanese
+Nicobar	Nicobarese, Andamanese
+Andhra Pradesh	Andhraits, Teluguwadu
+Arunachal	Arunachalis
+Assam	Assamese
+Bihar	Biharis
+Chandigarh	Chandigarhis
+Chhattisgarh	Chhattisgarhis
+Dadra	Haveli
+Nagar	Haveli
+Daman	Damanese
+Diu	Diuese
+Delhi	Delhiites, Delhians
+Goa	Goans, Goenkars, Goanese
+Gujarat	Gujaratis
+Haryana	Haryanvis
+Himachal	Himachali, Himachalis
+Kashmir	Kashimiris
+Jharkhand	Jharkhandis
+Karnataka 	Karnatakans, Canarese
+Kerala	Keralites, Malayalis
+Lakshadweep 	Laccadivians
+Madhya Pradesh	Madhya Pradeshis
+Maharashtra		Maharashtrians, Marathi
+Manipur		Manipuris
+Meghalaya	Meghalayans
+Mizoram		Mizos
+Nagaland	Nagas
+Odisha	Oriya, Odissi, Oriyas, Odishans
+Puducherry 	Pondicherrians
+Punjab	Punjabis
+Rajasthan	Rajasthanis
+Sikkim	Sikkimese
+Tamil Nadu	Tamils
+Tripura	Tripuris, Tripurans
+Uttar Pradesh	Uttar Pradeshis
+Uttarakhand	Uttarakhandis
+West Bengal	Bengalis
+Johor	Johoreans, Southerners
+Kedah	Kedahans
+Kelantan	Kelantanese, East Coasters
+Kuala Lumpur	Kuala Lumpurians, Federal Territorians
+Labuan	Labuanese	Federal Territorians
+Malacca	Malaccans
+Negeri Sembilan	Negeri Sembilanese	Negrians
+Pahang	Pahangites Penang Islanders
+Perak	Perakians
+Perlis	Perlisians
+Putrajaya	Putrajayans	Federal Territorians
+Sabah	Borneoans
+Sarawak	Sarawakians	Borneoans
+Selangor	Selangoreans
+Terengganu	East Coasters
+Peninsular	Peninsularians, West Malaysians
+East Malaysia	East Malaysians	Borneoans
+Aguascalientes	Hidrocalido, Hidrocalida
+Baja California	Bajacaliforniano, Bajacaliforniana
+Baja California	Sudcaliforniano, Sudcaliforniana
+Campeche	Campechano, Campechana
+Chiapas	Chiapaneco, Chiapaneca
+Chihuahua	Chihuahuense
+Colima	Colimense
+Coahuila	Coahuilense
+Distrito Federal	Defeño, Defeña
+Durango	Duranguense
+Guerrero	Guerrerense
+Guanajuato	Guanajuatense
+Hidalgo	Hidalguense
+Jalisco	Jalisciense
+Michoacán	Michoacano, Michoacana
+Morelos	Morelense
+Mexico	Mexiquense
+Nayarit	Nayarita
+Nuevo Neoleones
+Oaxaca	Oaxaqueño, Oaxaqueña
+Puebla	Poblano, Poblana
+Quintana Roo	Quintanarroense
+Querétaro	Queretano, Queretana
+Sinaloa	Sinaloense
+San Luis Potosino, Potosina
+Sonora	Sonorense	
+Tabasco	Tabasqueño, Tabasqueña
+Tlaxcala	Tlaxcalteca	
+Tamaulipas	Tamaulipeco, Tamaulipeca
+Veracruz	Veracruzano, Veracruzana
+Yucatán	Yucateco, Yucateca
+Zacatecas	Zacatecano, Zacatecana
+Auckland Aucklanders	Jafas
+Bay of Plenty Bay of Plentiers
+Canterbury Cantabrians	Cantabs
+Gisborne East Coasters, Gisbornians
+Hawke's Bay Hawke's Bayers
+Manawatu-Wanganui Wanganuians
+Marlborough Marlburians
+Nelson Nelsonians
+Northland Northlanders
+Otago Otagoites
+Southland	Southlanders
+Taranaki	Taranakians
+Tasman	Tasmanites
+Waikato	Waikatoans	Mooloos
+Wellington	Wellingtonians
+West Coast	West Coasters
+North Island	North Islanders
+South Island	Mainland	South Islanders	Mainlanders
+Stewart Island	Stewart Islanders
+Acarnania	Acarnanians
+Achaea	Achaeans
+Aegina	Aeginetans
+Aethaea	Aethaeans
+Aetolia	Aetolians
+Andalusia	Andalusians
+Apulia	Apulians
+Aquitania	Aquitanians
+Arcadia	Arcadians
+Argos	Argives
+Arretium	Arretines
+Athens	Athenians
+Bactria	Bactrians
+Bavaria	Bavarians
+Boeotia	Boeotians, Beotians
+Boiohaemum	Boii
+Bosporus	Bosporans, Bosphorans
+Bruttium	Brutti, Bruttians
+Byzantium	Byzantines
+Calabria	Calabrians
+Campania	Campanians
+Cantabria	Cantabrians
+Caria	Carians
+Carthage	Carthaginians
+Carystus	Carystians
+Catalonia	Catalans, Catalonians
+Cephalonia	Cephalonians
+Chalcis	Chalcidians
+Chios	Chians
+Colchis	Colchians
+Colossae	Colossians
+Consentia	Consentians
+Corcyra	Corcyreans
+Corsica	Corsicans
+Crete	Cretans
+Croton	Crotonians
+Cyclades	Cycladians
+Cyprus	Cypriot, Cypriots, Cypriotes
+Cyrenaica	Cyrenaics
+Cyrene	Cyrenians
+Dacia	Dacians
+Dalmatia	Dalmatians
+Delos	Delians
+Dodecanese	Dodecanesians
+Edonia	Edonians
+Egesta	Egestans
+Eleusina Eleusians, Eleusinians
+Elis Elians
+Ephesus	Ephesians
+Epidamnus Epidamnians
+Epidaurus	Epidaurians
+Epirus	Epirotes
+Eretria	Eretrians
+Etruria	Etruscans
+Euboea	Euboeans
+Galatia	Galatians
+Gallaecia	Gallaeci
+Gallia Gauls
+Germania	Germanians, Germani
+Iberia	Iberians
+Illyria	Illyrians
+Ionia	Ionians
+Kalymnos	Kalymnians
+Kaulonia	Kaulonians
+Knossos	Knossians
+Lakedaimonia Lakedaemonians
+Larissa	Larissans
+Latium	Latins
+Leontini	Leontinians
+Lesbos	Lesbians
+Locris	Locrians
+Lucania	Lucanians
+Lydia	Lydians
+Macedonia	Macedonians
+Maeonia	Maeonians
+Mantineia	Mantineans
+Marathon	Marathonians
+Media	Medes, Medians
+Megara	Megarans
+Melite	Melitians
+Melos		Melians
+Mesopotamia	Mesopotamians
+Messenia	Messenians
+Miletus	Milesians
+Mithymna	Methymnians
+Moravia	Moravians
+Mycenae	Mycenaeans
+Mytilene	Mytileneans
+Naupactus Naupactians
+Naxos	Naxians
+Nisyros	Nisyrians
+Oea	Oeans
+Olympia	Olympians
+Oiniades	Oiniadans
+Orkney Islands	Orcadians
+Paeonia or Paionia	Paeonians
+Pamphylia	Pamphylians
+Paros	Parians
+Patmos	Patmians
+Peloponnese	Peloponnesians
+Pergamum	Pergamians
+Persia	Persians
+Philippi	Philippians
+Phlius	Phliasians
+Phocis	Phocians
+Phoenicia	Phoenicians
+Phrygia	Phrygians
+Pisidia	Pisidians
+Pontus	Pontians
+Pylos	Pylosians
+Rhegion	Rhegians, Rhegines
+Rhodes	Rhodians
+Rhithymna	Rhithymnians
+Rome	Romans
+Sabinium	Sabines
+Salamis	Salaminians
+Samnium	Samnites
+Samos	Samians
+Sardinia	Sardinians, Sardi
+Sardis	Sardiani, Sardians
+Sarmatia	Sarmatians, Sarmatae, or Sauromatae
+Scythia	Scythae, Scythians
+Serrhae	Serreans
+Sicily	Sicilians
+Sicyon	Sicyonese
+Sidon	Sidonians
+Silesia	Silesians
+Skopelos	Skopelitans
+Sparta	Spartans
+Suebia	Suebi
+Symi	Symians
+Syracuse	Syracusans
+Tarentum	Tarentines, Tarentumians
+Tegea	Tegeans
+Tenedos	Tenedians
+Tenedos	Tenedians
+Thasos	Thasians
+Thebes	Thebans
+Thespis	Thespians
+Thessaly	Thessalians
+Thrace	Thracians
+Thria	Thriasians
+Thuria	Thuriats
+Thurii	Thurians
+Trichonos	Trichonians
+Troezen	Troezenians
+Troy	Trojans
+Umbria	Umbrians
+Xanthi	Xanthians
+Zakynthos	Zakyntians
+Atlantis	Atlanteans, Atlantans
+Aloria	Alorns
+Attilan		Inhumans
+Blefuscu	Blefuscudians
+Brobdingnag	Brobdingnagians
+Laputa	Laputans
+Lilliput	Lilliputians
+Cardassia Cardassians
+Bajor	Bajorans, Bajora
+Ferenginar	Ferengi
+Genosha	Genoshans
+Latveria	Latverians
+Luggnagg		Struldbrugs
+Narnia	Narnian
+Oz	Ozian
+Remus	Remans
+Rohan	Rohirrim
+Romulus	Romulans
+Skaro	Skarosians, Daleks
+Sontar	Sontarans
+Utopia	Utopians
+Vulcan	Vulcans
+Aberdeen	Aberdonian
+Adelaide	Adelaidean
+Albany	Albanian
+Albuquerque	Burqueño
+Aleppo	Aleppine
+Alexandria	Alexandrine
+Almería	Almerian, Almeriense, Urcitano
+Amalfi	Amalfitan
+Angeles	Angelino
+Aosta	Aostan, Aostain
+Armagh	Armachian
+Armidale	Armidilian
+Asheville	Ashevillain
+Athens	Athenian
+Atlanta	Atlantan
+Auckland	Aucklander, Jafa
+Austin	Austinite
+Baltimore	Baltimorean
+Bandung	Bandungite
+Bangalore	Bangalorean
+Bangkok	Bangkokian
+Barcelona	Barcelonian
+Baton Rouge	Baton Rougean
+Bedford	Bedfordian
+Beijing 	Beijinger, Pekinese
+Belfast	Belfastite
+Belo Horizonte	Belo-Horizontino
+Belgrade	Belgradian, Belgrader
+Benevento	Beneventan
+Bergamo	Bergamasque
+Berlin	Berliner
+Bern	Bernese
+Birmingham	Birminghamian, Brummie
+Birmingham	Birminghamian, Birminghamster
+Bologna	Bolognese
+Bogota	Bogotan
+Bolton	Boltonian
+Bordeaux	Bordelais
+Boston	Bostonian
+Brasilia	Brasiliense
+Bratislava	Bratislava
+Brescia	Brescian
+Brighton	Brightonian
+Brisbane	Brisbanite
+Bristol	Bristolian
+Brussels	Bruxelloi, Brusselaar, Brusseleer
+Bucharest	Bucharester
+Budapest	Budapester
+Buenos Aires	Bonaerense, Porteño	Bonaerense, Porteño
+Buffalo	Buffalonian
+Cádiz	Gaditano
+Cagayan de Oro	Cagayanon
+Cairns	Cairnsitte
+Cairo	Cairene
+Calgary	Calgarian
+Cambridge	Cantabrigian
+Cambridge	Cantabrigian
+Campinas	Campineiro
+Canberra	Canberran
+Cape Town	Capetonian
+Caracas	Caraquenian
+Cardiff	Cardiffian
+Carlisle	Carlislian
+Carson City	Carsonite
+Carystus	Carystian
+Cebu	Cebuano
+Charlotte	Charlottean
+Chelmsford	Chelmsfordian
+Chennai	Chennaite
+Chicago	Chicagoan
+Christchurch	Cantabrian
+Cincinnati	Cincinnatian
+Cleveland	Clevelander
+Columbus	Columbusite
+Copenhagen	Copenhagener
+Córdoba	Cordobés
+Corinth	Corinthian
+Cork	Corkonian, Leesider
+Kraków 	Krakovian, Cracovian
+Curitiba	Curitibano
+Dallas	Dallasite, Dallasonian
+Da Lat	Dalatese
+Damascus	Damascene
+Darwin	Darwinian
+Davao	Davaoeño
+Delhi	Delhiite
+Denver	Denverite
+Derry	Derrian
+Detroit	Detroiter
+Devonport	Devonportian
+Dresden	Dresdener
+Dublin	Dubliner, Dub
+Dundee	Dundonian
+Dunedin	Dunedinite
+Durban	Durbanite
+East Troy	East Trojan
+Edinburgh	Edinburger
+Edmonton	Edmontonian
+Epidaurus	Epidaurian
+Florence	Florentine
+Fort Lauderdale	Fort Lauderdaler, Fort Lauderdalian
+Fort Wayne	Fort Wayniac
+Foz do Iguaçu	Iguaçuense
+Frankfurt	Frankfurter
+Fredericton	Frederictonian
+Fresno	Fresnan, Fresnoan
+Galway	Republic of Ireland	Galwegian
+Geneva	Genevan, Genevese
+Genoa	Genoese
+Germiston	Germistonian
+Glasgow	Glaswegian
+Graz	Grazer
+Gold Coast	Gold Coaster
+Granada	Granadino, Iliberitano
+Grand Rapids	Grand Rapidian
+Guadalajara	Tapatío
+Halifax	Haligonian
+Hamburg	Hamburger
+Hamilton	Hamiltonian
+Hamilton	Hamiltonian
+Hanoi	Hanoian
+Hanover	Hanoverian
+Hartlepool	Hartlepudlian, Monkey hanger
+Hastings	Hastingite
+Helsinki	Helsinkian
+Ho Chi Minh City	Saigoner
+Hobart	Hobartian
+Hong Kong	Hongkongish, Hongkongese	Hongkonger, Hongkongish, Honger, HongKongese
+Honolulu	Honolulan
+Houston	Houstonian
+Huelva	Onubense, Huelveño
+Hyderabad	Hyderabadi
+Iloilo	Ilonggo
+Indianapolis	Hoosier
+Invercargill	Invercargillite, Invercargillonian
+Inverness	Invernessian
+Iqaluit	Iqalummiuq, Iqalummiut
+Islamabad	Islamabadi	Islamabadian
+Itabira	Itabirano
+Istanbul	Istanbulite
+Jacksonville	Jacksonvillian, Jaxon
+Izmir	Izmirian
+Jaén	Jienense, Aurgitano
+Jakarta	Jakartanais, Jakartan
+Jerusalem	Jerusalemite, Yerushalmim
+Johannesburg	Johannesburger
+Juiz de Fora	Juiz-forano
+Juneau City	Juneauite
+Kaluga	Kaluzhane
+Karachi	Karachiite
+Kastoria	Kastorian
+Kenosha	Kenoshan
+Kiev	Kievan
+Kingston	Kingstonian
+Knoxville	Knoxvillian
+Kota Kinabalu	KK-ite
+Kuala Lumpur	KL-ite
+Kuching	Kuchingite
+Lagos	Lagosian
+Lahore	Lahori
+Lancaster	Lancastrian
+La Paz	Paceño
+Las Vegas	Las Vegan
+Laval	Lavalois
+Leeds	Leodensian
+León	Leonese
+Lima	Limeño
+Linz	Linzer
+Lisbon	Alfacinha
+Liverpool	Liverpudlian, Scouser
+Livorno	Leghornese, Livornese
+London	Londoner
+Londrina	Londrinense
+Los Angeles	Angeleno
+Lucca	Lucchesi
+Lviv	Lviviane
+Lyon 	Lyonese, Lyonnais
+Macau	Macanese
+Madrid	Madrilenian, Madrileño
+Malacca	Malaccan
+Málaga	Malagenean, Malagueño, Malacitano
+Manchester	Mancunian, Manc
+Manila	Manileño
+Mantua	Mantuan
+Marathon	Marathonian
+Marseille	Marseillais
+Megara	Megarian
+Melbourne	Melburnian
+Memphis		Memphian
+Messina	Messinese
+Mexico City	Capitalino, Chilango, Defeño
+Miami	Miamian
+Milan	Milanese
+Milan	Milanites, Milaner
+Milwaukee	Milwaukeean	Milwaukeean
+Misrata	Misratan
+Minneapolis	Minneapolitan
+Minot	Minoter
+Modena	Modenese
+Monterrey	Regiomontano
+Montreal	Montrealer, Montrealais
+Moscow	Muscovite
+Mumbai	Mumbaikar
+Muncie	Munsonian
+Munich	Münchner
+Napier	Napieran
+Naples	Neapolitan
+Nashville	Nashvillian
+Nassau	Nassuvian
+Nelson	Nelsonian
+New Orleans	New Orleanian, New Orleaner, Yat
+New York City	New Yorker, Big Appleite, Gothamite, Knickerbocker
+The Bronx		Bronxite, Bronxer
+Brooklyn		Brooklynite, Trolley Dodger 
+Manhattan	Manhattanite
+Queens	Queensite
+Staten Island	Staten Islander
+Newcastle	Novocastrian, Geordie
+Nice	Niçois
+Nicosia	Nicosian
+Northampton	Northamptonian
+Oakbank	Oakbankian
+Oakland	Oaklander
+Oamaru	Oamaruvian
+Odessa	Odessite
+Omak	Omakian
+Oslo	Oslovian
+Osaka	Naniwakko, Osakan
+Ottawa	Ottawan
+Oxford	Oxonian
+Paddock Lake	Paddock Laker
+Padua	Paduan
+Palermo	Palermitan
+Palmerston North	Palmerstonian
+Paris	Parisian
+Parma	Parmesan
+Penang	Penangite
+Perth	Perthite, Perthian
+Perugia	Perugian
+Peterborough	Peterbourian
+Philadelphia	Philadelphian
+Phoenix	Phoenician, Phoenixer
+Pisa	Pisan
+Pittsburgh	Pittsburgher
+Polmont	Polmontarian
+Pompeii	Pompeian, Pompeiian
+Ponferrada	Ponferradian
+Porto	Tripeiro
+Porto Alegre	Porto-Alegrense
+Portland	Portlander
+Prague	Praguer
+Pristina	Prishtinali, Prishtina, Prištinci, Prištevci
+Providence	Providentian
+Pylos	Pylian
+Quebec City	Québécois
+Randall	Randallite
+Reading	Readingite
+Regina	Reginan
+Reno	Renoite
+Rethymno	Rethymnian
+Reims 	Rémois
+Richmond	Richmonder
+Riga	Rigan
+Rio de Janeiro	Carioca
+Rhodes	Rhodian
+Rochester	Rochesterian
+Rome	Roman
+Rotorua	Rotoruan
+St. Louis	St. Louisan
+Sacramento	Sacramentan
+Saint Petersburg	Saint Petersburgian
+Salem	Salemander
+Salerno	Salernitan
+Salt Lake City	Salt Laker
+Salvador	Soteropolitano
+San Antonio	San Antonian
+San Diego	San Diegan
+San Francisco	San Franciscan
+San Jose	San Josean
+Santa Clarita	Santa Claritan
+Santa Cruz	Cruceño
+São Carlos	Sãocarlense, Carlopolitano
+São Paulo	Paulistano
+Sarajevo	Sarajevan
+Saskatoon	Saskatonian, Saskabusher
+Savannah	Savannian
+Seattle	Seattleite
+Seoul	Seoulite
+Serres	Serrean
+Seville	Sevillian, Sevillano, Hispalense
+Shanghai	Shanghaine
+Siena 	Sienese, Siennese
+Silver Lake	Silver Laker
+Sheffield	Sheffielder
+Skopje	Skopjan
+Slough	Sluff
+Sofia	Sofian
+Solihull	Silhillian
+Somers	Somersite
+Sorrento	Sorrentine
+Sparta	Spartan
+Spoleto	Spoletian
+Shkoder	Shkodran
+Stockholm	Stockholmer
+Strasbourg	Strasbourgeois
+Stuttgart	Stuttgarter
+Sunderland	Mackem
+Swindon	Swindonian
+Sydney	Sydneysider
+Syracuse	Syracusan
+Syracuse	Syracusian
+Tallinn	Tallinner
+Taranto	Tarantine, Tarentine
+Tbilisi	Tbilisian, Tbiliselebi
+Thebes	Theban
+Thessaloniki	Thessalonian
+Tirana	Tiranas, Tirons
+Tokyo	Edokko, Tokyoite
+Toowoomba	Toowoomban
+Toronto	Torontonian
+Tournai	Tournaisian
+Townsville	Townsvillian
+Trevor	Trevorite
+Trent	Tridentine
+Trieste	Triestine
+Tripoli	Tripolitan
+Trois-Rivières	Trifluvien, Trifluvienne, Trifluvian, Trois-rivieran
+Tucson	Tucsonan
+Tulsa	Tulsan
+Turin	Turinese
+Twin Lakes	Twin Laker
+Uberlândia	Uberlandense
+Valencia	Valencian
+Valladolid	Vallisoletano, Pucelano, Pinciano
+Vancouver	Vancouverite
+Venice	Venetian
+Veracruz	Veracruzano, Jarocho
+Verona	Veronese
+Vicenza	Vicentine
+Vichy	Vichyssois
+Vienna	Viennese, Wiener
+Vilnius	Vilnian
+Warsaw	Varsovian
+Washington D.C.	Washingtonian
+Wellington	Wellingtonian
+Wheatland	Wheatlander
+Wichita	Wichitan
+Wilmot	Wilmotter
+Winchester	Wintonian
+Winnipeg	Winnipeggers, Winnipeger
+Wolverhampton	Wulfrunian
+Xalapa	Xalapeño
+Xanthi	Xanthian
+Yerevan	Yerevantsi
+Zagreb	Zagreber, Zagrebian
+Zintan	Zintani
+Mediterranean	Mediterranean
+Nile River	Nilotic
+Nubia		Nuians
+Sahara	Sahrawi
+Acadiana	Acadian
+Aleutian Island	Aleutians
+Amazon Amazonian
+Antilles	Antilleans
+Appalachia	Appalachian
+Caribbean	Caribbean
+Ceara	Cearenses
+Guiana	Guianans
+Long Island	Long Islanders
+Maritimes	Maritimers
+Minas Gerais	Mineiros
+New England	New Englanders
+Patagonia	Patagonians
+Parana	Paranaenses
+Rio de Janeiro 	Fluminenses
+Rio Grande do Sul	Gaúchos
+St. Lawrence River	Laurentian
+Santa Catarina	Catarinenses, Barrigas-verdes
+São Paulo	Paulistas
+Upper Peninsula of Michigan	Yoopers
+West Indies	West	Indians
+Bali	Balinese
+Balochistan	Baluchi
+Bengal	Bengalis
+Bihar	Biharis
+BorneoBorneans
+Caucasus, Caucasia, Caucasic, Caucasians
+Gujarat	Gujaratis
+Hokkaidō		Dosanko 
+Indochina	Indochinese
+Java	Sundanese	Javanese, Sundanese
+Kashmir	Kashmiris
+Korea	Koreans
+Melanesia	Melanesians
+Okinawa	Okinawans
+Ryukyu Island	Ryukyuans
+Punjab	Punjabis
+Siberia	Siberians
+Sindh 	Sindhi, Sindhis
+Tibet	Tibetans
+Galilee	Galileans
+Judaea	Judeans, Judaeans
+Kurdistan	Kurds
+Samaria	Samaritans
+Antipodesa	Antipodeans
+Melanesia	Melanesians
+Micronesia	Micronesians
+Polynesia	Polynesians
+Tahiti	Tahitians
+Alps	Alpine
+Alsace	Alsatians
+Apennines	Apennine
+Aragon	Aragonese
+Asturias	Asturians
+Balkans	Balkan
+Baltic region	Balts
+Bavaria	Bavarians
+Basque Country	Basques
+Bohemia	Bohemians
+Brittany	Bretons
+Burgundy	Burgundians
+Cambridge	Cantabrigians
+Canterbury	Cantuarians
+Carinthia	Carinthians
+Castile	Castilians
+Caucasus	Caucasians
+Cornwall	Cornish
+Crimea	Crimeans
+Courland	Curonians
+Danube River	Danubian
+Fife	Fifers
+Flanders	Flemings
+Franconia	Franconians
+Friesland, Frisian Islands, Friesians, Frisians
+Galicia 	Galicians
+Galloway	Gallovidians
+Gascony	Gascons
+Harrow	Harrovians
+Hesse	Hessians
+Holstein	Holsteiner
+Iberian Peninsula	Iberians
+Kosovo and Methohija	Kosovars, Kosovans
+Lancashire	Lancastrians
+Lapland	Lapp, Saami	Lappish, Saamis
+León	Leoneses
+Lombardy	Lombards
+Lorraine	Lorrainians
+Lusatia	Lusatians
+Mediterranean	Mediterranean
+Murcia	Murcians
+Navarre	Navarrese
+Normandy	Normans
+Northumberland	Northumbrians
+Palatinate	Palatines
+Pennines	Pennine
+Picardy	Picards
+Piedmont	Piedmontese
+Po River	Padane
+Provence	Provençal
+Rhineland	Rhinelanders
+Savoy	Savoyards
+Saxony	Saxons
+Scandinavia	Scandinavians
+Tuscany	Tuscans
+Tyrol	Tyroleans, Tyrolese
+Veneto	Venetians
+Wallonia	Walloons
+Westphalia	Westphalian
+0
