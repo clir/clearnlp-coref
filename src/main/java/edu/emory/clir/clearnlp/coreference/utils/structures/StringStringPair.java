@@ -15,17 +15,17 @@
  */
 package edu.emory.clir.clearnlp.coreference.utils.structures;
 
+import edu.emory.clir.clearnlp.collection.pair.Pair;
+
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
  * @since 	Apr 19, 2015
  */
-public class StringStringPair {
-	protected String s1;
-	protected String s2;
+public class StringStringPair extends Pair<String, String>{
+	private static final long serialVersionUID = 6057681006441562092L;
 	
 	public StringStringPair(String a, String b){
-		s1 = a;
-		s2 = b;
+		super(a, b);
 	}
 }

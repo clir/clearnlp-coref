@@ -15,17 +15,15 @@
  */
 package edu.emory.clir.clearnlp.coreference.mention;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import edu.emory.clir.clearnlp.collection.pair.IntIntPair;
-import edu.emory.clir.clearnlp.constituent.CTLibEn;
 import edu.emory.clir.clearnlp.coreference.mention.common.CommonNoun;
 import edu.emory.clir.clearnlp.coreference.mention.common.detector.EnglishCommonNounDetector;
 import edu.emory.clir.clearnlp.coreference.mention.pronoun.Pronoun;
 import edu.emory.clir.clearnlp.coreference.mention.pronoun.detector.EnglishPronounDetector;
 import edu.emory.clir.clearnlp.coreference.mention.proper.ProperNoun;
 import edu.emory.clir.clearnlp.coreference.mention.proper.detector.EnglishProperNounDetector;
+import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceDSUtils;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
@@ -91,27 +89,22 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 //	====================================== MENTION ATTR ======================================
 	@Override
 	protected void processMentions(DEPTree tree, List<Mention> mentions){
-		// Inside quotation detection
-		int start = -1, end = -1;
-		List<IntIntPair> boundaries = new ArrayList<>();
-		for(DEPNode node : tree){
-			
-			if(node.isPOSTag(CTLibEn.POS_LQ)) start = node.getID();
-			if(node.isPOSTag(CTLibEn.POS_RQ)) start = node.getID();
-			
-			if(start >= 0 && end >= 0){
-				boundaries.add(new IntIntPair(start, end));
-				start = -1; end = -1;
-			}
-		}
+		/** Inside quotation detection **/
+		List<int[]> boundaries = CoreferenceDSUtils.getQuotaionIndices(tree);
 		
 		int pos;
 		for(Mention mention : mentions){
 			pos = mention.getNode().getID();
 			
-			for(IntIntPair boundary : boundaries)
-				if(boundary.i1 < pos && pos < boundary.i2)
+			for(int[] boundary : boundaries){
+				if(boundary[0] > pos)	break;
+				if(CoreferenceDSUtils.isSequence(boundary[0], pos, boundary[1])){
 					mention.addFeature(MentionFeatureType.QUOTE);
+					break;
+				}
+			}	
 		}
+		
+		/** ************************* **/
 	}
 }

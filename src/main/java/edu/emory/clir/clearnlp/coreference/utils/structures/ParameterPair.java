@@ -23,15 +23,16 @@ import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceStringUtils;
  * @since 	Apr 19, 2015
  */
 public class ParameterPair extends StringStringPair{
+	private static final long serialVersionUID = -2520855248857094295L;
 
 	public ParameterPair(String n, String v){	super(n, v); }
 	
-	public String getName(){	return s1; }
-	public String getValue(){	return s2; }
+	public String getName(){	return o1; }
+	public String getValue(){	return o2; }
 	
-	public void setName(String n){	s1 = n; }
-	public void setValue(String v){	s2 = v; }
+	public void setName(String n){	o1 = n; }
+	public void setValue(String v){	o2 = v; }
 	
 	@Override
-	public String toString(){	return CoreferenceStringUtils.connectStrings(s1, "=", s2); }
+	public String toString(){	return CoreferenceStringUtils.connectStrings(o1, "=", o2); }
 }
