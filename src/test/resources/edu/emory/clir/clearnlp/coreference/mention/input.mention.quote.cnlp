@@ -1,0 +1,20 @@
+1	"	"	``	_	3	punct	O
+2	He	he	PRP	_	3	nsubj	O
+3	is	be	VBZ	_	0	root	O
+4	such	such	PDT	p2=JJ	6	predet	O
+5	a	a	DT	_	6	det	O
+6	pig	pig	NN	_	3	attr	O
+7	,	,	,	_	10	punct	O
+8	"	"	''	_	10	punct	O
+9	Mary	mary	NNP	_	10	nsubj	U-PERSON
+10	said	say	VBD	_	3	parataxis	O
+11	,	,	,	_	10	punct	O
+12	"	"	``	p2=''	3	punct	O
+13	but	but	CC	_	3	cc	O
+14	I	I	PRP	_	16	nsubj	O
+15	still	still	RB	_	16	advmod	O
+16	love	love	VBP	_	3	conj	O
+17	him	him	PRP	_	16	dobj	O
+18	"	"	''	_	16	punct	O
+19	.	.	.	_	16	punct	O
+
