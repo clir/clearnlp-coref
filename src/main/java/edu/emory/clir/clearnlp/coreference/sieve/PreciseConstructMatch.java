@@ -1,7 +1,9 @@
 package edu.emory.clir.clearnlp.coreference.sieve;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -10,21 +12,50 @@ import java.util.StringJoiner;
 import java.util.regex.Pattern;
 
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
-import edu.emory.clir.clearnlp.coreference.utils.Demonym_DictReader;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.pos.POSTagEn;
+import edu.emory.clir.clearnlp.util.IOUtils;
 
 public class PreciseConstructMatch extends AbstractSieve
 {
-	private Map<String, Set<String>> DemonymMap;
+	private static final char STOPCHAR = ',';
+    private static final char KEYBREAK = '\t';
+    private static final char NEWLINE = '\n';
+    private Map<String, Set<String>> DemonymMap;
 	
 	public PreciseConstructMatch(String filepath) throws IOException
 	{
-		DemonymMap = Demonym_DictReader.init(filepath);
+		DemonymMap = init(filepath);
 	}
+	
+	public static Map<String, Set<String>> init(String filepath) throws IOException
+    {
+        Map<String, Set<String>>  DemonymMap = new HashMap<>();
+        Set<String> DemonymSet = new HashSet<>();
+        FileInputStream input = IOUtils.createFileInputStream(filepath);
+        int i = 0; String key = ""; String line = "";
+
+        while((i = input.read()) != 0) {
+        	if ((char) i != STOPCHAR) line += i;
+        	else if ((char) i == KEYBREAK) {
+                key = line.trim();
+                line = "";
+            } else if ((char) i == NEWLINE) {
+                DemonymMap.put(key, new HashSet<>(DemonymSet));
+                DemonymSet.clear();
+                key = "";
+                line = "";
+            }
+            else {
+                DemonymSet.add(line.trim());
+                line = "";
+            }
+        }
+        return DemonymMap;
+    }
 	
 	@Override
 	public void resolute(List<DEPTree> trees, List<Mention> mentions,
