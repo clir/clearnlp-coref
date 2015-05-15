@@ -56,7 +56,7 @@ There are 22 walnut trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant more walnut trees today . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
 
 When the workers are finished there will be 55 walnut trees in the park . 
 [worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
@@ -131,7 +131,7 @@ How much did each book cost ?
 [each	PRONOUN_WILDCARD	SINGULAR	QUANMOD, book	COMMON_UNKNOWN	SINGULAR	null, cost	COMMON_UNKNOWN	SINGULAR	null]
 
 Oceanside Bike Rental Shop charges 17 dollars plus 7 dollars an hour for renting a bike . 
-[oceanside	ORGANIZATION	UNKNOWN	null, bike	ORGANIZATION	UNKNOWN	null, rental	ORGANIZATION	UNKNOWN	null, shop	ORGANIZATION	UNKNOWN	null, dollar	COMMON_UNKNOWN	PLURAL	null, dollar	COMMON_UNKNOWN	PLURAL	null, hour	COMMON_UNKNOWN	SINGULAR	null, bike	COMMON_UNKNOWN	SINGULAR	null]
+[shop	ORGANIZATION	UNKNOWN	null, dollar	COMMON_UNKNOWN	PLURAL	null, dollar	COMMON_UNKNOWN	PLURAL	null, hour	COMMON_UNKNOWN	SINGULAR	null, bike	COMMON_UNKNOWN	SINGULAR	null]
 
 Tom paid 8 0 dollars to rent a bike . 
 [tom	PERSON_MALE	SINGULAR	null, dollar	COMMON_UNKNOWN	PLURAL	null, bike	COMMON_UNKNOWN	SINGULAR	null]
@@ -182,7 +182,7 @@ There are 4 walnut trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant 6 more walnut trees today . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
 
 How many walnut trees will the park have when the workers are finished ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null, worker	COMMON_UNKNOWN	PLURAL	null]
@@ -296,7 +296,7 @@ There are 7 dogwood trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant 3 more dogwood trees today and 2 more dogwood trees tomorrow . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tomorrow	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tomorrow	COMMON_UNKNOWN	SINGULAR	null]
 
 How many dogwood trees will the park have when the workers are finished ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null, worker	COMMON_UNKNOWN	PLURAL	null]
@@ -431,7 +431,7 @@ There are 33 walnut trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant 44 more walnut trees today . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
 
 How many walnut trees will the park have when the workers are finished ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null, worker	COMMON_UNKNOWN	PLURAL	null]
@@ -497,7 +497,7 @@ There are 39 dogwood trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant 41 more dogwood trees today and 20 more dogwood trees tomorrow . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tomorrow	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tomorrow	COMMON_UNKNOWN	SINGULAR	null]
 
 How many dogwood trees will the park have when the workers are finished ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null, worker	COMMON_UNKNOWN	PLURAL	null]
@@ -593,7 +593,7 @@ There are 53 maple trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant more maple trees today . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
 
 When the workers are finished there will be 64 maple trees in the park . 
 [worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
@@ -683,7 +683,7 @@ There are 5 oak trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant 4 more oak trees today . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
 
 How many oak trees will the park have when the workers are finished ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null, worker	COMMON_UNKNOWN	PLURAL	null]
@@ -734,7 +734,7 @@ There are 34 dogwood trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant 49 more dogwood trees today . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
 
 How many dogwood trees will the park have when the workers are finished ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null, worker	COMMON_UNKNOWN	PLURAL	null]
@@ -800,7 +800,7 @@ There are 25 popular trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant 73 more popular trees today . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
 
 How many popular trees will the park have when the workers are finished ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null, worker	COMMON_UNKNOWN	PLURAL	null]
@@ -869,10 +869,10 @@ How many turnips did they grow in all ?
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, turnip	COMMON_UNKNOWN	PLURAL	null, they	PRONOUN_NEUTRAL	PLURAL	REGULAR, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
 
 Jason has 676 Pokemon cards . 
-[jason	PERSON_MALE	SINGULAR	null, pokemon	ORGANIZATION	UNKNOWN	null, card	COMMON_UNKNOWN	PLURAL	null]
+[jason	PERSON_MALE	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
 
 Alyssa bought 224 of Jason 's Pokemon cards . 
-[alyssa	ORGANIZATION	UNKNOWN	null, jason	PERSON_MALE	SINGULAR	null, pokemon	PERSON_UNKNOWN	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
+[alyssa	ORGANIZATION	UNKNOWN	null, jason	PERSON_MALE	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
 
 How many Pokemon cards does Jason have now ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, pokemon	PROPER_UNKOWN	UNKNOWN	null, card	COMMON_UNKNOWN	PLURAL	null, jason	PERSON_MALE	SINGULAR	null]
@@ -881,7 +881,7 @@ There are 107 walnut trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant 104 more walnut trees today . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
 
 How many walnut trees will the park have when the workers are finished ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null, worker	COMMON_UNKNOWN	PLURAL	null]
@@ -1076,10 +1076,10 @@ How many dozen baseball cards do they have in all ?
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, dozen	COMMON_UNKNOWN	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null, they	PRONOUN_NEUTRAL	PLURAL	REGULAR, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
 
 Jason has 3 Pokemon cards . 
-[jason	PERSON_MALE	SINGULAR	null, pokemon	ORGANIZATION	UNKNOWN	null, card	COMMON_UNKNOWN	PLURAL	null]
+[jason	PERSON_MALE	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
 
 Benny bought 2 of Jason 's Pokemon cards . 
-[benny	PROPER_UNKOWN	UNKNOWN	null, jason	PERSON_MALE	SINGULAR	null, pokemon	PERSON_UNKNOWN	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
+[benny	PROPER_UNKOWN	UNKNOWN	null, jason	PERSON_MALE	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
 
 How many Pokemon cards does Jason have now ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, pokemon	PROPER_UNKOWN	UNKNOWN	null, card	COMMON_UNKNOWN	PLURAL	null, jason	PERSON_MALE	SINGULAR	null]
@@ -1103,7 +1103,7 @@ There are 2 rose bushes currently in the park .
 [bush	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant 4 more rose bushes today . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, bush	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, bush	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
 
 How many rose bushes will the park have when the workers are finished ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, bush	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null, worker	COMMON_UNKNOWN	PLURAL	null]
@@ -1142,13 +1142,13 @@ How many golf balls does she have ?
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, golf	COMMON_UNKNOWN	SINGULAR	null, ball	COMMON_UNKNOWN	PLURAL	null, she	PRONOUN_FEMALE	SINGULAR	REGULAR]
 
 Jason had Pokemon cards . 
-[jason	PERSON_MALE	SINGULAR	null, pokemon	PERSON_UNKNOWN	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
+[jason	PERSON_MALE	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
 
 He gave 9 to his friends . 
 [he	PRONOUN_MALE	SINGULAR	REGULAR, his	PRONOUN_MALE	SINGULAR	REGULAR, friend	COMMON_UNKNOWN	PLURAL	null]
 
 He now has 4 Pokemon cards left . 
-[he	PRONOUN_MALE	SINGULAR	REGULAR, pokemon	ORGANIZATION	UNKNOWN	null, card	COMMON_UNKNOWN	PLURAL	null, leave	PRONOUN_WILDCARD	UNKNOWN	INCLUSIVE_STAT]
+[he	PRONOUN_MALE	SINGULAR	REGULAR, card	COMMON_UNKNOWN	PLURAL	null, leave	PRONOUN_WILDCARD	UNKNOWN	INCLUSIVE_STAT]
 
 How many Pokemon cards did he have to start with ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, pokemon	PERSON_UNKNOWN	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null, he	PRONOUN_MALE	SINGULAR	REGULAR]
@@ -1367,7 +1367,7 @@ How many pencils do they have have in all ?
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, pencil	COMMON_UNKNOWN	PLURAL	null, they	PRONOUN_NEUTRAL	PLURAL	REGULAR, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
 
 Sam , Dan , Tom , and Keith each have 14 Pokemon cards . 
-[sam	PERSON_NEUTRAL	SINGULAR	null, dan	PERSON_MALE	SINGULAR	null, tom	PERSON_MALE	SINGULAR	null, keith	PERSON_MALE	SINGULAR	null, each	PRONOUN_WILDCARD	SINGULAR	QUANMOD, pokemon	ORGANIZATION	UNKNOWN	null, card	COMMON_UNKNOWN	PLURAL	null]
+[sam	PERSON_NEUTRAL	SINGULAR	null, dan	PERSON_MALE	SINGULAR	null, tom	PERSON_MALE	SINGULAR	null, keith	PERSON_MALE	SINGULAR	null, each	PRONOUN_WILDCARD	SINGULAR	QUANMOD, card	COMMON_UNKNOWN	PLURAL	null]
 
 How many Pokemon cards do they have in all ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, pokemon	PERSON_UNKNOWN	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null, they	PRONOUN_NEUTRAL	PLURAL	REGULAR, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
@@ -1472,7 +1472,7 @@ How many red marbles does Sandy have ?
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, marble	COMMON_UNKNOWN	PLURAL	null, sandy	PERSON_NEUTRAL	SINGULAR	null]
 
 Melanie , Benny , Sandy , and Jessica each have 9 dozen Pokemon cards . 
-[melanie	PERSON_FEMALE	SINGULAR	null, benny	PERSON_MALE	SINGULAR	null, sandy	PERSON_NEUTRAL	SINGULAR	null, jessica	PROPER_UNKOWN	UNKNOWN	null, each	PRONOUN_WILDCARD	SINGULAR	QUANMOD, dozen	COMMON_UNKNOWN	SINGULAR	null, pokemon	PROPER_UNKOWN	UNKNOWN	null, card	COMMON_UNKNOWN	PLURAL	null]
+[melanie	PERSON_FEMALE	SINGULAR	null, benny	PERSON_MALE	SINGULAR	null, sandy	PERSON_NEUTRAL	SINGULAR	null, jessica	PROPER_UNKOWN	UNKNOWN	null, each	PRONOUN_WILDCARD	SINGULAR	QUANMOD, dozen	COMMON_UNKNOWN	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
 
 How many Pokemon cards do they have in all ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, pokemon	PERSON_UNKNOWN	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null, they	PRONOUN_NEUTRAL	PLURAL	REGULAR, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
@@ -1568,7 +1568,7 @@ There are 9 oak trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers had to cut down 2 oak trees that were damaged . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null]
 
 How many oak trees will the park have when the workers are finished ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null, worker	COMMON_UNKNOWN	PLURAL	null]
@@ -1670,7 +1670,7 @@ There are 33 oak trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers had to cut down 1 8 oak trees that were damaged . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null]
 
 How many oak trees will be in the park when the workers are finished ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null, worker	COMMON_UNKNOWN	PLURAL	null]
@@ -1703,10 +1703,10 @@ How much money in total does Alyssa have ?
 [money	COMMON_UNKNOWN	SINGULAR	null, total	COMMON_UNKNOWN	SINGULAR	null, alyssa	PERSON_FEMALE	SINGULAR	null]
 
 On Wednesday , Joan spent 4 half - dollars playing pinball . 
-[wednesday	PROPER_UNKOWN	UNKNOWN	null, joan	PERSON_NEUTRAL	SINGULAR	null, half	PRONOUN_WILDCARD	UNKNOWN	QUANMOD, dollar	COMMON_UNKNOWN	PLURAL	null, pinball	COMMON_UNKNOWN	SINGULAR	null]
+[wednesday	PROPER_UNKOWN	UNKNOWN	null, joan	PERSON_NEUTRAL	SINGULAR	null, dollar	COMMON_UNKNOWN	PLURAL	null, pinball	COMMON_UNKNOWN	SINGULAR	null]
 
 The next day , she spent 14 half - dollars on pinball . 
-[day	COMMON_UNKNOWN	SINGULAR	null, she	PRONOUN_FEMALE	SINGULAR	REGULAR, half	PRONOUN_WILDCARD	UNKNOWN	QUANMOD, dollar	COMMON_UNKNOWN	PLURAL	null, pinball	COMMON_UNKNOWN	SINGULAR	null]
+[day	COMMON_UNKNOWN	SINGULAR	null, she	PRONOUN_FEMALE	SINGULAR	REGULAR, dollar	COMMON_UNKNOWN	PLURAL	null, pinball	COMMON_UNKNOWN	SINGULAR	null]
 
 What was the total amount Joan spent playing pinball ? 
 [amount	PRONOUN_WILDCARD	UNKNOWN	UNIT_LIKE, joan	PERSON_NEUTRAL	SINGULAR	null, pinball	COMMON_UNKNOWN	SINGULAR	null]
@@ -1760,7 +1760,7 @@ Keith loves trading cards .
 [keith	PERSON_MALE	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
 
 She bought 4 packs of Digimon cards for $ 4.45 each , and a deck of baseball cards for $ 6.06 . 
-[she	PRONOUN_FEMALE	SINGULAR	REGULAR, pack	COMMON_UNKNOWN	PLURAL	null, digimon	ORGANIZATION	UNKNOWN	null, card	COMMON_UNKNOWN	PLURAL	null, each	PRONOUN_WILDCARD	SINGULAR	QUANMOD, deck	COMMON_UNKNOWN	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
+[she	PRONOUN_FEMALE	SINGULAR	REGULAR, pack	COMMON_UNKNOWN	PLURAL	null, card	COMMON_UNKNOWN	PLURAL	null, each	PRONOUN_WILDCARD	SINGULAR	QUANMOD, deck	COMMON_UNKNOWN	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
 
 How much did Keith spend on cards ? 
 [keith	PERSON_MALE	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
@@ -1823,7 +1823,7 @@ He bought a flute for $ 142.46 , a music stand for $ 8.89 , and a song book for 
 [he	PRONOUN_MALE	SINGULAR	REGULAR, flute	COMMON_UNKNOWN	SINGULAR	null, stand	COMMON_UNKNOWN	SINGULAR	null, book	COMMON_UNKNOWN	SINGULAR	null, jason	PERSON_MALE	SINGULAR	null, music	COMMON_UNKNOWN	SINGULAR	null, store	COMMON_UNKNOWN	SINGULAR	null]
 
 Tom purchased a football game for $ 14.02 , a strategy game for $ 9.46 , and a Batman game for $ 12.04 . 
-[tom	PERSON_MALE	SINGULAR	null, game	COMMON_UNKNOWN	SINGULAR	null, game	COMMON_UNKNOWN	SINGULAR	null, batman	PROPER_UNKOWN	UNKNOWN	null, game	COMMON_UNKNOWN	SINGULAR	null]
+[tom	PERSON_MALE	SINGULAR	null, game	COMMON_UNKNOWN	SINGULAR	null, game	COMMON_UNKNOWN	SINGULAR	null, game	COMMON_UNKNOWN	SINGULAR	null]
 
 How much did Tom spend on video games ? 
 [tom	PERSON_MALE	SINGULAR	null, game	COMMON_UNKNOWN	PLURAL	null]
@@ -1832,7 +1832,7 @@ Fred loves trading cards .
 [fred	PERSON_MALE	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
 
 He bought 2 packs of football cards for $ 2.73 each , a pack of Pokemon cards for $ 4.01 , and a deck of baseball cards for $ 8.95 . 
-[he	PRONOUN_MALE	SINGULAR	REGULAR, pack	COMMON_UNKNOWN	PLURAL	null, card	COMMON_UNKNOWN	PLURAL	null, each	PRONOUN_WILDCARD	SINGULAR	QUANMOD, pack	COMMON_UNKNOWN	SINGULAR	null, pokemon	PERSON_UNKNOWN	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null, deck	COMMON_UNKNOWN	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
+[he	PRONOUN_MALE	SINGULAR	REGULAR, pack	COMMON_UNKNOWN	PLURAL	null, card	COMMON_UNKNOWN	PLURAL	null, each	PRONOUN_WILDCARD	SINGULAR	QUANMOD, pack	COMMON_UNKNOWN	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null, deck	COMMON_UNKNOWN	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
 
 How much did Fred spend on cards ? 
 [fred	PERSON_MALE	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
@@ -1883,7 +1883,7 @@ How much change was Sara given ?
 [change	COMMON_UNKNOWN	SINGULAR	null, sara	PERSON_FEMALE	SINGULAR	null]
 
 Fred purchased a Superman game for $ 8.76 , and a baseball game for $ 11.44 with two $ 20 bills . 
-[fred	ORGANIZATION	UNKNOWN	null, superman	PROPER_UNKOWN	UNKNOWN	null, game	COMMON_UNKNOWN	SINGULAR	null, game	COMMON_UNKNOWN	SINGULAR	null, bill	COMMON_UNKNOWN	PLURAL	null]
+[fred	ORGANIZATION	UNKNOWN	null, game	COMMON_UNKNOWN	SINGULAR	null, game	COMMON_UNKNOWN	SINGULAR	null, bill	COMMON_UNKNOWN	PLURAL	null]
 
 How much change did Fred get ? 
 [change	COMMON_UNKNOWN	SINGULAR	null, fred	PERSON_MALE	SINGULAR	null]
@@ -1892,7 +1892,7 @@ Sam loves trading cards .
 [sam	PERSON_NEUTRAL	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
 
 He bought 3 packs of football cards for $ 4.64 each , and a deck of Pokemon cards for $ 12.0 8 with two $ 20 bills . 
-[he	PRONOUN_MALE	SINGULAR	REGULAR, pack	COMMON_UNKNOWN	PLURAL	null, card	COMMON_UNKNOWN	PLURAL	null, each	PRONOUN_WILDCARD	SINGULAR	QUANMOD, deck	COMMON_UNKNOWN	SINGULAR	null, pokemon	PROPER_UNKOWN	UNKNOWN	null, card	COMMON_UNKNOWN	PLURAL	null, bill	COMMON_UNKNOWN	PLURAL	null]
+[he	PRONOUN_MALE	SINGULAR	REGULAR, pack	COMMON_UNKNOWN	PLURAL	null, card	COMMON_UNKNOWN	PLURAL	null, each	PRONOUN_WILDCARD	SINGULAR	QUANMOD, deck	COMMON_UNKNOWN	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null, bill	COMMON_UNKNOWN	PLURAL	null]
 
 How much change did Sam get ? 
 [change	COMMON_UNKNOWN	SINGULAR	null, sam	PERSON_NEUTRAL	SINGULAR	null]
@@ -1973,7 +1973,7 @@ In all , how many liters of oil leaked into the water ?
 [all	PRONOUN_WILDCARD	PLURAL	QUANMOD, many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, liter	COMMON_UNKNOWN	PLURAL	null, oil	COMMON_UNKNOWN	SINGULAR	null, water	COMMON_UNKNOWN	SINGULAR	null]
 
 A car company produced 3,884 cars in North America and 2,871 cars in Europe . 
-[company	COMMON_UNKNOWN	SINGULAR	null, car	COMMON_UNKNOWN	PLURAL	null, north	LOCATION	UNKNOWN	null, america	LOCATION	UNKNOWN	null, car	COMMON_UNKNOWN	PLURAL	null, europe	LOCATION	UNKNOWN	null]
+[company	COMMON_UNKNOWN	SINGULAR	null, car	COMMON_UNKNOWN	PLURAL	null, america	LOCATION	UNKNOWN	null, car	COMMON_UNKNOWN	PLURAL	null, europe	LOCATION	UNKNOWN	null]
 
 How many cars is that in all ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, car	COMMON_UNKNOWN	PLURAL	null, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
@@ -1988,16 +1988,16 @@ How many yen do they have ?
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, yen	COMMON_UNKNOWN	PLURAL	null, they	PRONOUN_NEUTRAL	PLURAL	REGULAR]
 
 There are 1,986 books in Oak Grove 's public library . 
-[book	COMMON_UNKNOWN	PLURAL	null, oak	PROPER_UNKOWN	UNKNOWN	null, grove	PROPER_UNKOWN	UNKNOWN	null, library	COMMON_UNKNOWN	SINGULAR	null]
+[book	COMMON_UNKNOWN	PLURAL	null, grove	PROPER_UNKOWN	UNKNOWN	null, library	COMMON_UNKNOWN	SINGULAR	null]
 
 In addition , there are 5,106 books in its school libraries . 
 [addition	COMMON_UNKNOWN	SINGULAR	null, book	COMMON_UNKNOWN	PLURAL	null, its	PRONOUN_NEUTRAL	SINGULAR	REGULAR, library	COMMON_UNKNOWN	PLURAL	null]
 
 How many books do the libraries in Oak Grove have overall ? 
-[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, book	COMMON_UNKNOWN	PLURAL	null, library	COMMON_UNKNOWN	PLURAL	null, oak	PROPER_UNKOWN	UNKNOWN	null, grove	PROPER_UNKOWN	UNKNOWN	null]
+[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, book	COMMON_UNKNOWN	PLURAL	null, library	COMMON_UNKNOWN	PLURAL	null, grove	PROPER_UNKOWN	UNKNOWN	null]
 
 There were originally 20,817 houses in Lincoln County . 
-[house	COMMON_UNKNOWN	PLURAL	null, lincoln	PROPER_UNKOWN	UNKNOWN	null, county	PROPER_UNKOWN	UNKNOWN	null]
+[house	COMMON_UNKNOWN	PLURAL	null, county	PROPER_UNKOWN	UNKNOWN	null]
 
 During a housing boom , developers built 97,741 more . 
 [boom	COMMON_UNKNOWN	SINGULAR	null, developer	COMMON_UNKNOWN	PLURAL	null, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE]
@@ -2102,7 +2102,7 @@ How many bathing suits are available overall ?
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, suit	COMMON_UNKNOWN	PLURAL	null]
 
 Before the recent housing boom , there were 1,426 houses in Lawrence County . 
-[boom	COMMON_UNKNOWN	SINGULAR	null, house	COMMON_UNKNOWN	PLURAL	null, lawrence	PROPER_UNKOWN	UNKNOWN	null, county	PROPER_UNKOWN	UNKNOWN	null]
+[boom	COMMON_UNKNOWN	SINGULAR	null, house	COMMON_UNKNOWN	PLURAL	null, county	PROPER_UNKOWN	UNKNOWN	null]
 
 Now , there are 2,000 houses . 
 [house	COMMON_UNKNOWN	PLURAL	null]
@@ -2135,7 +2135,7 @@ If her fund was worth $ 1,472 before , how much is it worth now ?
 [her	PRONOUN_FEMALE	SINGULAR	REGULAR, fund	COMMON_UNKNOWN	SINGULAR	null, it	PRONOUN_NEUTRAL	SINGULAR	REGULAR]
 
 The Richmond Tigers sold a total of 9,570 tickets last season . 
-[richmond	ORGANIZATION	UNKNOWN	null, tiger	ORGANIZATION	UNKNOWN	null, total	COMMON_UNKNOWN	SINGULAR	null, ticket	COMMON_UNKNOWN	PLURAL	null, season	COMMON_UNKNOWN	SINGULAR	null]
+[tiger	ORGANIZATION	UNKNOWN	null, total	COMMON_UNKNOWN	SINGULAR	null, ticket	COMMON_UNKNOWN	PLURAL	null, season	COMMON_UNKNOWN	SINGULAR	null]
 
 If they sold 3,867 tickets in the first half of the season , how many tickets did they sell in the second half ? 
 [they	PRONOUN_NEUTRAL	PLURAL	REGULAR, ticket	COMMON_UNKNOWN	PLURAL	null, half	PRONOUN_WILDCARD	UNKNOWN	QUANMOD, season	COMMON_UNKNOWN	SINGULAR	null, many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, ticket	COMMON_UNKNOWN	PLURAL	null, they	PRONOUN_NEUTRAL	PLURAL	REGULAR, half	PRONOUN_WILDCARD	UNKNOWN	QUANMOD]
@@ -2159,7 +2159,7 @@ If she picked up 344 pieces of trash in the classrooms , how many pieces of tras
 [she	PRONOUN_FEMALE	SINGULAR	REGULAR, piece	COMMON_UNKNOWN	PLURAL	null, trash	COMMON_UNKNOWN	SINGULAR	null, classroom	COMMON_UNKNOWN	PLURAL	null, many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, piece	COMMON_UNKNOWN	PLURAL	null, trash	COMMON_UNKNOWN	SINGULAR	null, tori	PERSON_NEUTRAL	SINGULAR	null, classroom	COMMON_UNKNOWN	PLURAL	null]
 
 Molly owns the Wafting Pie Company . 
-[molly	PERSON_NEUTRAL	SINGULAR	null, wafting	PROPER_UNKOWN	UNKNOWN	null, pie	PROPER_UNKOWN	UNKNOWN	null, company	PROPER_UNKOWN	UNKNOWN	null]
+[molly	PERSON_NEUTRAL	SINGULAR	null, company	PROPER_UNKOWN	UNKNOWN	null]
 
 This morning , her employees used 8 16 eggs to bake pumpkin pies . 
 [morning	COMMON_UNKNOWN	SINGULAR	null, her	PRONOUN_FEMALE	SINGULAR	REGULAR, employee	COMMON_UNKNOWN	PLURAL	null, egg	COMMON_UNKNOWN	PLURAL	null, pie	COMMON_UNKNOWN	PLURAL	null]
@@ -2174,10 +2174,10 @@ There are 193 white ones .
 [#crd#	COMMON_UNKNOWN	PLURAL	null]
 
 How many of Farmer Cunningham 's lambs are black ? 
-[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, farmer	PERSON_UNKNOWN	SINGULAR	null, cunningham	PERSON_UNKNOWN	SINGULAR	null, lamb	COMMON_UNKNOWN	PLURAL	null]
+[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, cunningham	PERSON_UNKNOWN	SINGULAR	null, lamb	COMMON_UNKNOWN	PLURAL	null]
 
 Students at Arcadia schools are participating in a coat drive . 
-[student	COMMON_UNKNOWN	PLURAL	null, arcadia	PROPER_UNKOWN	UNKNOWN	null, school	COMMON_UNKNOWN	PLURAL	null, drive	COMMON_UNKNOWN	SINGULAR	null]
+[student	COMMON_UNKNOWN	PLURAL	null, school	COMMON_UNKNOWN	PLURAL	null, drive	COMMON_UNKNOWN	SINGULAR	null]
 
 9,437 coats have been collected so far . 
 [coat	COMMON_UNKNOWN	PLURAL	null]
@@ -2189,13 +2189,13 @@ How many coats were collected at the elementary schools ?
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, coat	COMMON_UNKNOWN	PLURAL	null, school	COMMON_UNKNOWN	PLURAL	null]
 
 A company painted some houses in Hancock County white and blue using a total of 6,689 gallons of paint . 
-[company	COMMON_UNKNOWN	SINGULAR	null, some	PRONOUN_WILDCARD	PLURAL	ABSTRACTQUAN, house	COMMON_UNKNOWN	PLURAL	null, hancock	PROPER_UNKOWN	UNKNOWN	null, county	PROPER_UNKOWN	UNKNOWN	null, total	COMMON_UNKNOWN	SINGULAR	null, gallon	COMMON_UNKNOWN	PLURAL	null, paint	COMMON_UNKNOWN	SINGULAR	null]
+[company	COMMON_UNKNOWN	SINGULAR	null, some	PRONOUN_WILDCARD	PLURAL	ABSTRACTQUAN, house	COMMON_UNKNOWN	PLURAL	null, county	PROPER_UNKOWN	UNKNOWN	null, total	COMMON_UNKNOWN	SINGULAR	null, gallon	COMMON_UNKNOWN	PLURAL	null, paint	COMMON_UNKNOWN	SINGULAR	null]
 
 If they used 660 gallons of white paint , how many gallons of blue paint did the company use ? 
 [they	PRONOUN_NEUTRAL	PLURAL	REGULAR, gallon	COMMON_UNKNOWN	PLURAL	null, paint	COMMON_UNKNOWN	SINGULAR	null, many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, gallon	COMMON_UNKNOWN	PLURAL	null, paint	COMMON_UNKNOWN	SINGULAR	null, company	COMMON_UNKNOWN	SINGULAR	null]
 
 The Silvergrove Public Library used a grant to purchase 2,647 books . 
-[silvergrove	ORGANIZATION	UNKNOWN	null, public	ORGANIZATION	UNKNOWN	null, library	ORGANIZATION	UNKNOWN	null, grant	COMMON_UNKNOWN	SINGULAR	null, book	COMMON_UNKNOWN	PLURAL	null]
+[library	ORGANIZATION	UNKNOWN	null, grant	COMMON_UNKNOWN	SINGULAR	null, book	COMMON_UNKNOWN	PLURAL	null]
 
 Now the library has a total of 8 , 582 books . 
 [library	COMMON_UNKNOWN	SINGULAR	null, total	COMMON_UNKNOWN	SINGULAR	null, book	COMMON_UNKNOWN	PLURAL	null]
@@ -2207,10 +2207,10 @@ A cell phone company has a total of 7,422 customers across the world .
 [company	COMMON_UNKNOWN	SINGULAR	null, total	COMMON_UNKNOWN	SINGULAR	null, customer	COMMON_UNKNOWN	PLURAL	null, world	COMMON_UNKNOWN	SINGULAR	null]
 
 If 723 of its customers live in the United States , how many of its customers live in other countries ? 
-[its	PRONOUN_NEUTRAL	SINGULAR	REGULAR, customer	COMMON_UNKNOWN	PLURAL	null, united	PROPER_UNKOWN	UNKNOWN	null, state	PROPER_UNKOWN	UNKNOWN	null, many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, its	PRONOUN_NEUTRAL	SINGULAR	REGULAR, customer	COMMON_UNKNOWN	PLURAL	null, country	COMMON_UNKNOWN	PLURAL	null]
+[its	PRONOUN_NEUTRAL	SINGULAR	REGULAR, customer	COMMON_UNKNOWN	PLURAL	null, state	PROPER_UNKOWN	UNKNOWN	null, many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, its	PRONOUN_NEUTRAL	SINGULAR	REGULAR, customer	COMMON_UNKNOWN	PLURAL	null, country	COMMON_UNKNOWN	PLURAL	null]
 
 Last year , egg producers in Douglas County produced 1,416 eggs . 
-[year	COMMON_UNKNOWN	SINGULAR	null, producer	COMMON_UNKNOWN	PLURAL	null, douglas	PROPER_UNKOWN	UNKNOWN	null, county	PROPER_UNKOWN	UNKNOWN	null, egg	COMMON_UNKNOWN	PLURAL	null]
+[year	COMMON_UNKNOWN	SINGULAR	null, producer	COMMON_UNKNOWN	PLURAL	null, county	PROPER_UNKOWN	UNKNOWN	null, egg	COMMON_UNKNOWN	PLURAL	null]
 
 This year , those same farms produced 4,636 eggs . 
 [year	COMMON_UNKNOWN	SINGULAR	null, same	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, farm	COMMON_UNKNOWN	PLURAL	null, egg	COMMON_UNKNOWN	PLURAL	null]
@@ -2270,13 +2270,13 @@ How many inches of the road had they repaved before today ?
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, inch	COMMON_UNKNOWN	PLURAL	null, road	COMMON_UNKNOWN	SINGULAR	null, they	PRONOUN_NEUTRAL	PLURAL	REGULAR, today	COMMON_UNKNOWN	SINGULAR	null]
 
 Milford Lake was originally blue because it only had 8 09 algae plants . 
-[milford	PROPER_UNKOWN	UNKNOWN	null, lake	PROPER_UNKOWN	UNKNOWN	null, it	PRONOUN_NEUTRAL	SINGULAR	REGULAR, plant	COMMON_UNKNOWN	PLURAL	null]
+[lake	PROPER_UNKOWN	UNKNOWN	null, it	PRONOUN_NEUTRAL	SINGULAR	REGULAR, plant	COMMON_UNKNOWN	PLURAL	null]
 
 Now there are 3,263 algae plants , and the lake has turned green . 
 [plant	COMMON_UNKNOWN	PLURAL	null, lake	COMMON_UNKNOWN	SINGULAR	null]
 
 How many more algae plants are in Milford Lake now ? 
-[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, plant	COMMON_UNKNOWN	PLURAL	null, milford	PROPER_UNKOWN	UNKNOWN	null, lake	PROPER_UNKOWN	UNKNOWN	null]
+[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, plant	COMMON_UNKNOWN	PLURAL	null, lake	PROPER_UNKOWN	UNKNOWN	null]
 
 Oscar 's bus ride to school is 3/4 of a mile and Charlie 's bus ride is 1/4 of a mile . 
 [oscar	PERSON_MALE	SINGULAR	null, ride	COMMON_UNKNOWN	SINGULAR	null, school	COMMON_UNKNOWN	SINGULAR	null, mile	COMMON_UNKNOWN	SINGULAR	null, charlie	PERSON_NEUTRAL	SINGULAR	null, ride	COMMON_UNKNOWN	SINGULAR	null, mile	COMMON_UNKNOWN	SINGULAR	null]
@@ -2330,10 +2330,10 @@ How much longer was the first fish ?
 [fish	COMMON_UNKNOWN	SINGULAR	null]
 
 Hannah 's Vegetarian Restaurant bought 1/3 of a pound of green peppers and 1/3 of a pound of red peppers . 
-[hannah	PERSON_FEMALE	SINGULAR	null, vegetarian	ORGANIZATION	UNKNOWN	null, restaurant	ORGANIZATION	UNKNOWN	null, pound	COMMON_UNKNOWN	SINGULAR	null, pepper	COMMON_UNKNOWN	PLURAL	null, pound	COMMON_UNKNOWN	SINGULAR	null, pepper	COMMON_UNKNOWN	PLURAL	null]
+[hannah	PERSON_FEMALE	SINGULAR	null, restaurant	ORGANIZATION	UNKNOWN	null, pound	COMMON_UNKNOWN	SINGULAR	null, pepper	COMMON_UNKNOWN	PLURAL	null, pound	COMMON_UNKNOWN	SINGULAR	null, pepper	COMMON_UNKNOWN	PLURAL	null]
 
 How many pounds of peppers did Hannah 's Vegetarian Restaurant buy in all ? 
-[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, pound	COMMON_UNKNOWN	PLURAL	null, pepper	COMMON_UNKNOWN	PLURAL	null, hannah	PERSON_FEMALE	SINGULAR	null, vegetarian	ORGANIZATION	UNKNOWN	null, restaurant	ORGANIZATION	UNKNOWN	null, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
+[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, pound	COMMON_UNKNOWN	PLURAL	null, pepper	COMMON_UNKNOWN	PLURAL	null, hannah	PERSON_FEMALE	SINGULAR	null, restaurant	ORGANIZATION	UNKNOWN	null, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
 
 Ella owns two dogs . 
 [ella	PERSON_NEUTRAL	SINGULAR	null, dog	COMMON_MALE	PLURAL	null]
@@ -2363,13 +2363,13 @@ How much more cinnamon than nutmeg did Mandy use ?
 [more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, cinnamon	COMMON_UNKNOWN	SINGULAR	null, nutmeg	COMMON_UNKNOWN	SINGULAR	null, mandy	PERSON_FEMALE	SINGULAR	null]
 
 The Montoya family spends 3/5 of their budget on groceries and another 1/5 going out to eat . 
-[montoya	PERSON_UNKNOWN	SINGULAR	null, family	COMMON_UNKNOWN	SINGULAR	null, their	PRONOUN_UNKNOWN	UNKNOWN	UNKNOWN, budget	COMMON_UNKNOWN	SINGULAR	null, grocery	COMMON_UNKNOWN	PLURAL	null]
+[family	COMMON_UNKNOWN	SINGULAR	null, their	PRONOUN_UNKNOWN	UNKNOWN	UNKNOWN, budget	COMMON_UNKNOWN	SINGULAR	null, grocery	COMMON_UNKNOWN	PLURAL	null]
 
 Altogether , what fraction of their budget does the Montoya family spend on food ? 
-[fraction	COMMON_UNKNOWN	SINGULAR	null, their	PRONOUN_UNKNOWN	UNKNOWN	UNKNOWN, budget	COMMON_UNKNOWN	SINGULAR	null, montoya	PERSON_UNKNOWN	SINGULAR	null, family	COMMON_UNKNOWN	SINGULAR	null, food	COMMON_UNKNOWN	SINGULAR	null]
+[fraction	COMMON_UNKNOWN	SINGULAR	null, their	PRONOUN_UNKNOWN	UNKNOWN	UNKNOWN, budget	COMMON_UNKNOWN	SINGULAR	null, family	COMMON_UNKNOWN	SINGULAR	null, food	COMMON_UNKNOWN	SINGULAR	null]
 
 In Mr. Olsen 's mathematics class , 7/10 of the students received A 's and 2/10 received B 's . 
-[mr.	PROPER_UNKOWN	UNKNOWN	null, olsen	PERSON_MALE	SINGULAR	null, class	COMMON_UNKNOWN	SINGULAR	null, student	COMMON_UNKNOWN	PLURAL	null, a	ORGANIZATION	UNKNOWN	null, b	ORGANIZATION	UNKNOWN	null]
+[olsen	PERSON_MALE	SINGULAR	null, class	COMMON_UNKNOWN	SINGULAR	null, student	COMMON_UNKNOWN	PLURAL	null, a	ORGANIZATION	UNKNOWN	null, b	ORGANIZATION	UNKNOWN	null]
 
 What fraction of the students received either A 's or B 's ? 
 [fraction	COMMON_UNKNOWN	SINGULAR	null, student	COMMON_UNKNOWN	PLURAL	null, b	PROPER_UNKOWN	UNKNOWN	null]
@@ -2504,7 +2504,7 @@ Greg harvested 2/5 of an acre of corn on Monday and Sharon harvested 1/10 of an 
 [greg	PROPER_UNKOWN	UNKNOWN	null, acre	COMMON_UNKNOWN	SINGULAR	null, corn	COMMON_UNKNOWN	SINGULAR	null, monday	PROPER_UNKOWN	UNKNOWN	null, sharon	PERSON_NEUTRAL	SINGULAR	null, acre	COMMON_UNKNOWN	SINGULAR	null]
 
 How many more acres did Greg harvest than Sharon ? 
-[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, acre	COMMON_UNKNOWN	PLURAL	null, greg	PROPER_UNKOWN	UNKNOWN	null, harvest	COMMON_UNKNOWN	SINGULAR	null, sharon	PERSON_NEUTRAL	SINGULAR	null]
+[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, acre	COMMON_UNKNOWN	PLURAL	null, harvest	COMMON_UNKNOWN	SINGULAR	null, sharon	PERSON_NEUTRAL	SINGULAR	null]
 
 At the hardware store , 1/4 of the nails are size 2 d and 1/2 of the nails are size 4 d . 
 [store	COMMON_UNKNOWN	SINGULAR	null, nail	COMMON_UNKNOWN	PLURAL	null, size	COMMON_UNKNOWN	SINGULAR	null, d	COMMON_UNKNOWN	SINGULAR	null, nail	COMMON_UNKNOWN	PLURAL	null, size	COMMON_UNKNOWN	SINGULAR	null, d	COMMON_UNKNOWN	SINGULAR	null]
@@ -2576,7 +2576,7 @@ How many miles did Irwin 's family hike in all ?
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, mile	COMMON_UNKNOWN	PLURAL	null, irwin	PERSON_MALE	SINGULAR	null, family	COMMON_UNKNOWN	SINGULAR	null, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
 
 During a visit to an orchard , Charlie picked 1/6 of a bag of Golden Delicious apples , 1/6 of a bag of Macintosh apples , and 1/3 of a bag of Cortland apples . 
-[visit	COMMON_UNKNOWN	SINGULAR	null, orchard	COMMON_UNKNOWN	SINGULAR	null, charlie	PERSON_NEUTRAL	SINGULAR	null, bag	COMMON_UNKNOWN	SINGULAR	null, golden	PROPER_UNKOWN	UNKNOWN	null, delicious	PROPER_UNKOWN	UNKNOWN	null, apple	COMMON_UNKNOWN	PLURAL	null, bag	COMMON_UNKNOWN	SINGULAR	null, macintosh	ORGANIZATION	UNKNOWN	null, apple	COMMON_UNKNOWN	PLURAL	null, bag	COMMON_UNKNOWN	SINGULAR	null, cortland	ORGANIZATION	UNKNOWN	null, apple	COMMON_UNKNOWN	PLURAL	null]
+[visit	COMMON_UNKNOWN	SINGULAR	null, orchard	COMMON_UNKNOWN	SINGULAR	null, charlie	PERSON_NEUTRAL	SINGULAR	null, bag	COMMON_UNKNOWN	SINGULAR	null, apple	COMMON_UNKNOWN	PLURAL	null, bag	COMMON_UNKNOWN	SINGULAR	null, apple	COMMON_UNKNOWN	PLURAL	null, bag	COMMON_UNKNOWN	SINGULAR	null, apple	COMMON_UNKNOWN	PLURAL	null]
 
 How many bags of fruit did Charlie pick in total ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, bag	COMMON_UNKNOWN	PLURAL	null, fruit	COMMON_UNKNOWN	SINGULAR	null, charlie	PERSON_NEUTRAL	SINGULAR	null, total	COMMON_UNKNOWN	SINGULAR	null]
@@ -2591,7 +2591,7 @@ Altogether , how many bottles of mustard does the waitress find ?
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, bottle	COMMON_UNKNOWN	PLURAL	null, mustard	COMMON_UNKNOWN	SINGULAR	null, waitress	COMMON_FEMALE	SINGULAR	null]
 
 A waitress put leftover tarts into the fridge on Thursday night . 
-[waitress	COMMON_FEMALE	SINGULAR	null, leftover	PRONOUN_WILDCARD	UNKNOWN	INCLUSIVE_STAT, tart	COMMON_UNKNOWN	PLURAL	null, fridge	COMMON_UNKNOWN	SINGULAR	null, thursday	PROPER_UNKOWN	UNKNOWN	null, night	COMMON_UNKNOWN	SINGULAR	null]
+[waitress	COMMON_FEMALE	SINGULAR	null, tart	COMMON_UNKNOWN	PLURAL	null, fridge	COMMON_UNKNOWN	SINGULAR	null, night	COMMON_UNKNOWN	SINGULAR	null]
 
 She noticed that the restaurant had 1/12 of a tart filled with cherries , 3/4 of a tart filled with blueberries , and 1/12 of a tart filled with peaches . 
 [she	PRONOUN_FEMALE	SINGULAR	REGULAR, restaurant	COMMON_UNKNOWN	SINGULAR	null, tart	COMMON_UNKNOWN	SINGULAR	null, cherry	COMMON_UNKNOWN	PLURAL	null, tart	COMMON_UNKNOWN	SINGULAR	null, blueberry	COMMON_UNKNOWN	PLURAL	null, tart	COMMON_UNKNOWN	SINGULAR	null, peach	COMMON_UNKNOWN	PLURAL	null]
@@ -2600,7 +2600,7 @@ How many leftover tarts did the restaurant have in all ?
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, leftover	PRONOUN_WILDCARD	UNKNOWN	INCLUSIVE_STAT, tart	COMMON_UNKNOWN	PLURAL	null, restaurant	COMMON_UNKNOWN	SINGULAR	null, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
 
 On her vacation last summer , Trisha walked all over New York City to buy souvenirs . 
-[her	PRONOUN_FEMALE	SINGULAR	REGULAR, vacation	COMMON_UNKNOWN	SINGULAR	null, summer	COMMON_UNKNOWN	SINGULAR	null, trisha	PERSON_FEMALE	SINGULAR	null, all	PRONOUN_WILDCARD	PLURAL	QUANMOD, new	PROPER_UNKOWN	UNKNOWN	null, york	PROPER_UNKOWN	UNKNOWN	null, city	PROPER_UNKOWN	UNKNOWN	null, souvenir	COMMON_UNKNOWN	PLURAL	null]
+[her	PRONOUN_FEMALE	SINGULAR	REGULAR, vacation	COMMON_UNKNOWN	SINGULAR	null, summer	COMMON_UNKNOWN	SINGULAR	null, trisha	PERSON_FEMALE	SINGULAR	null, all	PRONOUN_WILDCARD	PLURAL	QUANMOD, city	PROPER_UNKOWN	UNKNOWN	null, souvenir	COMMON_UNKNOWN	PLURAL	null]
 
 First , she walked 1/9 of a mile from her hotel to a postcard shop . 
 [she	PRONOUN_FEMALE	SINGULAR	REGULAR, mile	COMMON_UNKNOWN	SINGULAR	null, her	PRONOUN_FEMALE	SINGULAR	REGULAR, hotel	COMMON_UNKNOWN	SINGULAR	null, shop	COMMON_UNKNOWN	SINGULAR	null]
@@ -2621,7 +2621,7 @@ How many pounds of trail mix did Brandy make ?
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, pound	COMMON_UNKNOWN	PLURAL	null, mix	COMMON_UNKNOWN	SINGULAR	null, brandy	PERSON_NEUTRAL	SINGULAR	null]
 
 Allie counted the leftover ice cream after a sundae party . 
-[allie	PERSON_FEMALE	SINGULAR	null, leftover	PRONOUN_WILDCARD	UNKNOWN	INCLUSIVE_STAT, cream	COMMON_UNKNOWN	SINGULAR	null, party	COMMON_UNKNOWN	SINGULAR	null]
+[allie	PERSON_FEMALE	SINGULAR	null, cream	COMMON_UNKNOWN	SINGULAR	null, party	COMMON_UNKNOWN	SINGULAR	null]
 
 She had 1/3 of a carton of rocky road ice cream , 1/3 of a carton of cookie dough ice cream , and 1/6 of a carton of strawberry cheesecake ice cream . 
 [she	PRONOUN_FEMALE	SINGULAR	REGULAR, carton	COMMON_UNKNOWN	SINGULAR	null, cream	COMMON_UNKNOWN	SINGULAR	null, carton	COMMON_UNKNOWN	SINGULAR	null, cream	COMMON_UNKNOWN	SINGULAR	null, carton	COMMON_UNKNOWN	SINGULAR	null, cream	COMMON_UNKNOWN	SINGULAR	null]
@@ -2639,13 +2639,13 @@ Altogether , how many bins would the canned food take up ?
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, bin	COMMON_UNKNOWN	PLURAL	null, food	COMMON_UNKNOWN	SINGULAR	null]
 
 Paco 's Countertop Company purchased pieces of marble from a quarry . 
-[paco	PERSON_MALE	SINGULAR	null, countertop	ORGANIZATION	UNKNOWN	null, company	ORGANIZATION	UNKNOWN	null, piece	COMMON_UNKNOWN	PLURAL	null, marble	COMMON_UNKNOWN	SINGULAR	null, quarry	COMMON_UNKNOWN	SINGULAR	null]
+[paco	PERSON_MALE	SINGULAR	null, company	ORGANIZATION	UNKNOWN	null, piece	COMMON_UNKNOWN	PLURAL	null, marble	COMMON_UNKNOWN	SINGULAR	null, quarry	COMMON_UNKNOWN	SINGULAR	null]
 
 The weights of the pieces they purchased were 1/3 of a ton , 1/3 of a ton , and 1/12 of a ton . 
 [weight	COMMON_UNKNOWN	PLURAL	null, piece	COMMON_UNKNOWN	PLURAL	null, they	PRONOUN_NEUTRAL	PLURAL	REGULAR, ton	COMMON_UNKNOWN	SINGULAR	null, ton	COMMON_UNKNOWN	SINGULAR	null, ton	COMMON_UNKNOWN	SINGULAR	null]
 
 How many tons of marble did Paco 's Countertop Company purchase in all ? 
-[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, ton	COMMON_UNKNOWN	PLURAL	null, marble	COMMON_UNKNOWN	SINGULAR	null, paco	PERSON_MALE	SINGULAR	null, countertop	ORGANIZATION	UNKNOWN	null, company	ORGANIZATION	UNKNOWN	null, purchase	COMMON_UNKNOWN	SINGULAR	null, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
+[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, ton	COMMON_UNKNOWN	PLURAL	null, marble	COMMON_UNKNOWN	SINGULAR	null, paco	PERSON_MALE	SINGULAR	null, purchase	COMMON_UNKNOWN	SINGULAR	null, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
 
 Nina did a running drill to get in shape for soccer season . 
 [nina	PERSON_FEMALE	SINGULAR	null, drill	COMMON_UNKNOWN	SINGULAR	null, shape	COMMON_UNKNOWN	SINGULAR	null, season	COMMON_UNKNOWN	SINGULAR	null]
@@ -2696,7 +2696,7 @@ How many gallons of punch did Kendra make ?
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, gallon	COMMON_UNKNOWN	PLURAL	null, punch	COMMON_UNKNOWN	SINGULAR	null, kendra	PERSON_FEMALE	SINGULAR	null]
 
 A spaceship traveled 1/2 of a light - year from Earth to Planet X and 1/10 of a light - year from Planet X to Planet Y. Then it traveled 1/10 of a light - year from Planet Y back to Earth . 
-[spaceship	COMMON_UNKNOWN	SINGULAR	null, year	COMMON_UNKNOWN	SINGULAR	null, earth	LOCATION	UNKNOWN	null, planet	PROPER_UNKOWN	UNKNOWN	null, x	PROPER_UNKOWN	UNKNOWN	null, year	COMMON_UNKNOWN	SINGULAR	null, planet	PROPER_UNKOWN	UNKNOWN	null, x	PROPER_UNKOWN	UNKNOWN	null, planet	PROPER_UNKOWN	UNKNOWN	null, y.	PROPER_UNKOWN	UNKNOWN	null, it	PRONOUN_NEUTRAL	SINGULAR	REGULAR, year	COMMON_UNKNOWN	SINGULAR	null, planet	PROPER_UNKOWN	UNKNOWN	null, y	PROPER_UNKOWN	UNKNOWN	null, earth	LOCATION	UNKNOWN	null]
+[spaceship	COMMON_UNKNOWN	SINGULAR	null, year	COMMON_UNKNOWN	SINGULAR	null, earth	LOCATION	UNKNOWN	null, x	PROPER_UNKOWN	UNKNOWN	null, year	COMMON_UNKNOWN	SINGULAR	null, x	PROPER_UNKOWN	UNKNOWN	null, y.	PROPER_UNKOWN	UNKNOWN	null, it	PRONOUN_NEUTRAL	SINGULAR	REGULAR, year	COMMON_UNKNOWN	SINGULAR	null, y	PROPER_UNKOWN	UNKNOWN	null, earth	LOCATION	UNKNOWN	null]
 
 How many light - years did the spaceship travel in all ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, year	COMMON_UNKNOWN	PLURAL	null, travel	COMMON_UNKNOWN	SINGULAR	null, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
@@ -2762,10 +2762,10 @@ How many cups of liquid did Kenny use in all ?
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, cup	COMMON_UNKNOWN	PLURAL	null, liquid	COMMON_UNKNOWN	SINGULAR	null, kenny	PERSON_MALE	SINGULAR	null, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
 
 Dale 's Vegetarian Restaurant bought 2 5/6 pounds of green peppers and 2 5/6 pounds of red peppers . 
-[dale	ORGANIZATION	UNKNOWN	null, vegetarian	ORGANIZATION	UNKNOWN	null, restaurant	ORGANIZATION	UNKNOWN	null, pound	COMMON_UNKNOWN	PLURAL	null, pepper	COMMON_UNKNOWN	PLURAL	null, pound	COMMON_UNKNOWN	PLURAL	null, pepper	COMMON_UNKNOWN	PLURAL	null]
+[dale	ORGANIZATION	UNKNOWN	null, restaurant	ORGANIZATION	UNKNOWN	null, pound	COMMON_UNKNOWN	PLURAL	null, pepper	COMMON_UNKNOWN	PLURAL	null, pound	COMMON_UNKNOWN	PLURAL	null, pepper	COMMON_UNKNOWN	PLURAL	null]
 
 How many pounds of peppers did Dale 's Vegetarian Restaurant buy in all ? 
-[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, pound	COMMON_UNKNOWN	PLURAL	null, pepper	COMMON_UNKNOWN	PLURAL	null, dale	ORGANIZATION	UNKNOWN	null, vegetarian	ORGANIZATION	UNKNOWN	null, restaurant	ORGANIZATION	UNKNOWN	null, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
+[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, pound	COMMON_UNKNOWN	PLURAL	null, pepper	COMMON_UNKNOWN	PLURAL	null, dale	ORGANIZATION	UNKNOWN	null, restaurant	ORGANIZATION	UNKNOWN	null, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
 
 This afternoon Craig left school , rode the bus 3 5/6 miles , and then walked 1/6 of a mile to get home . 
 [afternoon	COMMON_UNKNOWN	SINGULAR	null, craig	PERSON_MALE	SINGULAR	null, leave	PRONOUN_WILDCARD	UNKNOWN	INCLUSIVE_STAT, school	COMMON_UNKNOWN	SINGULAR	null, bus	COMMON_UNKNOWN	SINGULAR	null, mile	COMMON_UNKNOWN	PLURAL	null, mile	COMMON_UNKNOWN	SINGULAR	null]
@@ -2780,10 +2780,10 @@ How much more does the chemistry textbook weigh than the geometry textbook ?
 [more	PRONOUN_WILDCARD	UNKNOWN	RELATIVE, textbook	COMMON_UNKNOWN	SINGULAR	null, textbook	COMMON_UNKNOWN	SINGULAR	null]
 
 Roadster 's Paving Company used 10 tons of cement to pave Lexi 's street and 5 1/10 tons of cement to pave Tess 's street . 
-[roadster	ORGANIZATION	UNKNOWN	null, paving	ORGANIZATION	UNKNOWN	null, company	ORGANIZATION	UNKNOWN	null, ton	COMMON_UNKNOWN	PLURAL	null, cement	COMMON_UNKNOWN	SINGULAR	null, lexi	ORGANIZATION	UNKNOWN	null, street	COMMON_UNKNOWN	SINGULAR	null, ton	COMMON_UNKNOWN	PLURAL	null, cement	COMMON_UNKNOWN	SINGULAR	null, tess	PERSON_FEMALE	SINGULAR	null, street	COMMON_UNKNOWN	SINGULAR	null]
+[roadster	ORGANIZATION	UNKNOWN	null, company	ORGANIZATION	UNKNOWN	null, ton	COMMON_UNKNOWN	PLURAL	null, cement	COMMON_UNKNOWN	SINGULAR	null, lexi	ORGANIZATION	UNKNOWN	null, street	COMMON_UNKNOWN	SINGULAR	null, ton	COMMON_UNKNOWN	PLURAL	null, cement	COMMON_UNKNOWN	SINGULAR	null, tess	PERSON_FEMALE	SINGULAR	null, street	COMMON_UNKNOWN	SINGULAR	null]
 
 How much cement did Roadster 's Paving Company use in all ? 
-[cement	COMMON_UNKNOWN	SINGULAR	null, roadster	PERSON_UNKNOWN	SINGULAR	null, paving	ORGANIZATION	UNKNOWN	null, company	ORGANIZATION	UNKNOWN	null, use	COMMON_UNKNOWN	SINGULAR	null, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
+[cement	COMMON_UNKNOWN	SINGULAR	null, roadster	PERSON_UNKNOWN	SINGULAR	null, use	COMMON_UNKNOWN	SINGULAR	null, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
 
 On a hot day , Sam poured 1 bucket of water into a plastic wading pool . 
 [day	COMMON_UNKNOWN	SINGULAR	null, sam	PERSON_NEUTRAL	SINGULAR	null, bucket	COMMON_UNKNOWN	SINGULAR	null, water	COMMON_UNKNOWN	SINGULAR	null, pool	COMMON_UNKNOWN	SINGULAR	null]
@@ -2795,7 +2795,7 @@ How much water did Sam pour into the pool ?
 [water	COMMON_UNKNOWN	SINGULAR	null, sam	PERSON_NEUTRAL	SINGULAR	null, pool	COMMON_UNKNOWN	SINGULAR	null]
 
 Kyle jogged 1 1 / 8 laps in P.E. class and 2 1 / 8 laps during track practice . 
-[kyle	PERSON_NEUTRAL	SINGULAR	null, lap	COMMON_UNKNOWN	PLURAL	null, p.e.	PROPER_UNKOWN	UNKNOWN	null, class	COMMON_UNKNOWN	SINGULAR	null, lap	COMMON_UNKNOWN	PLURAL	null, practice	COMMON_UNKNOWN	SINGULAR	null]
+[kyle	PERSON_NEUTRAL	SINGULAR	null, lap	COMMON_UNKNOWN	PLURAL	null, class	COMMON_UNKNOWN	SINGULAR	null, lap	COMMON_UNKNOWN	PLURAL	null, practice	COMMON_UNKNOWN	SINGULAR	null]
 
 How many laps did Kyle jog in all ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, lap	COMMON_UNKNOWN	PLURAL	null, kyle	PERSON_NEUTRAL	SINGULAR	null, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
@@ -2813,7 +2813,7 @@ How much soda did they drink in all ?
 [soda	COMMON_UNKNOWN	SINGULAR	null, they	PRONOUN_NEUTRAL	PLURAL	REGULAR, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
 
 Professor Ellison weighed two pieces of metal for an experiment . 
-[professor	PROPER_UNKOWN	UNKNOWN	null, ellison	PERSON_NEUTRAL	SINGULAR	null, piece	COMMON_UNKNOWN	PLURAL	null, metal	COMMON_UNKNOWN	SINGULAR	null, experiment	COMMON_UNKNOWN	SINGULAR	null]
+[ellison	PERSON_NEUTRAL	SINGULAR	null, piece	COMMON_UNKNOWN	PLURAL	null, metal	COMMON_UNKNOWN	SINGULAR	null, experiment	COMMON_UNKNOWN	SINGULAR	null]
 
 The piece of iron weighed 11 1/6 pounds and the piece of aluminum weighed 5/6 of a pound . 
 [piece	COMMON_UNKNOWN	SINGULAR	null, iron	COMMON_UNKNOWN	SINGULAR	null, pound	COMMON_UNKNOWN	PLURAL	null, piece	COMMON_UNKNOWN	SINGULAR	null, aluminum	COMMON_UNKNOWN	SINGULAR	null, pound	COMMON_UNKNOWN	SINGULAR	null]
@@ -2858,7 +2858,7 @@ How much longer was the green caterpillar than the orange caterpillar ?
 [caterpillar	COMMON_UNKNOWN	SINGULAR	null, caterpillar	COMMON_UNKNOWN	SINGULAR	null]
 
 Alec and his roommates ate 3 1/4 pints of ice cream on Friday night and 1/4 of a pint of ice cream on Saturday night . 
-[alec	PERSON_MALE	SINGULAR	null, his	PRONOUN_MALE	SINGULAR	REGULAR, roommate	COMMON_UNKNOWN	PLURAL	null, pint	COMMON_UNKNOWN	PLURAL	null, cream	COMMON_UNKNOWN	SINGULAR	null, friday	PROPER_UNKOWN	UNKNOWN	null, night	COMMON_UNKNOWN	SINGULAR	null, pint	COMMON_UNKNOWN	SINGULAR	null, cream	COMMON_UNKNOWN	SINGULAR	null, saturday	PROPER_UNKOWN	UNKNOWN	null, night	COMMON_UNKNOWN	SINGULAR	null]
+[alec	PERSON_MALE	SINGULAR	null, his	PRONOUN_MALE	SINGULAR	REGULAR, roommate	COMMON_UNKNOWN	PLURAL	null, pint	COMMON_UNKNOWN	PLURAL	null, cream	COMMON_UNKNOWN	SINGULAR	null, night	COMMON_UNKNOWN	SINGULAR	null, pint	COMMON_UNKNOWN	SINGULAR	null, cream	COMMON_UNKNOWN	SINGULAR	null, night	COMMON_UNKNOWN	SINGULAR	null]
 
 How many pints did they eat in all ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, pint	COMMON_UNKNOWN	PLURAL	null, they	PRONOUN_NEUTRAL	PLURAL	REGULAR, all	PRONOUN_WILDCARD	PLURAL	QUANMOD]
@@ -3161,7 +3161,7 @@ There are 41 short trees and 44 tall trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant 57 short trees today . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
 
 How many short trees will the park have when the workers are finished ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null, worker	COMMON_UNKNOWN	PLURAL	null]
@@ -3242,7 +3242,7 @@ There are 112 short trees and 119 tall trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant 105 short trees today . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
 
 How many short trees will the park have when the workers are finished ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null, worker	COMMON_UNKNOWN	PLURAL	null]
@@ -3278,7 +3278,7 @@ There are 6 short bushes and 4 tall trees currently in the park .
 [bush	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers had to cut down 2 short bushes that were damaged . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, bush	COMMON_UNKNOWN	PLURAL	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, bush	COMMON_UNKNOWN	PLURAL	null]
 
 How many short bushes will the park have when the workers are finished ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, bush	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null, worker	COMMON_UNKNOWN	PLURAL	null]
@@ -3389,7 +3389,7 @@ There are 42 walnut trees and 12 orange trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers had to cut down 13 walnut trees that were damaged . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null]
 
 How many walnut trees will be in the park when the workers are finished ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null, worker	COMMON_UNKNOWN	PLURAL	null]
@@ -3482,7 +3482,7 @@ In total , how much did Mike spend on car parts ?
 [total	COMMON_UNKNOWN	SINGULAR	null, mike	PERSON_MALE	SINGULAR	null, part	PRONOUN_WILDCARD	UNKNOWN	UNIT_LIKE]
 
 Tom purchased a Batman game for $ 13.60 , and a Superman game for $ 5.06 . 
-[tom	PERSON_MALE	SINGULAR	null, batman	PROPER_UNKOWN	UNKNOWN	null, game	COMMON_UNKNOWN	SINGULAR	null, superman	PROPER_UNKOWN	UNKNOWN	null, game	COMMON_UNKNOWN	SINGULAR	null]
+[tom	PERSON_MALE	SINGULAR	null, game	COMMON_UNKNOWN	SINGULAR	null, game	COMMON_UNKNOWN	SINGULAR	null]
 
 Tom already owns 2 games . 
 [tom	PERSON_MALE	SINGULAR	null, game	COMMON_UNKNOWN	PLURAL	null]
@@ -3512,7 +3512,7 @@ How much did Joan spend at the music store ?
 [joan	PERSON_NEUTRAL	SINGULAR	null, music	COMMON_UNKNOWN	SINGULAR	null, store	COMMON_UNKNOWN	SINGULAR	null]
 
 Melanie bought a Batman game for $ 6.95 , a strategy game for $ 7.90 , and a Superman game for $ 7.73 . 
-[melanie	PERSON_FEMALE	SINGULAR	null, batman	PROPER_UNKOWN	UNKNOWN	null, game	COMMON_UNKNOWN	SINGULAR	null, game	COMMON_UNKNOWN	SINGULAR	null, superman	PROPER_UNKOWN	UNKNOWN	null, game	COMMON_UNKNOWN	SINGULAR	null]
+[melanie	PERSON_FEMALE	SINGULAR	null, game	COMMON_UNKNOWN	SINGULAR	null, game	COMMON_UNKNOWN	SINGULAR	null, game	COMMON_UNKNOWN	SINGULAR	null]
 
 Melanie already owns 4 games . 
 [melanie	PERSON_FEMALE	SINGULAR	null, game	COMMON_UNKNOWN	PLURAL	null]
@@ -3590,7 +3590,7 @@ There are 31 short trees and 32 tall trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant short trees today . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
 
 When the workers are finished there will be 95 short trees in the park . 
 [worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
@@ -3665,7 +3665,7 @@ There are 2 maple trees and 5 popular trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant 9 maple trees today . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
 
 How many maple trees will the park have when the workers are finished ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null, worker	COMMON_UNKNOWN	PLURAL	null]
@@ -3737,7 +3737,7 @@ There are 7 dogwood trees currently in the park .
 [tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant 5 dogwood trees today and 4 dogwood trees tomorrow . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null, tomorrow	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null, tomorrow	COMMON_UNKNOWN	SINGULAR	null]
 
 It took 8 workers to finish the work . 
 [it	PRONOUN_NEUTRAL	SINGULAR	REGULAR, worker	COMMON_UNKNOWN	PLURAL	null, work	COMMON_UNKNOWN	SINGULAR	null]
@@ -3863,16 +3863,16 @@ There are 22 orchid bushes and 40 orange trees currently in the park .
 [bush	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant 13 orchid bushes today . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, bush	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, bush	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
 
 How many orchid bushes will the park have when the workers are finished ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, bush	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null, worker	COMMON_UNKNOWN	PLURAL	null]
 
 Mary had 33 Pokemon cards , and 6 were torn . 
-[mary	PERSON_FEMALE	SINGULAR	null, pokemon	PROPER_UNKOWN	UNKNOWN	null, card	COMMON_UNKNOWN	PLURAL	null]
+[mary	PERSON_FEMALE	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
 
 Sam gave Mary 23 new Pokemon cards . 
-[sam	PERSON_NEUTRAL	SINGULAR	null, mary	PERSON_FEMALE	SINGULAR	null, pokemon	ORGANIZATION	UNKNOWN	null, card	COMMON_UNKNOWN	PLURAL	null]
+[sam	PERSON_NEUTRAL	SINGULAR	null, mary	PERSON_FEMALE	SINGULAR	null, card	COMMON_UNKNOWN	PLURAL	null]
 
 How many Pokemon cards does Mary have now ? 
 [many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, pokemon	PROPER_UNKOWN	UNKNOWN	null, card	COMMON_UNKNOWN	PLURAL	null, mary	PERSON_FEMALE	SINGULAR	null]
@@ -3956,7 +3956,7 @@ There are 47 orchid bushes currently in the park .
 [bush	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
 
 Park workers will plant 37 orchid bushes today and 25 orchid bushes tomorrow . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, bush	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null, tomorrow	COMMON_UNKNOWN	SINGULAR	null]
+[worker	COMMON_UNKNOWN	PLURAL	null, bush	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null, tomorrow	COMMON_UNKNOWN	SINGULAR	null]
 
 It took 35 workers to finish the work . 
 [it	PRONOUN_NEUTRAL	SINGULAR	REGULAR, worker	COMMON_UNKNOWN	PLURAL	null, work	COMMON_UNKNOWN	SINGULAR	null]
@@ -3980,76 +3980,4 @@ When they cleaned them , they discovered that 31 were cracked .
 [they	PRONOUN_NEUTRAL	PLURAL	REGULAR, them	PRONOUN_NEUTRAL	PLURAL	REGULAR, they	PRONOUN_NEUTRAL	PLURAL	REGULAR]
 
 How many seashells did they find together ? 
-[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, seashell	COMMON_UNKNOWN	PLURAL	null, they	PRONOUN_NEUTRAL	PLURAL	REGULAR]
-
-Fred picked 36 limes , Alyssa picked 32 limes , and Nancy picked 35 limes and 1 8 pears , at the farm . 
-[fred	PERSON_MALE	SINGULAR	null, lime	COMMON_UNKNOWN	PLURAL	null, alyssa	PERSON_FEMALE	SINGULAR	null, lime	COMMON_UNKNOWN	PLURAL	null, nancy	PERSON_FEMALE	SINGULAR	null, lime	COMMON_UNKNOWN	PLURAL	null, pear	COMMON_UNKNOWN	PLURAL	null, farm	COMMON_UNKNOWN	SINGULAR	null]
-
-How many limes were picked in total ? 
-[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, lime	COMMON_UNKNOWN	PLURAL	null, total	COMMON_UNKNOWN	SINGULAR	null]
-
-Benny received 79 dollars and 9 movie tickets for his birthday . 
-[benny	PERSON_MALE	SINGULAR	null, dollar	COMMON_UNKNOWN	PLURAL	null, ticket	COMMON_UNKNOWN	PLURAL	null, his	PRONOUN_MALE	SINGULAR	REGULAR, birthday	COMMON_UNKNOWN	SINGULAR	null]
-
-He went to a sporting goods store and bought a baseball glove , baseball , and bat . 
-[he	PRONOUN_MALE	SINGULAR	REGULAR, store	COMMON_UNKNOWN	SINGULAR	null, glove	COMMON_UNKNOWN	SINGULAR	null, baseball	COMMON_UNKNOWN	SINGULAR	null, bat	COMMON_UNKNOWN	SINGULAR	null]
-
-He had 32 dollars over , how much did he spent on the baseball gear ? 
-[he	PRONOUN_MALE	SINGULAR	REGULAR, dollar	COMMON_UNKNOWN	PLURAL	null, he	PRONOUN_MALE	SINGULAR	REGULAR, baseball	COMMON_UNKNOWN	SINGULAR	null, gear	COMMON_UNKNOWN	SINGULAR	null]
-
-There are 43 maple trees and 22 orange trees currently in the park . 
-[tree	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
-
-Park workers will plant maple trees today . 
-[park	PROPER_UNKOWN	UNKNOWN	null, worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, today	COMMON_UNKNOWN	SINGULAR	null]
-
-When the workers are finished there will be 54 maple trees in the park . 
-[worker	COMMON_UNKNOWN	PLURAL	null, tree	COMMON_UNKNOWN	PLURAL	null, park	COMMON_UNKNOWN	SINGULAR	null]
-
-How many maple trees did the workers plant today ? 
-[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, maple	COMMON_UNKNOWN	SINGULAR	null, tree	COMMON_UNKNOWN	PLURAL	null, plant	COMMON_UNKNOWN	SINGULAR	null, today	COMMON_UNKNOWN	SINGULAR	null]
-
-Dan had 14 peaches and 10 pears at his roadside fruit dish . 
-[dan	PERSON_MALE	SINGULAR	null, peach	COMMON_UNKNOWN	PLURAL	null, pear	COMMON_UNKNOWN	PLURAL	null, his	PRONOUN_MALE	SINGULAR	REGULAR, dish	COMMON_UNKNOWN	SINGULAR	null]
-
-He went to the orchard and picked peaches to stock up . 
-[he	PRONOUN_MALE	SINGULAR	REGULAR, orchard	COMMON_UNKNOWN	SINGULAR	null, peach	COMMON_UNKNOWN	PLURAL	null]
-
-There are now 8 5 peaches . 
-[peach	COMMON_UNKNOWN	PLURAL	null]
-
-how many did he pick ? 
-[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, he	PRONOUN_MALE	SINGULAR	REGULAR]
-
-Melanie has 41 books and 31 magazines in her library . 
-[melanie	PERSON_FEMALE	SINGULAR	null, book	COMMON_UNKNOWN	PLURAL	null, magazine	COMMON_UNKNOWN	PLURAL	null, her	PRONOUN_FEMALE	SINGULAR	REGULAR, library	COMMON_UNKNOWN	SINGULAR	null]
-
-She bought several books at a yard sale over the weekend . 
-[she	PRONOUN_FEMALE	SINGULAR	REGULAR, several	PRONOUN_WILDCARD	PLURAL	ABSTRACTQUAN, book	COMMON_UNKNOWN	PLURAL	null, sale	COMMON_UNKNOWN	SINGULAR	null, weekend	COMMON_UNKNOWN	SINGULAR	null]
-
-She now has 8 7 books in her library . 
-[she	PRONOUN_FEMALE	SINGULAR	REGULAR, book	COMMON_UNKNOWN	PLURAL	null, her	PRONOUN_FEMALE	SINGULAR	REGULAR, library	COMMON_UNKNOWN	SINGULAR	null]
-
-How many books did she buy at the yard sale ? 
-[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, book	COMMON_UNKNOWN	PLURAL	null, she	PRONOUN_FEMALE	SINGULAR	REGULAR, sale	COMMON_UNKNOWN	SINGULAR	null]
-
-There were 2 red orchids and 4 white orchids in the vase . 
-[orchid	COMMON_UNKNOWN	PLURAL	null, orchid	COMMON_UNKNOWN	PLURAL	null, vase	COMMON_UNKNOWN	SINGULAR	null]
-
-Jessica cut some red orchids from her flower garden . 
-[jessica	PROPER_UNKOWN	UNKNOWN	null, some	PRONOUN_WILDCARD	PLURAL	ABSTRACTQUAN, orchid	COMMON_UNKNOWN	PLURAL	null, her	PRONOUN_FEMALE	SINGULAR	REGULAR, garden	COMMON_UNKNOWN	SINGULAR	null]
-
-There are now 1 8 red orchids in the vase . 
-[orchid	COMMON_UNKNOWN	PLURAL	null, vase	COMMON_UNKNOWN	SINGULAR	null]
-
-How many red orchids did she cut ? 
-[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQUAN, orchid	COMMON_UNKNOWN	PLURAL	null, she	PRONOUN_FEMALE	SINGULAR	REGULAR]
-
-Last week Tim had 12 dollars and Keith had 36 dollars . 
-[week	COMMON_UNKNOWN	SINGULAR	null, tim	PERSON_MALE	SINGULAR	null, dollar	COMMON_UNKNOWN	PLURAL	null, keith	PERSON_MALE	SINGULAR	null, dollar	COMMON_UNKNOWN	PLURAL	null]
-
-Tim washed cars over the weekend and now has 75 dollars . 
-[tim	PERSON_MALE	SINGULAR	null, car	COMMON_UNKNOWN	PLURAL	null, weekend	COMMON_UNKNOWN	SINGULAR	null, dollar	COMMON_UNKNOWN	PLURAL	null]
-
-How much money did Tim make washing cars ? 
-[money	COMMON_UNKNOWN	SINGULAR	null, tim	PERSON_MALE	SINGULAR	null, washing	COMMON_UNKNOWN	SINGULAR	null, car	COMMON_UNKNOWN	
+[many	PRONOUN_WILDCARD	UNKNOWN	ABSTRACTQU

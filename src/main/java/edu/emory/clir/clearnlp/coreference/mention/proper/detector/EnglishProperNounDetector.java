@@ -21,6 +21,7 @@ import edu.emory.clir.clearnlp.coreference.mention.proper.ProperNoun;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
+import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.dictionary.PathNamedEntity;
 import edu.emory.clir.clearnlp.util.IOUtils;
@@ -48,7 +49,7 @@ public class EnglishProperNounDetector extends AbstractProperNounDetector{
 
 	@Override
 	public boolean isProperNoun(DEPTree tree, DEPNode node) {
-		return node.isPOSTag(CTLibEn.POS_NNP) || node.isPOSTag(CTLibEn.POS_NNPS);
+		return !node.isLabel(DEPTagEn.DEP_COMPOUND) && (node.isPOSTag(CTLibEn.POS_NNP) || node.isPOSTag(CTLibEn.POS_NNPS));
 	}
 
 	@Override
