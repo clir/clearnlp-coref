@@ -18,6 +18,7 @@ package edu.emory.clir.clearnlp.coreference.utils.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.emory.clir.clearnlp.constituent.CTLibEn;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
@@ -34,14 +35,17 @@ public class CoreferenceDSUtils {
 	
 	public static List<int[]> getQuotaionIndices(DEPTree tree){
 		List<int[]> list = new ArrayList<>();
-		List<Integer> l_indices = new ArrayList<>();
 		
-		for(DEPNode node : tree)
-			if(node.getLemma().equals("\""))
-				l_indices.add(node.getID());
-		
-		for(int i = 0; i < l_indices.size(); i+=2)
-			list.add(new int[]{l_indices.get(i), l_indices.get(i+1)});
+		int start = -1, end = -1;
+		for(DEPNode node : tree){
+			if(node.isPOSTag(CTLibEn.POS_LQ))	start = node.getID();
+			else if(node.isPOSTag(CTLibEn.POS_RQ))	end = node.getID();
+			
+			if(start >= 0 && end >= 0){
+				list.add(new int[]{start, end});
+				start = -1;	end = -1;
+			}
+		}
 		
 		return list;
 	}
