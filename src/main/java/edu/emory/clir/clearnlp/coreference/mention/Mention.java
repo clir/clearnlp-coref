@@ -15,7 +15,7 @@
  */
 package edu.emory.clir.clearnlp.coreference.mention;
 
-import edu.emory.clir.clearnlp.collection.map.ObjectIntHashMap;
+import edu.emory.clir.clearnlp.collection.map.ObjectDoubleHashMap;
 import edu.emory.clir.clearnlp.constituent.CTLibEn;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
@@ -35,13 +35,13 @@ public class Mention
 	private NumberType t_number;
 	private PronounType t_pronoun;
 	
-	private ObjectIntHashMap<String> m_feat;
+	private ObjectDoubleHashMap<String> m_feat;
 	
 	public Mention(DEPTree tree, DEPNode node)
 	{
 		setTree(tree);
 		setNode(node);
-		m_feat = new ObjectIntHashMap<>();
+		m_feat = new ObjectDoubleHashMap<>();
 	}
 	
 	public Mention(DEPTree tree, DEPNode node, NumberType numberType)
@@ -49,7 +49,7 @@ public class Mention
 		setTree(tree);
 		setNode(node);
 		setNumberType(numberType);
-		m_feat = new ObjectIntHashMap<>();
+		m_feat = new ObjectDoubleHashMap<>();
 	}
 	
 	public Mention(DEPTree tree, DEPNode node, EntityType entityType, NumberType numberType)
@@ -58,7 +58,7 @@ public class Mention
 		setNode(node);
 		setEntityType(entityType);
 		setNumberType(numberType);
-		m_feat = new ObjectIntHashMap<>();
+		m_feat = new ObjectDoubleHashMap<>();
 	}
 	
 	public Mention(DEPTree tree, DEPNode node, EntityType entityType, NumberType numberType, PronounType pronounType)
@@ -68,7 +68,7 @@ public class Mention
 		setEntityType(entityType);
 		setNumberType(numberType);
 		setPronounType(pronounType);
-		m_feat = new ObjectIntHashMap<>();
+		m_feat = new ObjectDoubleHashMap<>();
 	}
 
 	public DEPTree getTree()
@@ -104,6 +104,11 @@ public class Mention
 	public void addFeature(String feature)
 	{
 		m_feat.add(feature, 1);
+	}
+	
+	public void addFeature(String feature, double weight)
+	{
+		m_feat.add(feature, weight);
 	}
 
 	public void setEntityType(EntityType type)
