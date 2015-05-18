@@ -11,7 +11,7 @@ import edu.emory.clir.clearnlp.coreference.mention.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
 import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
-import edu.emory.clir.clearnlp.coreference.sieve.StrictHeadMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.ExactStringMatch;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
@@ -21,7 +21,7 @@ public class ExactStringMatchTest
 	@Test
 	public void test() throws IOException
 	{
-		AbstractSieve sieve = new StrictHeadMatch();
+		AbstractSieve sieve = new ExactStringMatch();
 		
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
 		reader.open(new FileInputStream("src/test/resources/edu/emory/clir/clearnlp/coreference/mention/input.mention.cnlp"));
