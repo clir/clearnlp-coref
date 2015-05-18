@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.StringJoiner;
 import java.util.regex.Pattern;
 
+import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
@@ -19,16 +20,16 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.pos.POSTagEn;
 import edu.emory.clir.clearnlp.util.IOUtils;
 
-public class PreciseConstructMatch extends AbstractSieve
+public class PreciseConstructMatch extends AbstractSieve 
 {
 	private static final char STOPCHAR = ',';
     private static final char KEYBREAK = '\t';
     private static final char NEWLINE = '\n';
     private Map<String, Set<String>> DemonymMap;
 	
-	public PreciseConstructMatch(String filepath) throws IOException
+	public PreciseConstructMatch() throws IOException
 	{
-		DemonymMap = init(filepath);
+		DemonymMap = init(PathSieve.ENG_DEMONYM);
 	}
 	
 	public static Map<String, Set<String>> init(String filepath) throws IOException

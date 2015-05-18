@@ -49,6 +49,7 @@ public class MentionFeatureTest {
 		mentions = detector.getMentionList(trees);
 		
 		for(Mention mention : mentions)
-			System.out.println(mention.getNode().getWordForm() + " -> " + mention.hasFeature(MentionFeatureType.QUOTE));
+//			System.out.println(mention.getNode().getWordForm() + " -> " + mention.hasFeature(MentionFeatureType.QUOTE));
+			System.out.println(mention.getFeatureMap());
 	}
 }

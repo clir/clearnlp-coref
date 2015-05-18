@@ -21,6 +21,7 @@ import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
@@ -43,7 +44,8 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
  * might want to look more into versions of Strict Head Match
  * might want to add Relaxed Head Match?
  */
-public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolution{
+public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolution 
+{
 	private AbstractMentionDetector detector;
 	private List<AbstractSieve> sieves;
 	
@@ -61,7 +63,7 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 		/* Sieve 3 : Relaxed String Match */	
 		sieves.add(new RelaxedStringMatch());
 		/* Sieve 4 : Precise Constructs */
-		sieves.add(new PreciseConstructMatch("src/main/resources/edu/emory/clir/clearnlp/dictionary/coreference/sieve/DemonymList.txt"));
+		sieves.add(new PreciseConstructMatch());
 		/* Sieve 5 : Strict Head Match */
 		sieves.add(new StrictHeadMatch());
 		/* Sieve 8 : Proper Head Word Match */

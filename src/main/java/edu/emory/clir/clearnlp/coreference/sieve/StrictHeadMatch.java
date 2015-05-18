@@ -1,5 +1,6 @@
 package edu.emory.clir.clearnlp.coreference.sieve;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
@@ -15,7 +16,27 @@ public class StrictHeadMatch extends AbstractStringMatch
 	protected boolean match(Mention prev, Mention curr)
 	{
 		Set<DEPNode> prevAncestor = prev.getNode().getAncestorSet();
-		return prevAncestor.stream().anyMatch(x -> x.getWordForm().equals(curr.toString()) && !curr.getNode().isDescendantOf(prev.getNode()));
+		Set<DEPNode> currAncestor = curr.getNode().getAncestorSet();
+		return (prevAncestor.size() > currAncestor.size()) ? anyMatch(prevAncestor, currAncestor) : anyMatch(currAncestor, prevAncestor);
 	}
-
+	
+	private boolean anyMatch(Set<DEPNode> max, Set<DEPNode> min)
+	{
+		Set<String> mx = convert(max);
+		Set<String> mn = convert(min);
+		for (String word : mx) {
+			if (mn.contains(word))
+				return true;
+		}
+		return false;
+	}
+	
+	private Set<String> convert(Set<DEPNode> set)
+	{
+		Set<String> result = new HashSet<>();
+		for(DEPNode node : set) {
+			result.add(node.getWordForm());
+		}
+		return result;
+	}
 }

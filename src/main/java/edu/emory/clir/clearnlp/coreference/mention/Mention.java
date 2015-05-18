@@ -91,6 +91,10 @@ public class Mention
 		return t_number;
 	}
 	
+	public ObjectDoubleHashMap<String> getFeatureMap(){
+		return m_feat;
+	}
+	
 	public void setTree(DEPTree tree)
 	{
 		d_tree = tree;
