@@ -38,7 +38,7 @@ public class WordGraphBuilder {
 		BufferedReader reader;
 
 		WordNode n1, n2;
-		WordGraph graph = new WordGraph();
+		WordGraph graph = new WordGraph(false);
 		
 		for(String path : paths){
 			try {
@@ -58,6 +58,6 @@ public class WordGraphBuilder {
 			} catch (Exception e) {	e.printStackTrace(); }
 		}
 		
-		System.out.println(graph.getNode("a"));
+		System.out.println(graph.getShortestPath("father", "male").getPath());
 	}
 }

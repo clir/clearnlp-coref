@@ -15,50 +15,47 @@
  */
 package edu.emory.clir.clearnlp.coreference.utils.graph;
 
-
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	May 18, 2015
+ * @since 	May 19, 2015
  */
-public class WordNode {
-	private int id;
-	private String word;
+public class WordEdge implements Comparable<WordEdge>{
+	private WordNode source;
+	private WordNode target;
+	private double weight;
+	
+	public WordEdge(WordNode s, WordNode t){
+		source = s;
+		target = t;
+		weight = -1;
+	}
+	
+	public WordEdge(WordNode s, WordNode t, double w){
+		source = s;
+		target = t;
+		weight = w;
+	}
+	
+	public WordNode getSoruce(){
+		return source;
+	}
+	
+	public WordNode getTarget(){
+		return target;
+	}
+	
+	public double getWeight(){
+		return weight;
+	}
 
-	public WordNode(String s){
-		id = -1;
-		word = s;
-	}
-	
-	public WordNode(int i, String s){
-		id = i;
-		word = s;
-	}
-	
-	public WordNode(WordNode node){
-		id = -1;
-		word = node.getWord();
-	}
-	
-	public WordNode(int i, WordNode node){
-		id = i;
-		word = node.getWord();
-	}
-	
-	public int getID(){
-		return id;
-	}
-	
-	public String getWord(){
-		return word;
-	}
-	
-	public void setWord(String s){
-		word = s;
+	@Override
+	public int compareTo(WordEdge o) {
+		return (int)Math.signum(weight - o.getWeight());
 	}
 	
 	@Override
 	public String toString(){
-		return id + ": " + word;
+		return source + "\t->\t" + target + "\t" + weight;
 	}
 }
