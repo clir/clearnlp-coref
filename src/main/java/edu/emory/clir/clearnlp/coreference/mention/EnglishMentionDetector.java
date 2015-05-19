@@ -23,6 +23,7 @@ import edu.emory.clir.clearnlp.coreference.mention.pronoun.Pronoun;
 import edu.emory.clir.clearnlp.coreference.mention.pronoun.detector.EnglishPronounDetector;
 import edu.emory.clir.clearnlp.coreference.mention.proper.ProperNoun;
 import edu.emory.clir.clearnlp.coreference.mention.proper.detector.EnglishProperNounDetector;
+import edu.emory.clir.clearnlp.coreference.type.MentionAttributeType;
 import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceDSUtils;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -99,7 +100,7 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 			for(int[] boundary : boundaries){
 				if(boundary[0] > pos)	break;
 				if(CoreferenceDSUtils.isSequence(boundary[0], pos, boundary[1])){
-					mention.addFeature(MentionFeatureType.QUOTE);
+					mention.addAttribute(MentionAttributeType.QUOTE);
 					break;
 				}
 			}	

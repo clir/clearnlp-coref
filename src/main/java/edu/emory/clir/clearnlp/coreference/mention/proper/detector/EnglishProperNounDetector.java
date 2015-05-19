@@ -19,6 +19,7 @@ import edu.emory.clir.clearnlp.collection.ngram.Unigram;
 import edu.emory.clir.clearnlp.constituent.CTLibEn;
 import edu.emory.clir.clearnlp.coreference.mention.proper.ProperNoun;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
+import edu.emory.clir.clearnlp.coreference.type.GenderType;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
@@ -76,13 +77,13 @@ public class EnglishProperNounDetector extends AbstractProperNounDetector{
 	}
 	
 	private void processPersonTag(ProperNoun properNoun){
-		properNoun.e_type = EntityType.PERSON_UNKNOWN;
+		properNoun.e_type = EntityType.PERSON;
 		properNoun.n_type = NumberType.SINGULAR;
 		
-		if(m_maleNames.contains(properNoun.wordFrom))		properNoun.e_type = EntityType.PERSON_MALE;
+		if(m_maleNames.contains(properNoun.wordFrom))		properNoun.g_type = GenderType.MALE;
 		if(m_femaleNames.contains(properNoun.wordFrom))	
-			if(m_maleNames.contains(properNoun.wordFrom))	properNoun.e_type = EntityType.PERSON_NEUTRAL;
-			else											properNoun.e_type = EntityType.PERSON_FEMALE;
+			if(m_maleNames.contains(properNoun.wordFrom))	properNoun.g_type = GenderType.NEUTRAL;
+			else											properNoun.g_type = GenderType.FEMALE;
 			
 	}
 }

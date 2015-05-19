@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.mention;
+package edu.emory.clir.clearnlp.coreference.type;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	May 14, 2015
+ * @since 	May 18, 2015
  */
-public interface MentionFeatureType {
-	String QUOTE = "QUOTE";
+public enum GenderType {
+	MALE,
+	FEMALE,
+	NEUTRAL,
+	UNKNOWN
 }

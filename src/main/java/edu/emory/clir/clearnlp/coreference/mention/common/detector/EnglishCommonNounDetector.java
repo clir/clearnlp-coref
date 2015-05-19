@@ -56,7 +56,7 @@ public class EnglishCommonNounDetector extends AbstractCommonNounDetector{
 				attr = Splitter.splitTabs(line);
 				
 				// Might change depends on the dictionary fields
-				map.put(attr[0], new CommonNoun(attr[0], attr[1], attr[2]));
+				map.put(attr[0], new CommonNoun(attr[0], attr[1], attr[2], attr[3]));
 			}
 			
 			reader.close();
