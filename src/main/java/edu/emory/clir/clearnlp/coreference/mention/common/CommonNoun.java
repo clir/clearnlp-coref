@@ -19,6 +19,7 @@ import java.io.Serializable;
 
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
+import edu.emory.clir.clearnlp.coreference.type.GenderType;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -33,29 +34,34 @@ public class CommonNoun implements Serializable{
 	
 	public String wordFrom;
 	public EntityType e_type;
+	public GenderType g_type;
 	public NumberType  n_type;
 	
 	public CommonNoun(String s){
 		wordFrom = s;
-		e_type = EntityType.COMMON_UNKNOWN;
+		e_type = EntityType.COMMON;
+		g_type = GenderType.UNKNOWN;
 		n_type = NumberType.UNKNOWN;
 	}
 	
-	public CommonNoun(String s, EntityType e, NumberType n){
+	public CommonNoun(String s, EntityType e, GenderType g, NumberType n){
 		wordFrom = s;
 		e_type = e;
+		g_type = g;
 		n_type = n;
 	}
 	
-	public CommonNoun(String s, String e, String n){
+	public CommonNoun(String s, String e, String g, String n){
 		wordFrom = s;
 		e_type = EntityType.valueOf(e);
+		g_type = GenderType.valueOf(g);
 		n_type = NumberType.valueOf(n);
 	}
 	
 	public Mention toMention(DEPTree tree, DEPNode node){
 		Mention mention = new Mention(tree, node);
 		mention.setEntityType(e_type);
+		mention.setGenderType(g_type);
 		mention.setNumberType(n_type);
 		return mention;
 	}
@@ -64,6 +70,7 @@ public class CommonNoun implements Serializable{
 	public String toString(){
 		StringBuilder sb = new StringBuilder(wordFrom);
 		sb.append('\t');	sb.append(e_type);
+		sb.append('\t');	sb.append(g_type);
 		sb.append('\t');	sb.append(n_type);
 		return sb.toString();
 	}

@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import edu.emory.clir.clearnlp.coreference.type.MentionAttributeType;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 
@@ -49,7 +50,7 @@ public class MentionFeatureTest {
 		mentions = detector.getMentionList(trees);
 		
 		for(Mention mention : mentions)
-//			System.out.println(mention.getNode().getWordForm() + " -> " + mention.hasFeature(MentionFeatureType.QUOTE));
-			System.out.println(mention.getFeatureMap());
+			System.out.println(mention.getNode().getWordForm() + " -> " + mention.hasFeature(MentionAttributeType.QUOTE));
+//			System.out.println(mention.getFeatureMap());
 	}
 }

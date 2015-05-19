@@ -15,32 +15,22 @@
  */
 package edu.emory.clir.clearnlp.coreference.type;
 
+
 /**
  * @since 3.0.0
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public enum EntityType{	
+public enum EntityType {	
 	// Pronoun
-	PRONOUN_UNKNOWN,
-	PRONOUN_WILDCARD,
-	PRONOUN_NEUTRAL,
-	PRONOUN_FEMALE,
-	PRONOUN_MALE,
+	PRONOUN,
 	
 	// Common noun
-	COMMON_UNKNOWN,
-	COMMON_MALE,
-	COMMON_FEMALE,
-	COMMON_NEUTRAL,
+	COMMON,
 	
 	// Named entity
-	PERSON_FEMALE,
-	PERSON_MALE,
-	PERSON_NEUTRAL,
-	PERSON_UNKNOWN,
+	PERSON,
 	ORGANIZATION,
 	LOCATION,
-	PROPER_UNKOWN,
 	
 	// Other
 	UNKNOWN,
