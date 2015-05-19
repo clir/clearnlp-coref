@@ -59,12 +59,8 @@ public class WordNode {
 		if(hasConnection(node))	m_edges.get(node.getWord()).d = weight; 
 	}
 	
-	public void addEdge(WordNode node){
-		m_edges.putIfAbsent(word, new ObjectDoublePair<WordNode>(node, 1d));
-	}
-	
 	public void addEdge(WordNode node, double weight){
-		m_edges.putIfAbsent(word, new ObjectDoublePair<WordNode>(node, weight));
+		m_edges.putIfAbsent(node.getWord(), new ObjectDoublePair<WordNode>(node, weight));
 	}
 	
 	public boolean hasConnection(String word){
@@ -79,9 +75,8 @@ public class WordNode {
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
 		
-		for(ObjectDoublePair<WordNode> pair : m_edges.values()){
-			sb.append(word + " -> " + pair.o.getWord() + " : " + pair.d + "\n");
-		}
+		for(ObjectDoublePair<WordNode> pair : m_edges.values())
+			sb.append(word + " -> " + pair.o.word + "\t" + pair.d + "\n");
 		
 		return sb.toString();
 	}

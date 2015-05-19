@@ -43,12 +43,7 @@ public class WordGraph {
 	}
 	
 	public WordNode addNode(String word){
-		if(hasWord(word))	return getNode(word);
-		else{
-			WordNode node = new WordNode(word);
-			m_nodes.put(word, node);
-			return node;
-		}
+		return m_nodes.computeIfAbsent(word, value -> new WordNode(word));
 	}
 	
 	public void connenctNodes(WordNode n1, WordNode n2){
@@ -72,7 +67,7 @@ public class WordGraph {
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
 		
-		for(WordNode node : m_nodes.values())	sb.append(node);
+		for(WordNode node : m_nodes.values())	sb.append(node.getWord()+"\n");
 		
 		return sb.toString();
 	}

@@ -36,7 +36,7 @@ public class WordGraphBuilder {
 		String line; 
 		String[] words;
 		BufferedReader reader;
-		
+
 		WordNode n1, n2;
 		WordGraph graph = new WordGraph();
 		
@@ -50,9 +50,6 @@ public class WordGraphBuilder {
 					n1 = graph.addNode(words[0]);
 					for(i = 1; i < words.length; i++){
 						n2 = graph.addNode(words[i]);
-						
-						System.out.println(n2);
-						
 						graph.connenctNodes(n1, n2);
 					}
 				}
@@ -60,5 +57,7 @@ public class WordGraphBuilder {
 				reader.close();
 			} catch (Exception e) {	e.printStackTrace(); }
 		}
+		
+		System.out.println(graph.getNode("a"));
 	}
 }
