@@ -8,18 +8,23 @@ import edu.emory.clir.clearnlp.dependency.DEPNode;
  * 
  * @author alexlutz
  * this will be the first sieve that performs exact string matching between mentions
+ * need to get getCompound() method from Jinho to incorporate
  */
 public class ExactStringMatch extends AbstractStringMatch {
-	
-	@Override
-	protected boolean match(Mention prev, Mention curr){
-		String prevWords = getWordSequence(prev.getNode());
-		String currWords = getWordSequence(curr.getNode());
-		return prevWords.equals(currWords);
+	public ExactStringMatch()
+	{
+		super();
 	}
 	
-	private String getWordSequence(DEPNode node){
+public ExactStringMatch(boolean decapitalize)
+	{
+		super(decapitalize);
+	}
+	
+	@Override
+	protected String getWordSequence(Mention mention){
 		StringJoiner joiner = new StringJoiner(" ");
+		DEPNode node = mention.getNode();
 		
 		for(DEPNode sub : node.getSubNodeList()) joiner.add(sub.getWordForm());
 

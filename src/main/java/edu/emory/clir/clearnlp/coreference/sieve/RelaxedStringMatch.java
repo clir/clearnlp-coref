@@ -1,10 +1,20 @@
 package edu.emory.clir.clearnlp.coreference.sieve;
 
 import edu.emory.clir.clearnlp.coreference.mention.Mention;
-
+//improve this
 public class RelaxedStringMatch extends AbstractStringMatch{
+	public RelaxedStringMatch()
+	{
+		super();
+	}
+	
+	public RelaxedStringMatch(boolean decapitalize)
+	{
+		super(decapitalize);
+	}
+	
 	@Override
-	protected boolean match(Mention prev, Mention curr){
-		return prev.getNode().isWordForm(curr.getNode().getWordForm());
+	protected String getWordSequence(Mention mention){
+		return mention.getNode().getWordForm();
 	}
 }

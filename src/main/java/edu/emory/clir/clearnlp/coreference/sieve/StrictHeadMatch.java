@@ -39,4 +39,11 @@ public class StrictHeadMatch extends AbstractStringMatch
 		}
 		return result;
 	}
+
+	@Override
+	protected String getWordSequence(Mention mention)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -65,7 +65,7 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 		/* Sieve 4 : Precise Constructs */
 		sieves.add(new PreciseConstructMatch());
 		/* Sieve 5 : Strict Head Match */
-		sieves.add(new StrictHeadMatch());
+//		sieves.add(new StrictHeadMatch());
 		/* Sieve 8 : Proper Head Word Match */
 		sieves.add(new ProperHeadWordMatch());
 		/* Sieve 10 : Pronoun Match */			

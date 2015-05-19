@@ -18,8 +18,11 @@ import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.pos.POSTagEn;
+import edu.emory.clir.clearnlp.util.CharUtils;
 import edu.emory.clir.clearnlp.util.IOUtils;
-
+/*
+ * need to fix init, and acronym 
+ */
 public class PreciseConstructMatch extends AbstractSieve 
 {
 	private static final char STOPCHAR = ',';
@@ -40,7 +43,7 @@ public class PreciseConstructMatch extends AbstractSieve
         int i = 0; String key = ""; String line = "";
 
         while((i = input.read()) != 0) {
-        	if ((char) i != STOPCHAR) line += i;
+        	if ((char) i != STOPCHAR) line += (char) i;
         	else if ((char) i == KEYBREAK) {
                 key = line.trim();
                 line = "";
@@ -97,6 +100,33 @@ public class PreciseConstructMatch extends AbstractSieve
     	return Pattern.matches("[^A-Z]", prev) || Pattern.matches("[^A-Z]", curr); 
 //        return (curr.equals(prev.replaceAll("[^A-Z]","")) || prev.equals(curr.replaceAll("[^A-Z]","")));
     }
+    
+    private boolean compareUpperCases(String s1, String s2)
+    {
+    	char[] c1 = s1.toCharArray();
+    	char[] c2 = s2.toCharArray();
+    	int i1 = 0, i2 = 0, c = 0;
+    	
+    	while ((i1 = findNextUpperCase(c1, i1)) >= 0)
+    	{
+    		if ((i2 = findNextUpperCase(c2, i2)) < 0 || c1[i1] != c2[i2]) return false;
+    		c++;
+    	}
+    	
+    	return c > 1;
+    }
+    
+    private int findNextUpperCase(char[] c, int beginIndex)
+    {
+    	for (int i=beginIndex; i<c.length; i++)
+    	{
+    		if (CharUtils.isUpperCase(c[i]))
+    			return i;
+    	}
+    	
+    	return -1;
+    }
+    
 
     private boolean appositiveMatch(Mention curr, Mention prev)
     {
@@ -110,10 +140,11 @@ public class PreciseConstructMatch extends AbstractSieve
 
     private boolean predicateNominativeMatch(Mention curr, Mention prev)
     {
-        Set<String> LV = new HashSet<>(Arrays.asList("be", "is", "am", "are", "seem", "been", "become", "appear"));
-
-        return prev.getNode().isLabel(DEPTagEn.DEP_SUBJ) && curr.getNode().isLabel(DEPTagEn.DEP_DOBJ) &&
-                LV.contains(curr.getNode().getWordForm());
+//        Set<String> LV = new HashSet<>(Arrays.asList("be", "is", "am", "are", "seem", "been", "become", "appear"));
+    	DEPNode p = prev.getNode();
+    	DEPNode c = curr.getNode();
+    	
+        return p.getHead() == c.getHead() && p.getLabel().startsWith(DEPTagEn.DEP_NSUBJ) && c.isLabel(DEPTagEn.DEP_ATTR) ;
     }
 
 }
