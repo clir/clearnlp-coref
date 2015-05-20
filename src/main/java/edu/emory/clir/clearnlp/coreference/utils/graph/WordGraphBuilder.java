@@ -58,6 +58,6 @@ public class WordGraphBuilder {
 			} catch (Exception e) {	e.printStackTrace(); }
 		}
 		
-		System.out.println(graph.getShortestPath("father", "male").getPath());
+		System.out.println(graph.getShortestPath("assault", "male").getPath());
 	}
 }

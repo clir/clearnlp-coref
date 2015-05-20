@@ -22,9 +22,9 @@ import java.util.List;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
 import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
-import edu.emory.clir.clearnlp.coreference.mention.AbstractMentionDetector;
-import edu.emory.clir.clearnlp.coreference.mention.EnglishMentionDetector;
-import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
+import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
+import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
 import edu.emory.clir.clearnlp.coreference.sieve.ExactStringMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.PreciseConstructMatch;
@@ -73,10 +73,10 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 	}
 
 	@Override
-	public Pair<List<Mention>, DisjointSet> getEntities(List<DEPTree> trees) {
+	public Pair<List<SingleMention>, DisjointSet> getEntities(List<DEPTree> trees) {
 
 		// Mention Detection
-		List<Mention> mentions = detector.getMentionList(trees);
+		List<SingleMention> mentions = detector.getMentionList(trees);
 		DisjointSetWithConfidence mentionLinks = new DisjointSetWithConfidence(mentions.size());
 		
 		// Coreference Resolution
@@ -85,11 +85,11 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 		
 		//DEBUG OUTPUT
 		int c = 0;
-		for(Mention m : mentions)	System.out.println(c++ + ": " + m.toString());
+		for(SingleMention m : mentions)	System.out.println(c++ + ": " + m.toString());
 		System.out.println("===================================");
 		System.out.println(mentionLinks);
 		//////////////
 		
-		return new Pair<List<Mention>, DisjointSet>(mentions, mentionLinks);
+		return new Pair<List<SingleMention>, DisjointSet>(mentions, mentionLinks);
 	}
 }

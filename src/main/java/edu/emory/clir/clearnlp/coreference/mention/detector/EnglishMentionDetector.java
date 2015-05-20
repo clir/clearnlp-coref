@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.mention;
+package edu.emory.clir.clearnlp.coreference.mention.detector;
 
 import java.util.List;
 
+import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.coreference.mention.common.CommonNoun;
 import edu.emory.clir.clearnlp.coreference.mention.common.detector.EnglishCommonNounDetector;
 import edu.emory.clir.clearnlp.coreference.mention.pronoun.Pronoun;
@@ -47,8 +48,8 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 //	====================================== MENTION TYPE ======================================
 	
 	@Override
-	public Mention getMention(DEPTree tree, DEPNode node){
-		Mention mention;
+	public SingleMention getMention(DEPTree tree, DEPNode node){
+		SingleMention mention;
 		
 		if ((mention = getPronounMention(tree, node)) != null )	return mention;
 		if ((mention = getCommonMention(tree, node)) != null)	return mention;
@@ -57,7 +58,7 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 		return null;
 	}
 	
-	protected Mention getPronounMention(DEPTree tree, DEPNode node){
+	protected SingleMention getPronounMention(DEPTree tree, DEPNode node){
 		
 		if (pronounDetector.isPronoun(tree, node)){
 			Pronoun pronoun = pronounDetector.getPronoun(tree, node);
@@ -67,7 +68,7 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 		return null;
 	}
 	
-	protected Mention getCommonMention(DEPTree tree, DEPNode node){
+	protected SingleMention getCommonMention(DEPTree tree, DEPNode node){
 		
 		if (commonNounDetector.isCommonNoun(tree, node)){
 			CommonNoun commonNoun = commonNounDetector.getCommonNoun(tree, node);
@@ -77,7 +78,7 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 		return null;
 	}
 
-	protected Mention getPersonMention(DEPTree tree, DEPNode node){
+	protected SingleMention getPersonMention(DEPTree tree, DEPNode node){
 		
 		if (properNounDetector.isProperNoun(tree, node)){
 			ProperNoun properNoun = properNounDetector.getProperNoun(tree, node);
@@ -89,23 +90,29 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 	
 //	====================================== MENTION ATTR ======================================
 	@Override
-	protected void processMentions(DEPTree tree, List<Mention> mentions){
-		/** Inside quotation detection **/
+	protected void processMentions(DEPTree tree, List<SingleMention> mentions){
+		
 		List<int[]> boundaries = CoreferenceDSUtils.getQuotaionIndices(tree);
 		
 		int pos;
-		for(Mention mention : mentions){
+		for(SingleMention mention : mentions){
 			pos = mention.getNode().getID();
 			
+			/** Inside quotation detection **/
 			for(int[] boundary : boundaries){
 				if(boundary[0] > pos)	break;
 				if(CoreferenceDSUtils.isSequence(boundary[0], pos, boundary[1])){
 					mention.addAttribute(MentionAttributeType.QUOTE);
 					break;
 				}
-			}	
+			}
+			/** ************************* **/
+			/** MultipleMention detection **/
+			
+			
+			/** ************************* **/
 		}
 		
-		/** ************************* **/
+		
 	}
 }

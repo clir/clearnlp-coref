@@ -2,7 +2,7 @@ package edu.emory.clir.clearnlp.coreference.sieve;
 
 import java.util.List;
 
-import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 /**
@@ -12,8 +12,8 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
  */
 public abstract class AbstractStringMatch extends AbstractSieve {
 	@Override
-	public void resolute(List<DEPTree> trees, List<Mention> mentions, DisjointSetWithConfidence mentionLinks) {
-		Mention curr, prev;
+	public void resolute(List<DEPTree> trees, List<SingleMention> mentions, DisjointSetWithConfidence mentionLinks) {
+		SingleMention curr, prev;
 		int i, j, size = mentions.size();
 		
 		for (i=1; i<size; i++){
@@ -30,5 +30,5 @@ public abstract class AbstractStringMatch extends AbstractSieve {
 		}
 	}
 	
-	abstract protected boolean match(Mention prev, Mention curr);
+	abstract protected boolean match(SingleMention prev, SingleMention curr);
 }

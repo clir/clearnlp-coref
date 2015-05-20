@@ -12,7 +12,7 @@ import java.util.StringJoiner;
 import java.util.regex.Pattern;
 
 import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
-import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
@@ -59,10 +59,10 @@ public class PreciseConstructMatch extends AbstractSieve
     }
 	
 	@Override
-	public void resolute(List<DEPTree> trees, List<Mention> mentions,
+	public void resolute(List<DEPTree> trees, List<SingleMention> mentions,
 			DisjointSetWithConfidence mentionLinks)
 	{
-		Mention curr, prev;
+		SingleMention curr, prev;
 		int i, j ,size = mentions.size();
 		
 		for (i = 1;i < size; i++) {
@@ -78,7 +78,7 @@ public class PreciseConstructMatch extends AbstractSieve
 		}
 	}
 	
-	private boolean acronymMatch(Mention curr, Mention prev)
+	private boolean acronymMatch(SingleMention curr, SingleMention prev)
     {
         if (curr.getNode().isPOSTag(POSTagEn.POS_NNP) && prev.getNode().isPOSTag(POSTagEn.POS_NNP)) {
             return acronymTest(getWordSequence(prev.getNode()), getWordSequence(curr.getNode()));
@@ -98,17 +98,17 @@ public class PreciseConstructMatch extends AbstractSieve
 //        return (curr.equals(prev.replaceAll("[^A-Z]","")) || prev.equals(curr.replaceAll("[^A-Z]","")));
     }
 
-    private boolean appositiveMatch(Mention curr, Mention prev)
+    private boolean appositiveMatch(SingleMention curr, SingleMention prev)
     {
         return (curr.getNode().isLabel(DEPTagEn.DEP_APPOS) && curr.getNode().getHead() == prev.getNode());
     }
 
-    private boolean demonymMatch(Mention curr, Mention prev)
+    private boolean demonymMatch(SingleMention curr, SingleMention prev)
     {
          return (DemonymMap.keySet().contains(prev.toString()) && DemonymMap.values().contains(curr.toString()));
     }
 
-    private boolean predicateNominativeMatch(Mention curr, Mention prev)
+    private boolean predicateNominativeMatch(SingleMention curr, SingleMention prev)
     {
         Set<String> LV = new HashSet<>(Arrays.asList("be", "is", "am", "are", "seem", "been", "become", "appear"));
 

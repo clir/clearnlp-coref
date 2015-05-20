@@ -17,7 +17,7 @@ package edu.emory.clir.clearnlp.coreference.sieve;
 
 import java.util.List;
 
-import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
@@ -27,5 +27,5 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
  * @since 	Mar 23, 2015
  */
 abstract public class AbstractSieve{
-	abstract public void resolute(List<DEPTree> trees, List<Mention> mentions, DisjointSetWithConfidence mentionLinks);
+	abstract public void resolute(List<DEPTree> trees, List<SingleMention> mentions, DisjointSetWithConfidence mentionLinks);
 }

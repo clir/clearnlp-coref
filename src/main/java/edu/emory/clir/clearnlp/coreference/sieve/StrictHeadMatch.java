@@ -3,7 +3,7 @@ package edu.emory.clir.clearnlp.coreference.sieve;
 import java.util.HashSet;
 import java.util.Set;
 
-import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 
 /**
@@ -13,7 +13,7 @@ import edu.emory.clir.clearnlp.dependency.DEPNode;
 public class StrictHeadMatch extends AbstractStringMatch
 {
 	@Override
-	protected boolean match(Mention prev, Mention curr)
+	protected boolean match(SingleMention prev, SingleMention curr)
 	{
 		Set<DEPNode> prevAncestor = prev.getNode().getAncestorSet();
 		Set<DEPNode> currAncestor = curr.getNode().getAncestorSet();

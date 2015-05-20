@@ -21,5 +21,6 @@ package edu.emory.clir.clearnlp.coreference.type;
  * @since 	May 14, 2015
  */
 public enum MentionAttributeType {
-	QUOTE;
+	QUOTE,
+	CONJUNCTION;
 }

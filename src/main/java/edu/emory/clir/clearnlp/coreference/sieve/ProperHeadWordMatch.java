@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 
 /**
@@ -15,7 +15,7 @@ import edu.emory.clir.clearnlp.dependency.DEPNode;
 public class ProperHeadWordMatch extends AbstractStringMatch
 {
 	@Override
-	protected boolean match(Mention prev, Mention curr)
+	protected boolean match(SingleMention prev, SingleMention curr)
 	{
 		Set<String> location = new HashSet<>(Arrays.asList("northern","southern","eastern","western"));
 		Set<DEPNode> prevAncestor = prev.getNode().getAncestorSet();
