@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
@@ -35,7 +36,9 @@ import edu.emory.clir.clearnlp.reader.TSVReader;
  * @since 	May 15, 2015
  */
 public class MentionFeatureTest {
+	
 	@Test
+	@Ignore
 	public void testQuote() throws IOException{
 		InputStream in = new FileInputStream("src/test/resources/edu/emory/clir/clearnlp/coreference/mention/input.mention.quote.cnlp");
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
@@ -53,6 +56,24 @@ public class MentionFeatureTest {
 		
 		for(SingleMention mention : mentions)
 			System.out.println(mention.getNode().getWordForm() + " -> " + mention.hasFeature(MentionAttributeType.QUOTE));
-//			System.out.println(mention.getFeatureMap());
+	}
+	
+	@Test
+	public void testConjunctions() throws IOException{
+		InputStream in = new FileInputStream("src/test/resources/edu/emory/clir/clearnlp/coreference/mention/input.mention.conjunctions.cnlp");
+		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
+		reader.open(in);
+		
+		DEPTree tree;
+		List<SingleMention> mentions;
+		List<DEPTree> trees = new ArrayList<>();
+		
+		while ((tree = reader.next()) != null) trees.add(tree);
+		
+		AbstractMentionDetector detector = new EnglishMentionDetector();
+		
+		mentions = detector.getMentionList(trees);
+		
+//		for(SingleMention mention : mentions)	System.out.println(mention);
 	}
 }

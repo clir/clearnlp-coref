@@ -17,6 +17,7 @@ package edu.emory.clir.clearnlp.coreference.mention;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -60,6 +61,15 @@ public class SingleMention extends AbstractMention<DEPNode>{
 	public SingleMention(DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType){
 		super(tree, node, entityType, genderType, numberType, pronounType);
 	}
+	
+	public boolean isParentMention(SingleMention mention){
+		return getNode().getSubNodeSet().contains(mention.getNode());
+	}
+	
+	public boolean isChildMention(SingleMention mention){
+		System.out.println(mention + ": " + mention.getNode().getSubNodeSet() + " ?-> " + this);
+		return mention.getNode().getSubNodeSet().contains(this);
+	}
 
 	@Override
 	public String getWordFrom() {
@@ -68,7 +78,17 @@ public class SingleMention extends AbstractMention<DEPNode>{
 
 	@Override
 	public String getSubTreeWordSequence() {
-		return Joiner.join(getNode().getSubNodeList().stream().map(node -> node.getWordForm()).collect(Collectors.toCollection(ArrayList::new)), " ");
+		return Joiner.join(getSubTreeWordList(), " ");
+	}
+	
+	@Override
+	public List<String> getSubTreeWordList() {
+		return getNode().getSubNodeList().stream().map(node -> node.getWordForm()).collect(Collectors.toCollection(ArrayList::new));
+	}
+	
+	@Override
+	public List<DEPNode> getSubTreeNodes() {
+		return getNode().getSubNodeList();
 	}
 	
 	@Override

@@ -15,8 +15,10 @@
  */
 package edu.emory.clir.clearnlp.coreference.mention.detector;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import edu.emory.clir.clearnlp.coreference.mention.MultipleMention;
 import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.coreference.mention.common.CommonNoun;
 import edu.emory.clir.clearnlp.coreference.mention.common.detector.EnglishCommonNounDetector;
@@ -26,6 +28,7 @@ import edu.emory.clir.clearnlp.coreference.mention.proper.ProperNoun;
 import edu.emory.clir.clearnlp.coreference.mention.proper.detector.EnglishProperNounDetector;
 import edu.emory.clir.clearnlp.coreference.type.MentionAttributeType;
 import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceDSUtils;
+import edu.emory.clir.clearnlp.coreference.utils.util.MentionUtil;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
@@ -92,8 +95,10 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 	@Override
 	protected void processMentions(DEPTree tree, List<SingleMention> mentions){
 		
+		List<SingleMention>[] groupedMentions;
 		List<int[]> boundaries = CoreferenceDSUtils.getQuotaionIndices(tree);
 		
+		/** Quotation detection **/
 		int pos;
 		for(SingleMention mention : mentions){
 			pos = mention.getNode().getID();
@@ -106,13 +111,18 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 					break;
 				}
 			}
-			/** ************************* **/
-			/** MultipleMention detection **/
-			
-			
-			/** ************************* **/
 		}
-		
-		
+		/** ************************* **/
+		/** Multiple Mention detection **/
+		groupedMentions = MentionUtil.groupMentions(mentions);
+		if(groupedMentions != null && groupedMentions.length < mentions.size()){
+			List<MultipleMention> multipleMentions = new ArrayList<>();
+			for(List<SingleMention> group : groupedMentions)
+				if(group.size() > 1 && MentionUtil.hasConjunctionRelations(group))
+					multipleMentions.add(MentionUtil.mergeSingleMentions(group));
+			
+			if(!multipleMentions.isEmpty())	System.out.println(multipleMentions);
+		}
+		/** ************************* **/
 	}
 }
