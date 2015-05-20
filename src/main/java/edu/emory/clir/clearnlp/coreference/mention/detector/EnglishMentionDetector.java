@@ -95,8 +95,8 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 	@Override
 	protected void processMentions(DEPTree tree, List<SingleMention> mentions){
 		
-		List<SingleMention>[] groupedMentions;
 		List<int[]> boundaries = CoreferenceDSUtils.getQuotaionIndices(tree);
+		List<SingleMention>[] groupedMentions = MentionUtil.groupMentions(mentions);
 		
 		/** Quotation detection **/
 		int pos;
@@ -114,13 +114,16 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 		}
 		/** ************************* **/
 		/** Multiple Mention detection **/
-		groupedMentions = MentionUtil.groupMentions(mentions);
+		MultipleMention multipleMention; 
 		if(groupedMentions != null && groupedMentions.length < mentions.size()){
 			List<MultipleMention> multipleMentions = new ArrayList<>();
 			for(List<SingleMention> group : groupedMentions)
-				if(group.size() > 1 && MentionUtil.hasConjunctionRelations(group))
-					multipleMentions.add(MentionUtil.mergeSingleMentions(group));
-			
+				if(group.size() > 1 && MentionUtil.hasConjunctionRelations(group)){
+					multipleMention = MentionUtil.mergeSingleMentions(group);
+					multipleMention.addAttribute(MentionAttributeType.CONJUNCTION);
+					multipleMentions.add(multipleMention);
+				}
+					
 			if(!multipleMentions.isEmpty())	System.out.println(multipleMentions);
 		}
 		/** ************************* **/
