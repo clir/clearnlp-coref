@@ -15,50 +15,48 @@
  */
 package edu.emory.clir.clearnlp.coreference.utils.graph;
 
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	May 18, 2015
+ * @since 	May 19, 2015
  */
-public class WordNode {
-	private int id;
-	private String word;
-
-	public WordNode(String s){
-		id = -1;
-		word = s;
+public class WordPath implements Comparable<WordPath> {
+	private double weight;
+	private List<WordNode> path;
+	
+	public WordPath(){
+		weight = 0;
+		path = new ArrayList<>();
 	}
 	
-	public WordNode(int i, String s){
-		id = i;
-		word = s;
+	public WordPath(WordNode startNode){
+		weight = 0;
+		path = new ArrayList<>();
+		path.add(startNode);
 	}
 	
-	public WordNode(WordNode node){
-		id = -1;
-		word = node.getWord();
+	public double getWeight(){
+		return weight;
 	}
 	
-	public WordNode(int i, WordNode node){
-		id = i;
-		word = node.getWord();
+	public List<WordNode> getPath(){
+		return path;
 	}
 	
-	public int getID(){
-		return id;
+	public void setWeight(double w){
+		weight = w;
 	}
 	
-	public String getWord(){
-		return word;
-	}
-	
-	public void setWord(String s){
-		word = s;
+	public void addNode(WordNode node, double w){
+		weight += w;
+		path.add(node);
 	}
 	
 	@Override
-	public String toString(){
-		return id + ": " + word;
+	public int compareTo(WordPath p){
+		return (int)Math.signum(getWeight() - p.getWeight());
 	}
 }

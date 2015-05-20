@@ -16,35 +16,45 @@
 package edu.emory.clir.clearnlp.coreference.mention;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import edu.emory.clir.clearnlp.collection.map.ObjectDoubleHashMap;
-import edu.emory.clir.clearnlp.constituent.CTLibEn;
-import edu.emory.clir.clearnlp.coreference.type.MentionAttributeType;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.GenderType;
+import edu.emory.clir.clearnlp.coreference.type.MentionAttributeType;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
 import edu.emory.clir.clearnlp.coreference.type.PronounType;
-import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
- * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
+ * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
+ * @version	1.0
+ * @since 	May 19, 2015
  */
-public class Mention implements Serializable
-{
-	private static final long serialVersionUID = -3899758740140875733L;
+public abstract class AbstractMention<T> implements Serializable {
+	private static final long serialVersionUID = 7276153831562287337L;
+
+	protected DEPTree d_tree;
+	protected T d_node;
 	
-	private DEPTree    d_tree;
-	private DEPNode    d_node;
+	protected EntityType t_entity;
+	protected GenderType t_gender;
+	protected NumberType t_number;
+	protected PronounType t_pronoun;
 	
-	private EntityType t_entity;
-	private	GenderType t_gender;
-	private NumberType t_number;
-	private PronounType t_pronoun;
+	protected ObjectDoubleHashMap<MentionAttributeType> m_attr;
 	
-	private ObjectDoubleHashMap<MentionAttributeType> m_attr;
+	public AbstractMention(){
+		setTree(null);
+		setNode(null);
+		setEntityType(EntityType.UNKNOWN);
+		setGenderType(GenderType.UNKNOWN);
+		setNumberType(NumberType.UNKNOWN);
+		setPronounType(null);
+		m_attr = new ObjectDoubleHashMap<>();
+	}
 	
-	public Mention(DEPTree tree, DEPNode node)
+	public AbstractMention(DEPTree tree, T node)
 	{
 		setTree(tree);
 		setNode(node);
@@ -55,8 +65,7 @@ public class Mention implements Serializable
 		m_attr = new ObjectDoubleHashMap<>();
 	}
 	
-	public Mention(DEPTree tree, DEPNode node, EntityType entityType)
-	{
+	public AbstractMention(DEPTree tree, T node, EntityType entityType){
 		setTree(tree);
 		setNode(node);
 		setEntityType(entityType);
@@ -67,8 +76,7 @@ public class Mention implements Serializable
 		m_attr = new ObjectDoubleHashMap<>();
 	}
 	
-	public Mention(DEPTree tree, DEPNode node, NumberType numberType)
-	{
+	public AbstractMention(DEPTree tree, T node, NumberType numberType){
 		setTree(tree);
 		setNode(node);
 		setEntityType(EntityType.UNKNOWN);
@@ -78,8 +86,7 @@ public class Mention implements Serializable
 		m_attr = new ObjectDoubleHashMap<>();
 	}
 	
-	public Mention(DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType)
-	{
+	public AbstractMention(DEPTree tree, T node, EntityType entityType, GenderType genderType){
 		setTree(tree);
 		setNode(node);
 		setEntityType(entityType);
@@ -90,8 +97,7 @@ public class Mention implements Serializable
 		m_attr = new ObjectDoubleHashMap<>();
 	}
 	
-	public Mention(DEPTree tree, DEPNode node, EntityType entityType, NumberType numberType)
-	{
+	public AbstractMention(DEPTree tree, T node, EntityType entityType, NumberType numberType){
 		setTree(tree);
 		setNode(node);
 		setEntityType(entityType);
@@ -102,8 +108,7 @@ public class Mention implements Serializable
 		m_attr = new ObjectDoubleHashMap<>();
 	}
 	
-	public Mention(DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType)
-	{
+	public AbstractMention(DEPTree tree, T node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType){
 		setTree(tree);
 		setNode(node);
 		setEntityType(entityType);
@@ -112,104 +117,89 @@ public class Mention implements Serializable
 		setPronounType(pronounType);
 		m_attr = new ObjectDoubleHashMap<>();
 	}
-
-	public DEPTree getTree()
-	{
+	
+	/* Helper methods */
+	public DEPTree getTree(){
 		return d_tree;
 	}
 	
-	public DEPNode getNode()
-	{
+	public T getNode(){
 		return d_node;
 	}
 	
-	public EntityType getEntityType()
-	{
+	public EntityType getEntityType(){
 		return t_entity;
 	}
 	
-	public GenderType getGenderType()
-	{
+	public GenderType getGenderType(){
 		return t_gender;
 	}
 	
-	public NumberType getNumberType()
-	{
+	public NumberType getNumberType(){
 		return t_number;
 	}
 	
-	public PronounType getPronounType()
-	{
+	public PronounType getPronounType(){
 		return t_pronoun;
 	}
 	
-	public double getAttribute(MentionAttributeType type)
-	{
+	public double getAttribute(MentionAttributeType type){
 		return m_attr.get(type);
 	}
 	
-	public ObjectDoubleHashMap<MentionAttributeType> getFeatureMap()
-	{
+	public ObjectDoubleHashMap<MentionAttributeType> getFeatureMap(){
 		return m_attr;
 	}
 	
-	public void setTree(DEPTree tree)
-	{
+	public void setTree(DEPTree tree){
 		d_tree = tree;
 	}
 	
-	public void setNode(DEPNode node)
-	{
+	public void setNode(T node){
 		d_node = node;
 	}
 	
-	public void setEntityType(EntityType type)
-	{
+	public void setEntityType(EntityType type){
 		t_entity = type;
 	}
 	
-	public void setGenderType(GenderType type)
-	{
+	public void setGenderType(GenderType type){
 		t_gender = type;
 	}
 	
-	public void setNumberType(NumberType type)
-	{
+	public void setNumberType(NumberType type){
 		t_number = type;
 	}
 	
-	public void setPronounType(PronounType type)
-	{
+	public void setPronounType(PronounType type){
 		t_pronoun = type;
 	}
 	
-	public void addAttribute(MentionAttributeType type)
-	{
+	public void addAttribute(MentionAttributeType type){
 		m_attr.add(type, 1);
 	}
 	
-	public void addAttribute(MentionAttributeType type, double weight)
-	{
+	public void addAttribute(MentionAttributeType type, double weight){
 		m_attr.add(type, weight);
 	}
 	
-	public boolean isEntityType(EntityType type)
-	{
+	public boolean isEntityType(EntityType type){
 		return t_entity == type;
 	}
 	
-	public boolean isGenderType(GenderType type)
-	{
+	public boolean isNameEntity(){
+		return isEntityType(EntityType.PERSON) || isEntityType(EntityType.LOCATION) || isEntityType(EntityType.ORGANIZATION);
+	}
+	
+	public boolean isGenderType(GenderType type){
 		return t_gender == type;
 	}
 	
-	public boolean isNumberType(NumberType type)
-	{
+	public boolean isNumberType(NumberType type){
 		return t_number == type;
 	}
 	
-	public boolean isPronounType(PronounType type)
-	{
+	public boolean isPronounType(PronounType type){
 		return t_pronoun == type;
 	}
 	
@@ -217,10 +207,21 @@ public class Mention implements Serializable
 		return m_attr.containsKey(type);
 	}
 	
+	/* Abstract methods */
+	abstract public String getWordFrom();
+	abstract public String getSubTreeWordSequence();
+	abstract public String getHeadWord();
+	abstract public Set<String> getAncestorWords();
+	
+	abstract public String getAcronym();
+	
+	/* Static methods */
+	public static MultipleMention mergeSingleMentions(SingleMention... mentions){
+		return new MultipleMention(mentions);
+	}
+	
 	@Override
 	public String toString(){
-		String wordfrom = (!d_node.isPOSTag(CTLibEn.POS_CD))? d_node.getLemma() : d_node.getWordForm();
-		return wordfrom + "\t" + t_entity + "\t" + t_gender + '\t' + t_number + "\t" + t_pronoun;
-		
+		return getWordFrom() + "\t" + t_entity + "\t" + t_gender + '\t' + t_number + "\t" + t_pronoun;		
 	}
 }

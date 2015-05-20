@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.mention;
+package edu.emory.clir.clearnlp.coreference.mention.detector;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.ngram.Unigram;
+import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.IOUtils;
@@ -58,19 +59,19 @@ public abstract class AbstractMentionDetector
 
 //	====================================== GETTER ======================================
 
-	public List<Mention> getMentionList(List<DEPTree> trees)
+	public List<SingleMention> getMentionList(List<DEPTree> trees)
 	{
-		List<Mention> list = new ArrayList<>();
+		List<SingleMention> list = new ArrayList<>();
 		
 		for (DEPTree tree : trees) list.addAll(getMentionList(tree));
 		
 		return list;
 	}
 	
-	public List<Mention> getMentionList(DEPTree tree)
+	public List<SingleMention> getMentionList(DEPTree tree)
 	{
-		List<Mention> list = new ArrayList<>();
-		Mention mention;
+		List<SingleMention> list = new ArrayList<>();
+		SingleMention mention;
 		
 		for (DEPNode node : tree){
 			mention = getMention(tree, node);
@@ -82,6 +83,6 @@ public abstract class AbstractMentionDetector
 		return list;
 	}
 	
-	public abstract Mention getMention(DEPTree tree, DEPNode node);
-	protected abstract void processMentions(DEPTree tree, List<Mention> mentions);
+	public abstract SingleMention getMention(DEPTree tree, DEPNode node);
+	protected abstract void processMentions(DEPTree tree, List<SingleMention> mentions);
 }

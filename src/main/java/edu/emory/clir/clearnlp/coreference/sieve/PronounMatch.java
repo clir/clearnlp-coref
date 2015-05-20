@@ -17,7 +17,7 @@ package edu.emory.clir.clearnlp.coreference.sieve;
 
 import java.util.List;
 
-import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -30,8 +30,8 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
 public class PronounMatch extends AbstractSieve {
 
 	@Override
-	public void resolute(List<DEPTree> trees, List<Mention> mentions, DisjointSetWithConfidence mentionLinks) {
-		Mention curr, prev;
+	public void resolute(List<DEPTree> trees, List<SingleMention> mentions, DisjointSetWithConfidence mentionLinks) {
+		SingleMention curr, prev;
 		int i, j, size = mentions.size();
 		
 		for (i = 1; i < size; i++){
@@ -50,20 +50,20 @@ public class PronounMatch extends AbstractSieve {
 		}		
 	}
 	
-	private boolean matchesPerson(Mention curr, Mention prev){
+	private boolean matchesPerson(SingleMention curr, SingleMention prev){
 		return (curr.isEntityType(EntityType.PERSON_FEMALE) && prev.isEntityType(EntityType.PERSON_FEMALE)) || (curr.isEntityType(EntityType.PERSON_MALE)   && prev.isEntityType(EntityType.PERSON_MALE));
 	}
 	
-	private boolean matchesPronoun(Mention curr, Mention prev){
+	private boolean matchesPronoun(SingleMention curr, SingleMention prev){
 		return (curr.isEntityType(EntityType.PRONOUN_FEMALE) && (prev.isEntityType(EntityType.PRONOUN_FEMALE) || prev.isEntityType(EntityType.PERSON_FEMALE))) || (curr.isEntityType(EntityType.PRONOUN_MALE)   && (prev.isEntityType(EntityType.PRONOUN_MALE)   || prev.isEntityType(EntityType.PERSON_MALE)));
 	}
 	
-	private boolean matchesCommonNoun(Mention curr, Mention prev){
+	private boolean matchesCommonNoun(SingleMention curr, SingleMention prev){
 		// we need to deal with common nouns
 		return false;
 	}
 	
-	private boolean matchesWildcardPronoun(Mention curr, Mention prev){
+	private boolean matchesWildcardPronoun(SingleMention curr, SingleMention prev){
 		// Yet to be implemented
 		return false;
 	}

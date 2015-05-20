@@ -2,7 +2,7 @@ package edu.emory.clir.clearnlp.coreference.sieve;
 
 import java.util.StringJoiner;
 
-import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 /**
  * 
@@ -16,9 +16,16 @@ public class ExactStringMatch extends AbstractStringMatch {
 		super();
 	}
 	
-public ExactStringMatch(boolean decapitalize)
+	public ExactStringMatch(boolean decapitalize)
 	{
 		super(decapitalize);
+	}
+
+	@Override
+	protected boolean match(SingleMention prev, SingleMention curr){
+		String prevWords = getWordSequence(prev.getNode());
+		String currWords = getWordSequence(curr.getNode());
+		return prevWords.equals(currWords);
 	}
 	
 	@Override

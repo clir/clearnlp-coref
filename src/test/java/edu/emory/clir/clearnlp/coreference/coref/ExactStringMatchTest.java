@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import edu.emory.clir.clearnlp.coreference.mention.AbstractMentionDetector;
-import edu.emory.clir.clearnlp.coreference.mention.EnglishMentionDetector;
-import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
+import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
+import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
 import edu.emory.clir.clearnlp.coreference.sieve.ProperHeadWordMatch;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
@@ -33,7 +33,7 @@ public class ExactStringMatchTest
 			trees.add(tree);
 		
 		AbstractMentionDetector detector = new EnglishMentionDetector();
-		List<Mention> mentions = detector.getMentionList(trees);
+		List<SingleMention> mentions = detector.getMentionList(trees);
 		DisjointSetWithConfidence coreferences = new DisjointSetWithConfidence(mentions.size()); 
 		
 		long start = System.currentTimeMillis();
