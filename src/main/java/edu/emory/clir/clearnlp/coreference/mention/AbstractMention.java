@@ -16,13 +16,15 @@
 package edu.emory.clir.clearnlp.coreference.mention;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
 import edu.emory.clir.clearnlp.collection.map.ObjectDoubleHashMap;
+import edu.emory.clir.clearnlp.coreference.type.AttributeType;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.GenderType;
-import edu.emory.clir.clearnlp.coreference.type.MentionAttributeType;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
 import edu.emory.clir.clearnlp.coreference.type.PronounType;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
@@ -33,22 +35,24 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
  * @version	1.0
  * @since 	May 19, 2015
  */
-public abstract class AbstractMention<T> implements Serializable {
+public abstract class AbstractMention implements Serializable {
 	private static final long serialVersionUID = 7276153831562287337L;
 
 	protected DEPTree d_tree;
-	protected T d_node;
+	protected DEPNode d_node;
+	protected AbstractMention m_conj;
 	
 	protected EntityType t_entity;
 	protected GenderType t_gender;
 	protected NumberType t_number;
 	protected PronounType t_pronoun;
 	
-	protected ObjectDoubleHashMap<MentionAttributeType> m_attr;
+	protected ObjectDoubleHashMap<AttributeType> m_attr;
 	
 	public AbstractMention(){
 		setTree(null);
 		setNode(null);
+		setConjunctionMention(null);
 		setEntityType(EntityType.UNKNOWN);
 		setGenderType(GenderType.UNKNOWN);
 		setNumberType(NumberType.UNKNOWN);
@@ -56,10 +60,11 @@ public abstract class AbstractMention<T> implements Serializable {
 		m_attr = new ObjectDoubleHashMap<>();
 	}
 	
-	public AbstractMention(DEPTree tree, T node)
+	public AbstractMention(DEPTree tree, DEPNode node)
 	{
 		setTree(tree);
 		setNode(node);
+		setConjunctionMention(null);
 		setEntityType(EntityType.UNKNOWN);
 		setGenderType(GenderType.UNKNOWN);
 		setNumberType(NumberType.UNKNOWN);
@@ -67,10 +72,11 @@ public abstract class AbstractMention<T> implements Serializable {
 		m_attr = new ObjectDoubleHashMap<>();
 	}
 	
-	public AbstractMention(DEPTree tree, T node, EntityType entityType){
+	public AbstractMention(DEPTree tree, DEPNode node, EntityType entityType){
 		setTree(tree);
 		setNode(node);
 		setEntityType(entityType);
+		setConjunctionMention(null);
 		setGenderType(GenderType.UNKNOWN);
 		setNumberType(NumberType.UNKNOWN);
 		if(entityType == EntityType.PRONOUN)	setPronounType(PronounType.UNKNOWN);
@@ -78,9 +84,10 @@ public abstract class AbstractMention<T> implements Serializable {
 		m_attr = new ObjectDoubleHashMap<>();
 	}
 	
-	public AbstractMention(DEPTree tree, T node, NumberType numberType){
+	public AbstractMention(DEPTree tree, DEPNode node, NumberType numberType){
 		setTree(tree);
 		setNode(node);
+		setConjunctionMention(null);
 		setEntityType(EntityType.UNKNOWN);
 		setGenderType(GenderType.UNKNOWN);
 		setNumberType(numberType);
@@ -88,9 +95,10 @@ public abstract class AbstractMention<T> implements Serializable {
 		m_attr = new ObjectDoubleHashMap<>();
 	}
 	
-	public AbstractMention(DEPTree tree, T node, EntityType entityType, GenderType genderType){
+	public AbstractMention(DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType){
 		setTree(tree);
 		setNode(node);
+		setConjunctionMention(null);
 		setEntityType(entityType);
 		setGenderType(genderType);
 		setNumberType(NumberType.UNKNOWN);
@@ -99,9 +107,10 @@ public abstract class AbstractMention<T> implements Serializable {
 		m_attr = new ObjectDoubleHashMap<>();
 	}
 	
-	public AbstractMention(DEPTree tree, T node, EntityType entityType, NumberType numberType){
+	public AbstractMention(DEPTree tree, DEPNode node, EntityType entityType, NumberType numberType){
 		setTree(tree);
 		setNode(node);
+		setConjunctionMention(null);
 		setEntityType(entityType);
 		setGenderType(GenderType.UNKNOWN);
 		setNumberType(numberType);
@@ -110,9 +119,10 @@ public abstract class AbstractMention<T> implements Serializable {
 		m_attr = new ObjectDoubleHashMap<>();
 	}
 	
-	public AbstractMention(DEPTree tree, T node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType){
+	public AbstractMention(DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType){
 		setTree(tree);
 		setNode(node);
+		setConjunctionMention(null);
 		setEntityType(entityType);
 		setGenderType(genderType);
 		setNumberType(numberType);
@@ -125,7 +135,7 @@ public abstract class AbstractMention<T> implements Serializable {
 		return d_tree;
 	}
 	
-	public T getNode(){
+	public DEPNode getNode(){
 		return d_node;
 	}
 	
@@ -145,19 +155,37 @@ public abstract class AbstractMention<T> implements Serializable {
 		return t_pronoun;
 	}
 	
-	public double getAttribute(MentionAttributeType type){
+	public double getAttribute(AttributeType type){
 		return m_attr.get(type);
 	}
 	
-	public ObjectDoubleHashMap<MentionAttributeType> getFeatureMap(){
+	public ObjectDoubleHashMap<AttributeType> getFeatureMap(){
 		return m_attr;
+	}
+	
+	public AbstractMention getConjunctionMention(){
+		return m_conj;
+	}
+	
+	public List<AbstractMention> getConjunctionMentions(){
+		if(hasConjunctionMention()){
+			AbstractMention mention = this;
+			List<AbstractMention> mentions = new ArrayList<>();
+			
+			do		mentions.add(mention);
+			while((	mention = mention.getConjunctionMention()) != null );
+			
+			Collections.reverse(mentions);
+			return mentions;
+		}
+		return null;
 	}
 	
 	public void setTree(DEPTree tree){
 		d_tree = tree;
 	}
 	
-	public void setNode(T node){
+	public void setNode(DEPNode node){
 		d_node = node;
 	}
 	
@@ -177,11 +205,15 @@ public abstract class AbstractMention<T> implements Serializable {
 		t_pronoun = type;
 	}
 	
-	public void addAttribute(MentionAttributeType type){
+	public void setConjunctionMention(AbstractMention mention){
+		m_conj = mention;
+	}
+	
+	public void addAttribute(AttributeType type){
 		m_attr.add(type, 1);
 	}
 	
-	public void addAttribute(MentionAttributeType type, double weight){
+	public void addAttribute(AttributeType type, double weight){
 		m_attr.add(type, weight);
 	}
 	
@@ -205,8 +237,20 @@ public abstract class AbstractMention<T> implements Serializable {
 		return t_pronoun == type;
 	}
 	
-	public boolean hasFeature(MentionAttributeType type){
+	public boolean isParentMention(AbstractMention mention){
+		return getNode().getSubNodeSet().contains(mention.getNode());
+	}
+	
+	public boolean isChildMention(AbstractMention mention){
+		return mention.getNode().getSubNodeSet().contains(this);
+	}
+	
+	public boolean hasFeature(AttributeType type){
 		return m_attr.containsKey(type);
+	}
+	
+	public boolean hasConjunctionMention(){
+		return m_conj != null;
 	}
 	
 	/* Abstract methods */
@@ -214,13 +258,12 @@ public abstract class AbstractMention<T> implements Serializable {
 	abstract public String getSubTreeWordSequence();
 	abstract public List<String> getSubTreeWordList();
 	abstract public List<DEPNode> getSubTreeNodes();
-	abstract public String getHeadWord();
+	abstract public String getHeadNodeWordForm();
 	abstract public Set<String> getAncestorWords();
-	
 	abstract public String getAcronym();
 	
 	@Override
 	public String toString(){
-		return getWordFrom() + "\t" + t_entity + "\t" + t_gender + '\t' + t_number + "\t" + t_pronoun;		
+		return getWordFrom() + "\t" + t_entity + "\t" + t_gender + '\t' + t_number + "\t" + t_pronoun;
 	}
 }

@@ -17,10 +17,7 @@ package edu.emory.clir.clearnlp.coreference.utils.util;
 
 import java.util.List;
 
-import edu.emory.clir.clearnlp.constituent.CTLibEn;
-import edu.emory.clir.clearnlp.coreference.mention.MultipleMention;
 import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
-import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.util.DSUtils;
 
 /**
@@ -28,7 +25,7 @@ import edu.emory.clir.clearnlp.util.DSUtils;
  * @version	1.0
  * @since 	May 20, 2015
  */
-public class MentionUtil {
+public class MentionUtil {	
 	@SuppressWarnings("unchecked")
 	public static List<SingleMention>[] groupMentions(List<SingleMention> mentions){
 		if(!mentions.isEmpty()){
@@ -48,30 +45,5 @@ public class MentionUtil {
 			return groups;
 		}
 		return null;
-	}
-	
-	public static boolean hasConjunctionRelations(SingleMention mention1, SingleMention mention2){
-		if(mention1.getTree() == mention2.getTree() && mention1.isParentMention(mention2)){
-			for(DEPNode node : mention1.getSubTreeNodes())
-				if(node.isPOSTag(CTLibEn.POS_CC) || node.isPOSTag(CTLibEn.POS_COMMA))	return true;
-				else if(mention2.getNode() == node)										break;
-		}
-		return false;
-	}
-	
-	public static boolean hasConjunctionRelations(List<SingleMention> mentions){
-		int i, size = mentions.size();
-		for(i = 0; i < size-1; i++)
-			if(!hasConjunctionRelations(mentions.get(i), mentions.get(i+1)))
-				return false;
-		return true;
-	}
-	
-	public static MultipleMention mergeSingleMentions(List<SingleMention> mentions){
-		return new MultipleMention(mentions);
-	}
-	
-	public static MultipleMention mergeSingleMentions(SingleMention... mentions){
-		return new MultipleMention(mentions);
 	}
 }

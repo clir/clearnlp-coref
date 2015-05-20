@@ -63,7 +63,7 @@ public class SingleMentionTest {
 	
 	public void testHeadWord(List<SingleMention> mentions) {
 		for(SingleMention mention : mentions)
-			System.out.println(mention.getWordFrom() + " -> " + mention.getHeadWord());
+			System.out.println(mention.getWordFrom() + " -> " + mention.getHeadNodeWordForm());
 	}
 	
 	public void testAcronym(List<SingleMention> mentions) {

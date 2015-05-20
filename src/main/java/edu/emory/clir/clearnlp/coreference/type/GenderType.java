@@ -20,7 +20,7 @@ package edu.emory.clir.clearnlp.coreference.type;
  * @version	1.0
  * @since 	May 18, 2015
  */
-public enum GenderType {
+public enum GenderType{
 	MALE,
 	FEMALE,
 	NEUTRAL,
