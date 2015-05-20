@@ -17,7 +17,6 @@ package edu.emory.clir.clearnlp.coreference.mention;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +27,8 @@ import edu.emory.clir.clearnlp.collection.pair.ObjectIntPair;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.GenderType;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
+import edu.emory.clir.clearnlp.dependency.DEPNode;
+import edu.emory.clir.clearnlp.util.DSUtils;
 import edu.emory.clir.clearnlp.util.Joiner;
 
 /**
@@ -37,6 +38,11 @@ import edu.emory.clir.clearnlp.util.Joiner;
  */
 public class MultipleMention extends AbstractMention<List<SingleMention>>{
 	private static final long serialVersionUID = -3206843928289079965L;
+	
+	public MultipleMention(List<SingleMention> mentions) {
+		super(null, mentions);
+		initCollectiveAttributes();
+	}
 	
 	public MultipleMention(SingleMention... mentions) {
 		super(null, Arrays.asList(mentions));
@@ -54,7 +60,7 @@ public class MultipleMention extends AbstractMention<List<SingleMention>>{
 		
 		// Entity Type
 		List<ObjectIntPair<EntityType>> list = map.toList();
-		Collections.sort(list, Collections.reverseOrder());
+		DSUtils.sortReverseOrder(list);
 		
 		if(list.size() == 1)					setEntityType(list.get(0).o);
 		else if(list.get(0).i == list.get(1).i)	setEntityType(EntityType.UNKNOWN);
@@ -80,6 +86,17 @@ public class MultipleMention extends AbstractMention<List<SingleMention>>{
 
 	@Override
 	public String getSubTreeWordSequence() {
+		return Joiner.join(getNode().stream().map(mention -> mention.getSubTreeWordSequence()).collect(Collectors.toCollection(ArrayList::new)), ",");
+	}
+	
+	@Override
+	public List<String> getSubTreeWordList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<DEPNode> getSubTreeNodes() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -100,5 +117,5 @@ public class MultipleMention extends AbstractMention<List<SingleMention>>{
 	public String getAcronym() {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}	
 }

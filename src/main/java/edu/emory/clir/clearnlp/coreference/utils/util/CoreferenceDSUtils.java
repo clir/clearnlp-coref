@@ -16,7 +16,6 @@
 package edu.emory.clir.clearnlp.coreference.utils.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.constituent.CTLibEn;
@@ -51,27 +50,13 @@ public class CoreferenceDSUtils {
 		return list;
 	}
 	
-	public static int[][] init2DIntArray(int i, int j, int value){
-		int[][]	array = new int[i][];
+	public static List<DEPNode> getConjunctions(DEPTree tree){
+		List<DEPNode> list = new ArrayList<>();
 		
-		int[] row;
-		for(int c = 0; c < j; c++){
-			row = new int[j];	Arrays.fill(row, value);
-			array[c] = row;
-		}
-			
-		return array;
-	}
-	
-	public static double[][] init2DDoubleArray(int i, int j, double value){
-		double[][]	array = new double[i][];
+		for(DEPNode node : tree)
+			if(node.isPOSTag(CTLibEn.POS_CC))
+				list.add(node);
 		
-		double[] row;
-		for(int c = 0; c < j; c++){
-			row = new double[j];	Arrays.fill(row, value);
-			array[c] = row;
-		}
-			
-		return array;
+		return list;
 	}
 }

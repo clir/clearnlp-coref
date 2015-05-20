@@ -16,6 +16,7 @@
 package edu.emory.clir.clearnlp.coreference.mention;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import edu.emory.clir.clearnlp.collection.map.ObjectDoubleHashMap;
@@ -24,6 +25,7 @@ import edu.emory.clir.clearnlp.coreference.type.GenderType;
 import edu.emory.clir.clearnlp.coreference.type.MentionAttributeType;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
 import edu.emory.clir.clearnlp.coreference.type.PronounType;
+import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
@@ -210,15 +212,12 @@ public abstract class AbstractMention<T> implements Serializable {
 	/* Abstract methods */
 	abstract public String getWordFrom();
 	abstract public String getSubTreeWordSequence();
+	abstract public List<String> getSubTreeWordList();
+	abstract public List<DEPNode> getSubTreeNodes();
 	abstract public String getHeadWord();
 	abstract public Set<String> getAncestorWords();
 	
 	abstract public String getAcronym();
-	
-	/* Static methods */
-	public static MultipleMention mergeSingleMentions(SingleMention... mentions){
-		return new MultipleMention(mentions);
-	}
 	
 	@Override
 	public String toString(){
