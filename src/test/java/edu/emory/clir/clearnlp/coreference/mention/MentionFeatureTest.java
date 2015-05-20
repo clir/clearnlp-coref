@@ -26,7 +26,7 @@ import org.junit.Test;
 
 import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
-import edu.emory.clir.clearnlp.coreference.type.MentionAttributeType;
+import edu.emory.clir.clearnlp.coreference.type.AttributeType;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 
@@ -55,7 +55,7 @@ public class MentionFeatureTest {
 		mentions = detector.getMentionList(trees);
 		
 		for(SingleMention mention : mentions)
-			System.out.println(mention.getNode().getWordForm() + " -> " + mention.hasFeature(MentionAttributeType.QUOTE));
+			System.out.println(mention.getNode().getWordForm() + " -> " + mention.hasFeature(AttributeType.QUOTE));
 	}
 	
 	@Test
@@ -74,6 +74,7 @@ public class MentionFeatureTest {
 		
 		mentions = detector.getMentionList(trees);
 		
-//		for(SingleMention mention : mentions)	System.out.println(mention);
+		for(SingleMention mention : mentions)
+			if(mention.hasConjunctionMention())	System.out.println(mention.getConjunctionMentions());
 	}
 }

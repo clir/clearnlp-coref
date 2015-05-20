@@ -18,8 +18,7 @@ package edu.emory.clir.clearnlp.coreference.type;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public enum NumberType
-{
+public enum NumberType{
 	SINGULAR,
 	PLURAL,
 	UNCOUNTABLE,
