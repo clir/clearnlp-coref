@@ -46,12 +46,12 @@ public class SingleMentionTest {
 		List<DEPTree> trees = new ArrayList<>();
 		
 		while ((tree = reader.next()) != null) trees.add(tree);
-		trees = trees.subList(0, 50);
+		trees = trees.subList(0, 12);
 		
 		AbstractMentionDetector detector = new EnglishMentionDetector();
 		mentions = detector.getMentionList(trees);
 		
-		testSubTreeWordSequence(mentions);
+//		testSubTreeWordSequence(mentions);
 //		testHeadWord(mentions);
 //		testAcronym(mentions);
 	}

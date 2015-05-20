@@ -1,0 +1,29 @@
+1	Jenny	jenny	NNP	_	4	nsubj	U-PERSON
+2	and	and	CC	_	1	cc	O
+3	Mary	mary	NNP	_	1	conj	U-PERSON
+4	went	go	VBD	_	0	root	O
+5	into	into	IN	_	4	prep	O
+6	a	a	DT	_	7	det	O
+7	bar	bar	NN	_	5	pobj	O
+8	together	together	RB	_	4	advmod	O
+9	and	and	CC	_	4	cc	O
+10	ordered	order	VBD	p2=VBN	4	conj	O
+11	drinks	drink	NNS	_	10	dobj	O
+12	.	.	.	_	4	punct	O
+
+1	I	I	PRP	_	2	nsubj	O
+2	love	love	VBP	_	0	root	O
+3	to	to	TO	_	4	aux	O
+4	eat	eat	VB	_	2	xcomp	O
+5	beef	beef	NN	_	4	dobj	O
+6	,	,	,	_	5	punct	O
+7	chicken	chicken	NN	_	5	conj	O
+8	,	,	,	_	7	punct	O
+9	and	and	CC	_	7	cc	O
+10	pook	pook	NN	p2=VB	7	conj	O
+11	.	.	.	_	2	punct	O
+
+1	They	they	PRP	_	2	nsubj	O
+2	are	be	VBP	_	0	root	O
+3	delicious	delicious	JJ	_	2	acomp	O
+4	.	.	.	_	2	punct	O
