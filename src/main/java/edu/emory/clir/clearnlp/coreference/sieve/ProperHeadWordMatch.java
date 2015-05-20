@@ -23,7 +23,8 @@ public class ProperHeadWordMatch extends AbstractStringMatch
 		
 		if (prevWords.equals(currWords) && currDependents.size() == prevDependents.size()) {	//also had && prev.Dependents.size() > 1
 			for (int i = 0; i < prevDependents.size(); i++) {
-				prevDependents.get(i).getWordForm().equals(currDependents.get(i).getWordForm());
+				if (!(prevDependents.get(i).getWordForm().equals(currDependents.get(i).getWordForm())))
+					return false;
 			}
 			return true;
 		}

@@ -35,7 +35,7 @@ public class SpeakerIdentification extends AbstractSieve
 			
 			for (j = i-1; j >= 0; j--){
 				prev = mentions.get(j);
-				if (bothInQuote(prev, curr) || oneInQuote(prev, curr)) {
+				if (true) {
 					mentionLinks.union(i, j, 0); break;
 				}
 			}
@@ -58,13 +58,4 @@ public class SpeakerIdentification extends AbstractSieve
 		return reportingVerbs;
 	}
 
-	public boolean bothInQuote(Mention prev, Mention curr)
-	{
-		return prev.hasFeature("QUOTE") && curr.hasFeature("QUOTE");
-	}
-	
-	public boolean oneInQuote(Mention prev, Mention curr)
-	{
-		return prev.hasFeature("QUOTE") && !curr.hasFeature("QUOTE") || !prev.hasFeature("QUOTE") && curr.hasFeature("QUOTE");
-	}
 }

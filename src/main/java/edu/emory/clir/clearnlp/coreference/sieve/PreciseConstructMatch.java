@@ -73,8 +73,7 @@ public class PreciseConstructMatch extends AbstractSieve
 			
 			for (j = i-1; j >= 0; j--){
 				prev = mentions.get(j);
-				if (acronymMatch(curr, prev) || appositiveMatch(curr, prev) || demonymMatch(curr, prev) 
-						|| predicateNominativeMatch(curr,prev)) {
+				if (acronymMatch(curr, prev) || appositiveMatch(curr, prev) ||  predicateNominativeMatch(curr,prev)) {
 					mentionLinks.union(i, j, 0); break;
 				}
 			}
@@ -84,7 +83,7 @@ public class PreciseConstructMatch extends AbstractSieve
 	private boolean acronymMatch(Mention curr, Mention prev)
     {
         if (curr.getNode().isPOSTag(POSTagEn.POS_NNP) && prev.getNode().isPOSTag(POSTagEn.POS_NNP)) {
-            return acronymTest(getWordSequence(prev.getNode()), getWordSequence(curr.getNode()));
+            return compareUpperCases(getWordSequence(prev.getNode()), getWordSequence(curr.getNode()));
         }
         return false;
     }
@@ -95,12 +94,6 @@ public class PreciseConstructMatch extends AbstractSieve
         return joiner.toString();
     }
 
-    private boolean acronymTest(String prev, String curr)
-    {
-    	return Pattern.matches("[^A-Z]", prev) || Pattern.matches("[^A-Z]", curr); 
-//        return (curr.equals(prev.replaceAll("[^A-Z]","")) || prev.equals(curr.replaceAll("[^A-Z]","")));
-    }
-    
     private boolean compareUpperCases(String s1, String s2)
     {
     	char[] c1 = s1.toCharArray();
