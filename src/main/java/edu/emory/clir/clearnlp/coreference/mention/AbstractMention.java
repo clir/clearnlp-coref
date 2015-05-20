@@ -211,7 +211,7 @@ public abstract class AbstractMention<T> implements Serializable {
 	abstract public String getWordFrom();
 	abstract public String getSubTreeWordSequence();
 	abstract public String getHeadWord();
-	abstract public Set<T> getHeadNodes();
+	abstract public Set<String> getAncestorWords();
 	
 	abstract public String getAcronym();
 	

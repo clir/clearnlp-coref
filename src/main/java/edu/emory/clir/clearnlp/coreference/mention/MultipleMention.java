@@ -91,7 +91,7 @@ public class MultipleMention extends AbstractMention<List<SingleMention>>{
 	}
 
 	@Override
-	public Set<List<SingleMention>> getHeadNodes() {
+	public Set<String> getAncestorWords() {
 		// TODO Auto-generated method stub
 		return null;
 	}

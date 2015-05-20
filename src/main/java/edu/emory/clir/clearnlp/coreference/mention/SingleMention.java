@@ -16,6 +16,7 @@
 package edu.emory.clir.clearnlp.coreference.mention;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -76,8 +77,8 @@ public class SingleMention extends AbstractMention<DEPNode>{
 	}
 
 	@Override
-	public Set<DEPNode> getHeadNodes() {
-		return getNode().getAncestorSet();
+	public Set<String> getAncestorWords() {
+		return getNode().getAncestorSet().stream().map(node -> node.getWordForm()).collect(Collectors.toCollection(HashSet::new));
 	}
 
 	@Override
