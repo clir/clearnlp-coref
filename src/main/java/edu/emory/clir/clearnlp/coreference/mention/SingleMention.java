@@ -85,7 +85,7 @@ public class SingleMention extends AbstractMention<DEPNode>{
 	public String getAcronym() {
 		if(isNameEntity()){
 			String phrase = Joiner.join(getNode().getSubNodeList().stream()
-					.filter(node -> node.isPOSTag(CTLibEn.POS_NNP))
+					.filter(node -> node.isPOSTag(CTLibEn.POS_NNP) || node.isPOSTag(CTLibEn.POS_NNPS))
 					.map(node -> node.getWordForm())
 					.collect(Collectors.toCollection(ArrayList::new)), " ");
 		

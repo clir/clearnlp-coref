@@ -51,9 +51,9 @@ public class SingleMentionTest {
 		AbstractMentionDetector detector = new EnglishMentionDetector();
 		mentions = detector.getMentionList(trees);
 		
-//		testSubTreeWordSequence(mentions);
+		testSubTreeWordSequence(mentions);
 //		testHeadWord(mentions);
-		testAcronym(mentions);
+//		testAcronym(mentions);
 	}
 	
 	public void testSubTreeWordSequence(List<SingleMention> mentions) {
