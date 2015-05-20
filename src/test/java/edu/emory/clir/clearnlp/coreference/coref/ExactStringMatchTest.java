@@ -48,6 +48,6 @@ public class ExactStringMatchTest
 		
 		System.out.println(sieve.getClass().toGenericString() + " " + coreferences.toString());
 		
-		System.out.println(mentions.get(1).getNode().getDependentList());
+		System.out.println(mentions.get(1).getHeadWord());
 	}
 }

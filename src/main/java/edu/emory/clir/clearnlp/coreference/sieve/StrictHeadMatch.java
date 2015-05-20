@@ -3,7 +3,7 @@ package edu.emory.clir.clearnlp.coreference.sieve;
 import java.util.HashSet;
 import java.util.Set;
 
-import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
+import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 
 /**
@@ -13,37 +13,19 @@ import edu.emory.clir.clearnlp.dependency.DEPNode;
 public class StrictHeadMatch extends AbstractStringMatch
 {
 	@Override
-	protected boolean match(SingleMention prev, SingleMention curr)
+	protected boolean match(AbstractMention prev, AbstractMention curr)
 	{
-		Set<DEPNode> prevAncestor = prev.getNode().getAncestorSet();
-		Set<DEPNode> currAncestor = curr.getNode().getAncestorSet();
+		Set<String> prevAncestor = prev.getAncestorWords();
+		Set<String> currAncestor = curr.getAncestorWords();
 		return (prevAncestor.size() > currAncestor.size()) ? anyMatch(prevAncestor, currAncestor) : anyMatch(currAncestor, prevAncestor);
 	}
 	
-	private boolean anyMatch(Set<DEPNode> max, Set<DEPNode> min)
+	private boolean anyMatch(Set<String> max, Set<String> min)
 	{
-		Set<String> mx = convert(max);
-		Set<String> mn = convert(min);
-		for (String word : mx) {
-			if (mn.contains(word))
+		for (String word : max) {
+			if (min.contains(word))
 				return true;
 		}
 		return false;
-	}
-	
-	private Set<String> convert(Set<DEPNode> set)
-	{
-		Set<String> result = new HashSet<>();
-		for(DEPNode node : set) {
-			result.add(node.getWordForm());
-		}
-		return result;
-	}
-
-	@Override
-	protected String getWordSequence(Mention mention)
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

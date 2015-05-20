@@ -2,6 +2,7 @@ package edu.emory.clir.clearnlp.coreference.sieve;
 
 import java.util.StringJoiner;
 
+import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 /**
@@ -21,20 +22,14 @@ public class ExactStringMatch extends AbstractStringMatch {
 		super(decapitalize);
 	}
 
-	@Override
-	protected boolean match(SingleMention prev, SingleMention curr){
-		String prevWords = getWordSequence(prev.getNode());
-		String currWords = getWordSequence(curr.getNode());
+	protected boolean match(AbstractMention prev, AbstractMention curr){
+		String prevWords = prev.getSubTreeWordSequence();
+		String currWords = curr.getSubTreeWordSequence();
 		return prevWords.equals(currWords);
 	}
-	
-	@Override
-	protected String getWordSequence(Mention mention){
-		StringJoiner joiner = new StringJoiner(" ");
-		DEPNode node = mention.getNode();
-		
-		for(DEPNode sub : node.getSubNodeList()) joiner.add(sub.getWordForm());
 
-		return joiner.toString();
+	protected String getWordSequence(AbstractMention Mention)
+	{
+		return null;
 	}
 }

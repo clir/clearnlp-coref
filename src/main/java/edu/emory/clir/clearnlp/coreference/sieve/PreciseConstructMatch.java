@@ -32,7 +32,7 @@ public class PreciseConstructMatch extends AbstractSieve
 	
 	public PreciseConstructMatch() throws IOException
 	{
-		DemonymMap = init(PathSieve.ENG_DEMONYM);
+//		DemonymMap = init(PathSieve.ENG_DEMONYM);
 	}
 	
 	public static Map<String, Set<String>> init(String filepath) throws IOException

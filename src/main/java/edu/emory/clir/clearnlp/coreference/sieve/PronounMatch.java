@@ -15,20 +15,29 @@
  */
 package edu.emory.clir.clearnlp.coreference.sieve;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
-import edu.emory.clir.clearnlp.coreference.type.EntityType;
+import edu.emory.clir.clearnlp.coreference.type.GenderType;
+import edu.emory.clir.clearnlp.coreference.type.SyntacticRole;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
+import edu.emory.clir.clearnlp.dependency.DEPNode;
+import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
  * @since 	Apr 13, 2015
+ * will need to edit to account for reflexive
  */
-public class PronounMatch extends AbstractSieve {
-
+public class PronounMatch extends AbstractSieve 
+{
+	List<SyntacticRole> argumentSlot = new ArrayList<>(Arrays.asList(SyntacticRole.SUBJ, SyntacticRole.AGENT, SyntacticRole.DOBJ, SyntacticRole.IOBJ, SyntacticRole.POBJ)); 
+	
 	@Override
 	public void resolute(List<DEPTree> trees, List<SingleMention> mentions, DisjointSetWithConfidence mentionLinks) {
 		SingleMention curr, prev;
@@ -42,7 +51,8 @@ public class PronounMatch extends AbstractSieve {
 				if (matchesPerson(curr, prev) || 
 					matchesPronoun(curr, prev) || 
 					matchesCommonNoun(curr, prev) || 
-					matchesWildcardPronoun(curr, prev)){
+					matchesWildcardPronoun(curr, prev) ||
+					matchesReflexivePronoun(prev, curr)){
 					
 					mentionLinks.union(i, j, 0); break;
 				}
@@ -51,11 +61,11 @@ public class PronounMatch extends AbstractSieve {
 	}
 	
 	private boolean matchesPerson(SingleMention curr, SingleMention prev){
-		return (curr.isEntityType(EntityType.PERSON_FEMALE) && prev.isEntityType(EntityType.PERSON_FEMALE)) || (curr.isEntityType(EntityType.PERSON_MALE)   && prev.isEntityType(EntityType.PERSON_MALE));
+		return (curr.isGenderType(GenderType.FEMALE) && prev.isGenderType(GenderType.FEMALE)) || (curr.isGenderType(GenderType.MALE) && prev.isGenderType(GenderType.MALE));
 	}
 	
 	private boolean matchesPronoun(SingleMention curr, SingleMention prev){
-		return (curr.isEntityType(EntityType.PRONOUN_FEMALE) && (prev.isEntityType(EntityType.PRONOUN_FEMALE) || prev.isEntityType(EntityType.PERSON_FEMALE))) || (curr.isEntityType(EntityType.PRONOUN_MALE)   && (prev.isEntityType(EntityType.PRONOUN_MALE)   || prev.isEntityType(EntityType.PERSON_MALE)));
+		return (curr.isGenderType(GenderType.FEMALE) && (prev.isGenderType(GenderType.FEMALE) || prev.isGenderType(GenderType.FEMALE))) || (curr.isGenderType(GenderType.MALE) && (prev.isGenderType(GenderType.MALE) || prev.isGenderType(GenderType.MALE)));
 	}
 	
 	private boolean matchesCommonNoun(SingleMention curr, SingleMention prev){
@@ -66,5 +76,27 @@ public class PronounMatch extends AbstractSieve {
 	private boolean matchesWildcardPronoun(SingleMention curr, SingleMention prev){
 		// Yet to be implemented
 		return false;
+	}
+	
+	private boolean matchesReflexivePronoun(AbstractMention prev, AbstractMention curr)
+	{
+		//curr matches person, number, and gender with prev
+		return (argumentDomain(prev, curr) || (adjunctDomain(prev, curr)) 
+	}
+	
+	private boolean arguementDomain(AbstractMention prev, AbstractMention curr)
+	{
+		return prev.getHeadWord().equals(curr.getHeadWord() && indexOf(prev) > indexOf(curr));
+	}
+	
+	private int indexOf(AbstractMention<DEPNode> mention)
+	{
+		DEPNode node = mention.getNode();
+		
+	}
+	
+	private boolean adjunctDomain(AbstractMention prev, AbstractMention curr)
+	{
+		
 	}
 }

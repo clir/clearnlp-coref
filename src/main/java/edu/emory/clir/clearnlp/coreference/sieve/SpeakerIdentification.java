@@ -10,6 +10,7 @@ import java.util.Set;
 
 import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
 import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
+import edu.emory.clir.clearnlp.coreference.type.MentionAttributeType;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.IOUtils;
@@ -17,7 +18,6 @@ import edu.emory.clir.clearnlp.util.IOUtils;
 /**
  * @author alexlutz
  * need to be able to check if pronoun is first, second, or third person
- * need to add quotations to the test files 
  */
 public class SpeakerIdentification extends AbstractSieve
 {
@@ -60,11 +60,11 @@ public class SpeakerIdentification extends AbstractSieve
 
 	public boolean bothInQuote(SingleMention prev, SingleMention curr)
 	{
-		return prev.hasFeature("QUOTE") && curr.hasFeature("QUOTE");
+		return prev.hasFeature(MentionAttributeType.QUOTE) && curr.hasFeature(MentionAttributeType.QUOTE);
 	}
 	
 	public boolean oneInQuote(SingleMention prev, SingleMention curr)
 	{
-		return prev.hasFeature("QUOTE") && !curr.hasFeature("QUOTE") || !prev.hasFeature("QUOTE") && curr.hasFeature("QUOTE");
+		return prev.hasFeature(MentionAttributeType.QUOTE) && !curr.hasFeature(MentionAttributeType.QUOTE) || !prev.hasFeature(MentionAttributeType.QUOTE) && curr.hasFeature(MentionAttributeType.QUOTE);
 	}
 }

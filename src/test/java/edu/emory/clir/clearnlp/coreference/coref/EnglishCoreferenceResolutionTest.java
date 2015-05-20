@@ -26,7 +26,7 @@ import org.junit.Test;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
-import edu.emory.clir.clearnlp.coreference.EnglishCoreferenceResolution;
+import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
@@ -38,7 +38,7 @@ public class EnglishCoreferenceResolutionTest
 {
 	@Test
 	public void corefTest() throws IOException{
-		AbstractCoreferenceResolution coref = new EnglishCoreferenceResolution();
+		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution();
 		InputStream in = new FileInputStream("src/test/resources/edu/emory/clir/clearnlp/coreference/mention/input.mention.cnlp");
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
 		reader.open(in);
