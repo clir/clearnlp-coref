@@ -27,7 +27,7 @@ import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
-import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 
@@ -50,7 +50,7 @@ public class SieveSystemTest {
 		
 		while ((tree = reader.next()) != null) trees.add(tree);
 
-		Pair<List<Mention>, DisjointSet> resolution = coref.getEntities(trees);
+		Pair<List<SingleMention>, DisjointSet> resolution = coref.getEntities(trees);
 		System.out.println(resolution);
 	}
 }

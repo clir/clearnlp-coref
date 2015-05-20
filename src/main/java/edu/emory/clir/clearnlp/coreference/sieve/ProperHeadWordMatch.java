@@ -2,7 +2,7 @@ package edu.emory.clir.clearnlp.coreference.sieve;
 
 import java.util.List;
 
-import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 
@@ -13,7 +13,7 @@ import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 public class ProperHeadWordMatch extends AbstractStringMatch
 {
 	@Override
-	protected boolean match(Mention prev, Mention curr)
+	protected boolean match(SingleMention prev, SingleMention curr)
 	{
 		String prevWords = getWordSequence(prev);
 		String currWords = getWordSequence(curr);

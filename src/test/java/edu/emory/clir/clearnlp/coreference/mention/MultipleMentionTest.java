@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.coref;
+package edu.emory.clir.clearnlp.coreference.mention;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,32 +23,34 @@ import java.util.List;
 
 import org.junit.Test;
 
-import edu.emory.clir.clearnlp.collection.pair.Pair;
-import edu.emory.clir.clearnlp.collection.set.DisjointSet;
-import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
-import edu.emory.clir.clearnlp.coreference.EnglishCoreferenceResolution;
-import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
+import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
+import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 
 /**
- * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
+ * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
+ * @version	1.0
+ * @since 	May 19, 2015
  */
-public class EnglishCoreferenceResolutionTest
-{
+public class MultipleMentionTest {
 	@Test
-	public void corefTest() throws IOException{
-		AbstractCoreferenceResolution coref = new EnglishCoreferenceResolution();
-		InputStream in = new FileInputStream("src/test/resources/edu/emory/clir/clearnlp/coreference/mention/input.mention.cnlp");
+	public void testMultipleMention() throws IOException{
+		InputStream in = new FileInputStream("src/test/resources/edu/emory/clir/clearnlp/coreference/mention/input.mention.quote.cnlp");
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
 		reader.open(in);
 		
 		DEPTree tree;
+		List<SingleMention> mentions;
 		List<DEPTree> trees = new ArrayList<>();
 		
 		while ((tree = reader.next()) != null) trees.add(tree);
-
-		Pair<List<SingleMention>, DisjointSet> resolution = coref.getEntities(trees);
-		System.out.println(resolution);
+		
+		AbstractMentionDetector detector = new EnglishMentionDetector();
+		
+		mentions = detector.getMentionList(trees);
+		
+		MultipleMention testMention = new MultipleMention(mentions.toArray(new SingleMention[mentions.size()]));
+		System.out.println(testMention);
 	}
 }

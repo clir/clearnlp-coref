@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
-import edu.emory.clir.clearnlp.coreference.mention.Mention;
+import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.IOUtils;
@@ -24,10 +24,10 @@ public class SpeakerIdentification extends AbstractSieve
 	Set<String> reportingVerbs = init(PathSieve.REPORT_VERBS);
 	
 	@Override
-	public void resolute(List<DEPTree> trees, List<Mention> mentions,
+	public void resolute(List<DEPTree> trees, List<SingleMention> mentions,
 			DisjointSetWithConfidence mentionLinks)
 	{
-		Mention curr, prev;
+		SingleMention curr, prev;
 		int i, j ,size = mentions.size();
 		
 		for (i = 1;i < size; i++) {
@@ -58,12 +58,12 @@ public class SpeakerIdentification extends AbstractSieve
 		return reportingVerbs;
 	}
 
-	public boolean bothInQuote(Mention prev, Mention curr)
+	public boolean bothInQuote(SingleMention prev, SingleMention curr)
 	{
 		return prev.hasFeature("QUOTE") && curr.hasFeature("QUOTE");
 	}
 	
-	public boolean oneInQuote(Mention prev, Mention curr)
+	public boolean oneInQuote(SingleMention prev, SingleMention curr)
 	{
 		return prev.hasFeature("QUOTE") && !curr.hasFeature("QUOTE") || !prev.hasFeature("QUOTE") && curr.hasFeature("QUOTE");
 	}

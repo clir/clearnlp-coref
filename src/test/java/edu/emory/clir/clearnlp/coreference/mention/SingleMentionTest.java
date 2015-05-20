@@ -16,11 +16,8 @@
 package edu.emory.clir.clearnlp.coreference.mention;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,21 +25,19 @@ import org.junit.Test;
 
 import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
-import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	May 12, 2015
+ * @since 	May 19, 2015
  */
-public class MentionDetectorTest {
+public class SingleMentionTest {
 	
-	@Test
-	public void getMentionsTest() throws IOException{
+	@Test 
+	public void test() throws IOException{
 		InputStream in = new FileInputStream("src/test/resources/edu/emory/clir/clearnlp/coreference/mention/input.mention.cnlp");
-		OutputStream out = new FileOutputStream("src/test/resources/edu/emory/clir/clearnlp/coreference/mention/input.mention.out");
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
 		reader.open(in);
 		
@@ -51,23 +46,28 @@ public class MentionDetectorTest {
 		List<DEPTree> trees = new ArrayList<>();
 		
 		while ((tree = reader.next()) != null) trees.add(tree);
+		trees = trees.subList(0, 50);
 		
-		StringBuilder sb = new StringBuilder();
-		PrintWriter writer = new PrintWriter(out);
 		AbstractMentionDetector detector = new EnglishMentionDetector();
+		mentions = detector.getMentionList(trees);
 		
-		for(DEPTree t : trees){
-			for(DEPNode n : t)	sb.append(n.getWordForm()+" ");
-			writer.println(sb.toString());
-			
-			mentions = detector.getMentionList(t);
-			writer.println(mentions.toString());
-			
-			writer.println();
-			sb.setLength(0);
-		}
-		
-		out.close();
-		writer.close();
+		testSubTreeWordSequence(mentions);
+//		testHeadWord(mentions);
+//		testAcronym(mentions);
+	}
+	
+	public void testSubTreeWordSequence(List<SingleMention> mentions) {
+		for(SingleMention mention : mentions)
+			System.out.println(mention.getWordFrom() + " -> " + mention.getSubTreeWordSequence());
+	}
+	
+	public void testHeadWord(List<SingleMention> mentions) {
+		for(SingleMention mention : mentions)
+			System.out.println(mention.getWordFrom() + " -> " + mention.getHeadWord());
+	}
+	
+	public void testAcronym(List<SingleMention> mentions) {
+		for(SingleMention mention : mentions)
+			System.out.println(mention.getWordFrom() + " -> " + mention.getAcronym());
 	}
 }
