@@ -15,10 +15,8 @@
  */
 package edu.emory.clir.clearnlp.coreference.mention.detector;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import edu.emory.clir.clearnlp.coreference.mention.MultipleMention;
 import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.coreference.mention.common.CommonNoun;
 import edu.emory.clir.clearnlp.coreference.mention.common.detector.EnglishCommonNounDetector;
@@ -26,9 +24,9 @@ import edu.emory.clir.clearnlp.coreference.mention.pronoun.Pronoun;
 import edu.emory.clir.clearnlp.coreference.mention.pronoun.detector.EnglishPronounDetector;
 import edu.emory.clir.clearnlp.coreference.mention.proper.ProperNoun;
 import edu.emory.clir.clearnlp.coreference.mention.proper.detector.EnglishProperNounDetector;
-import edu.emory.clir.clearnlp.coreference.type.MentionAttributeType;
+import edu.emory.clir.clearnlp.coreference.type.AttributeType;
 import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceDSUtils;
-import edu.emory.clir.clearnlp.coreference.utils.util.MentionUtil;
+import edu.emory.clir.clearnlp.dependency.DEPLibEn;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
@@ -96,36 +94,31 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 	protected void processMentions(DEPTree tree, List<SingleMention> mentions){
 		
 		List<int[]> boundaries = CoreferenceDSUtils.getQuotaionIndices(tree);
-		List<SingleMention>[] groupedMentions = MentionUtil.groupMentions(mentions);
 		
-		/** Quotation detection **/
-		int pos;
-		for(SingleMention mention : mentions){
-			pos = mention.getNode().getID();
+		DEPNode curr;
+		SingleMention mention_prev, mention_curr;
+		int i, pos, size = mentions.size();
+		
+		for(i = 0; i < size; i++){
+			mention_curr = mentions.get(i);
+			mention_prev = (i > 0)? mentions.get(i-1) : null;
 			
 			/** Inside quotation detection **/
+			pos = mention_curr.getNode().getID();
 			for(int[] boundary : boundaries){
 				if(boundary[0] > pos)	break;
 				if(CoreferenceDSUtils.isSequence(boundary[0], pos, boundary[1])){
-					mention.addAttribute(MentionAttributeType.QUOTE);
+					mention_curr.addAttribute(AttributeType.QUOTE);
 					break;
 				}
 			}
+			
+			/** Multiple Mention detection **/
+			if(mention_prev != null){
+				curr = mention_curr.getNode();
+				if(curr.isLabel(DEPLibEn.DEP_CONJ) && curr.isDependentOf(mention_prev.getNode()))
+					mention_curr.setConjunctionMention(mention_prev);
+			}
 		}
-		/** ************************* **/
-		/** Multiple Mention detection **/
-		MultipleMention multipleMention; 
-		if(groupedMentions != null && groupedMentions.length < mentions.size()){
-			List<MultipleMention> multipleMentions = new ArrayList<>();
-			for(List<SingleMention> group : groupedMentions)
-				if(group.size() > 1 && MentionUtil.hasConjunctionRelations(group)){
-					multipleMention = MentionUtil.mergeSingleMentions(group);
-					multipleMention.addAttribute(MentionAttributeType.CONJUNCTION);
-					multipleMentions.add(multipleMention);
-				}
-					
-			if(!multipleMentions.isEmpty())	System.out.println(multipleMentions);
-		}
-		/** ************************* **/
 	}
 }

@@ -35,7 +35,7 @@ import edu.emory.clir.clearnlp.util.Joiner;
  * @version	1.0
  * @since 	May 19, 2015
  */
-public class SingleMention extends AbstractMention<DEPNode>{
+public class SingleMention extends AbstractMention{
 	private static final long serialVersionUID = -3899758740140875733L;
 	
 	public SingleMention(DEPTree tree, DEPNode node){
@@ -61,15 +61,6 @@ public class SingleMention extends AbstractMention<DEPNode>{
 	public SingleMention(DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType){
 		super(tree, node, entityType, genderType, numberType, pronounType);
 	}
-	
-	public boolean isParentMention(SingleMention mention){
-		return getNode().getSubNodeSet().contains(mention.getNode());
-	}
-	
-	public boolean isChildMention(SingleMention mention){
-		System.out.println(mention + ": " + mention.getNode().getSubNodeSet() + " ?-> " + this);
-		return mention.getNode().getSubNodeSet().contains(this);
-	}
 
 	@Override
 	public String getWordFrom() {
@@ -92,7 +83,7 @@ public class SingleMention extends AbstractMention<DEPNode>{
 	}
 	
 	@Override
-	public String getHeadWord(){
+	public String getHeadNodeWordForm(){
 		return getNode().getHead().getWordForm();
 	}
 

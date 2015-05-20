@@ -20,7 +20,7 @@ package edu.emory.clir.clearnlp.coreference.type;
  * @version	1.0
  * @since 	May 14, 2015
  */
-public enum MentionAttributeType {
+public enum AttributeType {
 	QUOTE,
 	CONJUNCTION;
 }
