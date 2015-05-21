@@ -38,6 +38,11 @@ import edu.emory.clir.clearnlp.util.Joiner;
 public class SingleMention extends AbstractMention{
 	private static final long serialVersionUID = -3899758740140875733L;
 	
+	public SingleMention(DEPNode node) {
+		super();
+		this.setNode(node);
+	}
+	
 	public SingleMention(DEPTree tree, DEPNode node){
 		super(tree, node);
 	}

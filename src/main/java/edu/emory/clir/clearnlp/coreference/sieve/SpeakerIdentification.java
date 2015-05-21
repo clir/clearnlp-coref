@@ -1,27 +1,28 @@
 package edu.emory.clir.clearnlp.coreference.sieve;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
 import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
-import edu.emory.clir.clearnlp.coreference.type.MentionAttributeType;
+import edu.emory.clir.clearnlp.coreference.type.AttributeType;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.IOUtils;
 
 /**
  * @author alexlutz
- * need to be able to check if pronoun is first, second, or third person
+ * need to fix matches methods
  */
 public class SpeakerIdentification extends AbstractSieve
 {
 	Set<String> reportingVerbs = init(PathSieve.REPORT_VERBS);
+	Set<String> firstPersonSingularPronouns = new HashSet<>(Arrays.asList("I", "me", "my", "mine"));
+	Set<String> firstPersonPluralPronouns	= new HashSet<>(Arrays.asList("we", "our", "ours", "us"));
 	
 	@Override
 	public void resolute(List<DEPTree> trees, List<SingleMention> mentions,
@@ -60,11 +61,11 @@ public class SpeakerIdentification extends AbstractSieve
 
 	public boolean bothInQuote(SingleMention prev, SingleMention curr)
 	{
-		return prev.hasFeature(MentionAttributeType.QUOTE) && curr.hasFeature(MentionAttributeType.QUOTE);
+		return prev.hasFeature(AttributeType.QUOTE) && curr.hasFeature(AttributeType.QUOTE);
 	}
 	
 	public boolean oneInQuote(SingleMention prev, SingleMention curr)
 	{
-		return prev.hasFeature(MentionAttributeType.QUOTE) && !curr.hasFeature(MentionAttributeType.QUOTE) || !prev.hasFeature(MentionAttributeType.QUOTE) && curr.hasFeature(MentionAttributeType.QUOTE);
+		return prev.hasFeature(AttributeType.QUOTE) && !curr.hasFeature(AttributeType.QUOTE) || !prev.hasFeature(AttributeType.QUOTE) && curr.hasFeature(AttributeType.QUOTE);
 	}
 }

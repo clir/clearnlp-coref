@@ -9,6 +9,7 @@ import edu.emory.clir.clearnlp.dependency.DEPNode;
 /**
  * @author alexlutz
  * @version 1.0
+ * need to change this 
  */
 public class StrictHeadMatch extends AbstractStringMatch
 {

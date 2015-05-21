@@ -38,7 +38,7 @@ public class ExactStringMatchTest
 		
 		long start = System.currentTimeMillis();
 		
-		sieve.resolute(trees, mentions, coreferences);
+//		sieve.resolute(trees, mentions, coreferences);
 		
 		long end = System.currentTimeMillis();
 		
@@ -48,6 +48,6 @@ public class ExactStringMatchTest
 		
 		System.out.println(sieve.getClass().toGenericString() + " " + coreferences.toString());
 		
-		System.out.println(mentions.get(1).getHeadWord());
+		System.out.println(mentions.get(0).getNode());
 	}
 }

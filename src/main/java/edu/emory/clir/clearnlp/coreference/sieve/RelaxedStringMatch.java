@@ -15,6 +15,6 @@ public class RelaxedStringMatch extends AbstractStringMatch{
 	}
 	
 	protected boolean match(AbstractMention prev, AbstractMention curr){
-		return prev.getHeadWord().equals(curr.getHeadWord());
+		return prev.getHeadNodeWordForm().equals(curr.getHeadNodeWordForm());
 	}
 }
