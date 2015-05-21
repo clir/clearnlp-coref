@@ -10,19 +10,23 @@ import java.util.Set;
 import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.type.AttributeType;
+import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.IOUtils;
 
 /**
  * @author alexlutz
- * need to fix matches methods
+ * @version 1.0
  */
 public class SpeakerIdentification extends AbstractSieve
 {
-	Set<String> reportingVerbs = init(PathSieve.REPORT_VERBS);
-	Set<String> firstPersonSingularPronouns = new HashSet<>(Arrays.asList("I", "me", "my", "mine"));
-	Set<String> firstPersonPluralPronouns	= new HashSet<>(Arrays.asList("we", "our", "ours", "us"));
+	private final Set<String> reportingVerbs = init(PathSieve.REPORT_VERBS);
+	private final Set<String> firstPersonSingularPronouns = new HashSet<>(Arrays.asList("I", "me", "my", "mine"));
+	private final Set<String> firstPersonPluralPronouns	= new HashSet<>(Arrays.asList("we", "our", "ours", "us"));
+	private final Set<String> secondPersonPronouns = new HashSet<>(Arrays.asList("you", "your", "yours"));
+	private final Set<String> thirdPersonSingularPronouns = new HashSet<>(Arrays.asList("he", "him", "his", "she", "her", "hers", "it", "its"));
+	private final Set<String> thirdPersonPluralPronouns = new HashSet<>(Arrays.asList("they", "them", "their", "theirs"));
 	
 	@Override
 	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSetWithConfidence mentionLinks)
@@ -35,7 +39,7 @@ public class SpeakerIdentification extends AbstractSieve
 			
 			for (j = i-1; j >= 0; j--){
 				prev = mentions.get(j);
-				if (true) {
+				if (match(prev, curr)) {
 					mentionLinks.union(i, j, 0); break;
 				}
 			}
@@ -57,7 +61,23 @@ public class SpeakerIdentification extends AbstractSieve
 		
 		return reportingVerbs;
 	}
-
+	
+	private boolean match(AbstractMention prev, AbstractMention curr)
+	{
+		if (bothInQuote(prev, curr)) {
+			if (firstPersonSingularPronouns.contains(prev.getWordFrom()) && firstPersonPluralPronouns.contains(curr.getWordFrom()) 
+					|| thirdPersonSingularPronouns.contains(prev.getWordFrom()) && thirdPersonPluralPronouns.contains(curr.getWordFrom())) {
+				return true;
+			}
+		}
+		else if (oneInQuote(prev, curr)) {
+			if (firstPersonSingularPronouns.contains(prev.getWordFrom()) && (firstPersonSingularPronouns.contains(curr.getWordFrom()) || curr.isEntityType(EntityType.PERSON) && reportingVerbs.contains(curr.getHeadNodeWordForm()))) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean bothInQuote(AbstractMention prev, AbstractMention curr)
 	{
 		return prev.hasFeature(AttributeType.QUOTE) && curr.hasFeature(AttributeType.QUOTE);
