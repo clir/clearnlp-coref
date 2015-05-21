@@ -21,8 +21,7 @@ import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
-import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
-import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
+import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
@@ -31,7 +30,6 @@ import edu.emory.clir.clearnlp.coreference.sieve.PreciseConstructMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.PronounMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.ProperHeadWordMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
-import edu.emory.clir.clearnlp.coreference.sieve.StrictHeadMatch;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
@@ -73,10 +71,10 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 	}
 
 	@Override
-	public Pair<List<SingleMention>, DisjointSet> getEntities(List<DEPTree> trees) {
+	public Pair<List<AbstractMention>, DisjointSet> getEntities(List<DEPTree> trees) {
 
 		// Mention Detection
-		List<SingleMention> mentions = detector.getMentionList(trees);
+		List<AbstractMention> mentions = detector.getMentionList(trees);
 		DisjointSetWithConfidence mentionLinks = new DisjointSetWithConfidence(mentions.size());
 		
 		// Coreference Resolution
@@ -85,11 +83,11 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 		
 		//DEBUG OUTPUT
 		int c = 0;
-		for(SingleMention m : mentions)	System.out.println(c++ + ": " + m.toString());
+		for(AbstractMention m : mentions)	System.out.println(c++ + ": " + m.toString());
 		System.out.println("===================================");
 		System.out.println(mentionLinks);
 		//////////////
 		
-		return new Pair<List<SingleMention>, DisjointSet>(mentions, mentionLinks);
+		return new Pair<List<AbstractMention>, DisjointSet>(mentions, mentionLinks);
 	}
 }

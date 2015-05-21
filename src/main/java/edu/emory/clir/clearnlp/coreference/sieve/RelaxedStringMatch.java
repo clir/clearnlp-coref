@@ -1,25 +1,23 @@
 package edu.emory.clir.clearnlp.coreference.sieve;
 
-import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
+import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 //improve this
 
 public class RelaxedStringMatch extends AbstractStringMatch{
-	public RelaxedStringMatch()
-	{
+	public RelaxedStringMatch(){
 		super();
 	}
 	
-	public RelaxedStringMatch(boolean decapitalize)
-	{
+	public RelaxedStringMatch(boolean decapitalize){
 		super(decapitalize);
 	}
 	
 	@Override
-	protected String getWordSequence(Mention mention){
-		return mention.getNode().getWordForm();
+	protected String getWordSequence(AbstractMention mention){
+		return mention.getWordFrom();
 	}
 	
-	protected boolean match(SingleMention prev, SingleMention curr){
-		return prev.getNode().isWordForm(curr.getNode().getWordForm());
+	protected boolean match(AbstractMention prev, AbstractMention curr){
+		return prev.getWordFrom().equals(curr.getWordFrom());
 	}
 }
