@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 import edu.emory.clir.clearnlp.constituent.CTLibEn;
@@ -95,6 +96,14 @@ public class SingleMention extends AbstractMention{
 	@Override
 	public String getAcronym() {
 		if(isNameEntity()){
+			
+			StringJoiner join = new StringJoiner(" ");
+			
+			for (DEPNode node : getNode().getSubNodeList()){
+				if (node.isPOSTag(CTLibEn.POS_NNP) || node.isPOSTag(CTLibEn.POS_NNPS))
+					join.add(node.getWordForm());
+			}
+			
 			String phrase = Joiner.join(getNode().getSubNodeList().stream()
 					.filter(node -> node.isPOSTag(CTLibEn.POS_NNP) || node.isPOSTag(CTLibEn.POS_NNPS))
 					.map(node -> node.getWordForm())
