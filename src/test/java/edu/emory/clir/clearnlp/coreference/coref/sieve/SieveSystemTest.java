@@ -45,8 +45,7 @@ public class SieveSystemTest {
 		/* ************* */
 		
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
-		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION);
-		
+		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION, 0, 10);
 		
 		Pair<List<AbstractMention>, DisjointSet> resolution = coref.getEntities(trees);
 		CoreferenceTestUtil.printResolutionResult(resolution);
