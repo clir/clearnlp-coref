@@ -19,6 +19,8 @@ import java.util.List;
 
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
+import edu.emory.clir.clearnlp.coreference.type.GenderType;
+import edu.emory.clir.clearnlp.coreference.type.PronounType;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
@@ -34,37 +36,48 @@ public class PronounMatch extends AbstractSieve {
 		AbstractMention curr, prev;
 		int i, j, size = mentions.size();
 		
-		for (i = 1; i < size; i++){
+		for(i = size-1; i > 0; i--){
 			curr = mentions.get(i);
-			
-			for (j = i-1; j >= 0; j--){
-				prev = mentions.get(i);
-				if (matchesPerson(curr, prev) || 
-					matchesPronoun(curr, prev) || 
-					matchesCommonNoun(curr, prev) || 
-					matchesWildcardPronoun(curr, prev)){
-					
-					mentionLinks.union(i, j, 0); break;
-				}
+			for(j = i-1; j >= 0; j--){
+				prev = mentions.get(j);
+				if(match(prev, curr))	mentionLinks.union(i, j, 0);
 			}
-		}		
+		}
 	}
 	
-	private boolean matchesPerson(AbstractMention curr, AbstractMention prev){
-		return (curr.isEntityType(EntityType.PERSON_FEMALE) && prev.isEntityType(EntityType.PERSON_FEMALE)) || (curr.isEntityType(EntityType.PERSON_MALE)   && prev.isEntityType(EntityType.PERSON_MALE));
+	private boolean match(AbstractMention mention1, AbstractMention mention2){
+		return matchGender(mention1, mention2) 
+			&& matchNumber(mention1, mention2)
+			&& matchEntity(mention1, mention2)
+			&& matchPronoun(mention1, mention2);
 	}
 	
-	private boolean matchesPronoun(AbstractMention curr, AbstractMention prev){
-		return (curr.isEntityType(EntityType.PRONOUN_FEMALE) && (prev.isEntityType(EntityType.PRONOUN_FEMALE) || prev.isEntityType(EntityType.PERSON_FEMALE))) || (curr.isEntityType(EntityType.PRONOUN_MALE)   && (prev.isEntityType(EntityType.PRONOUN_MALE)   || prev.isEntityType(EntityType.PERSON_MALE)));
+	private boolean matchGender(AbstractMention mention1, AbstractMention mention2){
+		if(mention1.isGenderType(GenderType.NEUTRAL) || mention2.isGenderType(GenderType.NEUTRAL))
+			return !mention1.isGenderType(GenderType.UNKNOWN) && !mention2.isGenderType(GenderType.UNKNOWN);
+		return mention1.getGenderType() == mention2.getGenderType();
 	}
 	
-	private boolean matchesCommonNoun(AbstractMention curr, AbstractMention prev){
-		// we need to deal with common nouns
-		return false;
+	private boolean matchNumber(AbstractMention mention1, AbstractMention mention2){
+		return mention1.getNumberType() == mention2.getNumberType();
 	}
 	
-	private boolean matchesWildcardPronoun(AbstractMention curr, AbstractMention prev){
-		// Yet to be implemented
-		return false;
+	private boolean matchEntity(AbstractMention mention1, AbstractMention mention2){
+		if(mention2.isNameEntity())
+			return mention1.getEntityType() == mention2.getEntityType();
+		return !mention2.isEntityType(EntityType.UNKNOWN) || mention1.getEntityType() == mention2.getEntityType();
+	}
+	
+	private boolean matchPronoun(AbstractMention mention1, AbstractMention mention2){
+		switch(mention2.getPronounType()){
+			case SUBJECT:		return mention1.isPronounType(PronounType.SUBJECT);
+			case OBJECT:		return mention1.isPronounType(PronounType.OBJECT);
+			case INDEFINITE:	return mention1.isPronounType(PronounType.INDEFINITE);
+			case POSSESSIVE:	return mention1.isPronounType(PronounType.POSSESSIVE);
+			case DEMOSTRATIVE:	return mention1.isPronounType(PronounType.DEMOSTRATIVE);
+			case REFLEXIVE:		return mention1.isPronounType(PronounType.REFLEXIVE);
+			case RELATIVE:		return mention1.isPronounType(PronounType.RELATIVE);
+			default:			return mention1.getPronounType() == mention2.getPronounType();
+		}
 	}
 }
