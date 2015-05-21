@@ -42,7 +42,7 @@ public class SingleMentionTest {
 		reader.open(in);
 		
 		DEPTree tree;
-		List<SingleMention> mentions;
+		List<AbstractMention> mentions;
 		List<DEPTree> trees = new ArrayList<>();
 		
 		while ((tree = reader.next()) != null) trees.add(tree);
