@@ -69,15 +69,17 @@ public class PronounMatch extends AbstractSieve {
 	}
 	
 	private boolean matchPronoun(AbstractMention mention1, AbstractMention mention2){
-		switch(mention2.getPronounType()){
-			case SUBJECT:		return mention1.isPronounType(PronounType.SUBJECT);
-			case OBJECT:		return mention1.isPronounType(PronounType.OBJECT);
-			case INDEFINITE:	return mention1.isPronounType(PronounType.INDEFINITE);
-			case POSSESSIVE:	return mention1.isPronounType(PronounType.POSSESSIVE);
-			case DEMOSTRATIVE:	return mention1.isPronounType(PronounType.DEMOSTRATIVE);
-			case REFLEXIVE:		return mention1.isPronounType(PronounType.REFLEXIVE);
-			case RELATIVE:		return mention1.isPronounType(PronounType.RELATIVE);
-			default:			return mention1.getPronounType() == mention2.getPronounType();
-		}
+		if(mention2.getPronounType() != null)
+			switch(mention2.getPronounType()){
+				case SUBJECT:		return mention1.isPronounType(PronounType.SUBJECT);
+				case OBJECT:		return mention1.isPronounType(PronounType.OBJECT);
+				case INDEFINITE:	return mention1.isPronounType(PronounType.INDEFINITE);
+				case POSSESSIVE:	return mention1.isPronounType(PronounType.POSSESSIVE);
+				case DEMOSTRATIVE:	return mention1.isPronounType(PronounType.DEMOSTRATIVE);
+				case REFLEXIVE:		return mention1.isPronounType(PronounType.REFLEXIVE);
+				case RELATIVE:		return mention1.isPronounType(PronounType.RELATIVE);
+				default:			return mention1.getPronounType() == mention2.getPronounType();
+			}
+		return false;
 	}
 }

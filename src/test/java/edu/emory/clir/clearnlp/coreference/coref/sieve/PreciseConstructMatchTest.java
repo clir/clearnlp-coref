@@ -15,7 +15,6 @@
  */
 package edu.emory.clir.clearnlp.coreference.coref.sieve;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.junit.Test;
@@ -27,26 +26,25 @@ import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.config.CorefCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
+import edu.emory.clir.clearnlp.coreference.sieve.PreciseConstructMatch;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	Apr 13, 2015
+ * @since 	May 21, 2015
  */
-public class SieveSystemTest {
-	
+public class PreciseConstructMatchTest {
 	@Test
-	public void corefTest() throws IOException{
+	public void testPreciseConstructMatchSieve(){
 		/* Configuration */
 		CorefCongiuration config = new CorefCongiuration();
-		config.loadDefaultSieves();
+		config.mountSieves(new PreciseConstructMatch());
 		/* ************* */
 		
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
-		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION);
-		
+		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION, 0, 10);
 		
 		Pair<List<AbstractMention>, DisjointSet> resolution = coref.getEntities(trees);
 		CoreferenceTestUtil.printResolutionResult(resolution);

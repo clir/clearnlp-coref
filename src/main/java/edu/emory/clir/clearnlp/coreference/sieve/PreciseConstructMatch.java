@@ -1,7 +1,6 @@
 package edu.emory.clir.clearnlp.coreference.sieve;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -28,34 +27,38 @@ public class PreciseConstructMatch extends AbstractSieve
     private static final char NEWLINE = '\n';
     private Map<String, Set<String>> DemonymMap;
 	
-	public PreciseConstructMatch() throws IOException
+	public PreciseConstructMatch()
 	{
 		DemonymMap = init(PathSieve.ENG_DEMONYM);
 	}
 	
-	public static Map<String, Set<String>> init(String filepath) throws IOException
+	public static Map<String, Set<String>> init(String filepath)
     {
         Map<String, Set<String>>  DemonymMap = new HashMap<>();
         Set<String> DemonymSet = new HashSet<>();
-        FileInputStream input = IOUtils.createFileInputStream(filepath);
-        int i = 0; String key = ""; String line = "";
+        
+        try {
+        	FileInputStream input = IOUtils.createFileInputStream(filepath);
+            int i = 0; String key = ""; String line = "";
 
-        while((i = input.read()) != 0) {
-        	if ((char) i != STOPCHAR) line += (char) i;
-        	else if ((char) i == KEYBREAK) {
-                key = line.trim();
-                line = "";
-            } else if ((char) i == NEWLINE) {
-                DemonymMap.put(key, new HashSet<>(DemonymSet));
-                DemonymSet.clear();
-                key = "";
-                line = "";
+            while((i = input.read()) != 0) {
+            	if ((char) i != STOPCHAR) line += (char) i;
+            	else if ((char) i == KEYBREAK) {
+                    key = line.trim();
+                    line = "";
+                } else if ((char) i == NEWLINE) {
+                    DemonymMap.put(key, new HashSet<>(DemonymSet));
+                    DemonymSet.clear();
+                    key = "";
+                    line = "";
+                }
+                else {
+                    DemonymSet.add(line.trim());
+                    line = "";
+                }
             }
-            else {
-                DemonymSet.add(line.trim());
-                line = "";
-            }
-        }
+		} catch (Exception e) { e.printStackTrace(); }
+        
         return DemonymMap;
     }
 	
