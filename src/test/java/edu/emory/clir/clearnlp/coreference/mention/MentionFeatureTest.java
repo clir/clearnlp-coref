@@ -45,7 +45,7 @@ public class MentionFeatureTest {
 		reader.open(in);
 		
 		DEPTree tree;
-		List<SingleMention> mentions;
+		List<AbstractMention> mentions;
 		List<DEPTree> trees = new ArrayList<>();
 		
 		while ((tree = reader.next()) != null) trees.add(tree);
@@ -54,7 +54,7 @@ public class MentionFeatureTest {
 		
 		mentions = detector.getMentionList(trees);
 		
-		for(SingleMention mention : mentions)
+		for(AbstractMention mention : mentions)
 			System.out.println(mention.getNode().getWordForm() + " -> " + mention.hasFeature(AttributeType.QUOTE));
 	}
 	
@@ -65,7 +65,7 @@ public class MentionFeatureTest {
 		reader.open(in);
 		
 		DEPTree tree;
-		List<SingleMention> mentions;
+		List<AbstractMention> mentions;
 		List<DEPTree> trees = new ArrayList<>();
 		
 		while ((tree = reader.next()) != null) trees.add(tree);
@@ -74,7 +74,7 @@ public class MentionFeatureTest {
 		
 		mentions = detector.getMentionList(trees);
 		
-		for(SingleMention mention : mentions)
+		for(AbstractMention mention : mentions)
 			if(mention.hasConjunctionMention())	System.out.println(mention.getConjunctionMentions());
 	}
 }

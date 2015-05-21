@@ -33,6 +33,5 @@ public enum EntityType{
 	LOCATION,
 	
 	// Other
-	UNKNOWN,
-	MISC;
+	UNKNOWN;
 }
