@@ -17,7 +17,7 @@ package edu.emory.clir.clearnlp.coreference.mention.proper;
 
 import java.io.Serializable;
 
-import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
+import edu.emory.clir.clearnlp.coreference.mention.EnglishMention;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.GenderType;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
@@ -57,8 +57,8 @@ public class ProperNoun implements Serializable{
 		n_type = NumberType.valueOf(n);
 	}
 	
-	public SingleMention toMention(DEPTree tree, DEPNode node){
-		SingleMention mention = new SingleMention(tree, node);
+	public EnglishMention toMention(DEPTree tree, DEPNode node){
+		EnglishMention mention = new EnglishMention(tree, node);
 		mention.setEntityType(e_type);
 		mention.setGenderType(g_type);
 		mention.setNumberType(n_type);

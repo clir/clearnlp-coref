@@ -15,6 +15,8 @@
  */
 package edu.emory.clir.clearnlp.coreference.utils.util;
 
+import edu.emory.clir.clearnlp.util.CharUtils;
+
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
@@ -26,6 +28,15 @@ public class CoreferenceStringUtils {
 	public static String connectStrings(String... strings){
 		StringBuilder sb = new StringBuilder();
 		for(String s : strings)	sb.append(s);
+		return sb.toString();
+	}
+	
+	public static String getAllUpperCaseLetters(String string){
+		StringBuilder sb = new StringBuilder();
+		
+		for(char c : string.toCharArray())
+			if(CharUtils.isUpperCase(c))	sb.append(c);
+		
 		return sb.toString();
 	}
 }

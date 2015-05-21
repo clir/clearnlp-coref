@@ -18,7 +18,7 @@ package edu.emory.clir.clearnlp.coreference.mention.detector;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
-import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
+import edu.emory.clir.clearnlp.coreference.mention.EnglishMention;
 import edu.emory.clir.clearnlp.coreference.mention.common.CommonNoun;
 import edu.emory.clir.clearnlp.coreference.mention.common.detector.EnglishCommonNounDetector;
 import edu.emory.clir.clearnlp.coreference.mention.pronoun.Pronoun;
@@ -50,8 +50,8 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 //	====================================== MENTION TYPE ======================================
 	
 	@Override
-	public SingleMention getMention(DEPTree tree, DEPNode node){
-		SingleMention mention;
+	public EnglishMention getMention(DEPTree tree, DEPNode node){
+		EnglishMention mention;
 		
 		if ((mention = getPronounMention(tree, node)) != null )	return mention;
 		if ((mention = getCommonMention(tree, node)) != null)	return mention;
@@ -60,7 +60,7 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 		return null;
 	}
 	
-	protected SingleMention getPronounMention(DEPTree tree, DEPNode node){
+	protected EnglishMention getPronounMention(DEPTree tree, DEPNode node){
 		
 		if (pronounDetector.isPronoun(tree, node)){
 			Pronoun pronoun = pronounDetector.getPronoun(tree, node);
@@ -70,7 +70,7 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 		return null;
 	}
 	
-	protected SingleMention getCommonMention(DEPTree tree, DEPNode node){
+	protected EnglishMention getCommonMention(DEPTree tree, DEPNode node){
 		
 		if (commonNounDetector.isCommonNoun(tree, node)){
 			CommonNoun commonNoun = commonNounDetector.getCommonNoun(tree, node);
@@ -80,7 +80,7 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 		return null;
 	}
 
-	protected SingleMention getPersonMention(DEPTree tree, DEPNode node){
+	protected EnglishMention getPersonMention(DEPTree tree, DEPNode node){
 		
 		if (properNounDetector.isProperNoun(tree, node)){
 			ProperNoun properNoun = properNounDetector.getProperNoun(tree, node);

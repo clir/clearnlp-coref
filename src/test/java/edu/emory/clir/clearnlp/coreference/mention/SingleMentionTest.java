@@ -51,23 +51,23 @@ public class SingleMentionTest {
 		AbstractMentionDetector detector = new EnglishMentionDetector();
 		mentions = detector.getMentionList(trees);
 		
-//		testSubTreeWordSequence(mentions);
-//		testHeadWord(mentions);
-//		testAcronym(mentions);
+		testSubTreeWordSequence(mentions);
+		testHeadWord(mentions);
+		testAcronym(mentions);
 	}
 	
-	public void testSubTreeWordSequence(List<SingleMention> mentions) {
-		for(SingleMention mention : mentions)
+	public void testSubTreeWordSequence(List<AbstractMention> mentions) {
+		for(AbstractMention mention : mentions)
 			System.out.println(mention.getWordFrom() + " -> " + mention.getSubTreeWordSequence());
 	}
 	
-	public void testHeadWord(List<SingleMention> mentions) {
-		for(SingleMention mention : mentions)
+	public void testHeadWord(List<AbstractMention> mentions) {
+		for(AbstractMention mention : mentions)
 			System.out.println(mention.getWordFrom() + " -> " + mention.getHeadNodeWordForm());
 	}
 	
-	public void testAcronym(List<SingleMention> mentions) {
-		for(SingleMention mention : mentions)
+	public void testAcronym(List<AbstractMention> mentions) {
+		for(AbstractMention mention : mentions)
 			System.out.println(mention.getWordFrom() + " -> " + mention.getAcronym());
 	}
 }
