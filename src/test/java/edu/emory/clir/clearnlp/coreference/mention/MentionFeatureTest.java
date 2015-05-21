@@ -15,10 +15,7 @@
  */
 package edu.emory.clir.clearnlp.coreference.mention;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Ignore;
@@ -26,9 +23,10 @@ import org.junit.Test;
 
 import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
+import edu.emory.clir.clearnlp.coreference.path.PathData;
 import edu.emory.clir.clearnlp.coreference.type.AttributeType;
+import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
-import edu.emory.clir.clearnlp.reader.TSVReader;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -39,20 +37,11 @@ public class MentionFeatureTest {
 	
 	@Test
 	@Ignore
-	public void testQuote() throws IOException{
-		InputStream in = new FileInputStream("src/test/resources/edu/emory/clir/clearnlp/coreference/mention/input.mention.quote.cnlp");
-		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
-		reader.open(in);
-		
-		DEPTree tree;
-		List<AbstractMention> mentions;
-		List<DEPTree> trees = new ArrayList<>();
-		
-		while ((tree = reader.next()) != null) trees.add(tree);
+	public void testQuote() {
+		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION_QUOTE);
 		
 		AbstractMentionDetector detector = new EnglishMentionDetector();
-		
-		mentions = detector.getMentionList(trees);
+		List<AbstractMention> mentions = detector.getMentionList(trees);
 		
 		for(AbstractMention mention : mentions)
 			System.out.println(mention.getNode().getWordForm() + " -> " + mention.hasFeature(AttributeType.QUOTE));
@@ -60,19 +49,10 @@ public class MentionFeatureTest {
 	
 	@Test
 	public void testConjunctions() throws IOException{
-		InputStream in = new FileInputStream("src/test/resources/edu/emory/clir/clearnlp/coreference/mention/input.mention.conjunctions.cnlp");
-		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
-		reader.open(in);
-		
-		DEPTree tree;
-		List<AbstractMention> mentions;
-		List<DEPTree> trees = new ArrayList<>();
-		
-		while ((tree = reader.next()) != null) trees.add(tree);
+		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION_CONJUNCTION);
 		
 		AbstractMentionDetector detector = new EnglishMentionDetector();
-		
-		mentions = detector.getMentionList(trees);
+		List<AbstractMention> mentions = detector.getMentionList(trees);
 		
 		for(AbstractMention mention : mentions)
 			if(mention.hasConjunctionMention())	System.out.println(mention.getConjunctionMentions());

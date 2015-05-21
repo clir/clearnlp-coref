@@ -15,22 +15,20 @@
  */
 package edu.emory.clir.clearnlp.coreference.mention;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
 import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
+import edu.emory.clir.clearnlp.coreference.path.PathData;
+import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
-import edu.emory.clir.clearnlp.reader.TSVReader;
+import edu.emory.clir.clearnlp.util.IOUtils;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -41,19 +39,13 @@ public class MentionDetectorTest {
 	
 	@Test
 	public void getMentionsTest() throws IOException{
-		InputStream in = new FileInputStream("src/test/resources/edu/emory/clir/clearnlp/coreference/mention/input.mention.cnlp");
-		OutputStream out = new FileOutputStream("src/test/resources/edu/emory/clir/clearnlp/coreference/mention/input.mention.out");
-		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
-		reader.open(in);
-		
-		DEPTree tree;
-		List<AbstractMention> mentions;
-		List<DEPTree> trees = new ArrayList<>();
-		
-		while ((tree = reader.next()) != null) trees.add(tree);
+		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION);
+		OutputStream out = IOUtils.createFileOutputStream(PathData.ENG_MENTION + ".out"); 
 		
 		StringBuilder sb = new StringBuilder();
 		PrintWriter writer = new PrintWriter(out);
+		
+		List<AbstractMention> mentions;
 		AbstractMentionDetector detector = new EnglishMentionDetector();
 		
 		for(DEPTree t : trees){
@@ -63,8 +55,7 @@ public class MentionDetectorTest {
 			mentions = detector.getMentionList(t);
 			writer.println(mentions.toString());
 			
-			writer.println();
-			sb.setLength(0);
+			writer.println();	sb.setLength(0);
 		}
 		
 		out.close();

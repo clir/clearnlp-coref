@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 import edu.emory.clir.clearnlp.collection.map.ObjectDoubleHashMap;
@@ -28,6 +29,7 @@ import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.GenderType;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
 import edu.emory.clir.clearnlp.coreference.type.PronounType;
+import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceStringUtils;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.Joiner;
@@ -84,7 +86,7 @@ public abstract class AbstractMention implements Serializable {
 	private void init(DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType){
 		m_attr = new ObjectDoubleHashMap<>();
 		setTree(tree);	setNode(node);	
-		setSubTreeNodes(node.getSubNodeList());
+		setSubTreeNodes((node == null)? null : node.getSubNodeList());
 		setConjunctionMention(null);
 		setEntityType(entityType);
 		setGenderType(genderType);
@@ -213,11 +215,11 @@ public abstract class AbstractMention implements Serializable {
 	}
 	
 	public boolean isParentMention(AbstractMention mention){
-		return getNode().getSubNodeSet().contains(mention.getNode());
+		return (getSubTreeNodes() == null)? false : getSubTreeNodes().contains(mention.getNode());
 	}
 	
 	public boolean isChildMention(AbstractMention mention){
-		return mention.getNode().getSubNodeSet().contains(this);
+		return (mention.getSubTreeNodes() == null)? false :  mention.getSubTreeNodes().contains(getNode());
 	}
 	
 	public boolean hasFeature(AttributeType type){
@@ -254,6 +256,13 @@ public abstract class AbstractMention implements Serializable {
 	
 	@Override
 	public String toString(){
-		return getWordFrom() + "\t" + t_entity + "\t" + t_gender + '\t' + t_number + "\t" + t_pronoun;
+		StringJoiner joiner = new StringJoiner("\t");
+		joiner.add(getWordFrom());
+		joiner.add(CoreferenceStringUtils.connectStrings("(", (m_conj == null)? "null" : m_conj.getWordFrom(),")"));
+		joiner.add((t_entity == null)? "null" : t_entity.toString());
+		joiner.add((t_gender == null)? "null" : t_gender.toString());
+		joiner.add((t_number == null)? "null" : t_number.toString());
+		joiner.add((t_pronoun == null)? "null" : t_pronoun.toString());
+		return joiner.toString();
 	}
 }
