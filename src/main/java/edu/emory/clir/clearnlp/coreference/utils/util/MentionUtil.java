@@ -17,7 +17,7 @@ package edu.emory.clir.clearnlp.coreference.utils.util;
 
 import java.util.List;
 
-import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
+import edu.emory.clir.clearnlp.coreference.mention.EnglishMention;
 import edu.emory.clir.clearnlp.util.DSUtils;
 
 /**
@@ -27,12 +27,12 @@ import edu.emory.clir.clearnlp.util.DSUtils;
  */
 public class MentionUtil {	
 	@SuppressWarnings("unchecked")
-	public static List<SingleMention>[] groupMentions(List<SingleMention> mentions){
+	public static List<EnglishMention>[] groupMentions(List<EnglishMention> mentions){
 		if(!mentions.isEmpty()){
 			int i, j, size = mentions.size(), count = 0; 
 			int[] groupID = new int[size]; groupID[0] = ++count; 
 			
-			SingleMention current;
+			EnglishMention current;
 			for(i = 1; i < size; i++){
 				current = mentions.get(i);
 				for(j = i-1; j >= 0; j--)
@@ -40,7 +40,7 @@ public class MentionUtil {
 				if(groupID[i] == 0) groupID[i] = ++count;
 			}
 			
-			List<SingleMention>[] groups = (List<SingleMention>[]) DSUtils.createEmptyListArray(count);
+			List<EnglishMention>[] groups = (List<EnglishMention>[]) DSUtils.createEmptyListArray(count);
 			for(i = 0; i < size; i++)	groups[groupID[i]-1].add(mentions.get(i));
 			return groups;
 		}

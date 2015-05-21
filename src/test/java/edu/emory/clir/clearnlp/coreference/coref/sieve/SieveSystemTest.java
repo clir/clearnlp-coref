@@ -13,12 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.coref;
+package edu.emory.clir.clearnlp.coreference.coref.sieve;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -27,28 +24,31 @@ import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
-import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
+import edu.emory.clir.clearnlp.coreference.config.CorefCongiuration;
+import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
+import edu.emory.clir.clearnlp.coreference.path.PathData;
+import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
-import edu.emory.clir.clearnlp.reader.TSVReader;
 
 /**
- * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
+ * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
+ * @version	1.0
+ * @since 	Apr 13, 2015
  */
-public class EnglishCoreferenceResolutionTest
-{
+public class SieveSystemTest {
+	
 	@Test
 	public void corefTest() throws IOException{
-		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution();
-		InputStream in = new FileInputStream("src/test/resources/edu/emory/clir/clearnlp/coreference/mention/input.mention.cnlp");
-		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
-		reader.open(in);
+		/* Configuration */
+		CorefCongiuration config = new CorefCongiuration();
+		config.loadDefaultSieves();
+		/* ************* */
 		
-		DEPTree tree;
-		List<DEPTree> trees = new ArrayList<>();
+		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
+		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION);
 		
-		while ((tree = reader.next()) != null) trees.add(tree);
-
-		Pair<List<SingleMention>, DisjointSet> resolution = coref.getEntities(trees);
-		System.out.println(resolution);
+		
+		Pair<List<AbstractMention>, DisjointSet> resolution = coref.getEntities(trees);
+		CoreferenceTestUtil.printResolutionResult(resolution);
 	}
 }

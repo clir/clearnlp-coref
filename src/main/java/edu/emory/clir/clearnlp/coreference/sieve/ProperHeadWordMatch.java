@@ -3,8 +3,6 @@ package edu.emory.clir.clearnlp.coreference.sieve;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
-import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
-import edu.emory.clir.clearnlp.coreference.type.PronounType;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 
@@ -33,5 +31,10 @@ public class ProperHeadWordMatch extends AbstractStringMatch
 		}
 		
 		return false;
+	}
+
+	@Override
+	protected String getWordSequence(AbstractMention mention){
+		return mention.getHeadNodeWordForm();
 	}
 }

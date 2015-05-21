@@ -1,5 +1,5 @@
 /**
- * Copyright 2014, Emory University
+ * Copyright 2015, Emory University
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,25 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.type;
-
+package edu.emory.clir.clearnlp.coreference.path;
 
 /**
- * @since 3.0.0
- * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
+ * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
+ * @version	1.0
+ * @since 	May 21, 2015
  */
-public enum EntityType{	
-	// Pronoun
-	PRONOUN,
+public interface PathData {
+	String 	ROOT = "src/test/resources/edu/emory/clir/clearnlp/coreference/",
+			COREF = ROOT + "coref/",
+			MENTION = ROOT + "mention/";
 	
-	// Common noun
-	COMMON,
-	
-	// Named entity
-	PERSON,
-	ORGANIZATION,
-	LOCATION,
-	
-	// Other
-	UNKNOWN;
+	String 	ENG_MENTION = MENTION + "input.mention.cnlp",
+			ENG_MENTION_QUOTE = MENTION + "input.mention.quote.cnlp",
+			ENG_MENTION_CONJUNCTION = MENTION + "input.menton.conjunctions.cnlp";
 }

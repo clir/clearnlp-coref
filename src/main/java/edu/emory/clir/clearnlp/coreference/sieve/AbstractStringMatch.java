@@ -3,14 +3,12 @@ package edu.emory.clir.clearnlp.coreference.sieve;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
-import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.StringUtils;
 /**
- * 
  * @author alexlutz
- * this will be the first sieve that performs exact string matching between AbstractMentions
+ * @version 1.0
  */
 public abstract class AbstractStringMatch extends AbstractSieve {
 	
@@ -25,12 +23,25 @@ public abstract class AbstractStringMatch extends AbstractSieve {
 	{
 		this.decapitalize = decapitalize;
 	}
-
-	abstract protected boolean match(AbstractMention prev, AbstractMention curr);
+	
+	protected boolean match(AbstractMention prev, AbstractMention curr){
+		String prevWords = getWordSequence(prev);
+		String currWords = getWordSequence(curr);
+		
+		if (decapitalize)
+		{
+			prevWords = StringUtils.toLowerCase(prevWords);
+			currWords = StringUtils.toLowerCase(currWords);
+		}
+		
+		return prevWords.equals(currWords);
+	}
+	
+	abstract protected String getWordSequence(AbstractMention mention);
 	
 	@Override
-	public void resolute(List<DEPTree> trees, List<SingleMention> mentions, DisjointSetWithConfidence mentionLinks) {
-		SingleMention curr, prev;
+	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSetWithConfidence mentionLinks) {
+		AbstractMention curr, prev;
 		int i, j, size = mentions.size();
 		
 		for (i=1; i<size; i++){

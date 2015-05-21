@@ -1,4 +1,4 @@
-package edu.emory.clir.clearnlp.coreference.coref;
+package edu.emory.clir.clearnlp.coreference.coref.sieve;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
+import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
@@ -33,7 +33,7 @@ public class ExactStringMatchTest
 			trees.add(tree);
 		
 		AbstractMentionDetector detector = new EnglishMentionDetector();
-		List<SingleMention> mentions = detector.getMentionList(trees);
+		List<AbstractMention> mentions = detector.getMentionList(trees);
 		DisjointSetWithConfidence coreferences = new DisjointSetWithConfidence(mentions.size()); 
 		
 		long start = System.currentTimeMillis();

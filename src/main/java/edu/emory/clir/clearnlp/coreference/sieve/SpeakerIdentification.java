@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
-import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
+import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.type.AttributeType;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -25,10 +25,9 @@ public class SpeakerIdentification extends AbstractSieve
 	Set<String> firstPersonPluralPronouns	= new HashSet<>(Arrays.asList("we", "our", "ours", "us"));
 	
 	@Override
-	public void resolute(List<DEPTree> trees, List<SingleMention> mentions,
-			DisjointSetWithConfidence mentionLinks)
+	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSetWithConfidence mentionLinks)
 	{
-		SingleMention curr, prev;
+		AbstractMention curr, prev;
 		int i, j ,size = mentions.size();
 		
 		for (i = 1;i < size; i++) {
@@ -59,12 +58,12 @@ public class SpeakerIdentification extends AbstractSieve
 		return reportingVerbs;
 	}
 
-	public boolean bothInQuote(SingleMention prev, SingleMention curr)
+	public boolean bothInQuote(AbstractMention prev, AbstractMention curr)
 	{
 		return prev.hasFeature(AttributeType.QUOTE) && curr.hasFeature(AttributeType.QUOTE);
 	}
 	
-	public boolean oneInQuote(SingleMention prev, SingleMention curr)
+	public boolean oneInQuote(AbstractMention prev, AbstractMention curr)
 	{
 		return prev.hasFeature(AttributeType.QUOTE) && !curr.hasFeature(AttributeType.QUOTE) || !prev.hasFeature(AttributeType.QUOTE) && curr.hasFeature(AttributeType.QUOTE);
 	}

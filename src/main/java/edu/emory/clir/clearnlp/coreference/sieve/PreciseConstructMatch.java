@@ -1,18 +1,15 @@
 package edu.emory.clir.clearnlp.coreference.sieve;
 
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
-import java.util.regex.Pattern;
 
 import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
-import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
+import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
@@ -30,42 +27,45 @@ public class PreciseConstructMatch extends AbstractSieve
     private static final char NEWLINE = '\n';
     private Map<String, Set<String>> DemonymMap;
 	
-	public PreciseConstructMatch() throws IOException
+	public PreciseConstructMatch()
 	{
 //		DemonymMap = init(PathSieve.ENG_DEMONYM);
 	}
 	
-	public static Map<String, Set<String>> init(String filepath) throws IOException
+	public static Map<String, Set<String>> init(String filepath)
     {
         Map<String, Set<String>>  DemonymMap = new HashMap<>();
         Set<String> DemonymSet = new HashSet<>();
-        FileInputStream input = IOUtils.createFileInputStream(filepath);
-        int i = 0; String key = ""; String line = "";
+        
+        try {
+        	FileInputStream input = IOUtils.createFileInputStream(filepath);
+            int i = 0; String key = ""; String line = "";
 
-        while((i = input.read()) != 0) {
-        	if ((char) i != STOPCHAR) line += (char) i;
-        	else if ((char) i == KEYBREAK) {
-                key = line.trim();
-                line = "";
-            } else if ((char) i == NEWLINE) {
-                DemonymMap.put(key, new HashSet<>(DemonymSet));
-                DemonymSet.clear();
-                key = "";
-                line = "";
+            while((i = input.read()) != 0) {
+            	if ((char) i != STOPCHAR) line += (char) i;
+            	else if ((char) i == KEYBREAK) {
+                    key = line.trim();
+                    line = "";
+                } else if ((char) i == NEWLINE) {
+                    DemonymMap.put(key, new HashSet<>(DemonymSet));
+                    DemonymSet.clear();
+                    key = "";
+                    line = "";
+                }
+                else {
+                    DemonymSet.add(line.trim());
+                    line = "";
+                }
             }
-            else {
-                DemonymSet.add(line.trim());
-                line = "";
-            }
-        }
+		} catch (Exception e) { e.printStackTrace(); }
+        
         return DemonymMap;
     }
 	
 	@Override
-	public void resolute(List<DEPTree> trees, List<SingleMention> mentions,
-			DisjointSetWithConfidence mentionLinks)
+	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSetWithConfidence mentionLinks)
 	{
-		SingleMention curr, prev;
+		AbstractMention curr, prev;
 		int i, j ,size = mentions.size();
 		
 		for (i = 1;i < size; i++) {
@@ -80,7 +80,7 @@ public class PreciseConstructMatch extends AbstractSieve
 		}
 	}
 	
-	private boolean acronymMatch(SingleMention curr, SingleMention prev)
+	private boolean acronymMatch(AbstractMention curr, AbstractMention prev)
     {
         if (curr.getNode().isPOSTag(POSTagEn.POS_NNP) && prev.getNode().isPOSTag(POSTagEn.POS_NNP)) {
             return compareUpperCases(getWordSequence(prev.getNode()), getWordSequence(curr.getNode()));
@@ -121,17 +121,17 @@ public class PreciseConstructMatch extends AbstractSieve
     }
     
 
-    private boolean appositiveMatch(SingleMention curr, SingleMention prev)
+    private boolean appositiveMatch(AbstractMention curr, AbstractMention prev)
     {
         return (curr.getNode().isLabel(DEPTagEn.DEP_APPOS) && curr.getNode().getHead() == prev.getNode());
     }
 
-    private boolean demonymMatch(SingleMention curr, SingleMention prev)
+    private boolean demonymMatch(AbstractMention curr, AbstractMention prev)
     {
          return (DemonymMap.keySet().contains(prev.toString()) && DemonymMap.values().contains(curr.toString()));
     }
 
-    private boolean predicateNominativeMatch(SingleMention curr, SingleMention prev)
+    private boolean predicateNominativeMatch(AbstractMention curr, AbstractMention prev)
     {
 //        Set<String> LV = new HashSet<>(Arrays.asList("be", "is", "am", "are", "seem", "been", "become", "appear"));
     	DEPNode p = prev.getNode();

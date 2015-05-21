@@ -15,23 +15,14 @@
  */
 package edu.emory.clir.clearnlp.coreference;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.set.DisjointSet;
-import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
-import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
-import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
+import edu.emory.clir.clearnlp.coreference.config.CorefCongiuration;
+import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
-import edu.emory.clir.clearnlp.coreference.sieve.ExactStringMatch;
-import edu.emory.clir.clearnlp.coreference.sieve.PreciseConstructMatch;
-import edu.emory.clir.clearnlp.coreference.sieve.PronounMatch;
-import edu.emory.clir.clearnlp.coreference.sieve.ProperHeadWordMatch;
-import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
-import edu.emory.clir.clearnlp.coreference.sieve.StrictHeadMatch;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
@@ -46,50 +37,28 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
  */
 public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolution 
 {
-	private AbstractMentionDetector detector;
 	private List<AbstractSieve> sieves;
 	
-	public SieveSystemCoreferenceResolution() throws IOException {
+	public SieveSystemCoreferenceResolution(CorefCongiuration config){
 		
 		// Mention Detector declaration
 		super(TLanguage.ENGLISH);
 		m_detector = new EnglishMentionDetector();
 		
 		// Sieve layer class declarations
-		sieves = new ArrayList<>();
-		
-		/* Sieve 2 : Exact String Match */		
-		sieves.add(new ExactStringMatch());
-		/* Sieve 3 : Relaxed String Match */	
-		sieves.add(new RelaxedStringMatch());
-		/* Sieve 4 : Precise Constructs */
-		sieves.add(new PreciseConstructMatch());
-		/* Sieve 5 : Strict Head Match */
-//		sieves.add(new StrictHeadMatch());
-		/* Sieve 8 : Proper Head Word Match */
-		sieves.add(new ProperHeadWordMatch());
-		/* Sieve 10 : Pronoun Match */			
-		sieves.add(new PronounMatch());
+		sieves = config.getSieves();
 	}
 
 	@Override
-	public Pair<List<SingleMention>, DisjointSet> getEntities(List<DEPTree> trees) {
+	public Pair<List<AbstractMention>, DisjointSet> getEntities(List<DEPTree> trees) {
 
 		// Mention Detection
-		List<SingleMention> mentions = detector.getMentionList(trees);
+		List<AbstractMention> mentions = m_detector.getMentionList(trees);
 		DisjointSetWithConfidence mentionLinks = new DisjointSetWithConfidence(mentions.size());
 		
 		// Coreference Resolution
 		for(AbstractSieve sieve : sieves) sieve.resolute(trees, mentions, mentionLinks);
 		
-		
-		//DEBUG OUTPUT
-		int c = 0;
-		for(SingleMention m : mentions)	System.out.println(c++ + ": " + m.toString());
-		System.out.println("===================================");
-		System.out.println(mentionLinks);
-		//////////////
-		
-		return new Pair<List<SingleMention>, DisjointSet>(mentions, mentionLinks);
+		return new Pair<List<AbstractMention>, DisjointSet>(mentions, mentionLinks);
 	}
 }

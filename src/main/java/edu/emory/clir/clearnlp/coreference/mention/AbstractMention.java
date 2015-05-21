@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import edu.emory.clir.clearnlp.collection.map.ObjectDoubleHashMap;
 import edu.emory.clir.clearnlp.coreference.type.AttributeType;
@@ -27,8 +29,10 @@ import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.GenderType;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
 import edu.emory.clir.clearnlp.coreference.type.PronounType;
+import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceStringUtils;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.util.Joiner;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -40,6 +44,7 @@ public abstract class AbstractMention implements Serializable {
 
 	protected DEPTree d_tree;
 	protected DEPNode d_node;
+	protected List<DEPNode> l_subNodes;
 	protected AbstractMention m_conj;
 	
 	protected EntityType t_entity;
@@ -49,88 +54,49 @@ public abstract class AbstractMention implements Serializable {
 	
 	protected ObjectDoubleHashMap<AttributeType> m_attr;
 	
+	/* Constructors */
 	public AbstractMention(){
-		setTree(null);
-		setNode(null);
-		setConjunctionMention(null);
-		setEntityType(EntityType.UNKNOWN);
-		setGenderType(GenderType.UNKNOWN);
-		setNumberType(NumberType.UNKNOWN);
-		setPronounType(null);
-		m_attr = new ObjectDoubleHashMap<>();
+		init(null, null, null, null, null, null);
 	}
 	
-	public AbstractMention(DEPTree tree, DEPNode node)
-	{
-		setTree(tree);
-		setNode(node);
-		setConjunctionMention(null);
-		setEntityType(EntityType.UNKNOWN);
-		setGenderType(GenderType.UNKNOWN);
-		setNumberType(NumberType.UNKNOWN);
-		setPronounType(null);
-		m_attr = new ObjectDoubleHashMap<>();
+	public AbstractMention(DEPTree tree, DEPNode node){
+		init(tree, node, null, null, null, null);
 	}
 	
 	public AbstractMention(DEPTree tree, DEPNode node, EntityType entityType){
-		setTree(tree);
-		setNode(node);
-		setEntityType(entityType);
-		setConjunctionMention(null);
-		setGenderType(GenderType.UNKNOWN);
-		setNumberType(NumberType.UNKNOWN);
-		if(entityType == EntityType.PRONOUN)	setPronounType(PronounType.UNKNOWN);
-		else									setPronounType(null);
-		m_attr = new ObjectDoubleHashMap<>();
+		init(tree, node, entityType, null, null, null);
 	}
 	
 	public AbstractMention(DEPTree tree, DEPNode node, NumberType numberType){
-		setTree(tree);
-		setNode(node);
-		setConjunctionMention(null);
-		setEntityType(EntityType.UNKNOWN);
-		setGenderType(GenderType.UNKNOWN);
-		setNumberType(numberType);
-		setPronounType(null);
-		m_attr = new ObjectDoubleHashMap<>();
+		init(tree, node, null, null, numberType, null);
 	}
 	
 	public AbstractMention(DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType){
-		setTree(tree);
-		setNode(node);
-		setConjunctionMention(null);
-		setEntityType(entityType);
-		setGenderType(genderType);
-		setNumberType(NumberType.UNKNOWN);
-		if(entityType == EntityType.PRONOUN)	setPronounType(PronounType.UNKNOWN);
-		else									setPronounType(null);
-		m_attr = new ObjectDoubleHashMap<>();
+		init(tree, node, entityType, genderType, null, null);
 	}
 	
 	public AbstractMention(DEPTree tree, DEPNode node, EntityType entityType, NumberType numberType){
-		setTree(tree);
-		setNode(node);
-		setConjunctionMention(null);
-		setEntityType(entityType);
-		setGenderType(GenderType.UNKNOWN);
-		setNumberType(numberType);
-		if(entityType == EntityType.PRONOUN)	setPronounType(PronounType.UNKNOWN);
-		else									setPronounType(null);
-		m_attr = new ObjectDoubleHashMap<>();
+		init(tree, node, entityType, null, numberType, null);
 	}
 	
 	public AbstractMention(DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType){
-		setTree(tree);
-		setNode(node);
+		init(tree, node, entityType, genderType, numberType, pronounType);
+	}
+	
+	private void init(DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType){
+		m_attr = new ObjectDoubleHashMap<>();
+		setTree(tree);	setNode(node);	
+		setSubTreeNodes((node == null)? null : node.getSubNodeList());
 		setConjunctionMention(null);
 		setEntityType(entityType);
 		setGenderType(genderType);
 		setNumberType(numberType);
-		setPronounType(pronounType);
-		m_attr = new ObjectDoubleHashMap<>();
+		
+		if(entityType == EntityType.PRONOUN && pronounType == null)	setPronounType(PronounType.UNKNOWN);
+		else														setPronounType(pronounType);
 	}
 	
-	/* Helper methods */
+	/* Getters */
 	public DEPTree getTree(){
 		return d_tree;
 	}
@@ -163,6 +129,10 @@ public abstract class AbstractMention implements Serializable {
 		return m_attr;
 	}
 	
+	public List<DEPNode> getSubTreeNodes(){
+		return l_subNodes;
+	}
+	
 	public AbstractMention getConjunctionMention(){
 		return m_conj;
 	}
@@ -181,6 +151,7 @@ public abstract class AbstractMention implements Serializable {
 		return null;
 	}
 	
+	/* Setters */
 	public void setTree(DEPTree tree){
 		d_tree = tree;
 	}
@@ -205,8 +176,13 @@ public abstract class AbstractMention implements Serializable {
 		t_pronoun = type;
 	}
 	
+	public void setSubTreeNodes(List<DEPNode> nodes){
+		l_subNodes = nodes;
+	}
+	
 	public void setConjunctionMention(AbstractMention mention){
 		m_conj = mention;
+		if(m_conj != null) addAttribute(AttributeType.CONJUNCTION);
 	}
 	
 	public void addAttribute(AttributeType type){
@@ -217,6 +193,7 @@ public abstract class AbstractMention implements Serializable {
 		m_attr.add(type, weight);
 	}
 	
+	/* boolean methods */
 	public boolean isEntityType(EntityType type){
 		return t_entity == type;
 	}
@@ -238,11 +215,11 @@ public abstract class AbstractMention implements Serializable {
 	}
 	
 	public boolean isParentMention(AbstractMention mention){
-		return getNode().getSubNodeSet().contains(mention.getNode());
+		return (getSubTreeNodes() == null)? false : getSubTreeNodes().contains(mention.getNode());
 	}
 	
 	public boolean isChildMention(AbstractMention mention){
-		return mention.getNode().getSubNodeSet().contains(this);
+		return (mention.getSubTreeNodes() == null)? false :  mention.getSubTreeNodes().contains(getNode());
 	}
 	
 	public boolean hasFeature(AttributeType type){
@@ -253,17 +230,39 @@ public abstract class AbstractMention implements Serializable {
 		return m_conj != null;
 	}
 	
+	/* String handling methods */
+	public String getWordFrom(){
+		return d_node.getWordForm();
+	}
+
+	public String getSubTreeWordSequence(){
+		return Joiner.join(getSubTreeWordList(), " ");
+	}
+	
+	public List<String> getSubTreeWordList(){
+		return getSubTreeNodes().stream().map(node -> node.getWordForm()).collect(Collectors.toList());
+	}
+	
+	public String getHeadNodeWordForm(){
+		return getNode().getHead().getWordForm();
+	}
+
+	public Set<String> getAncestorWords(){
+		return getNode().getAncestorSet().stream().map(node -> node.getWordForm()).collect(Collectors.toSet());
+	}
+	
 	/* Abstract methods */
-	abstract public String getWordFrom();
-	abstract public String getSubTreeWordSequence();
-	abstract public List<String> getSubTreeWordList();
-	abstract public List<DEPNode> getSubTreeNodes();
-	abstract public String getHeadNodeWordForm();
-	abstract public Set<String> getAncestorWords();
 	abstract public String getAcronym();
 	
 	@Override
 	public String toString(){
-		return getWordFrom() + "\t" + t_entity + "\t" + t_gender + '\t' + t_number + "\t" + t_pronoun;
+		StringJoiner joiner = new StringJoiner("\t");
+		joiner.add(getWordFrom());
+		joiner.add(CoreferenceStringUtils.connectStrings("(", (m_conj == null)? "null" : m_conj.getWordFrom(),")"));
+		joiner.add((t_entity == null)? "null" : t_entity.toString());
+		joiner.add((t_gender == null)? "null" : t_gender.toString());
+		joiner.add((t_number == null)? "null" : t_number.toString());
+		joiner.add((t_pronoun == null)? "null" : t_pronoun.toString());
+		return joiner.toString();
 	}
 }

@@ -21,7 +21,8 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
-import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
+import edu.emory.clir.clearnlp.coreference.mention.EnglishMention;
+import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.GenderType;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
@@ -38,25 +39,22 @@ public class PronounMatch extends AbstractSieve
 	List<String> argumentSlot = new ArrayList<>(Arrays.asList(DEPTagEn.DEP_SUBJ, DEPTagEn.DEP_AGENT, DEPTagEn.DEP_DOBJ, DEPTagEn.DEP_IOBJ, DEPTagEn.DEP_POBJ)); 
 	
 	@Override
-	public void resolute(List<DEPTree> trees, List<SingleMention> mentions, DisjointSetWithConfidence mentionLinks) {
-		SingleMention curr, prev;
+	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSetWithConfidence mentionLinks) {
+		AbstractMention curr, prev;
 		int i, j, size = mentions.size();
 		
-		for (i = 1; i < size; i++){
+		for(i = size-1; i > 0; i--){
 			curr = mentions.get(i);
 			
 			for (j = i-1; j >= 0; j--){
 				prev = mentions.get(i);
 				if (matchesPronoun(curr, prev)) {
-					if (curr.getHeadNodeWordForm().endsWith("self") && matchesReflexivePronoun(prev, curr)) {
+					if (matchesReflexivePronoun(prev, curr)) {
 						mentionLinks.union(i, j, 0); break;
 					}
 				}
-//					matchesCommonNoun(curr, prev) || 
-//					matchesWildcardPronoun(curr, prev) ||
-//					mentionLinks.union(i, j, 0); break;
 			}
-		}		
+		}
 	}
 	
 	private boolean matchesPronoun(AbstractMention curr, AbstractMention prev)
@@ -66,7 +64,7 @@ public class PronounMatch extends AbstractSieve
 	
 	private boolean matchesGender(AbstractMention curr, AbstractMention prev)
 	{
-		return curr.isGenderType(prev.getGenderType());
+		return curr.isGenderType(prev.getGenderType()) && !curr.isGenderType(GenderType.UNKNOWN) || !curr.isGenderType(GenderType.NEUTRAL);
 	}
 	
 	private boolean matchesNumber(AbstractMention curr, AbstractMention prev)
@@ -74,15 +72,30 @@ public class PronounMatch extends AbstractSieve
 		return curr.isNumberType(prev.getNumberType());
 	}
 	
-	private boolean matchesCommonNoun(SingleMention curr, SingleMention prev){
-		// we need to deal with common nouns
-		return false;
+	private boolean matchNumber(AbstractMention mention1, AbstractMention mention2){
+		return mention1.getNumberType() == mention2.getNumberType();
 	}
 	
-	private boolean matchesWildcardPronoun(SingleMention curr, SingleMention prev){
-		// Yet to be implemented
-		return false;
+	private boolean matchEntity(AbstractMention mention1, AbstractMention mention2){
+		if(mention2.isNameEntity())
+			return mention1.getEntityType() == mention2.getEntityType();
+		return !mention2.isEntityType(EntityType.UNKNOWN) || mention1.getEntityType() == mention2.getEntityType();
 	}
+	
+//	private boolean matchPronoun(AbstractMention mention1, AbstractMention mention2){
+//		if(mention2.getPronounType() != null)
+//			switch(mention2.getPronounType()){
+//				case SUBJECT:		return mention1.isPronounType(PronounType.SUBJECT);
+//				case OBJECT:		return mention1.isPronounType(PronounType.OBJECT);
+//				case INDEFINITE:	return mention1.isPronounType(PronounType.INDEFINITE);
+//				case POSSESSIVE:	return mention1.isPronounType(PronounType.POSSESSIVE);
+//				case DEMOSTRATIVE:	return mention1.isPronounType(PronounType.DEMOSTRATIVE);
+//				case REFLEXIVE:		return mention1.isPronounType(PronounType.REFLEXIVE);
+//				case RELATIVE:		return mention1.isPronounType(PronounType.RELATIVE);
+//				default:			return mention1.getPronounType() == mention2.getPronounType();
+//			}
+//		return false;
+//	}
 	
 	private boolean matchesReflexivePronoun(AbstractMention prev, AbstractMention curr)
 	{
@@ -119,7 +132,7 @@ public class PronounMatch extends AbstractSieve
 		DEPNode prevNode = prev.getNode();
 		DEPNode currNode = curr.getNode();
 		if (prevNode.isArgumentOf(verb)) 
-			if ((temp = (DEPNode) prevNode.getDependentList().stream().filter(x -> x.isArgumentOf(currNode))) != null && adjunctDomain(prev, new SingleMention(temp))) 
+			if ((temp = (DEPNode) prevNode.getDependentList().stream().filter(x -> x.isArgumentOf(currNode))) != null && adjunctDomain(prev, new EnglishMention(temp))) 
 				return true;
 		return false;
 	}
@@ -129,7 +142,7 @@ public class PronounMatch extends AbstractSieve
 		List<DEPNode> listOfNodes;
 		if ((listOfNodes = prev.getNode().getDependentListByLabel(DEPTagEn.DEP_ATTR)) != null) {
 			for (DEPNode node : listOfNodes) {
-				if (argumentDomain(new SingleMention(node), curr) || adjunctDomain(new SingleMention(node), curr))
+				if (argumentDomain(new EnglishMention(node), curr) || adjunctDomain(new EnglishMention(node), curr))
 					return true;
 			}
 		}
