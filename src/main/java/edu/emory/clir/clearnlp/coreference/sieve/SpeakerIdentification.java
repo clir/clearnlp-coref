@@ -24,7 +24,7 @@ public class SpeakerIdentification extends AbstractSieve
 	private final Set<String> reportingVerbs = init(PathSieve.REPORT_VERBS);
 	private final Set<String> firstPersonSingularPronouns = new HashSet<>(Arrays.asList("I", "me", "my", "mine"));
 	private final Set<String> firstPersonPluralPronouns	= new HashSet<>(Arrays.asList("we", "our", "ours", "us"));
-	private final Set<String> secondPersonPronouns = new HashSet<>(Arrays.asList("you", "your", "yours"));
+	private final Set<String> secondPersonPronouns = new HashSet<>(Arrays.asList("you", "your", "yours"));	//will need later
 	private final Set<String> thirdPersonSingularPronouns = new HashSet<>(Arrays.asList("he", "him", "his", "she", "her", "hers", "it", "its"));
 	private final Set<String> thirdPersonPluralPronouns = new HashSet<>(Arrays.asList("they", "them", "their", "theirs"));
 	
