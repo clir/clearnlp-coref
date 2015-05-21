@@ -207,6 +207,7 @@ public abstract class AbstractMention implements Serializable {
 	
 	public void setConjunctionMention(AbstractMention mention){
 		m_conj = mention;
+		if(m_conj != null) addAttribute(AttributeType.CONJUNCTION);
 	}
 	
 	public void addAttribute(AttributeType type){

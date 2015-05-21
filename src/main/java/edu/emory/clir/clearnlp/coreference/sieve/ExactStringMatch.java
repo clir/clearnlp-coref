@@ -1,9 +1,6 @@
 package edu.emory.clir.clearnlp.coreference.sieve;
 
-import java.util.StringJoiner;
-
-import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
-import edu.emory.clir.clearnlp.dependency.DEPNode;
+import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 /**
  * 
  * @author alexlutz
@@ -11,30 +8,16 @@ import edu.emory.clir.clearnlp.dependency.DEPNode;
  * need to get getCompound() method from Jinho to incorporate
  */
 public class ExactStringMatch extends AbstractStringMatch {
-	public ExactStringMatch()
-	{
+	public ExactStringMatch(){
 		super();
 	}
 	
-	public ExactStringMatch(boolean decapitalize)
-	{
+	public ExactStringMatch(boolean decapitalize){
 		super(decapitalize);
-	}
-
-	@Override
-	protected boolean match(SingleMention prev, SingleMention curr){
-		String prevWords = getWordSequence(prev.getNode());
-		String currWords = getWordSequence(curr.getNode());
-		return prevWords.equals(currWords);
 	}
 	
 	@Override
-	protected String getWordSequence(Mention mention){
-		StringJoiner joiner = new StringJoiner(" ");
-		DEPNode node = mention.getNode();
-		
-		for(DEPNode sub : node.getSubNodeList()) joiner.add(sub.getWordForm());
-
-		return joiner.toString();
+	protected String getWordSequence(AbstractMention mention){
+		return mention.getSubTreeWordSequence();
 	}
 }

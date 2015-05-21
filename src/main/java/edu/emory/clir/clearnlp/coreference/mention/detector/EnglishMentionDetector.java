@@ -17,6 +17,7 @@ package edu.emory.clir.clearnlp.coreference.mention.detector;
 
 import java.util.List;
 
+import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.SingleMention;
 import edu.emory.clir.clearnlp.coreference.mention.common.CommonNoun;
 import edu.emory.clir.clearnlp.coreference.mention.common.detector.EnglishCommonNounDetector;
@@ -91,12 +92,12 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 	
 //	====================================== MENTION ATTR ======================================
 	@Override
-	protected void processMentions(DEPTree tree, List<SingleMention> mentions){
+	protected void processMentions(DEPTree tree, List<AbstractMention> mentions){
 		
 		List<int[]> boundaries = CoreferenceDSUtils.getQuotaionIndices(tree);
 		
 		DEPNode curr;
-		SingleMention mention_prev, mention_curr;
+		AbstractMention mention_prev, mention_curr;
 		int i, pos, size = mentions.size();
 		
 		for(i = 0; i < size; i++){
