@@ -35,8 +35,8 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
  * @since 	Apr 13, 2015
  */
 public class PronounMatch extends AbstractSieve {
-	final static private List<String> argumentSlot = new ArrayList<>(Arrays.asList(DEPTagEn.DEP_SUBJ, DEPTagEn.DEP_AGENT, DEPTagEn.DEP_DOBJ, DEPTagEn.DEP_IOBJ, DEPTagEn.DEP_POBJ));
-	final static private Pattern verb = Pattern.compile("VB[D||P||Z]{0,1}");
+	final private List<String> argumentSlot = new ArrayList<>(Arrays.asList(DEPTagEn.DEP_SUBJ, DEPTagEn.DEP_AGENT, DEPTagEn.DEP_DOBJ, DEPTagEn.DEP_IOBJ, DEPTagEn.DEP_POBJ));
+	final private Pattern verb = Pattern.compile("VB[D||P||Z]{0,1}");
 	
 	@Override
 	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSetWithConfidence mentionLinks) {
@@ -130,6 +130,7 @@ public class PronounMatch extends AbstractSieve {
 		DEPNode temp;
 		DEPNode prevNode = prev.getNode();
 		DEPNode currNode = curr.getNode();
+		
 		if (prevNode.isArgumentOf(verb)) 
 			if ((temp = (DEPNode) prevNode.getDependentList().stream().filter(x -> x.isArgumentOf(currNode))) != null && adjunctDomain(prev, new EnglishMention(temp))) 
 				return true;

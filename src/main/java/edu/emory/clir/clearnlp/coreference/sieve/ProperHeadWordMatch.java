@@ -23,10 +23,8 @@ public class ProperHeadWordMatch extends AbstractStringMatch
 		List<DEPNode> currDependents = ((DEPNode) curr.getNode()).getDependentListByLabel(DEPTagEn.DEP_NUMMOD);
 		
 		if (prevWords.equals(currWords) && currDependents.size() == prevDependents.size()) {	//also had && prev.Dependents.size() > 1
-			for (int i = 0; i < prevDependents.size(); i++) {
-				if (!(prevDependents.get(i).getWordForm().equals(currDependents.get(i).getWordForm())))
-					return false;
-			}
+			for (int i = 0; i < prevDependents.size(); i++)
+				if (!(prevDependents.get(i).getWordForm().equals(currDependents.get(i).getWordForm())))	return false;
 			return true;
 		}
 		
