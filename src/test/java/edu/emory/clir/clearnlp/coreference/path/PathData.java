@@ -25,6 +25,8 @@ public interface PathData {
 			COREF = ROOT + "coref/",
 			MENTION = ROOT + "mention/";
 	
+	String 	ENG_COREF_ADJUNTION = COREF + "input.coref.adjunction.cnlp";
+	
 	String 	ENG_MENTION = MENTION + "input.mention.cnlp",
 			ENG_MENTION_QUOTE = MENTION + "input.mention.quote.cnlp",
 			ENG_MENTION_CONJUNCTION = MENTION + "input.menton.conjunctions.cnlp";

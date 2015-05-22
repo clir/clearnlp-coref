@@ -31,6 +31,7 @@ public enum EntityType{
 	PERSON,
 	ORGANIZATION,
 	LOCATION,
+	DATE,
 	
 	// Other
 	UNKNOWN;

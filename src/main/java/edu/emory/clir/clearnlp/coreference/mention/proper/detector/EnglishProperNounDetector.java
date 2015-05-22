@@ -71,6 +71,10 @@ public class EnglishProperNounDetector extends AbstractProperNounDetector{
 				properNoun.e_type = EntityType.LOCATION;
 				properNoun.n_type = NumberType.UNKNOWN;
 				break;
+			case "DATE":
+				properNoun.e_type = EntityType.DATE;
+				properNoun.n_type = NumberType.UNKNOWN;
+				break;
 		}
 		
 		return properNoun;

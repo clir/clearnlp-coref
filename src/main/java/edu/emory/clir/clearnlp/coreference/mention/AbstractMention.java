@@ -253,6 +253,7 @@ public abstract class AbstractMention implements Serializable {
 	
 	/* Abstract methods */
 	abstract public String getAcronym();
+	abstract public boolean isInAdjunctDomainOf(AbstractMention mention);
 	
 	@Override
 	public String toString(){

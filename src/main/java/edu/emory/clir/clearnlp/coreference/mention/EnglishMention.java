@@ -24,6 +24,7 @@ import edu.emory.clir.clearnlp.coreference.type.NumberType;
 import edu.emory.clir.clearnlp.coreference.type.PronounType;
 import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceStringUtils;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
+import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.Joiner;
 
@@ -75,5 +76,13 @@ public class EnglishMention extends AbstractMention{
 			if(!phrase.isEmpty())	return CoreferenceStringUtils.getAllUpperCaseLetters(phrase);
 		}
 		return null;
+	}
+
+	@Override
+	public boolean isInAdjunctDomainOf(AbstractMention mention) {
+		DEPNode head = mention.getNode().getHead(), adjuncHead = getNode().getHead();
+		if(head != null && adjuncHead != null)
+			return getNode().isLabel(DEPTagEn.DEP_POBJ) && adjuncHead.isLabel(DEPTagEn.DEP_PREP) && head == adjuncHead.getHead();
+		return false;
 	}
 }

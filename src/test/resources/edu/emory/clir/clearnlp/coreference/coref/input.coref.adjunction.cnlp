@@ -1,0 +1,11 @@
+1	John	john	NNP	_	2	nsubj	U-PERSON
+2	helped	help	VBD	_	0	root	O
+3	Bill	bill	NNP	_	2	dobj	U-PERSON
+4	in	in	IN	_	2	prep	O
+5	Central	central	NNP	_	6	compound	B-LOC
+6	Park	park	NNP	_	4	pobj	L-LOC
+7	on	on	IN	_	2	prep	O
+8	Sunday	sunday	NNP	_	7	pobj	U-DATE
+9	as	as	IN	_	2	prep	O
+10	an	an	DT	_	11	det	O
+11	example	example	NN	_	9	pobj	O
