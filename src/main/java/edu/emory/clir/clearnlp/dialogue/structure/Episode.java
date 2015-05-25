@@ -30,11 +30,11 @@ public class Episode implements Serializable, Comparable<Episode> {
 	private static final long serialVersionUID = 6820752751873428267L;
 
 	private int episodeId;
-	private Map<Integer, Scene> m_scenes;
+	private Map<Integer, Scene> scenes;
 	
 	public Episode(int id){
 		episodeId = id;
-		m_scenes = new TreeMap<>();
+		scenes = new TreeMap<>();
 	}
 	
 	public int getId(){
@@ -42,7 +42,7 @@ public class Episode implements Serializable, Comparable<Episode> {
 	}
 	
 	public Scene addScene(int id){
-		return m_scenes.computeIfAbsent(id, s -> new Scene(id));
+		return scenes.computeIfAbsent(id, s -> new Scene(id));
 	}
 
 	@Override
@@ -52,6 +52,6 @@ public class Episode implements Serializable, Comparable<Episode> {
 	
 	@Override
 	public String toString(){
-		return Joiner.join(m_scenes.values(), "\n");
+		return Joiner.join(scenes.values(), "\n");
 	}
 }

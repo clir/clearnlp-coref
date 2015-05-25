@@ -30,11 +30,11 @@ public class Season implements Serializable, Comparable<Season> {
 	private static final long serialVersionUID = 1949692768773037475L;
 	
 	private int seasonId;
-	private Map<Integer, Episode> m_episodes;
+	private Map<Integer, Episode> episodes;
 	
 	public Season(int id){
 		seasonId = id;
-		m_episodes = new TreeMap<>();
+		episodes = new TreeMap<>();
 	}
 	
 	public int getId(){
@@ -42,7 +42,7 @@ public class Season implements Serializable, Comparable<Season> {
 	}
 	
 	public Episode addEpisode(int id){
-		return m_episodes.computeIfAbsent(id, e -> new Episode(id));
+		return episodes.computeIfAbsent(id, e -> new Episode(id));
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class Season implements Serializable, Comparable<Season> {
 	
 	@Override
 	public String toString(){
-		return Joiner.join(m_episodes.values(), "\n");
+		return Joiner.join(episodes.values(), "\n");
 	}
 }
 

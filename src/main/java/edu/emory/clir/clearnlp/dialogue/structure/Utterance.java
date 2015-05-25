@@ -26,27 +26,27 @@ import java.util.List;
 public class Utterance implements Serializable{
 	private static final long serialVersionUID = -2554816743533036963L;
 	
-	private int spearkID;
-	private String line_raw;
-	private String line_stripped;
-	private List<String> l_trees;
+	private int spearkerId;
+	private String utterance;
+	private String statement;
+	private List<String> trees;
 	
 	public Utterance(int id, String raw){
-		spearkID = id;
-		line_raw = raw;
-		line_stripped = null;
-		l_trees = null;
+		spearkerId = id;
+		utterance = raw;
+		statement = null;
+		trees = null;
 	}
 	
-	public Utterance(int id, String raw, String stripped, List<String> trees){
-		spearkID = id;
-		line_raw = raw;
-		line_stripped = stripped;
-		l_trees = trees;
+	public Utterance(int id, String raw, String stripped, List<String> treeList){
+		spearkerId = id;
+		utterance = raw;
+		statement = stripped;
+		trees = treeList;
 	}
 	
 	@Override
 	public String toString(){
-		return spearkID + ":\t" + line_raw;
+		return spearkerId + ":\t" + utterance;
 	}
 }

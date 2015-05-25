@@ -33,14 +33,14 @@ public class Scene implements Serializable, Comparable<Scene>{
 	
 	private int sceneId;
 	private int speakerCount;
-	private Map<Integer, String> m_speakerID;
-	private List<Utterance> l_utterances;
+	private Map<Integer, String> speakerIDs;
+	private List<Utterance> utterances;
 	
 	public Scene(int id){
 		sceneId = id;
 		speakerCount = 0;
-		m_speakerID = new HashMap<>();
-		l_utterances = new ArrayList<>();
+		speakerIDs = new HashMap<>();
+		utterances = new ArrayList<>();
 	}
 	
 	public int getId(){
@@ -49,20 +49,20 @@ public class Scene implements Serializable, Comparable<Scene>{
 	
 	public int addSpeaker(String speaker){
 		if(speaker == null) return -1;
-		if(!m_speakerID.containsValue(speaker))
-			m_speakerID.put(speakerCount, speaker);
+		if(!speakerIDs.containsValue(speaker))
+			speakerIDs.put(speakerCount, speaker);
 		return speakerCount++;
 	}
 	
 	public Utterance addUtterance(int speakerID, String raw, String stripped, List<String> trees){
 		Utterance utterance = new Utterance(speakerID, raw, stripped, trees);
-		l_utterances.add(utterance);
+		utterances.add(utterance);
 		return utterance;
 	}
 	
 	public Utterance addUtterance(int id, String raw){
 		Utterance utterance = new Utterance(id, raw);
-		l_utterances.add(utterance);
+		utterances.add(utterance);
 		return utterance;
 	}
 
@@ -73,6 +73,6 @@ public class Scene implements Serializable, Comparable<Scene>{
 	
 	@Override
 	public String toString(){
-		return Joiner.join(l_utterances, "\n");
+		return Joiner.join(utterances, "\n");
 	}
 }
