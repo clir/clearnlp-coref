@@ -2,5 +2,6 @@
 .DS_Store
 .classpath
 .project
+.idea/
+clearnlp-coref.iml
 /.settings/
-
