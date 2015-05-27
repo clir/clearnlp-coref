@@ -3,7 +3,7 @@ package edu.emory.clir.clearnlp.coreference.sieve;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
+import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.StringUtils;
 /**
@@ -40,7 +40,7 @@ public abstract class AbstractStringMatch extends AbstractSieve {
 	abstract protected String getWordSequence(AbstractMention mention);
 	
 	@Override
-	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSetWithConfidence mentionLinks) {
+	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet mentionLinks) {
 		AbstractMention curr, prev;
 		int i, j, size = mentions.size();
 		

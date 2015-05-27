@@ -1,0 +1,430 @@
+1	It	it	PRP	_	2	nsubj	_	_	O
+2	was	be	VBD	_	0	root	_	_	O
+3	Tuesday	tuesday	NNP	_	2	attr	_	_	U-DATE
+4	.	.	.	_	2	punct	_	_	O
+
+1	Tuesday	tuesday	NNP	_	2	nsubj	_	_	U-DATE
+2	was	be	VBD	_	0	root	_	_	O
+3	Square	square	NNP	_	6	poss	_	_	U-ORG
+4	's	's	POS	_	3	case	_	_	O
+5	favorite	favorite	JJ	_	6	amod	_	_	O
+6	day	day	NN	_	2	attr	_	_	O
+7	.	.	.	_	2	punct	_	_	O
+
+1	Wednesday	wednesday	NNP	_	2	nsubj	_	_	U-DATE
+2	was	be	VBD	_	0	root	_	_	O
+3	nice	nice	JJ	_	2	acomp	_	_	O
+4	because	because	IN	_	6	mark	_	_	O
+5	it	it	PRP	_	6	nsubj	_	_	O
+6	was	be	VBD	_	2	advcl	_	_	O
+7	always	always	RB	_	6	advmod	_	_	O
+8	Spaghetti	spaghetti	NNP	_	9	compound	_	_	B-PERSON
+9	Night	night	NNP	_	6	attr	_	_	L-PERSON
+10	.	.	.	_	2	punct	_	_	O
+
+1	Saturday	saturday	NNP	_	2	nsubj	_	_	U-DATE
+2	was	be	VBD	_	0	root	_	_	O
+3	great	great	JJ	_	2	acomp	_	_	O
+4	because	because	IN	_	2	prep	_	_	O
+5	of	of	IN	_	4	pcomp	_	_	O
+6	the	the	DT	_	8	det	_	_	O
+7	morning	morning	NN	_	8	compound	_	_	O
+8	cartoons	cartoon	NNS	_	4	pobj	_	_	O
+9	.	.	.	_	2	punct	_	_	O
+
+1	But	but	CC	_	0	cc	_	_	O
+2	Tuesday	tuesday	NNP	_	1	npadvmod	_	_	U-DATE
+3	?	?	.	_	1	punct	_	_	O
+
+1	Tuesday	tuesday	NNP	_	2	nsubj	_	_	U-DATE
+2	was	be	VBD	_	13	ccomp	_	_	O
+3	the	the	DT	_	4	det	_	_	O
+4	day	day	NN	_	2	attr	_	_	O
+5	it	it	PRP	_	7	nsubj	_	_	O
+6	always	always	RB	_	7	advmod	_	_	O
+7	went	go	VBD	_	4	relcl	_	_	O
+8	to	to	TO	_	9	aux	_	_	O
+9	visit	visit	VB	_	7	advcl	_	_	O
+10	its	its	PRP$	_	11	poss	_	_	O
+11	friend	friend	NN	_	9	dobj	_	_	O
+12	Diamond.It	#hlink#	ADD	p2=NNP	13	nsubj	_	_	O
+13	was	be	VBD	_	0	root	_	_	O
+14	a	a	DT	_	16	det	_	_	O
+15	beautiful	beautiful	JJ	_	16	amod	_	_	O
+16	day	day	NN	_	13	attr	_	_	O
+17	!	!	.	_	13	punct	_	_	O
+
+1	The	the	DT	_	3	det	_	_	O
+2	spring	spring	NN	_	3	compound	_	_	O
+3	wind	wind	NN	_	5	nsubj	_	_	O
+4	was	be	VBD	_	5	aux	_	_	O
+5	blowing	blow	VBG	_	0	root	_	_	O
+6	,	,	,	_	5	punct	_	_	O
+7	and	and	CC	_	5	cc	_	_	O
+8	the	the	DT	_	9	det	_	_	O
+9	sun	sun	NN	_	11	nsubj	_	_	O
+10	was	be	VBD	_	11	aux	_	_	O
+11	shining	shine	VBG	_	5	conj	_	_	O
+12	.	.	.	_	11	punct	_	_	O
+
+1	Square	square	NNP	p2=NN	4	nsubj	_	_	U-ORG
+2	and	and	CC	_	1	cc	_	_	O
+3	Diamond	diamond	NNP	_	1	conj	_	_	U-ORG
+4	went	go	VBD	_	0	root	_	_	O
+5	to	to	TO	p2=IN	6	aux	_	_	O
+6	play	play	VB	_	4	xcomp	_	_	O
+7	by	by	IN	_	6	prep	_	_	O
+8	the	the	DT	_	9	det	_	_	O
+9	river	river	NN	_	7	pobj	_	_	O
+10	.	.	.	_	4	punct	_	_	O
+
+1	They	they	PRP	_	3	nsubj	_	_	O
+2	were	be	VBD	_	3	aux	_	_	O
+3	having	have	VBG	_	0	root	_	_	O
+4	a	a	DT	_	6	det	_	_	O
+5	great	great	JJ	_	6	amod	_	_	O
+6	time	time	NN	_	3	dobj	_	_	O
+7	.	.	.	_	3	punct	_	_	O
+
+1	They	they	PRP	_	2	nsubj	_	_	O
+2	swam	swim	VBP	p2=VBD	0	root	_	_	O
+3	.	.	.	_	2	punct	_	_	O
+
+1	They	they	PRP	_	2	nsubj	_	_	O
+2	fished	fish	VBD	_	0	root	_	_	O
+3	.	.	.	_	2	punct	_	_	O
+
+1	They	they	PRP	_	2	nsubj	_	_	O
+2	played	play	VBD	_	0	root	_	_	O
+3	hide	hide	NN	p2=VB	2	dobj	_	_	O
+4	and	and	CC	_	3	cc	_	_	O
+5	seek.Suddenly	#hlink#	ADD	p2=NN	3	conj	_	_	U-ORG
+6	,	,	,	_	9	punct	_	_	O
+7	the	the	DT	_	8	det	_	_	O
+8	wind	wind	NN	_	9	nsubj	_	_	O
+9	picked	pick	VBD	_	2	conj	_	_	O
+10	up	up	RP	_	9	prt	_	_	O
+11	.	.	.	_	9	punct	_	_	O
+
+1	"	"	``	_	0	root	_	_	O
+2	Hey	hey	UH	_	0	root	_	_	O
+3	,	,	,	_	2	punct	_	_	O
+4	Square	square	NNP	p2=NN	2	npadvmod	_	_	O
+5	!	!	.	_	2	punct	_	_	O
+
+1	Would	would	MD	_	3	aux	_	_	O
+2	you	you	PRP	_	3	nsubj	_	_	O
+3	like	like	VB	_	0	root	_	_	O
+4	to	to	TO	_	5	aux	_	_	O
+5	see	see	VB	_	3	xcomp	_	_	O
+6	a	a	DT	_	7	det	_	_	O
+7	trick	trick	NN	_	5	dobj	_	_	O
+8	?	?	.	_	3	punct	_	_	O
+
+1	""	""	NFP	p2=``	0	root	_	_	O
+2	Sure	sure	UH	p2=GW	1	intj	_	_	O
+3	Diamond	diamond	NNP	p2=UH	2	npadvmod	_	_	O
+4	!	!	.	_	2	punct	_	_	O
+
+1	What	what	WP	_	2	attr	_	_	O
+2	is	be	VBZ	_	0	root	_	_	O
+3	it	it	PRP	p2=NN	2	nsubj	_	_	O
+4	?	?	.	_	2	punct	_	_	O
+5	"	"	''	_	2	punct	_	_	O
+
+1	Diamond	diamond	NNP	_	2	nsubj	_	_	U-PERSON
+2	took	take	VBD	_	0	root	_	_	O
+3	a	a	DT	_	4	det	_	_	O
+4	string	string	NN	_	2	dobj	_	_	O
+5	out	out	IN	_	2	prep	_	_	O
+6	of	of	IN	_	5	prep	_	_	O
+7	its	its	PRP$	_	8	poss	_	_	O
+8	pocket	pocket	NN	_	6	pobj	_	_	O
+9	.	.	.	_	2	punct	_	_	O
+
+1	Diamond	diamond	NNP	p2=NN	2	nsubj	_	_	U-ORG
+2	tied	tie	VBD	_	0	root	_	_	O
+3	it	it	PRP	_	2	dobj	_	_	O
+4	to	to	IN	_	2	prep	_	_	O
+5	her	her	PRP	_	4	pobj	_	_	O
+6	,	,	,	_	2	punct	_	_	O
+7	and	and	CC	_	2	cc	_	_	O
+8	then	then	RB	_	10	advmod	_	_	O
+9	she	she	PRP	_	10	nsubj	_	_	O
+10	tied	tie	VBD	_	2	conj	_	_	O
+11	it	it	PRP	_	10	dobj	_	_	O
+12	to	to	IN	_	10	prep	_	_	O
+13	a	a	DT	_	14	det	_	_	O
+14	tree	tree	NN	_	12	pobj	_	_	O
+15	.	.	.	_	10	punct	_	_	O
+
+1	"	"	``	p2=''	2	punct	_	_	O
+2	Watch	watch	VB	_	0	root	_	_	O
+3	this	this	DT	_	2	dobj	_	_	O
+4	!	!	.	p2=,	2	punct	_	_	O
+5	"	"	''	_	2	punct	_	_	O
+
+1	Diamond	diamond	NNP	p2=NN	2	nsubj	_	_	O
+2	jumped	jump	VBD	_	0	root	_	_	O
+3	into	into	IN	_	2	prep	_	_	O
+4	the	the	DT	_	5	det	_	_	O
+5	wind	wind	NN	_	3	pobj	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	Suddenly	suddenly	RB	_	5	advmod	_	_	O
+2	,	,	,	_	5	punct	_	_	O
+3	she	she	PRP	_	5	nsubj	_	_	O
+4	was	be	VBD	_	5	aux	_	_	O
+5	flying	fly	VBG	_	0	root	_	_	O
+6	!	!	.	_	5	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	floated	float	VBD	_	0	root	_	_	O
+3	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	swooped	swoop	VBD	_	0	root	_	_	O
+3	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	played	play	VBD	_	0	root	_	_	O
+3	with	with	IN	_	2	prep	_	_	O
+4	the	the	DT	_	5	det	_	_	O
+5	clouds	cloud	NNS	_	3	pobj	_	_	O
+6	and	and	CC	_	5	cc	_	_	O
+7	the	the	DT	_	8	det	_	_	O
+8	birds	bird	NNS	_	5	conj	_	_	O
+9	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	flew	fly	VBD	_	0	root	_	_	O
+3	faster	fast	RBR	p2=RB	2	advmod	_	_	O
+4	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	flew	fly	VBD	_	7	ccomp	_	_	O
+3	slower.At	#hlink#	ADD	p2=RB	2	dobj	_	_	O
+4	first	#ord#	RB	p2=LS	2	advmod	_	_	U-ORDINAL
+5	,	,	,	_	7	punct	_	_	O
+6	Square	square	NNP	p2=NN	7	nsubj	_	_	U-ORG
+7	was	be	VBD	_	0	root	_	_	O
+8	amazed	amazed	JJ	_	7	acomp	_	_	O
+9	.	.	.	_	7	punct	_	_	O
+
+1	But	but	CC	_	5	cc	_	_	O
+2	slowly	slowly	RB	_	5	advmod	_	_	O
+3	,	,	,	_	5	punct	_	_	O
+4	Square	square	NNP	_	5	nsubj	_	_	U-ORG
+5	started	start	VBD	_	0	root	_	_	O
+6	to	to	IN	p2=TO	5	prep	_	_	O
+7	frown.Diamond	#hlink#	ADD	p2=NNP	6	pobj	_	_	O
+8	landed	land	VBD	p2=VBN	5	dep	_	_	O
+9	in	in	IN	_	8	prep	_	_	O
+10	front	front	NN	_	9	pobj	_	_	O
+11	of	of	IN	_	10	prep	_	_	O
+12	her	her	PRP$	_	13	poss	_	_	O
+13	friend	friend	NN	_	11	pobj	_	_	O
+14	.	.	.	_	5	punct	_	_	O
+
+1	"	"	``	_	3	punct	_	_	O
+2	What	what	WP	_	3	nsubj	_	_	O
+3	's	's	VBZ	_	0	root	_	_	O
+4	wrong	wrong	JJ	p2=NN	3	acomp	_	_	O
+5	?	?	.	_	3	punct	_	_	O
+
+1	""	""	NFP	p2=``	3	punct	_	_	O
+2	That	that	DT	_	3	nsubj	_	_	O
+3	was	be	VBD	_	0	root	_	_	O
+4	amazing	amazing	JJ	_	3	acomp	_	_	O
+5	!	!	.	_	3	punct	_	_	O
+
+1	It	it	PRP	_	2	nsubj	_	_	O
+2	looks	look	VBZ	_	0	root	_	_	O
+3	like	like	IN	_	2	prep	_	_	O
+4	a	a	DT	_	5	det	_	_	O
+5	lot	lot	NN	_	3	pobj	_	_	O
+6	of	of	IN	_	5	prep	_	_	O
+7	fun	fun	NN	_	6	pobj	_	_	O
+8	.	.	.	_	2	punct	_	_	O
+
+1	But	but	CC	_	5	cc	_	_	O
+2	I	I	PRP	_	5	nsubjpass	_	_	O
+3	am	be	VBP	_	5	auxpass	_	_	O
+4	not	not	RB	_	5	neg	_	_	O
+5	shaped	shape	VBN	p2=JJ	0	root	_	_	O
+6	like	like	IN	_	5	prep	_	_	O
+7	a	a	DT	_	8	det	_	_	O
+8	kite	kite	NN	_	6	pobj	_	_	O
+9	.	.	.	_	5	punct	_	_	O
+
+1	I	I	PRP	_	4	nsubj	_	_	O
+2	ca	can	MD	_	4	aux	_	_	O
+3	n't	not	RB	_	4	neg	_	_	O
+4	do	do	VB	_	0	root	_	_	O
+5	those	those	DT	_	7	det	_	_	O
+6	amazing	amazing	JJ	_	7	amod	_	_	O
+7	things	thing	NNS	_	4	dobj	_	_	O
+8	like	like	IN	_	7	prep	_	_	O
+9	you	you	PRP	_	8	pobj	_	_	O
+10	.	.	.	_	4	punct	_	_	O
+11	"	"	''	_	4	punct	_	_	O
+
+1	Diamond	diamond	NNP	_	2	nsubj	_	_	O
+2	smiled	smile	VBD	_	0	root	_	_	O
+3	.	.	.	_	2	punct	_	_	O
+
+1	"	"	``	_	6	punct	_	_	O
+2	Yes	yes	UH	_	4	intj	_	_	O
+3	you	you	PRP	_	4	nsubj	_	_	O
+4	can	can	MD	_	6	nmod	_	_	O
+5	,	,	,	_	6	punct	_	_	O
+6	Square	square	NNP	p2=NN	0	root	_	_	O
+7	!	!	.	_	6	punct	_	_	O
+
+1	Stand	stand	VB	_	0	root	_	_	O
+2	on	on	IN	_	1	prep	_	_	O
+3	your	your	PRP$	_	6	poss	_	_	O
+4	tip	tip	NN	_	6	compound	_	_	O
+5	-	-	HYPH	p2=,	6	punct	_	_	O
+6	toes	toe	NNS	_	2	pobj	_	_	O
+7	!	!	.	_	1	punct	_	_	O
+8	"	"	''	_	1	punct	_	_	O
+
+1	So	so	RB	p2=NNP	3	advmod	_	_	O
+2	Square	square	NNP	_	3	nsubj	_	_	U-PERSON
+3	did	do	VBD	_	0	root	_	_	O
+4	.	.	.	_	3	punct	_	_	O
+
+1	"	"	``	_	4	punct	_	_	O
+2	Now	now	RB	_	4	advmod	_	_	O
+3	,	,	,	_	4	punct	_	_	O
+4	go	go	VB	_	0	root	_	_	O
+5	look	look	VB	_	4	advcl	_	_	O
+6	at	at	IN	_	5	prep	_	_	O
+7	yourself	yourself	PRP	_	6	pobj	_	_	O
+8	in	in	IN	_	5	prep	_	_	O
+9	the	the	DT	_	10	det	_	_	O
+10	river	river	NN	_	8	pobj	_	_	O
+11	.	.	.	_	4	punct	_	_	O
+12	"	"	''	_	4	punct	_	_	O
+
+1	Square	square	NNP	p2=NN	2	nsubj	_	_	O
+2	walked	walk	VBD	_	0	root	_	_	O
+3	to	to	IN	_	2	prep	_	_	O
+4	the	the	DT	_	5	det	_	_	O
+5	river	river	NN	_	3	pobj	_	_	O
+6	and	and	CC	_	2	cc	_	_	O
+7	looked	look	VBD	_	2	conj	_	_	O
+8	down	down	RP	p2=RB	7	prt	_	_	O
+9	.	.	.	_	2	punct	_	_	O
+
+1	But	but	CC	_	5	cc	_	_	O
+2	he	he	PRP	_	5	nsubj	_	_	O
+3	did	do	VBD	_	5	aux	_	_	O
+4	not	not	RB	_	5	neg	_	_	O
+5	see	see	VB	_	0	root	_	_	O
+6	a	a	DT	_	7	det	_	_	O
+7	square	square	NN	p2=JJ	5	dobj	_	_	O
+8	.	.	.	_	5	punct	_	_	O
+
+1	He	he	PRP	_	2	nsubj	_	_	O
+2	saw	see	VBD	_	0	root	_	_	O
+3	a	a	DT	_	4	det	_	_	O
+4	diamond!Diamond	diamond!diamond	NNP	p2=NN	5	nsubj	_	_	U-ORG
+5	handed	hand	VBD	p2=VBN	2	ccomp	_	_	O
+6	Square	square	NNP	_	5	dobj	_	_	U-ORG
+7	the	the	DT	_	8	det	_	_	O
+8	string	string	NN	_	5	npadvmod	_	_	O
+9	.	.	.	_	2	punct	_	_	O
+
+1	"	"	``	_	3	punct	_	_	O
+2	Now	now	RB	_	3	advmod	_	_	O
+3	jump	jump	VB	_	0	root	_	_	O
+4	!	!	.	_	3	punct	_	_	O
+5	"	"	''	_	3	punct	_	_	O
+
+1	she	she	PRP	_	3	nsubj	_	_	O
+2	said.Square	#hlink#	ADD	p2=VBD	3	nsubj	_	_	O
+3	jumped	jump	VBD	_	0	root	_	_	O
+4	.	.	.	_	3	punct	_	_	O
+
+1	He	he	PRP	_	2	nsubj	_	_	O
+2	jumped	jump	VBD	_	0	root	_	_	O
+3	as	as	RB	_	4	advmod	_	_	O
+4	high	high	JJ	p2=RB	2	advmod	_	_	O
+5	as	as	IN	_	7	mark	_	_	O
+6	he	he	PRP	_	7	nsubj	_	_	O
+7	could	could	MD	_	4	advcl	_	_	O
+8	.	.	.	_	2	punct	_	_	O
+
+1	Just	just	RB	_	4	advmod	_	_	O
+2	as	as	IN	_	4	mark	_	_	O
+3	he	he	PRP	_	4	nsubj	_	_	O
+4	started	start	VBD	_	10	advcl	_	_	O
+5	to	to	TO	_	6	aux	_	_	O
+6	fall	fall	VB	_	4	xcomp	_	_	O
+7	,	,	,	_	10	punct	_	_	O
+8	the	the	DT	_	9	det	_	_	O
+9	wind	wind	NN	_	10	nsubj	_	_	O
+10	blew	blow	VBD	_	0	root	_	_	O
+11	and	and	CC	_	10	cc	_	_	O
+12	picked	pick	VBD	_	10	conj	_	_	O
+13	him	him	PRP	_	12	dobj	_	_	O
+14	up.He	#hlink#	ADD	p2=NNP	16	nsubj	_	_	O
+15	was	be	VBD	_	16	aux	_	_	O
+16	flying	fly	VBG	_	12	conj	_	_	O
+17	,	,	,	_	16	punct	_	_	O
+18	like	like	IN	p2=UH	20	mark	_	_	O
+19	Diamond!He	diamond!he	NNP	p2=PRP	20	nsubj	_	_	U-PERSON
+20	floated	float	VBD	_	16	advcl	_	_	O
+21	.	.	.	_	10	punct	_	_	O
+
+1	He	he	PRP	_	2	nsubj	_	_	O
+2	swooped	swoop	VBD	_	0	root	_	_	O
+3	.	.	.	_	2	punct	_	_	O
+
+1	He	he	PRP	_	2	nsubj	_	_	O
+2	played	play	VBD	_	0	root	_	_	O
+3	with	with	IN	_	2	prep	_	_	O
+4	the	the	DT	_	5	det	_	_	O
+5	clouds	cloud	NNS	_	3	pobj	_	_	O
+6	and	and	CC	_	5	cc	_	_	O
+7	the	the	DT	_	8	det	_	_	O
+8	birds	bird	NNS	_	5	conj	_	_	O
+9	.	.	.	_	2	punct	_	_	O
+
+1	He	he	PRP	_	2	nsubj	_	_	O
+2	flew	fly	VBD	_	0	root	_	_	O
+3	faster	fast	RBR	p2=RB	2	advmod	_	_	O
+4	.	.	.	_	2	punct	_	_	O
+
+1	He	he	PRP	_	2	nsubj	_	_	O
+2	flew	fly	VBD	_	0	root	_	_	O
+3	slower.He	#hlink#	ADD	p2=NNP	2	dobj	_	_	O
+4	soon	soon	RB	_	5	advmod	_	_	O
+5	landed	land	VBD	_	2	dep	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	The	the	DT	_	2	det	_	_	O
+2	sun	sun	NN	_	4	nsubj	_	_	O
+3	was	be	VBD	_	4	aux	_	_	O
+4	setting	set	VBG	p2=NN	8	ccomp	_	_	O
+5	,	,	,	_	4	punct	_	_	O
+6	so	so	RB	p2=IN	8	advmod	_	_	O
+7	they	they	PRP	_	8	nsubj	_	_	O
+8	said	say	VBD	_	0	root	_	_	O
+9	goodbye	goodbye	NN	_	8	dobj	_	_	O
+10	and	and	CC	_	8	cc	_	_	O
+11	made	make	VBD	_	8	conj	_	_	O
+12	plans	plan	NNS	_	11	dobj	_	_	O
+13	to	to	TO	_	14	aux	_	_	O
+14	meet	meet	VB	_	12	acl	_	_	O
+15	again	again	RB	_	14	advmod	_	_	O
+16	next	next	RB	p2=IN	18	advmod	_	_	O
+17	Tuesday.It	#hlink#	ADD	p2=NNP	18	nsubj	_	_	O
+18	was	be	VBD	_	8	conj	_	_	O
+19	a	a	DT	_	21	det	_	_	O
+20	beautiful	beautiful	JJ	_	21	amod	_	_	O
+21	day	day	NN	_	18	attr	_	_	O
+22	.	.	.	_	18	punct	_	_	O
+

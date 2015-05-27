@@ -1,0 +1,298 @@
+1	Three	#crd#	CD	_	2	nummod	_	_	U-CARDINAL
+2	cats	cat	NNS	_	10	nsubj	_	_	O
+3	named	name	VBN	p2=VBD	2	acl	_	_	O
+4	Daisy	daisy	NNP	_	3	oprd	_	_	U-PERSON
+5	,	,	,	_	4	punct	_	_	O
+6	Sofia	sofia	NNP	_	4	conj	_	_	U-GPE
+7	,	,	,	_	6	punct	_	_	O
+8	and	and	CC	_	6	cc	_	_	O
+9	Abby	abby	NNP	_	6	conj	_	_	U-PERSON
+10	wanted	want	VBD	_	0	root	_	_	O
+11	to	to	TO	_	12	aux	_	_	O
+12	start	start	VB	_	10	xcomp	_	_	O
+13	a	a	DT	_	14	det	_	_	O
+14	band	band	NN	_	12	dobj	_	_	O
+15	.	.	.	_	10	punct	_	_	O
+
+1	They	they	PRP	_	2	nsubj	_	_	O
+2	put	put	VBD	p2=VBP	0	root	_	_	O
+3	an	an	DT	_	4	det	_	_	O
+4	ad	ad	NN	_	2	dobj	_	_	O
+5	in	in	IN	_	2	prep	_	_	O
+6	the	the	DT	_	7	det	_	_	O
+7	newspaper	newspaper	NN	_	5	pobj	_	_	O
+8	because	because	IN	_	10	mark	_	_	O
+9	they	they	PRP	_	10	nsubj	_	_	O
+10	needed	need	VBD	_	2	advcl	_	_	O
+11	a	a	DT	_	12	det	_	_	O
+12	drummer	drummer	NN	_	10	dobj	_	_	O
+13	.	.	.	_	2	punct	_	_	O
+
+1	Daisy	daisy	NNP	p2=JJ	5	nsubj	_	_	U-PERSON
+2	and	and	CC	_	1	cc	_	_	O
+3	Sofia	sofia	NNP	_	1	conj	_	_	U-GPE
+4	would	would	MD	_	5	aux	_	_	O
+5	play	play	VB	_	0	root	_	_	O
+6	guitar	guitar	NN	_	5	dobj	_	_	O
+7	and	and	CC	_	5	cc	_	_	O
+8	sing	sing	VB	p2=NN	5	conj	_	_	O
+9	.	.	.	_	5	punct	_	_	O
+
+1	Bass	bass	NNP	p2=NN	4	nsubjpass	_	_	U-ORG
+2	would	would	MD	_	4	aux	_	_	O
+3	be	be	VB	_	4	auxpass	_	_	O
+4	played	play	VBN	_	0	root	_	_	O
+5	by	by	IN	_	4	agent	_	_	O
+6	Abby	abby	NNP	_	5	pobj	_	_	U-PERSON
+7	.	.	.	_	4	punct	_	_	O
+
+1	A	a	DT	_	3	det	_	_	B-DATE
+2	few	few	JJ	_	3	amod	_	_	I-DATE
+3	weeks	week	NNS	_	4	nsubj	_	_	L-DATE
+4	passed	pass	VBN	p2=VBD	0	root	_	_	O
+5	and	and	CC	_	4	cc	_	_	O
+6	no	no	DT	_	7	det	_	_	O
+7	one	#crd#	NN	p2=PRP	3	appos	_	_	O
+8	called	call	VBN	p2=VBD	7	acl	_	_	O
+9	about	about	IN	_	8	prep	_	_	O
+10	the	the	DT	_	11	det	_	_	O
+11	ad	ad	NN	_	9	pobj	_	_	O
+12	.	.	.	_	4	punct	_	_	O
+
+1	Finally	finally	RB	_	7	advmod	_	_	O
+2	,	,	,	_	7	punct	_	_	O
+3	one	#crd#	CD	_	4	nummod	_	_	B-TIME
+4	afternoon	afternoon	NN	_	7	npadvmod	_	_	L-TIME
+5	the	the	DT	_	6	det	_	_	O
+6	telephone	telephone	NN	_	7	nsubj	_	_	O
+7	rang	ring	VBD	_	0	root	_	_	O
+8	.	.	.	_	7	punct	_	_	O
+
+1	A	a	DT	_	3	det	_	_	O
+2	deep	deep	JJ	_	3	amod	_	_	O
+3	voice	voice	NN	_	4	nsubj	_	_	O
+4	said	say	VBD	_	0	root	_	_	O
+5	,	,	,	_	4	punct	_	_	O
+6	"	"	``	p2=''	4	punct	_	_	O
+7	Do	do	VBP	p2=VB	10	aux	_	_	O
+8	you	you	PRP	_	10	nsubj	_	_	O
+9	still	still	RB	_	10	advmod	_	_	O
+10	need	need	VBP	p2=VB	4	ccomp	_	_	O
+11	a	a	DT	_	12	det	_	_	O
+12	drummer	drummer	NN	_	10	dobj	_	_	O
+13	?	?	.	_	4	punct	_	_	O
+14	"	"	''	_	4	punct	_	_	O
+
+1	Daisy	daisy	NNP	_	2	nsubj	_	_	U-PERSON
+2	said	say	VBD	_	0	root	_	_	O
+3	,	,	,	_	2	punct	_	_	O
+4	"	"	``	p2=''	2	punct	_	_	O
+5	Yes	yes	UH	_	7	intj	_	_	O
+6	,	,	,	_	7	punct	_	_	O
+7	come	come	VB	p2=VBN	2	xcomp	_	_	O
+8	by	by	IN	_	7	prep	_	_	O
+9	this	this	DT	_	10	det	_	_	B-TIME
+10	afternoon	afternoon	NN	_	8	pobj	_	_	L-TIME
+11	.	.	.	_	2	punct	_	_	O
+12	"	"	''	_	2	punct	_	_	O
+
+1	Daisy	daisy	NNP	p2=NN	2	nsubj	_	_	U-PERSON
+2	got	get	VBD	_	0	root	_	_	O
+3	the	the	DT	_	5	det	_	_	O
+4	other	other	JJ	_	5	amod	_	_	O
+5	cats	cat	NNS	_	2	dobj	_	_	O
+6	together	together	RB	_	2	advmod	_	_	O
+7	and	and	CC	_	2	cc	_	_	O
+8	they	they	PRP	_	9	nsubj	_	_	O
+9	set	set	VBP	p2=VBD	2	conj	_	_	O
+10	up	up	RP	_	9	prt	_	_	O
+11	their	their	PRP$	_	12	poss	_	_	O
+12	instruments	instrument	NNS	_	9	dobj	_	_	O
+13	and	and	CC	_	9	cc	_	_	O
+14	waited	wait	VBD	_	9	conj	_	_	O
+15	for	for	IN	_	19	mark	_	_	O
+16	the	the	DT	_	17	det	_	_	O
+17	drummer	drummer	NN	_	19	nsubj	_	_	O
+18	to	to	TO	_	19	aux	_	_	O
+19	show	show	VB	_	14	advcl	_	_	O
+20	up	up	RP	_	19	prt	_	_	O
+21	.	.	.	_	9	punct	_	_	O
+
+1	Soon	soon	RB	_	4	advmod	_	_	O
+2	a	a	DT	_	3	det	_	_	O
+3	dog	dog	NN	_	4	nsubj	_	_	O
+4	came	come	VBD	_	0	root	_	_	O
+5	running	run	VBG	_	4	advcl	_	_	O
+6	up	up	RP	p2=IN	5	prt	_	_	O
+7	,	,	,	_	4	punct	_	_	O
+8	pulling	pull	VBG	_	4	advcl	_	_	O
+9	a	a	DT	_	10	det	_	_	O
+10	set	set	NN	_	8	dobj	_	_	O
+11	of	of	IN	_	10	prep	_	_	O
+12	drums	drum	NNS	_	11	pobj	_	_	O
+13	behind	behind	IN	_	12	prep	_	_	O
+14	him	him	PRP	_	13	pobj	_	_	O
+15	.	.	.	_	4	punct	_	_	O
+
+1	"	"	``	_	3	punct	_	_	O
+2	You	you	PRP	_	3	nsubj	_	_	O
+3	're	be	VBP	_	0	root	_	_	O
+4	the	the	DT	_	5	det	_	_	O
+5	drummer	drummer	NN	_	3	attr	_	_	O
+6	?	?	.	_	3	punct	_	_	O
+7	"	"	''	_	3	punct	_	_	O
+
+1	Sofia	sofia	NNP	p2=GW	2	nsubj	_	_	U-GPE
+2	hissed	hiss	VBD	p2=NNP	0	root	_	_	O
+3	.	.	.	_	2	punct	_	_	O
+
+1	"	"	``	_	2	punct	_	_	O
+2	Scram	scram	NNP	p2=NN	0	root	_	_	O
+3	!	!	.	_	2	punct	_	_	O
+4	"	"	''	_	2	punct	_	_	O
+
+1	said	say	VBD	_	0	root	_	_	O
+2	Abby	abby	NNP	_	1	nsubj	_	_	U-PERSON
+3	.	.	.	_	1	punct	_	_	O
+
+1	But	but	CC	_	3	cc	_	_	O
+2	Daisy	daisy	NNP	_	3	nsubj	_	_	U-PERSON
+3	was	be	VBD	_	0	root	_	_	O
+4	more	more	RBR	p2=JJR	5	advmod	_	_	O
+5	accepting	accepting	JJ	p2=VBG	3	acomp	_	_	O
+6	.	.	.	_	3	punct	_	_	O
+
+1	"	"	``	_	6	punct	_	_	O
+2	C'mon	c'mon	NNP	p2=XX	3	compound	_	_	O
+3	guys	guy	NNS	_	6	npadvmod	_	_	O
+4	,	,	,	_	6	punct	_	_	O
+5	we	we	PRP	_	6	nsubj	_	_	O
+6	need	need	VBP	_	0	root	_	_	O
+7	a	a	DT	_	8	det	_	_	O
+8	drummer	drummer	NN	_	6	dobj	_	_	O
+9	.	.	.	_	6	punct	_	_	O
+
+1	Just	just	RB	_	2	advmod	_	_	O
+2	let	let	VB	_	0	root	_	_	O
+3	him	him	PRP	_	4	nsubj	_	_	O
+4	play	play	VB	_	2	ccomp	_	_	O
+5	!	!	.	_	2	punct	_	_	O
+6	"	"	''	_	2	punct	_	_	O
+
+1	she	she	PRP	_	2	nsubj	_	_	O
+2	said	say	VBD	_	0	root	_	_	O
+3	.	.	.	_	2	punct	_	_	O
+
+1	"	"	``	_	5	punct	_	_	O
+2	Okay	okay	UH	_	5	intj	_	_	O
+3	,	,	,	_	5	punct	_	_	O
+4	"	"	''	_	5	punct	_	_	O
+5	said	say	VBD	_	0	root	_	_	O
+6	Sofia	sofia	NNP	_	5	nsubj	_	_	U-GPE
+7	and	and	CC	_	6	cc	_	_	O
+8	Abby	abby	NNP	_	6	conj	_	_	U-PERSON
+9	.	.	.	_	5	punct	_	_	O
+
+1	They	they	PRP	_	2	nsubj	_	_	O
+2	started	start	VBD	_	0	root	_	_	O
+3	to	to	TO	p2=IN	4	aux	_	_	O
+4	jam	jam	VB	p2=NN	2	xcomp	_	_	O
+5	.	.	.	_	2	punct	_	_	O
+
+1	"	"	``	_	13	punct	_	_	O
+2	We	we	PRP	_	3	nsubj	_	_	O
+3	need	need	VBP	_	13	ccomp	_	_	O
+4	to	to	TO	_	5	aux	_	_	O
+5	come	come	VB	_	3	xcomp	_	_	O
+6	up	up	RP	_	5	prt	_	_	O
+7	with	with	IN	_	5	prep	_	_	O
+8	a	a	DT	_	9	det	_	_	O
+9	name	name	NN	_	7	pobj	_	_	O
+10	,	,	,	_	13	punct	_	_	O
+11	"	"	''	p2=``	13	punct	_	_	O
+12	Sofia	sofia	NNP	_	13	nsubj	_	_	U-GPE
+13	said	say	VBD	_	0	root	_	_	O
+14	,	,	,	_	13	punct	_	_	O
+15	between	between	IN	_	13	prep	_	_	O
+16	songs	song	NNS	_	15	pobj	_	_	O
+17	.	.	.	_	13	punct	_	_	O
+
+1	"	"	``	_	3	punct	_	_	O
+2	How	how	WRB	_	3	advmod	_	_	O
+3	about	about	IN	_	0	root	_	_	O
+4	'	'	''	p2=``	7	punct	_	_	O
+5	Atomic	atomic	JJ	p2=NNP	7	amod	_	_	O
+6	Death	death	NN	_	7	compound	_	_	O
+7	Fish	fish	NN	_	3	pobj	_	_	O
+8	?	?	.	_	3	punct	_	_	O
+
+1	'	'	''	p2=POS	3	punct	_	_	O
+2	"	"	''	p2=``	3	punct	_	_	O
+3	said	say	VBD	_	0	root	_	_	O
+4	Abby	abby	NNP	_	3	nsubj	_	_	U-PERSON
+5	.	.	.	_	3	punct	_	_	O
+
+1	"	"	``	_	8	punct	_	_	O
+2	No	no	UH	_	5	intj	_	_	O
+3	,	,	,	_	5	punct	_	_	O
+4	too	too	RB	_	5	advmod	_	_	O
+5	scary	scary	JJ	_	9	amod	_	_	O
+6	,	,	,	_	8	punct	_	_	O
+7	"	"	''	_	8	punct	_	_	O
+8	said	say	VBD	_	0	root	_	_	O
+9	Sofia	sofia	NNP	_	8	nsubj	_	_	U-GPE
+10	.	.	.	_	8	punct	_	_	O
+
+1	"	"	``	_	5	punct	_	_	O
+2	How	how	WRB	_	3	advmod	_	_	O
+3	about	about	IN	p2=RP	5	nmod	_	_	O
+4	'	'	''	p2=``	5	punct	_	_	O
+5	Monkeys	monkeys	NNP	p2=NNPS	0	root	_	_	O
+6	on	on	IN	_	5	prep	_	_	O
+7	Mars	mars	NNP	_	6	pobj	_	_	U-LOC
+8	?	?	.	_	5	punct	_	_	O
+
+1	'	'	''	p2=POS	3	punct	_	_	O
+2	"	"	''	p2=``	3	punct	_	_	O
+3	said	say	VBD	_	0	root	_	_	O
+4	Daisy	daisy	NNP	_	3	nsubj	_	_	U-PERSON
+5	.	.	.	_	3	punct	_	_	O
+
+1	"	"	``	_	3	punct	_	_	O
+2	Too	too	RB	_	3	advmod	_	_	O
+3	goofy	goofy	JJ	p2=RB	0	root	_	_	O
+4	,	,	,	_	6	punct	_	_	O
+5	"	"	''	_	6	punct	_	_	O
+6	said	say	VBD	_	0	root	_	_	O
+7	Sofia	sofia	NNP	_	6	nsubj	_	_	U-GPE
+8	.	.	.	_	6	punct	_	_	O
+
+1	"	"	``	_	3	punct	_	_	O
+2	How	how	WRB	_	3	advmod	_	_	O
+3	about	about	IN	p2=RP	0	root	_	_	O
+4	'	'	''	p2=``	3	punct	_	_	O
+5	Sofia	sofia	NNP	_	3	pobj	_	_	U-GPE
+6	and	and	CC	_	5	cc	_	_	O
+7	the	the	DT	_	9	det	_	_	O
+8	No	no	NNP	p2=DT	9	nn	_	_	O
+9	Nos	nos	NNP	p2=NNPS	5	conj	_	_	O
+10	?	?	.	_	3	punct	_	_	O
+
+1	'	'	''	p2=POS	3	punct	_	_	O
+2	"	"	''	p2=``	3	punct	_	_	O
+3	said	say	VBD	_	0	root	_	_	O
+4	the	the	DT	_	5	det	_	_	O
+5	drummer	drummer	NN	_	3	nsubj	_	_	O
+6	.	.	.	_	3	punct	_	_	O
+
+1	"	"	``	_	3	punct	_	_	O
+2	I	I	PRP	_	3	nsubj	_	_	O
+3	love	love	VBP	_	0	root	_	_	O
+4	it	it	PRP	_	3	dobj	_	_	O
+5	!	!	.	_	3	punct	_	_	O
+6	"	"	''	_	3	punct	_	_	O
+
+1	everyone	everyone	NN	_	2	nsubj	_	_	O
+2	said	say	VBD	_	0	root	_	_	O
+3	.	.	.	_	2	punct	_	_	O
+

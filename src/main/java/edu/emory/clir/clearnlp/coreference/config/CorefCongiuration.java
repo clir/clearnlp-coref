@@ -32,10 +32,19 @@ import edu.emory.clir.clearnlp.coreference.sieve.StrictHeadMatch;
  * @since 	May 21, 2015
  */
 public class CorefCongiuration {
+	private MentionConfig mention_config;
 	private List<AbstractSieve> selectedSieves;
 	
 	public CorefCongiuration(){
 		selectedSieves = new ArrayList<>();
+	}
+	
+	public void  loadDefaultMentionDectors(){
+		loadMentionDectors(true, true, true);
+	}
+	
+	public void  loadMentionDectors(boolean pronoun, boolean common, boolean proper){
+		mention_config = new MentionConfig(pronoun, common, proper);
 	}
 	
 	public void mountSieves(AbstractSieve... sieves){
@@ -58,6 +67,10 @@ public class CorefCongiuration {
 		if(stringHeadMatch)		selectedSieves.add(new StrictHeadMatch());
 		if(properHeadWordMatch)	selectedSieves.add(new ProperHeadWordMatch());
 		if(pronunMatch)			selectedSieves.add(new PronounMatch());
+	}
+	
+	public MentionConfig getMentionConfig(){
+		return mention_config;
 	}
 	
 	public List<AbstractSieve> getSieves(){

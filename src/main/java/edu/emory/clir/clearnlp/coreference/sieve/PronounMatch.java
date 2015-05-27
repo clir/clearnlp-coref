@@ -21,11 +21,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
-import edu.emory.clir.clearnlp.coreference.mention.EnglishMention;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.GenderType;
 import edu.emory.clir.clearnlp.coreference.type.PronounType;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
+import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -47,17 +46,18 @@ public class PronounMatch extends AbstractSieve {
 	
 	
 	@Override
-	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSetWithConfidence mentionLinks) {
+	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet mentionLinks) {
 		AbstractMention curr, prev;
 		int i, j, size = mentions.size();
 		
-		for(i = size-1; i > 0; i--){
+		for (i=1; i<size; i++){
 			curr = mentions.get(i);
 			
-			for (j = i-1; j >= 0; j--){
-				prev = mentions.get(i);
+			for (j=i-1; j>=0; j--){
+				prev = mentions.get(j);
+				
 				if (match(prev, curr)){
-					mentionLinks.union(i, j, 0); 
+					mentionLinks.union(i, j, 0);
 					break;
 				}
 			}
@@ -65,7 +65,7 @@ public class PronounMatch extends AbstractSieve {
 	}
 	
 	private boolean match(AbstractMention prev, AbstractMention curr){
-		return matchesGender(prev, curr) && matchesNumber(prev, curr) && matchesEntity(prev, curr) && matchesPronoun(prev, curr);
+		return matchesGender(prev, curr) && matchesNumber(prev, curr) && matchesEntity(prev, curr); // && matchesPronoun(prev, curr);
 	}
 	
 	private boolean matchesGender(AbstractMention prev, AbstractMention curr){

@@ -1,0 +1,270 @@
+1	It	it	PRP	_	2	nsubj	_	_	O
+2	was	be	VBD	_	0	root	_	_	O
+3	a	a	DT	_	6	det	_	_	O
+4	cold	cold	JJ	_	6	amod	_	_	O
+5	winter	winter	NN	_	6	compound	_	_	B-DATE
+6	day	day	NN	_	2	attr	_	_	L-DATE
+7	in	in	IN	_	6	prep	_	_	O
+8	John	john	NNP	_	10	poss	_	_	U-PERSON
+9	's	's	POS	_	8	case	_	_	O
+10	city	city	NN	_	7	pobj	_	_	O
+11	.	.	.	_	2	punct	_	_	O
+
+1	It	it	PRP	_	2	nsubj	_	_	O
+2	was	be	VBD	_	0	root	_	_	O
+3	December	december	NNP	_	2	attr	_	_	U-DATE
+4	and	and	CC	_	2	cc	_	_	O
+5	snowing	snow	VBG	_	2	dep	_	_	O
+6	outside	outside	RB	_	5	advmod	_	_	O
+7	.	.	.	_	2	punct	_	_	O
+
+1	This	this	DT	_	2	nsubj	_	_	O
+2	made	make	VBD	_	0	root	_	_	O
+3	John	john	NNP	_	4	nsubj	_	_	U-PERSON
+4	want	want	VB	_	2	ccomp	_	_	O
+5	a	a	DT	_	6	det	_	_	O
+6	bowl	bowl	NN	_	4	dobj	_	_	O
+7	of	of	IN	_	6	prep	_	_	O
+8	warm	warm	JJ	_	9	amod	_	_	O
+9	soup	soup	NN	_	7	pobj	_	_	O
+10	.	.	.	_	2	punct	_	_	O
+
+1	John	john	NNP	_	2	nsubj	_	_	U-PERSON
+2	went	go	VBD	_	0	root	_	_	O
+3	to	to	IN	_	2	prep	_	_	O
+4	the	the	DT	_	5	det	_	_	O
+5	refrigerator	refrigerator	NN	_	3	pobj	_	_	O
+6	to	to	TO	_	7	aux	_	_	O
+7	make	make	VB	_	2	advcl	_	_	O
+8	soup	soup	NN	_	7	dobj	_	_	O
+9	.	.	.	_	2	punct	_	_	O
+
+1	He	he	PRP	_	2	nsubj	_	_	O
+2	looked	look	VBD	_	0	root	_	_	O
+3	for	for	IN	_	2	prep	_	_	O
+4	the	the	DT	_	5	det	_	_	O
+5	things	thing	NNS	_	3	pobj	_	_	O
+6	needed	need	VBN	p2=VBD	5	acl	_	_	O
+7	to	to	TO	_	8	aux	_	_	O
+8	make	make	VB	_	6	advcl	_	_	O
+9	the	the	DT	_	10	det	_	_	O
+10	soup	soup	NN	_	8	dobj	_	_	O
+11	.	.	.	_	2	punct	_	_	O
+
+1	He	he	PRP	_	4	nsubj	_	_	O
+2	did	do	VBD	_	4	aux	_	_	O
+3	not	not	RB	_	4	neg	_	_	O
+4	see	see	VB	_	0	root	_	_	O
+5	some	some	DT	_	6	det	_	_	O
+6	items	item	NNS	_	4	dobj	_	_	O
+7	he	he	PRP	_	8	nsubj	_	_	O
+8	needed	need	VBD	_	6	relcl	_	_	O
+9	.	.	.	_	4	punct	_	_	O
+
+1	John	john	NNP	_	2	nsubj	_	_	U-PERSON
+2	needed	need	VBD	_	0	root	_	_	O
+3	to	to	TO	_	4	aux	_	_	O
+4	go	go	VB	_	2	xcomp	_	_	O
+5	to	to	IN	_	4	prep	_	_	O
+6	the	the	DT	_	8	det	_	_	O
+7	grocery	grocery	NN	_	8	compound	_	_	O
+8	store	store	NN	_	5	pobj	_	_	O
+9	.	.	.	_	2	punct	_	_	O
+
+1	John	john	NNP	_	2	nsubj	_	_	U-PERSON
+2	wanted	want	VBD	_	0	root	_	_	O
+3	to	to	TO	_	4	aux	_	_	O
+4	make	make	VB	_	2	xcomp	_	_	O
+5	a	a	DT	_	6	det	_	_	O
+6	list	list	NN	_	4	dobj	_	_	O
+7	.	.	.	_	2	punct	_	_	O
+
+1	He	he	PRP	_	2	nsubj	_	_	O
+2	found	find	VBD	_	0	root	_	_	O
+3	a	a	DT	_	4	det	_	_	O
+4	pencil	pencil	NN	_	2	dobj	_	_	O
+5	and	and	CC	_	4	cc	_	_	O
+6	paper	paper	NN	_	4	conj	_	_	O
+7	to	to	TO	_	8	aux	_	_	O
+8	make	make	VB	_	2	advcl	_	_	O
+9	a	a	DT	_	10	det	_	_	O
+10	list	list	NN	_	8	dobj	_	_	O
+11	.	.	.	_	2	punct	_	_	O
+
+1	He	he	PRP	_	2	nsubj	_	_	O
+2	needed	need	VBD	_	0	root	_	_	O
+3	sugar	sugar	NN	_	2	dobj	_	_	O
+4	,	,	,	_	3	punct	_	_	O
+5	lettuce	lettuce	NN	_	3	conj	_	_	O
+6	,	,	,	_	5	punct	_	_	O
+7	tomatoes	tomato	NNS	p2=NN	5	conj	_	_	O
+8	and	and	CC	_	7	cc	_	_	O
+9	cheese	cheese	NN	_	7	conj	_	_	O
+10	.	.	.	_	2	punct	_	_	O
+
+1	John	john	NNP	_	2	nsubj	_	_	U-PERSON
+2	wrote	write	VBD	_	0	root	_	_	O
+3	down	down	RP	p2=IN	2	prt	_	_	O
+4	the	the	DT	_	5	det	_	_	O
+5	items	item	NNS	_	2	dobj	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	He	he	PRP	_	2	nsubj	_	_	O
+2	put	put	VBD	_	0	root	_	_	O
+3	the	the	DT	_	5	det	_	_	O
+4	grocery	grocery	NN	_	5	compound	_	_	O
+5	list	list	NN	_	2	dobj	_	_	O
+6	in	in	IN	_	2	prep	_	_	O
+7	his	his	PRP$	_	8	poss	_	_	O
+8	pocket	pocket	NN	_	6	pobj	_	_	O
+9	.	.	.	_	2	punct	_	_	O
+
+1	He	he	PRP	_	3	nsubj	_	_	O
+2	then	then	RB	_	3	advmod	_	_	O
+3	went	go	VBD	_	0	root	_	_	O
+4	to	to	IN	_	3	prep	_	_	O
+5	the	the	DT	_	6	det	_	_	O
+6	closet	closet	NN	_	4	pobj	_	_	O
+7	to	to	TO	_	8	aux	_	_	O
+8	get	get	VB	_	3	advcl	_	_	O
+9	dressed	dress	VBN	p2=JJ	8	acomp	_	_	O
+10	.	.	.	_	3	punct	_	_	O
+
+1	John	john	NNP	_	2	nsubj	_	_	U-PERSON
+2	needed	need	VBD	_	0	root	_	_	O
+3	a	a	DT	_	4	det	_	_	O
+4	jacket	jacket	NN	_	2	dobj	_	_	O
+5	and	and	CC	_	4	cc	_	_	O
+6	gloves	glove	NNS	_	4	conj	_	_	O
+7	for	for	IN	_	4	prep	_	_	O
+8	the	the	DT	_	10	det	_	_	O
+9	cold	cold	JJ	_	10	amod	_	_	O
+10	weather	weather	NN	_	7	pobj	_	_	O
+11	.	.	.	_	2	punct	_	_	O
+
+1	He	he	PRP	_	3	nsubj	_	_	O
+2	also	also	RB	_	3	advmod	_	_	O
+3	put	put	VBD	_	0	root	_	_	O
+4	his	his	PRP$	_	5	poss	_	_	O
+5	boots	boot	NNS	_	3	dobj	_	_	O
+6	on	on	RP	p2=IN	3	prt	_	_	O
+7	.	.	.	_	3	punct	_	_	O
+
+1	He	he	PRP	_	2	nsubj	_	_	O
+2	remembered	remember	VBD	_	0	root	_	_	O
+3	to	to	TO	_	4	aux	_	_	O
+4	close	close	VB	_	2	xcomp	_	_	O
+5	the	the	DT	_	7	det	_	_	O
+6	front	front	JJ	_	7	amod	_	_	O
+7	door	door	NN	_	4	dobj	_	_	O
+8	to	to	IN	_	4	prep	_	_	O
+9	his	his	PRP$	_	10	poss	_	_	O
+10	house	house	NN	_	8	pobj	_	_	O
+11	.	.	.	_	2	punct	_	_	O
+
+1	John	john	NNP	_	2	nsubj	_	_	U-PERSON
+2	used	use	VBD	_	0	root	_	_	O
+3	a	a	DT	_	4	det	_	_	O
+4	key	key	NN	_	2	dobj	_	_	O
+5	to	to	TO	p2=IN	6	aux	_	_	O
+6	lock	lock	VB	_	2	xcomp	_	_	O
+7	his	his	PRP$	_	9	poss	_	_	O
+8	front	front	JJ	p2=NN	9	amod	_	_	O
+9	door	door	NN	_	6	dobj	_	_	O
+10	.	.	.	_	2	punct	_	_	O
+
+1	Then	then	RB	_	3	advmod	_	_	O
+2	he	he	PRP	_	3	nsubj	_	_	O
+3	put	put	VBD	_	0	root	_	_	O
+4	the	the	DT	_	6	det	_	_	O
+5	house	house	NN	p2=NNP	6	compound	_	_	O
+6	key	key	NN	p2=RB	3	dobj	_	_	O
+7	is	be	VBZ	_	0	root	_	_	O
+8	his	his	PRP$	_	9	poss	_	_	O
+9	pocket	pocket	NN	_	7	attr	_	_	O
+10	.	.	.	_	3	punct	_	_	O
+
+1	The	the	DT	_	3	det	_	_	O
+2	grocery	grocery	NN	_	3	compound	_	_	O
+3	store	store	NN	_	4	nsubj	_	_	O
+4	was	be	VBD	_	0	root	_	_	O
+5	around	around	IN	_	4	prep	_	_	O
+6	the	the	DT	_	7	det	_	_	O
+7	corner	corner	NN	_	5	pobj	_	_	O
+8	.	.	.	_	4	punct	_	_	O
+
+1	John	john	NNP	_	2	nsubj	_	_	U-PERSON
+2	walked	walk	VBD	_	0	root	_	_	O
+3	to	to	IN	_	2	prep	_	_	O
+4	the	the	DT	_	6	det	_	_	O
+5	grocery	grocery	NN	_	6	compound	_	_	O
+6	store	store	NN	_	3	pobj	_	_	O
+7	.	.	.	_	2	punct	_	_	O
+
+1	He	he	PRP	_	2	nsubj	_	_	O
+2	grabbed	grab	VBD	_	14	ccomp	_	_	O
+3	a	a	DT	_	5	det	_	_	O
+4	grocery	grocery	NN	_	5	compound	_	_	O
+5	basket	basket	NN	_	2	dobj	_	_	O
+6	to	to	TO	_	7	aux	_	_	O
+7	put	put	VB	_	5	relcl	_	_	O
+8	his	his	PRP$	_	9	poss	_	_	O
+9	items	item	NNS	_	7	dobj	_	_	O
+10	in.	in.	,	p2=NFP	14	punct	_	_	O
+11	What	what	WP	_	14	dobj	_	_	O
+12	did	do	VBD	_	14	aux	_	_	O
+13	John	john	NNP	_	14	nsubj	_	_	U-PERSON
+14	need	need	VB	_	0	root	_	_	O
+15	?	?	.	_	14	punct	_	_	O
+
+1	He	he	PRP	_	2	nsubj	_	_	O
+2	pulled	pull	VBD	_	0	root	_	_	O
+3	out	out	RP	_	2	prt	_	_	O
+4	his	his	PRP$	_	5	poss	_	_	O
+5	list	list	NN	_	2	dobj	_	_	O
+6	of	of	IN	_	5	prep	_	_	O
+7	items	item	NNS	_	6	pobj	_	_	O
+8	.	.	.	_	2	punct	_	_	O
+
+1	John	john	NNP	_	2	nsubj	_	_	U-PERSON
+2	found	find	VBD	_	0	root	_	_	O
+3	each	each	DT	_	4	det	_	_	O
+4	item	item	NN	_	2	dobj	_	_	O
+5	and	and	CC	_	2	cc	_	_	O
+6	walked	walk	VBD	_	2	conj	_	_	O
+7	back	back	RB	_	6	advmod	_	_	O
+8	to	to	IN	_	7	prep	_	_	O
+9	his	his	PRP$	_	10	poss	_	_	O
+10	house	house	NN	_	8	pobj	_	_	O
+11	.	.	.	_	2	punct	_	_	O
+
+1	On	on	IN	_	9	prep	_	_	O
+2	this	this	DT	_	5	det	_	_	O
+3	cold	cold	JJ	_	5	amod	_	_	O
+4	winter	winter	NN	_	5	compound	_	_	B-DATE
+5	day	day	NN	_	1	pobj	_	_	L-DATE
+6	,	,	,	_	9	punct	_	_	O
+7	John	john	NNP	_	9	nsubj	_	_	U-PERSON
+8	can	can	MD	_	9	aux	_	_	O
+9	make	make	VB	_	0	root	_	_	O
+10	a	a	DT	_	11	det	_	_	O
+11	bowl	bowl	NN	_	9	dobj	_	_	O
+12	of	of	IN	_	11	prep	_	_	O
+13	warm	warm	JJ	_	14	amod	_	_	O
+14	soup	soup	NN	_	12	pobj	_	_	O
+15	.	.	.	_	9	punct	_	_	O
+
+1	He	he	PRP	_	2	nsubj	_	_	O
+2	has	have	VBZ	_	0	root	_	_	O
+3	all	all	PDT	_	5	predet	_	_	O
+4	the	the	DT	_	5	det	_	_	O
+5	items	item	NNS	_	2	dobj	_	_	O
+6	he	he	PRP	_	7	nsubj	_	_	O
+7	needed	need	VBD	_	5	relcl	_	_	O
+8	.	.	.	_	2	punct	_	_	O
+
+1	John	john	NNP	_	2	nsubj	_	_	U-PERSON
+2	was	be	VBD	_	0	root	_	_	O
+3	happy	happy	JJ	_	2	acomp	_	_	O
+4	.	.	.	_	2	punct	_	_	O
+

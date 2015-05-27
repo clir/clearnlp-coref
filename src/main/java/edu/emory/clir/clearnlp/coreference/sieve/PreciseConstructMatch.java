@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
+import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceStringUtils;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
@@ -17,7 +17,7 @@ import edu.emory.clir.clearnlp.util.Joiner;
 public class PreciseConstructMatch extends AbstractSieve{	
 		
 	@Override
-	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSetWithConfidence mentionLinks)
+	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet mentionLinks)
 	{
 		AbstractMention curr, prev;
 		int i, j ,size = mentions.size();

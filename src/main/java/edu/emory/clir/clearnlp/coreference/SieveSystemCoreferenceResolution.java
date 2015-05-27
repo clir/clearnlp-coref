@@ -18,12 +18,11 @@ package edu.emory.clir.clearnlp.coreference;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
-import edu.emory.clir.clearnlp.collection.set.DisjointSet;
 import edu.emory.clir.clearnlp.coreference.config.CorefCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
+import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
@@ -43,7 +42,7 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 		
 		// Mention Detector declaration
 		super(TLanguage.ENGLISH);
-		m_detector = new EnglishMentionDetector();
+		m_detector = new EnglishMentionDetector(config.getMentionConfig());
 		
 		// Sieve layer class declarations
 		sieves = config.getSieves();
@@ -54,7 +53,7 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 
 		// Mention Detection
 		List<AbstractMention> mentions = m_detector.getMentionList(trees);
-		DisjointSetWithConfidence mentionLinks = new DisjointSetWithConfidence(mentions.size());
+		DisjointSet mentionLinks = new DisjointSet(mentions.size(), true);
 		
 		// Coreference Resolution
 		for(AbstractSieve sieve : sieves) sieve.resolute(trees, mentions, mentionLinks);

@@ -25,7 +25,9 @@ public interface PathData {
 			COREF = ROOT + "coref/",
 			MENTION = ROOT + "mention/";
 	
-	String 	ENG_COREF_ADJUNTION = COREF + "input.coref.adjunction.cnlp";
+	String 	ENG_COREF_ADJUNTION = COREF + "input.coref.adjunction.cnlp",
+			ENG_COREF_MICROSOFT_RAW = COREF + "microsoft/mc500.dev.tsv",
+			ENG_COREF_MICROSOFT_PARSED_DIR = COREF + "microsoft/parsed/";
 	
 	String 	ENG_MENTION = MENTION + "input.mention.cnlp",
 			ENG_MENTION_QUOTE = MENTION + "input.mention.quote.cnlp",

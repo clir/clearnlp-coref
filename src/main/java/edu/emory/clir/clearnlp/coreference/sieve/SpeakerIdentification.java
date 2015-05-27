@@ -11,7 +11,7 @@ import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.type.AttributeType;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
+import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.IOUtils;
 
@@ -29,7 +29,7 @@ public class SpeakerIdentification extends AbstractSieve
 	private final Set<String> thirdPersonPluralPronouns = new HashSet<>(Arrays.asList("they", "them", "their", "theirs"));
 	
 	@Override
-	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSetWithConfidence mentionLinks)
+	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet mentionLinks)
 	{
 		AbstractMention curr, prev;
 		int i, j ,size = mentions.size();

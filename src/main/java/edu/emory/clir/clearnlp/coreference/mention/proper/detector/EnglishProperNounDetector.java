@@ -57,25 +57,34 @@ public class EnglishProperNounDetector extends AbstractProperNounDetector{
 	public ProperNoun getProperNoun(DEPTree tree, DEPNode node) {
 		ProperNoun properNoun = new ProperNoun(node.getLemma());
 		String NERtag = node.getNamedEntityTag();
-		NERtag = NERtag.substring(NERtag.indexOf('-')+1);
+		int pos = NERtag.indexOf('-');
 		
-		switch(NERtag){
-			case "PERSON":
-				processPersonTag(properNoun);
-				break;
-			case "ORG":
-				properNoun.e_type = EntityType.ORGANIZATION;
-				properNoun.n_type = NumberType.UNKNOWN;
-				break;
-			case "LOC":
-				properNoun.e_type = EntityType.LOCATION;
-				properNoun.n_type = NumberType.UNKNOWN;
-				break;
-			case "DATE":
-				properNoun.e_type = EntityType.DATE;
-				properNoun.n_type = NumberType.UNKNOWN;
-				break;
+		
+		if(pos > -1){
+			NERtag = NERtag.substring(pos+1);
+			switch(NERtag){
+				case "PERSON":
+					processPersonTag(properNoun);
+					break;
+				case "ORG":
+					properNoun.e_type = EntityType.ORGANIZATION;
+					properNoun.n_type = NumberType.UNKNOWN;
+					break;
+				case "LOC":
+					properNoun.e_type = EntityType.LOCATION;
+					properNoun.n_type = NumberType.UNKNOWN;
+					break;
+				case "DATE":
+					properNoun.e_type = EntityType.DATE;
+					properNoun.n_type = NumberType.UNKNOWN;
+					break;
+			}
 		}
+		else{
+			properNoun.e_type = EntityType.UNKNOWN;
+			properNoun.n_type = NumberType.UNKNOWN;
+		}
+
 		
 		return properNoun;
 	}

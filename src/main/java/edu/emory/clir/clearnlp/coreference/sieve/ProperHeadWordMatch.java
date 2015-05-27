@@ -1,13 +1,9 @@
 package edu.emory.clir.clearnlp.coreference.sieve;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
+import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -36,20 +32,20 @@ public class ProperHeadWordMatch extends AbstractSieve
 		return false;
 	}
 	
-	private boolean articleMatch(AbstractMention prev, AbstractMention curr)
-	{
-		String prevArticle = prev.getNode().getFirstDependentByLabel(DEPTagEn.DEP_ATTR).getWordForm();
-		String currArticle = curr.getNode().getFirstDependentByLabel(DEPTagEn.DEP_ATTR).getWordForm();
+	private boolean articleMatch(AbstractMention prev, AbstractMention curr){
+		DEPNode prevFirstDdependent = prev.getNode().getFirstDependentByLabel(DEPTagEn.DEP_ATTR);
+		DEPNode currFirstDdependent = curr.getNode().getFirstDependentByLabel(DEPTagEn.DEP_ATTR);
 		
-		if ((prevArticle.equalsIgnoreCase("a") || prevArticle.equalsIgnoreCase("the")) && currArticle.equalsIgnoreCase("the")) {
-			return true;
+		if(prevFirstDdependent != null && currFirstDdependent != null){
+			String prevArticle = prevFirstDdependent.getWordForm(), currArticle = currFirstDdependent.getWordForm();
+			return (prevArticle.equalsIgnoreCase("a") || prevArticle.equalsIgnoreCase("the")) && currArticle.equalsIgnoreCase("the");
 		}
+		
 		return false;
 	}
 
 	@Override
-	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions,
-			DisjointSetWithConfidence mentionLinks)
+	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet mentionLinks)
 	{
 		AbstractMention curr, prev;
 		int i, j ,size = mentions.size();
