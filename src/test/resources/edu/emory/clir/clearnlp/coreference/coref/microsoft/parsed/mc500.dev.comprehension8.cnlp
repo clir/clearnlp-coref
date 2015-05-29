@@ -1,0 +1,199 @@
+1	Jenny	jenny	NNP	_	3	nsubj	_	_	O
+2	was	be	VBD	_	3	aux	_	_	O
+3	standing	stand	VBG	_	0	root	_	_	O
+4	on	on	IN	_	3	prep	_	_	O
+5	a	a	DT	_	6	det	_	_	O
+6	rock	rock	NN	_	4	pobj	_	_	O
+7	.	.	.	_	3	punct	_	_	O
+
+1	Suddenly	suddenly	RB	_	4	advmod	_	_	O
+2	,	,	,	_	4	punct	_	_	O
+3	she	she	PRP	_	4	nsubj	_	_	O
+4	had	have	VBD	_	0	root	_	_	O
+5	to	to	TO	_	6	aux	_	_	O
+6	sneeze	sneeze	VB	_	4	xcomp	_	_	O
+7	.	.	.	_	4	punct	_	_	O
+
+1	After	after	IN	_	3	mark	_	_	O
+2	she	she	PRP	_	3	nsubj	_	_	O
+3	sneezed	sneeze	VBD	_	6	advcl	_	_	O
+4	,	,	,	_	6	punct	_	_	O
+5	she	she	PRP	_	6	nsubj	_	_	O
+6	walked	walk	VBD	_	0	root	_	_	O
+7	away	away	RB	_	6	advmod	_	_	O
+8	.	.	.	_	6	punct	_	_	O
+
+1	She	she	PRP	_	3	nsubj	_	_	O
+2	finally	finally	RB	_	3	advmod	_	_	O
+3	got	get	VBD	_	0	root	_	_	O
+4	to	to	IN	_	3	prep	_	_	O
+5	the	the	DT	_	6	det	_	_	O
+6	park	park	NN	_	4	pobj	_	_	O
+7	and	and	CC	_	3	cc	_	_	O
+8	saw	see	VBD	_	3	conj	_	_	O
+9	her	her	PRP$	p2=PRP	10	poss	_	_	O
+10	daddy	daddy	NN	_	8	dobj	_	_	O
+11	.	.	.	_	3	punct	_	_	O
+
+1	Her	her	PRP$	_	2	poss	_	_	O
+2	daddy	daddy	NN	_	3	nsubj	_	_	O
+3	gave	give	VBD	_	0	root	_	_	O
+4	her	her	PRP	_	3	dative	_	_	O
+5	some	some	DT	_	6	det	_	_	O
+6	milk	milk	NN	_	3	dobj	_	_	O
+7	.	.	.	_	3	punct	_	_	O
+
+1	Jenny	jenny	NNP	_	2	nsubj	_	_	O
+2	drank	drink	VBD	_	0	root	_	_	O
+3	the	the	DT	_	4	det	_	_	O
+4	milk	milk	NN	_	2	dobj	_	_	O
+5	in	in	IN	_	2	prep	_	_	O
+6	a	a	DT	_	8	det	_	_	O
+7	big	big	JJ	_	8	amod	_	_	O
+8	hurry	hurry	NN	_	5	pobj	_	_	O
+9	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	loved	love	VBD	_	0	root	_	_	O
+3	milk	milk	NN	_	2	dobj	_	_	O
+4	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	walked	walk	VBD	_	0	root	_	_	O
+3	over	over	RB	p2=RP	2	advmod	_	_	O
+4	and	and	CC	_	2	cc	_	_	O
+5	turned	turn	VBD	_	2	conj	_	_	O
+6	a	a	DT	_	7	det	_	_	O
+7	switch	switch	NN	_	5	dobj	_	_	O
+8	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	walked	walk	VBD	_	0	root	_	_	O
+3	to	to	IN	_	2	prep	_	_	O
+4	the	the	DT	_	5	det	_	_	O
+5	lake	lake	NN	_	3	pobj	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	Jenny	jenny	NNP	_	2	nsubj	_	_	O
+2	was	be	VBD	_	0	root	_	_	O
+3	in	in	IN	_	2	prep	_	_	O
+4	a	a	DT	_	6	det	_	_	O
+5	big	big	JJ	_	6	amod	_	_	O
+6	hurry	hurry	NN	_	3	pobj	_	_	O
+7	and	and	CC	_	2	cc	_	_	O
+8	went	go	VBD	_	2	conj	_	_	O
+9	really	really	RB	_	10	advmod	_	_	O
+10	fast	fast	JJ	p2=RB	8	advmod	_	_	O
+11	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	got	get	VBD	_	0	root	_	_	O
+3	to	to	IN	_	2	prep	_	_	O
+4	the	the	DT	_	5	det	_	_	O
+5	lake	lake	NN	_	3	pobj	_	_	O
+6	and	and	CC	_	2	cc	_	_	O
+7	sat	sit	VBD	_	2	conj	_	_	O
+8	down	down	RP	_	7	prt	_	_	O
+9	.	.	.	_	2	punct	_	_	O
+
+1	Jenny	jenny	NNP	_	2	nsubj	_	_	U-PERSON
+2	began	begin	VBD	_	0	root	_	_	O
+3	thinking	think	VBG	_	2	xcomp	_	_	O
+4	.	.	.	_	2	punct	_	_	O
+
+1	Jenny	jenny	NNP	_	2	nsubj	_	_	O
+2	wanted	want	VBD	_	0	root	_	_	O
+3	to	to	TO	_	4	aux	_	_	O
+4	go	go	VB	_	2	xcomp	_	_	O
+5	on	on	IN	_	4	prep	_	_	O
+6	a	a	DT	_	7	det	_	_	O
+7	trip	trip	NN	_	5	pobj	_	_	O
+8	to	to	IN	_	7	prep	_	_	O
+9	Florida	florida	NNP	_	8	pobj	_	_	U-GPE
+10	.	.	.	_	2	punct	_	_	O
+
+1	Jenny	jenny	NNP	_	4	nsubj	_	_	U-PERSON
+2	did	do	VBD	_	4	aux	_	_	O
+3	not	not	RB	_	4	neg	_	_	O
+4	want	want	VB	_	0	root	_	_	O
+5	to	to	TO	_	6	aux	_	_	O
+6	go	go	VB	_	4	xcomp	_	_	O
+7	someplace	someplace	NN	p2=RB	8	npadvmod	_	_	O
+8	cold	cold	JJ	p2=NN	6	advcl	_	_	O
+9	.	.	.	_	4	punct	_	_	O
+
+1	Jenny	jenny	NNP	_	4	nsubj	_	_	U-PERSON
+2	did	do	VBD	_	4	aux	_	_	O
+3	not	not	RB	_	4	neg	_	_	O
+4	want	want	VB	_	0	root	_	_	O
+5	to	to	TO	_	6	aux	_	_	O
+6	go	go	VB	_	4	xcomp	_	_	O
+7	to	to	IN	_	6	prep	_	_	O
+8	the	the	DT	_	9	det	_	_	O
+9	moon	moon	NN	_	7	pobj	_	_	O
+10	.	.	.	_	4	punct	_	_	O
+
+1	Jenny	jenny	NNP	_	4	nsubj	_	_	U-PERSON
+2	did	do	VBD	_	4	aux	_	_	O
+3	not	not	RB	_	4	neg	_	_	O
+4	want	want	VB	_	0	root	_	_	O
+5	to	to	TO	_	6	aux	_	_	O
+6	go	go	VB	_	4	xcomp	_	_	O
+7	to	to	IN	_	6	prep	_	_	O
+8	France	france	NNP	_	7	pobj	_	_	U-GPE
+9	.	.	.	_	4	punct	_	_	O
+
+1	Jenny	jenny	NNP	_	2	nsubj	_	_	U-PERSON
+2	stood	stand	VBD	_	0	root	_	_	O
+3	up	up	RP	_	2	prt	_	_	O
+4	to	to	TO	_	5	aux	_	_	O
+5	fold	fold	VB	_	2	advcl	_	_	O
+6	her	her	PRP$	_	7	poss	_	_	O
+7	towel	towel	NN	_	5	dobj	_	_	O
+8	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	3	nsubj	_	_	O
+2	never	never	RB	_	3	neg	_	_	O
+3	folded	fold	VBD	_	0	root	_	_	O
+4	her	her	PRP$	p2=PRP	5	poss	_	_	O
+5	shirts	shirt	NNS	_	3	dobj	_	_	O
+6	or	or	CC	_	5	cc	_	_	O
+7	pants	pant	NNS	_	5	conj	_	_	O
+8	.	.	.	_	3	punct	_	_	O
+
+1	Jenny	jenny	NNP	_	3	nsubj	_	_	O
+2	would	would	MD	_	3	aux	_	_	O
+3	start	start	VB	_	0	root	_	_	O
+4	her	her	PRP$	_	5	poss	_	_	O
+5	art	art	NN	_	3	dobj	_	_	O
+6	for	for	IN	_	3	prep	_	_	O
+7	her	her	PRP$	_	8	poss	_	_	O
+8	aunt	aunt	NN	_	6	pobj	_	_	O
+9	in	in	IN	_	3	prep	_	_	O
+10	a	a	DT	_	12	det	_	_	B-TIME
+11	few	few	JJ	_	12	amod	_	_	I-TIME
+12	hours	hour	NNS	_	9	pobj	_	_	L-TIME
+13	.	.	.	_	3	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	knew	know	VBD	_	0	root	_	_	O
+3	she	she	PRP	_	5	nsubj	_	_	O
+4	would	would	MD	_	5	aux	_	_	O
+5	use	use	VB	_	2	ccomp	_	_	O
+6	a	a	DT	_	7	det	_	_	O
+7	lot	lot	NN	_	5	dobj	_	_	O
+8	of	of	IN	_	7	prep	_	_	O
+9	time	time	NN	_	8	pobj	_	_	O
+10	making	make	VBG	_	5	xcomp	_	_	O
+11	that	that	DT	p2=IN	12	det	_	_	O
+12	art	art	NN	_	10	dobj	_	_	O
+13	.	.	.	_	2	punct	_	_	O
+
+1	Her	her	PRP$	_	2	poss	_	_	O
+2	aunt	aunt	NN	_	4	nsubj	_	_	O
+3	would	would	MD	_	4	aux	_	_	O
+4	love	love	VB	_	0	root	_	_	O
+5	the	the	DT	_	6	det	_	_	O
+6	art	art	NN	_	4	dobj	_	_	O
+7	.	.	.	_	4	punct	_	_	O
+

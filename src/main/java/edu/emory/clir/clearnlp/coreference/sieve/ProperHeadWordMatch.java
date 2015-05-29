@@ -1,16 +1,14 @@
 package edu.emory.clir.clearnlp.coreference.sieve;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
-import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.util.DSUtils;
+import edu.emory.clir.clearnlp.util.StringUtils;
 
 /**
  * @author alexlutz
@@ -19,52 +17,32 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
  */
 public class ProperHeadWordMatch extends AbstractSieve
 {
-	protected boolean match(AbstractMention prev, AbstractMention curr)
-	{
-		String prevWords = prev.getHeadNodeWordForm();
-		String currWords = curr.getHeadNodeWordForm();
-		
-		List<DEPNode> prevDependents = 	prev.getNode().getDependentListByLabel(DEPTagEn.DEP_NUMMOD); 
-		List<DEPNode> currDependents =  curr.getNode().getDependentListByLabel(DEPTagEn.DEP_NUMMOD);
-		
-		if (prevWords.equals(currWords) && currDependents.size() == prevDependents.size()) {	//also had && prev.Dependents.size() > 1
-			for (int i = 0; i < prevDependents.size(); i++) {
-				if (!(prevDependents.get(i).getWordForm().equals(currDependents.get(i).getWordForm())))
-					return false;
-			}
-			return true;
+	private Set<String> s_articles;
+	
+	public ProperHeadWordMatch() {
+		s_articles = DSUtils.toHashSet("a", "an", "the");
+	}
+	
+	@Override
+	protected boolean match(AbstractMention prev, AbstractMention curr){
+		return !matchArticle(prev, curr) && !matchNumMod(prev, curr);
+	}
+	
+	private boolean matchNumMod(AbstractMention prev, AbstractMention curr){
+		if(curr.hasSameHeadNode(prev)){
+			List<String> 	l_prevDependents = prev.getNode().getDependentListByLabel(DEPTagEn.DEP_NUMMOD).stream().map(node -> node.getWordForm()).collect(Collectors.toList()),
+							l_currDependents = curr.getNode().getDependentListByLabel(DEPTagEn.DEP_NUMMOD).stream().map(node -> node.getWordForm()).collect(Collectors.toList());
+			return l_prevDependents.equals(l_currDependents);
 		}
-		
 		return false;
 	}
 	
-	private boolean articleMatch(AbstractMention prev, AbstractMention curr)
-	{
-		String prevArticle = prev.getNode().getFirstDependentByLabel(DEPTagEn.DEP_ATTR).getWordForm();
-		String currArticle = curr.getNode().getFirstDependentByLabel(DEPTagEn.DEP_ATTR).getWordForm();
-		
-		if ((prevArticle.equalsIgnoreCase("a") || prevArticle.equalsIgnoreCase("the")) && currArticle.equalsIgnoreCase("the")) {
-			return true;
+	private boolean matchArticle(AbstractMention prev, AbstractMention curr){
+		DEPNode prevFirstDdependent = prev.getNode().getFirstDependentByLabel(DEPTagEn.DEP_ATTR), currFirstDdependent = curr.getNode().getFirstDependentByLabel(DEPTagEn.DEP_ATTR);
+		if(prevFirstDdependent != null && currFirstDdependent != null){
+			String prevArticle = StringUtils.toLowerCase(prevFirstDdependent.getWordForm()), currArticle = StringUtils.toLowerCase(currFirstDdependent.getWordForm());
+			return s_articles.contains(prevArticle) && currArticle.equals("the");
 		}
 		return false;
-	}
-
-	@Override
-	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions,
-			DisjointSetWithConfidence mentionLinks)
-	{
-		AbstractMention curr, prev;
-		int i, j ,size = mentions.size();
-		
-		for (i = 1;i < size; i++) {
-			curr = mentions.get(i);
-			
-			for (j = i-1; j >= 0; j--){
-				prev = mentions.get(j);
-				if (match(prev, curr) && articleMatch(prev, curr)) {
-					mentionLinks.union(i, j, 0); break;
-				}
-			}
-		}
 	}
 }

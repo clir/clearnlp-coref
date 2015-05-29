@@ -50,28 +50,44 @@ public class EnglishProperNounDetector extends AbstractProperNounDetector{
 
 	@Override
 	public boolean isProperNoun(DEPTree tree, DEPNode node) {
-		return !node.isLabel(DEPTagEn.DEP_COMPOUND) && (node.isPOSTag(CTLibEn.POS_NNP) || node.isPOSTag(CTLibEn.POS_NNPS));
+		return !node.isLabel(DEPTagEn.DEP_COMPOUND) && !node.isLabel(DEPTagEn.DEP_POSS) && (node.isPOSTag(CTLibEn.POS_NNP) || node.isPOSTag(CTLibEn.POS_NNPS));
 	}
 
 	@Override
 	public ProperNoun getProperNoun(DEPTree tree, DEPNode node) {
 		ProperNoun properNoun = new ProperNoun(node.getLemma());
 		String NERtag = node.getNamedEntityTag();
-		NERtag = NERtag.substring(NERtag.indexOf('-')+1);
+		int pos = NERtag.indexOf('-');
 		
-		switch(NERtag){
-			case "PERSON":
-				processPersonTag(properNoun);
-				break;
-			case "ORG":
-				properNoun.e_type = EntityType.ORGANIZATION;
-				properNoun.n_type = NumberType.UNKNOWN;
-				break;
-			case "LOC":
-				properNoun.e_type = EntityType.LOCATION;
-				properNoun.n_type = NumberType.UNKNOWN;
-				break;
+		
+		if(pos > -1){
+			NERtag = NERtag.substring(pos+1);
+			switch(NERtag){
+				case "PERSON":
+					processPersonTag(properNoun);
+					break;
+				case "ORG":
+					properNoun.e_type = EntityType.ORGANIZATION;
+					properNoun.g_type = GenderType.UNKNOWN;
+					properNoun.n_type = NumberType.SINGULAR;
+					break;
+				case "LOC":
+					properNoun.e_type = EntityType.LOCATION;
+					properNoun.g_type = GenderType.UNKNOWN;
+					properNoun.n_type = NumberType.SINGULAR;
+					break;
+				case "DATE":
+					properNoun.e_type = EntityType.DATE;
+					properNoun.g_type = GenderType.UNKNOWN;
+					properNoun.n_type = NumberType.UNCOUNTABLE;
+					break;
+			}
 		}
+		else{
+			properNoun.e_type = EntityType.UNKNOWN;
+			properNoun.n_type = NumberType.UNKNOWN;
+		}
+
 		
 		return properNoun;
 	}

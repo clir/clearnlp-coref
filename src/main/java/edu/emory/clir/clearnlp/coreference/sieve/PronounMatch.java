@@ -15,137 +15,109 @@
  */
 package edu.emory.clir.clearnlp.coreference.sieve;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
-import edu.emory.clir.clearnlp.coreference.mention.EnglishMention;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.GenderType;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
+import edu.emory.clir.clearnlp.coreference.type.PronounType;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
-import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.util.DSUtils;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
  * @since 	Apr 13, 2015
  */
-public class PronounMatch extends AbstractSieve 
-{
-	List<String> argumentSlot = new ArrayList<>(Arrays.asList(DEPTagEn.DEP_SUBJ, DEPTagEn.DEP_AGENT, DEPTagEn.DEP_DOBJ, DEPTagEn.DEP_IOBJ, DEPTagEn.DEP_POBJ)); 
+public class PronounMatch extends AbstractSieve {
+	
+	/* Argument infomation */
+	final private Pattern verb = Pattern.compile("VB[D||P||Z]{0,1}");
+	final private List<String> argumentSlot = DSUtils.toArrayList(DEPTagEn.DEP_SUBJ, DEPTagEn.DEP_AGENT, DEPTagEn.DEP_DOBJ, DEPTagEn.DEP_IOBJ, DEPTagEn.DEP_POBJ); 
+	
+	private int getArgumentHierarchy(DEPNode node){
+		return argumentSlot.indexOf(node.getLabel());
+	}
 	
 	@Override
-	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSetWithConfidence mentionLinks) {
-		AbstractMention curr, prev;
-		int i, j, size = mentions.size();
-		
-		for(i = size-1; i > 0; i--){
-			curr = mentions.get(i);
-			
-			for (j = i-1; j >= 0; j--){
-				prev = mentions.get(i);
-				if (matchesPronoun(curr, prev)) {
-					if (matchesReflexivePronoun(prev, curr)) {
-						mentionLinks.union(i, j, 0); break;
-					}
-				}
-			}
-		}
+	protected boolean match(AbstractMention prev, AbstractMention curr){
+		return matchesGender(prev, curr) && matchesNumber(prev, curr) && matchesEntity(prev, curr); // && matchesPronoun(prev, curr);
 	}
 	
-	private boolean matchesPronoun(AbstractMention curr, AbstractMention prev)
-	{
-		return matchesGender(curr, prev) && matchesNumber(curr, prev);
+	private boolean matchesGender(AbstractMention prev, AbstractMention curr){
+		if(curr.isGenderType(GenderType.NEUTRAL) || prev.isGenderType(GenderType.NEUTRAL))
+			return !curr.isGenderType(GenderType.UNKNOWN) && !prev.isGenderType(GenderType.UNKNOWN);
+		return curr.getGenderType() == prev.getGenderType();
 	}
 	
-	private boolean matchesGender(AbstractMention curr, AbstractMention prev)
-	{
-		return curr.isGenderType(prev.getGenderType()) && !curr.isGenderType(GenderType.UNKNOWN) || !curr.isGenderType(GenderType.NEUTRAL);
-	}
-	
-	private boolean matchesNumber(AbstractMention curr, AbstractMention prev)
-	{
+	private boolean matchesNumber(AbstractMention prev, AbstractMention curr){
 		return curr.isNumberType(prev.getNumberType());
 	}
 	
-	private boolean matchNumber(AbstractMention mention1, AbstractMention mention2){
-		return mention1.getNumberType() == mention2.getNumberType();
+	private boolean matchesEntity(AbstractMention prev, AbstractMention curr){
+		if(curr.isNameEntity())
+			return prev.getEntityType() == curr.getEntityType();
+		return !curr.isEntityType(EntityType.UNKNOWN) || prev.getEntityType() == curr.getEntityType();
 	}
 	
-	private boolean matchEntity(AbstractMention mention1, AbstractMention mention2){
-		if(mention2.isNameEntity())
-			return mention1.getEntityType() == mention2.getEntityType();
-		return !mention2.isEntityType(EntityType.UNKNOWN) || mention1.getEntityType() == mention2.getEntityType();
+	private boolean matchesPronoun(AbstractMention prev, AbstractMention curr){
+		if(curr.getPronounType() != null)
+			switch(curr.getPronounType()){
+				case SUBJECT:		return prev.isPronounType(PronounType.SUBJECT);
+				case OBJECT:		return prev.isPronounType(PronounType.OBJECT);
+				case INDEFINITE:	return prev.isPronounType(PronounType.INDEFINITE);
+				case POSSESSIVE:	return prev.isPronounType(PronounType.POSSESSIVE);
+				case DEMOSTRATIVE:	return prev.isPronounType(PronounType.DEMOSTRATIVE);
+				case REFLEXIVE:		return matchesReflexivePronoun(prev.getNode(), curr.getNode());
+				case RELATIVE:		return prev.isPronounType(PronounType.RELATIVE);
+				default:			return prev.getPronounType() == curr.getPronounType();
+			}
+		return false;
 	}
 	
-//	private boolean matchPronoun(AbstractMention mention1, AbstractMention mention2){
-//		if(mention2.getPronounType() != null)
-//			switch(mention2.getPronounType()){
-//				case SUBJECT:		return mention1.isPronounType(PronounType.SUBJECT);
-//				case OBJECT:		return mention1.isPronounType(PronounType.OBJECT);
-//				case INDEFINITE:	return mention1.isPronounType(PronounType.INDEFINITE);
-//				case POSSESSIVE:	return mention1.isPronounType(PronounType.POSSESSIVE);
-//				case DEMOSTRATIVE:	return mention1.isPronounType(PronounType.DEMOSTRATIVE);
-//				case REFLEXIVE:		return mention1.isPronounType(PronounType.REFLEXIVE);
-//				case RELATIVE:		return mention1.isPronounType(PronounType.RELATIVE);
-//				default:			return mention1.getPronounType() == mention2.getPronounType();
-//			}
+	private boolean matchesReflexivePronoun(DEPNode prev, DEPNode curr){
+		DEPNode head = prev.getLowestCommonAncestor(curr);
+		return argumentDomain(head, prev, curr) || adjunctDomain(head, prev, curr); // || NPDomain(prev, curr) || VerbArgument(prev, curr) || extendedDomain(prev, curr); 
+	}
+	
+	private boolean argumentDomain(DEPNode head, DEPNode prev, DEPNode curr){
+		return head != null && prev.getHead() == head && curr.getHead() == head && getArgumentHierarchy(prev) > getArgumentHierarchy(curr);
+	}
+	
+	private boolean adjunctDomain(DEPNode head, DEPNode prev, DEPNode curr){
+		DEPNode adjuncHead = curr.getHead();
+		return head != null && adjuncHead != null && curr.isLabel(DEPTagEn.DEP_POBJ) && adjuncHead.isLabel(DEPTagEn.DEP_PREP) && prev.getLowestCommonAncestor(adjuncHead) != null;
+	}
+//	
+//	private boolean NPDomain(AbstractMention prev, AbstractMention curr)
+//	{
+//		DEPNode node = curr.getNode();
+//		return node.isLabel(DEPTagEn.DEP_ATTR) && prev.getNode().isArgumentOf(node.getHead()) || adjunctDomain(prev, curr);
+//	}
+//	
+//	private boolean VerbArgument(AbstractMention prev, AbstractMention curr)
+//	{
+//		DEPNode temp;
+//		DEPNode prevNode = prev.getNode();
+//		DEPNode currNode = curr.getNode();
+//		
+//		if (prevNode.isArgumentOf(verb)) 
+//			if ((temp = (DEPNode) prevNode.getDependentList().stream().filter(x -> x.isArgumentOf(currNode))) != null && adjunctDomain(prev, new EnglishMention(temp))) 
+//				return true;
 //		return false;
 //	}
-	
-	private boolean matchesReflexivePronoun(AbstractMention prev, AbstractMention curr)
-	{
-		return (argumentDomain(prev, curr) || adjunctDomain(prev, curr) || NPDomain(prev, curr) || VerbArgument(prev, curr) || extendedDomain(prev, curr)); 
-	}
-	
-	private boolean argumentDomain(AbstractMention prev, AbstractMention curr)
-	{
-		return prev.getHeadNodeWordForm().equals(curr.getHeadNodeWordForm()) && indexOf(prev) > indexOf(curr);
-	}
-	
-	private int indexOf(AbstractMention mention)
-	{
-		String label = mention.getNode().getLabel();
-		return argumentSlot.indexOf(label);
-	}
-	
-	private boolean adjunctDomain(AbstractMention prev, AbstractMention curr)	//ask Jinho again
-	{
-		DEPNode node = prev.getNode();
-		return node.isLabel(DEPTagEn.DEP_POBJ) && node.getHead().containsDependent((DEPNode) node.getArgumentCandidateSet(1, false));
-	}
-	
-	private boolean NPDomain(AbstractMention prev, AbstractMention curr)
-	{
-		DEPNode node = curr.getNode();
-		return node.isLabel(DEPTagEn.DEP_ATTR) && prev.getNode().isArgumentOf(node.getHead()) || adjunctDomain(prev, curr);
-	}
-	
-	private boolean VerbArgument(AbstractMention prev, AbstractMention curr)
-	{
-		DEPNode temp;
-		Pattern verb = Pattern.compile("VB[D||P||Z]{0,1}");
-		DEPNode prevNode = prev.getNode();
-		DEPNode currNode = curr.getNode();
-		if (prevNode.isArgumentOf(verb)) 
-			if ((temp = (DEPNode) prevNode.getDependentList().stream().filter(x -> x.isArgumentOf(currNode))) != null && adjunctDomain(prev, new EnglishMention(temp))) 
-				return true;
-		return false;
-	}
-	
-	private boolean extendedDomain(AbstractMention prev, AbstractMention curr)
-	{
-		List<DEPNode> listOfNodes;
-		if ((listOfNodes = prev.getNode().getDependentListByLabel(DEPTagEn.DEP_ATTR)) != null) {
-			for (DEPNode node : listOfNodes) {
-				if (argumentDomain(new EnglishMention(node), curr) || adjunctDomain(new EnglishMention(node), curr))
-					return true;
-			}
-		}
-		return false;
-	}
+//	
+//	private boolean extendedDomain(AbstractMention prev, AbstractMention curr)
+//	{
+//		List<DEPNode> listOfNodes;
+//		if ((listOfNodes = prev.getNode().getDependentListByLabel(DEPTagEn.DEP_ATTR)) != null) {
+//			for (DEPNode node : listOfNodes) {
+//				if (argumentDomain(new EnglishMention(node), curr) || adjunctDomain(new EnglishMention(node), curr))
+//					return true;
+//			}
+//		}
+//		return false;
+//	}
 }

@@ -1,0 +1,217 @@
+1	Jen	jen	NNP	_	2	nsubj	_	_	U-PERSON
+2	put	put	VB	p2=VBD	0	root	_	_	O
+3	on	on	IN	p2=RP	2	prep	_	_	O
+4	her	her	PRP$	_	6	poss	_	_	O
+5	favorite	favorite	JJ	_	6	amod	_	_	O
+6	dress	dress	NN	_	3	pobj	_	_	O
+7	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	liked	like	VBD	_	0	root	_	_	O
+3	it	it	PRP	_	2	dobj	_	_	O
+4	because	because	IN	_	6	mark	_	_	O
+5	it	it	PRP	_	6	nsubj	_	_	O
+6	had	have	VBD	_	2	advcl	_	_	O
+7	cats	cat	NNS	_	6	dobj	_	_	O
+8	on	on	IN	_	6	prep	_	_	O
+9	it	it	PRP	_	8	pobj	_	_	O
+10	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	was	be	VBD	_	0	root	_	_	O
+3	very	very	RB	_	4	advmod	_	_	O
+4	excited	excited	JJ	_	2	acomp	_	_	O
+5	about	about	IN	_	4	prep	_	_	O
+6	her	her	PRP$	_	8	poss	_	_	O
+7	birthday	birthday	NN	_	8	compound	_	_	O
+8	cake	cake	NN	_	5	pobj	_	_	O
+9	.	.	.	_	2	punct	_	_	O
+
+1	Maybe	maybe	RB	_	5	advmod	_	_	O
+2	the	the	DT	_	3	det	_	_	O
+3	cake	cake	NN	_	5	nsubj	_	_	O
+4	would	would	MD	_	5	aux	_	_	O
+5	have	have	VB	_	0	root	_	_	O
+6	a	a	DT	_	7	det	_	_	O
+7	turtle	turtle	NN	_	5	dobj	_	_	O
+8	on	on	IN	_	5	prep	_	_	O
+9	it	it	PRP	_	8	pobj	_	_	O
+10	.	.	.	_	5	punct	_	_	O
+
+1	Jen	jen	NNP	_	3	nsubj	_	_	U-PERSON
+2	was	be	VBD	_	3	aux	_	_	O
+3	going	go	VBG	_	0	root	_	_	O
+4	to	to	TO	_	5	aux	_	_	O
+5	have	have	VB	_	3	xcomp	_	_	O
+6	turkey	turkey	NN	_	5	dobj	_	_	O
+7	.	.	.	_	3	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	had	have	VBD	_	0	root	_	_	O
+3	no	no	DT	p2=RB	4	det	_	_	O
+4	gravy	gravy	NN	_	2	dobj	_	_	O
+5	,	,	,	_	2	punct	_	_	O
+6	so	so	RB	p2=IN	8	advmod	_	_	O
+7	she	she	PRP	_	8	nsubj	_	_	O
+8	had	have	VBD	_	2	conj	_	_	O
+9	chicken	chicken	NN	p2=VBN	8	dobj	_	_	O
+10	for	for	IN	_	8	prep	_	_	O
+11	dinner	dinner	NN	_	10	pobj	_	_	O
+12	instead	instead	RB	_	8	advmod	_	_	O
+13	.	.	.	_	8	punct	_	_	O
+
+1	After	after	IN	_	7	prep	_	_	O
+2	eating	eat	VBG	_	1	pcomp	_	_	O
+3	the	the	DT	_	4	det	_	_	O
+4	chicken	chicken	NN	_	2	dobj	_	_	O
+5	,	,	,	_	7	punct	_	_	O
+6	she	she	PRP	_	7	nsubj	_	_	O
+7	remembered	remember	VBD	_	0	root	_	_	O
+8	she	she	PRP	_	9	nsubj	_	_	O
+9	was	be	VBD	_	7	ccomp	_	_	O
+10	late	late	JJ	p2=RB	9	acomp	_	_	O
+11	for	for	IN	_	10	prep	_	_	O
+12	the	the	DT	_	13	det	_	_	O
+13	dance	dance	NN	_	11	pobj	_	_	O
+14	!	!	.	_	7	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	ran	run	VBD	_	0	root	_	_	O
+3	up	up	RP	p2=IN	2	prt	_	_	O
+4	the	the	DT	_	5	det	_	_	O
+5	stairs	stair	NNS	_	2	dobj	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	put	put	VBD	_	0	root	_	_	O
+3	on	on	RP	p2=IN	2	prt	_	_	O
+4	a	a	DT	_	5	det	_	_	O
+5	coat	coat	NN	_	2	dobj	_	_	O
+6	and	and	CC	_	2	cc	_	_	O
+7	ran	run	VBD	_	2	conj	_	_	O
+8	out	out	RP	p2=RB	7	prt	_	_	O
+9	the	the	DT	_	10	det	_	_	O
+10	door	door	NN	_	7	dobj	_	_	O
+11	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	walked	walk	VBD	_	0	root	_	_	O
+3	past	past	IN	p2=RB	2	prep	_	_	O
+4	some	some	DT	_	6	det	_	_	O
+5	ice	ice	NN	_	6	compound	_	_	O
+6	cream	cream	NN	_	3	pobj	_	_	O
+7	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	4	nsubj	_	_	O
+2	did	do	VBD	_	4	aux	_	_	O
+3	not	not	RB	_	4	neg	_	_	O
+4	have	have	VB	_	0	root	_	_	O
+5	time	time	NN	_	4	dobj	_	_	O
+6	to	to	TO	_	7	aux	_	_	O
+7	stop	stop	VB	_	5	relcl	_	_	O
+8	and	and	CC	_	7	cc	_	_	O
+9	eat	eat	VB	_	7	conj	_	_	O
+10	any	any	DT	_	9	dobj	_	_	O
+11	of	of	IN	_	10	prep	_	_	O
+12	the	the	DT	_	14	det	_	_	O
+13	ice	ice	NN	_	14	compound	_	_	O
+14	cream	cream	NN	_	11	pobj	_	_	O
+15	.	.	.	_	4	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	walked	walk	VBD	_	0	root	_	_	O
+3	past	past	IN	p2=RB	2	prep	_	_	O
+4	some	some	DT	_	5	det	_	_	O
+5	sprinkles	sprinkle	NNS	_	3	pobj	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	4	nsubj	_	_	O
+2	did	do	VBD	_	4	aux	_	_	O
+3	not	not	RB	_	4	neg	_	_	O
+4	have	have	VB	_	0	root	_	_	O
+5	time	time	NN	_	4	dobj	_	_	O
+6	to	to	TO	_	7	aux	_	_	O
+7	eat	eat	VB	_	5	relcl	_	_	O
+8	the	the	DT	_	9	det	_	_	O
+9	sprinkles	sprinkle	NNS	p2=NN	7	dobj	_	_	O
+10	.	.	.	_	4	punct	_	_	O
+
+1	Jen	jen	NNP	_	2	nsubj	_	_	U-PERSON
+2	walked	walk	VBD	_	0	root	_	_	O
+3	past	past	IN	_	2	prep	_	_	O
+4	the	the	DT	_	5	det	_	_	O
+5	yogurt	yogurt	NN	_	3	pobj	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	4	nsubj	_	_	O
+2	did	do	VBD	_	4	aux	_	_	O
+3	not	not	RB	_	4	neg	_	_	O
+4	have	have	VB	_	0	root	_	_	O
+5	time	time	NN	_	4	dobj	_	_	O
+6	to	to	TO	_	7	aux	_	_	O
+7	get	get	VB	_	5	relcl	_	_	O
+8	the	the	DT	_	9	det	_	_	O
+9	yogurt	yogurt	NN	_	7	dobj	_	_	O
+10	.	.	.	_	4	punct	_	_	O
+
+1	Jen	jen	NNP	_	2	nsubj	_	_	U-PERSON
+2	got	get	VBD	_	0	root	_	_	O
+3	to	to	IN	_	2	prep	_	_	O
+4	where	where	WRB	_	6	advmod	_	_	O
+5	she	she	PRP	_	6	nsubj	_	_	O
+6	had	have	VBD	_	3	pcomp	_	_	O
+7	to	to	TO	_	8	aux	_	_	O
+8	go	go	VB	_	6	xcomp	_	_	O
+9	.	.	.	_	2	punct	_	_	O
+
+1	Soon	soon	RB	_	2	advmod	_	_	O
+2	after	after	RB	p2=IN	5	advmod	_	_	O
+3	,	,	,	_	5	punct	_	_	O
+4	she	she	PRP	_	5	nsubj	_	_	O
+5	turned	turn	VBD	_	0	root	_	_	O
+6	around	around	RB	p2=RP	5	advmod	_	_	O
+7	and	and	CC	_	5	cc	_	_	O
+8	started	start	VBD	_	5	conj	_	_	O
+9	the	the	DT	_	11	det	_	_	O
+10	long	long	JJ	_	11	amod	_	_	O
+11	walk	walk	NN	p2=VB	8	dobj	_	_	O
+12	back	back	RB	_	13	advmod	_	_	O
+13	home	home	RB	_	11	advmod	_	_	O
+14	.	.	.	_	5	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	got	get	VBD	_	0	root	_	_	O
+3	home	home	RB	_	2	advmod	_	_	O
+4	at	at	IN	p2=RB	2	prep	_	_	O
+5	last	last	JJ	p2=RB	4	pobj	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	saw	see	VBD	_	0	root	_	_	O
+3	her	her	PRP$	_	5	poss	_	_	O
+4	huge	huge	JJ	_	5	amod	_	_	O
+5	cake	cake	NN	_	2	dobj	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	It	it	PRP	_	2	nsubj	_	_	O
+2	had	have	VBD	_	0	root	_	_	O
+3	chocolate	chocolate	NN	_	2	dobj	_	_	O
+4	on	on	IN	_	2	prep	_	_	O
+5	it	it	PRP	_	4	pobj	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	Jen	jen	NNP	_	2	nsubj	_	_	U-PERSON
+2	was	be	VBD	_	0	root	_	_	O
+3	very	very	RB	_	4	advmod	_	_	O
+4	happy	happy	JJ	_	2	acomp	_	_	O
+5	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	was	be	VBD	_	0	root	_	_	O
+3	ready	ready	JJ	_	2	acomp	_	_	O
+4	to	to	TO	_	5	aux	_	_	O
+5	enjoy	enjoy	VB	_	3	xcomp	_	_	O
+6	the	the	DT	_	7	det	_	_	O
+7	cake	cake	NN	_	5	dobj	_	_	O
+8	.	.	.	_	2	punct	_	_	O
+

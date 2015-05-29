@@ -18,9 +18,9 @@ package edu.emory.clir.clearnlp.coreference;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
-import edu.emory.clir.clearnlp.collection.set.DisjointSet;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
+import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
@@ -36,7 +36,6 @@ public abstract class AbstractCoreferenceResolution {
 	public AbstractCoreferenceResolution(TLanguage l){
 		language = l;
 	}
-
 	
 	// Mention Detection
 	public List<AbstractMention> getMentions(DEPTree tree){
@@ -48,5 +47,5 @@ public abstract class AbstractCoreferenceResolution {
 	}
 	
 	// Coreference Resolution
-	public abstract Pair<List<AbstractMention>,DisjointSet> getEntities(List<DEPTree> trees);
+	public abstract Pair<List<AbstractMention>, DisjointSet> getEntities(List<DEPTree> trees);
 }

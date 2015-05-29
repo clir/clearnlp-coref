@@ -1,0 +1,168 @@
+1	The	the	DT	_	3	det	_	_	O
+2	angel	angel	NN	_	3	compound	_	_	O
+3	alligator	alligator	NN	_	4	nsubj	_	_	O
+4	was	be	VBD	_	0	root	_	_	O
+5	quite	quite	PDT	p2=RB	7	predet	_	_	O
+6	the	the	DT	_	7	det	_	_	O
+7	sight	sight	NN	_	4	attr	_	_	O
+8	!	!	.	_	4	punct	_	_	O
+
+1	It	it	PRP	_	2	nsubj	_	_	O
+2	loved	love	VBD	_	9	ccomp	_	_	O
+3	to	to	TO	_	4	aux	_	_	O
+4	scream	scream	VB	_	2	xcomp	_	_	O
+5	with	with	IN	_	4	prep	_	_	O
+6	all	all	PDT	p2=DT	8	predet	_	_	O
+7	its	its	PRP$	_	8	poss	_	_	O
+8	might!It	might!it	NN	p2=NNP	5	pobj	_	_	O
+9	loved	love	VBD	p2=VBN	0	root	_	_	O
+10	to	to	TO	_	11	aux	_	_	O
+11	roll	roll	VB	_	9	xcomp	_	_	O
+12	in	in	IN	_	11	prep	_	_	O
+13	mud	mud	NN	_	12	pobj	_	_	O
+14	and	and	CC	_	13	cc	_	_	O
+15	sun	sun	NN	_	13	conj	_	_	O
+16	.	.	.	_	9	punct	_	_	O
+
+1	Then	then	RB	_	4	advmod	_	_	O
+2	it	it	PRP	_	4	nsubj	_	_	O
+3	would	would	MD	_	4	aux	_	_	O
+4	go	go	VB	_	0	root	_	_	O
+5	for	for	IN	_	4	prep	_	_	O
+6	a	a	DT	_	11	det	_	_	O
+7	run.But	#hlink#	ADD	p2=NN	8	nmod	_	_	O
+8	why	why	WRB	_	11	advmod	_	_	O
+9	did	do	VBD	_	11	aux	_	_	O
+10	it	it	PRP	_	11	nsubj	_	_	O
+11	run	run	VB	_	5	pobj	_	_	O
+12	?	?	.	_	4	punct	_	_	O
+
+1	Why	why	WRB	_	4	advmod	_	_	O
+2	did	do	VBD	_	4	aux	_	_	O
+3	it	it	PRP	_	4	nsubj	_	_	O
+4	scream	scream	VB	_	0	root	_	_	O
+5	?	?	.	_	4	punct	_	_	O
+
+1	It	it	PRP	_	2	nsubj	_	_	O
+2	had	have	VBD	_	0	root	_	_	O
+3	a	a	DT	_	4	det	_	_	O
+4	fork	fork	NN	_	2	dobj	_	_	O
+5	in	in	IN	_	4	prep	_	_	O
+6	its	its	PRP$	_	7	poss	_	_	O
+7	butt	butt	NN	_	5	pobj	_	_	O
+8	!	!	.	_	2	punct	_	_	O
+
+1	It	it	PRP	_	2	nsubj	_	_	O
+2	sat	sit	VBD	_	0	root	_	_	O
+3	in	in	IN	_	2	prep	_	_	O
+4	a	a	DT	_	5	det	_	_	O
+5	trashcan	trashcan	NN	p2=FW	3	pobj	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	This	this	DT	_	2	nsubj	_	_	O
+2	was	be	VBD	_	0	root	_	_	O
+3	not	not	RB	_	2	neg	_	_	O
+4	a	a	DT	_	6	det	_	_	O
+5	smart	smart	JJ	_	6	amod	_	_	O
+6	thing	thing	NN	_	2	attr	_	_	O
+7	to	to	TO	_	8	aux	_	_	O
+8	do	do	VB	_	6	relcl	_	_	O
+9	!	!	.	_	2	punct	_	_	O
+
+1	But	but	CC	_	3	cc	_	_	O
+2	he	he	PRP	_	3	nsubj	_	_	O
+3	did	do	VBD	_	0	root	_	_	O
+4	it	it	PRP	_	3	dobj	_	_	O
+5	,	,	,	_	3	punct	_	_	O
+6	oh	oh	UH	_	10	intj	_	_	O
+7	yes	yes	UH	_	6	intj	_	_	O
+8	,	,	,	_	10	punct	_	_	O
+9	oh	oh	UH	p2=VB	10	intj	_	_	O
+10	me	me	PRP	p2=UH	3	dep	_	_	O
+11	,	,	,	_	3	punct	_	_	O
+12	oh	oh	UH	_	14	intj	_	_	O
+13	you!The	you!the	JJ	p2=UH	14	amod	_	_	O
+14	alligator	alligator	NN	_	15	nsubj	_	_	O
+15	had	have	VBD	_	3	dep	_	_	O
+16	a	a	DT	_	17	det	_	_	O
+17	beard	beard	NN	_	15	dobj	_	_	O
+18	.	.	.	_	3	punct	_	_	O
+
+1	It	it	PRP	_	2	nsubj	_	_	O
+2	was	be	VBD	_	0	root	_	_	O
+3	a	a	DT	_	5	det	_	_	O
+4	great	great	JJ	_	5	amod	_	_	O
+5	beard	beard	NN	_	2	attr	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	But	but	CC	_	4	cc	_	_	O
+2	nobody	nobody	NN	_	4	nsubj	_	_	O
+3	ever	ever	RB	_	4	advmod	_	_	O
+4	talked	talk	VBD	_	0	root	_	_	O
+5	about	about	IN	_	4	prep	_	_	O
+6	his	his	PRP$	_	7	poss	_	_	O
+7	beard	beard	NN	_	5	pobj	_	_	O
+8	.	.	.	_	4	punct	_	_	O
+
+1	Why	why	WRB	_	0	root	_	_	O
+2	?	?	.	_	1	punct	_	_	O
+
+1	Because	because	IN	_	5	mark	_	_	O
+2	they	they	PRP	_	5	nsubj	_	_	O
+3	would	would	MD	_	5	aux	_	_	O
+4	only	only	RB	_	5	advmod	_	_	O
+5	see	see	VB	_	16	advcl	_	_	O
+6	the	the	DT	_	7	det	_	_	O
+7	fork	fork	NN	_	5	dobj	_	_	O
+8	in	in	IN	_	5	prep	_	_	O
+9	its	its	PRP$	_	12	poss	_	_	O
+10	butt!But	butt!but	NNP	p2=NN	12	nmod	_	_	B-DATE
+11	one	#crd#	CD	_	12	nummod	_	_	I-DATE
+12	day	day	NN	_	8	pobj	_	_	L-DATE
+13	,	,	,	_	16	punct	_	_	O
+14	the	the	DT	_	15	det	_	_	O
+15	alligator	alligator	NN	_	16	nsubj	_	_	O
+16	made	make	VBD	p2=VBN	0	root	_	_	O
+17	a	a	DT	_	18	det	_	_	O
+18	friend	friend	NN	_	16	dobj	_	_	O
+19	.	.	.	_	16	punct	_	_	O
+
+1	The	the	DT	_	2	det	_	_	O
+2	friend	friend	NN	_	3	nsubj	_	_	O
+3	needed	need	VBD	_	0	root	_	_	O
+4	a	a	DT	_	5	det	_	_	O
+5	fork	fork	NN	_	3	dobj	_	_	O
+6	.	.	.	_	3	punct	_	_	O
+
+1	How	how	WRB	_	5	advmod	_	_	O
+2	was	be	VBD	_	5	aux	_	_	O
+3	he	he	PRP	_	5	nsubj	_	_	O
+4	to	to	TO	_	5	aux	_	_	O
+5	eat	eat	VB	_	0	root	_	_	O
+6	his	his	PRP$	_	7	poss	_	_	O
+7	spaghetti	spaghetti	NNS	p2=NN	5	dobj	_	_	O
+8	without	without	IN	_	5	prep	_	_	O
+9	a	a	DT	_	10	det	_	_	O
+10	fork	fork	NN	_	8	pobj	_	_	O
+11	?	?	.	_	5	punct	_	_	O
+
+1	But	but	CC	_	0	root	_	_	O
+2	...	..	.	p2=,	1	punct	_	_	O
+
+1	I	I	PRP	_	2	nsubj	_	_	O
+2	'm	be	VBP	_	0	root	_	_	O
+3	not	not	RB	_	2	neg	_	_	O
+4	sure	sure	JJ	p2=VB	2	acomp	_	_	O
+5	a	a	DT	_	7	det	_	_	O
+6	butt	butt	NN	_	7	compound	_	_	O
+7	fork	fork	NN	_	8	nsubj	_	_	O
+8	is	be	VBZ	_	4	ccomp	_	_	O
+9	the	the	DT	_	11	det	_	_	O
+10	best	good	JJS	_	11	amod	_	_	O
+11	way	way	NN	_	8	attr	_	_	O
+12	to	to	TO	_	13	aux	_	_	O
+13	eat	eat	VB	_	11	relcl	_	_	O
+14	spaghetti.Do	#hlink#	ADD	p2=,	13	dobj	_	_	O
+15	you	you	PRP	_	13	dobj	_	_	O
+16	?	?	.	_	2	punct	_	_	O
+

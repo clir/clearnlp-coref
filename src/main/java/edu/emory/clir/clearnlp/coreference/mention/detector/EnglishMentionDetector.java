@@ -17,6 +17,7 @@ package edu.emory.clir.clearnlp.coreference.mention.detector;
 
 import java.util.List;
 
+import edu.emory.clir.clearnlp.coreference.config.MentionConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.EnglishMention;
 import edu.emory.clir.clearnlp.coreference.mention.common.CommonNoun;
@@ -41,10 +42,11 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 	private EnglishCommonNounDetector commonNounDetector;
 	private EnglishProperNounDetector properNounDetector;
 	
-	public EnglishMentionDetector(){
-		pronounDetector = new EnglishPronounDetector();
-		commonNounDetector = new EnglishCommonNounDetector();
-		properNounDetector = new EnglishProperNounDetector(); 
+	public EnglishMentionDetector(MentionConfiguration config){
+		super(config);
+		if(m_config.b_pronoun)	pronounDetector = new EnglishPronounDetector();
+		if(m_config.b_common)	commonNounDetector = new EnglishCommonNounDetector();
+		if(m_config.b_proper)	properNounDetector = new EnglishProperNounDetector(); 
 	}
 
 //	====================================== MENTION TYPE ======================================
@@ -53,9 +55,9 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 	public EnglishMention getMention(DEPTree tree, DEPNode node){
 		EnglishMention mention;
 		
-		if ((mention = getPronounMention(tree, node)) != null )	return mention;
-		if ((mention = getCommonMention(tree, node)) != null)	return mention;
-		if ((mention = getPersonMention (tree, node)) != null)	return mention;
+		if (m_config.b_pronoun && (mention = getPronounMention(tree, node)) != null )	return mention;
+		if (m_config.b_common && (mention = getCommonMention(tree, node)) != null)	return mention;
+		if (m_config.b_proper && (mention = getPersonMention (tree, node)) != null)	return mention;
 		
 		return null;
 	}
@@ -98,18 +100,20 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 		
 		DEPNode curr;
 		AbstractMention mention_prev, mention_curr;
-		int i, pos, size = mentions.size();
+		int[] boundary;
+		int i, j, pos, m_size = mentions.size(), b_size = boundaries.size();
 		
-		for(i = 0; i < size; i++){
+		for(i = 0; i < m_size; i++){
 			mention_curr = mentions.get(i);
 			mention_prev = (i > 0)? mentions.get(i-1) : null;
 			
 			/** Inside quotation detection **/
 			pos = mention_curr.getNode().getID();
-			for(int[] boundary : boundaries){
+			for(j = 0; j < b_size; j++){
+				boundary = boundaries.get(j);
 				if(boundary[0] > pos)	break;
 				if(CoreferenceDSUtils.isSequence(boundary[0], pos, boundary[1])){
-					mention_curr.addAttribute(AttributeType.QUOTE);
+					mention_curr.addAttribute(AttributeType.QUOTE, j);
 					break;
 				}
 			}

@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import edu.emory.clir.clearnlp.coreference.config.MentionConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
@@ -36,7 +37,7 @@ public class AbstractMentionTest {
 	public void test() {
 		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION, 0, 10);
 		
-		AbstractMentionDetector detector = new EnglishMentionDetector();
+		AbstractMentionDetector detector = new EnglishMentionDetector(new MentionConfiguration(true, true, true));
 		List<AbstractMention> mentions = detector.getMentionList(trees);
 		
 		testSubTreeWordSequence(mentions);

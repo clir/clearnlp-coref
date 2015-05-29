@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.ngram.Unigram;
+import edu.emory.clir.clearnlp.coreference.config.MentionConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.EnglishMention;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
@@ -36,6 +37,12 @@ import edu.emory.clir.clearnlp.util.StringUtils;
  */
 public abstract class AbstractMentionDetector
 {
+	protected MentionConfiguration m_config;
+	
+	public AbstractMentionDetector(MentionConfiguration config){
+		m_config = config;
+	}
+	
 //	====================================== LEXICA ======================================
 	
 	protected void addDictionary(InputStream in, Unigram<String> map)
