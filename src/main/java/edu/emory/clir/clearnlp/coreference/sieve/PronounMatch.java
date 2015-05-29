@@ -15,8 +15,6 @@
  */
 package edu.emory.clir.clearnlp.coreference.sieve;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -24,10 +22,9 @@ import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.GenderType;
 import edu.emory.clir.clearnlp.coreference.type.PronounType;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
-import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.util.DSUtils;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -38,33 +35,14 @@ public class PronounMatch extends AbstractSieve {
 	
 	/* Argument infomation */
 	final private Pattern verb = Pattern.compile("VB[D||P||Z]{0,1}");
-	final private List<String> argumentSlot = new ArrayList<>(Arrays.asList(DEPTagEn.DEP_SUBJ, DEPTagEn.DEP_AGENT, DEPTagEn.DEP_DOBJ, DEPTagEn.DEP_IOBJ, DEPTagEn.DEP_POBJ));
+	final private List<String> argumentSlot = DSUtils.toArrayList(DEPTagEn.DEP_SUBJ, DEPTagEn.DEP_AGENT, DEPTagEn.DEP_DOBJ, DEPTagEn.DEP_IOBJ, DEPTagEn.DEP_POBJ); 
 	
 	private int getArgumentHierarchy(DEPNode node){
 		return argumentSlot.indexOf(node.getLabel());
 	}
 	
-	
 	@Override
-	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet mentionLinks) {
-		AbstractMention curr, prev;
-		int i, j, size = mentions.size();
-		
-		for (i=1; i<size; i++){
-			curr = mentions.get(i);
-			
-			for (j=i-1; j>=0; j--){
-				prev = mentions.get(j);
-				
-				if (match(prev, curr)){
-					mentionLinks.union(i, j, 0);
-					break;
-				}
-			}
-		}
-	}
-	
-	private boolean match(AbstractMention prev, AbstractMention curr){
+	protected boolean match(AbstractMention prev, AbstractMention curr){
 		return matchesGender(prev, curr) && matchesNumber(prev, curr) && matchesEntity(prev, curr); // && matchesPronoun(prev, curr);
 	}
 	

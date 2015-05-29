@@ -27,5 +27,24 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
  * @since 	Mar 23, 2015
  */
 abstract public class AbstractSieve{
-	abstract public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet mentionLinks);
+	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet mentionLinks){
+		AbstractMention curr, prev;
+		int i, j, size = mentions.size();
+		
+		for(i = size - 1; i > 0; i--){
+			curr = mentions.get(i);
+			
+			for(j = i - 1; j >= 0; j--){
+				prev = mentions.get(j);
+				
+				if(match(prev, curr)){
+					if(!mentionLinks.isSameSet(i, j)) 
+						mentionLinks.union(j, i);
+					break;
+				}
+			}
+		}
+	}
+	
+	abstract protected boolean match(AbstractMention prev, AbstractMention curr);
 }

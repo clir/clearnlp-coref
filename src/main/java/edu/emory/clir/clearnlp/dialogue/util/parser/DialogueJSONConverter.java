@@ -40,8 +40,8 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
  * @since 	May 24, 2015
  */
 public class DialogueJSONConverter {
-	private final static String ROOT_DIR = "/Users/HenryChen/Desktop/FriendScripts/season1/scene";
-	private final static String OUTPUT_PATH = "/Users/HenryChen/Desktop/FriendScripts/FriendScripts.json";
+	private final static String ROOT_DIR = "/Users/HenryChen/Box Sync/Coref/FriendScripts/season1/scene";
+	private final static String OUTPUT_PATH = "/Users/HenryChen/Box Sync/Coref/FriendScripts/FriendScripts.json";
 	private final static NLPDecoder decoder = new NLPDecoder(TLanguage.ENGLISH);
 	
 	public static void main(String[] args){
@@ -84,7 +84,7 @@ public class DialogueJSONConverter {
 					else{
 						statement_stripped = getStrippedStatement(statement);
 						trees = decoder.toDEPTrees(statement_stripped).stream().map(tree -> tree.toString()).collect(Collectors.toList());
-						scene.addUtterance(speakerId, statement, statement_stripped, trees);
+						scene.addUtterance(speakerId, statement, statement_stripped, trees);						
 					}	
 				}
 				reader.close();

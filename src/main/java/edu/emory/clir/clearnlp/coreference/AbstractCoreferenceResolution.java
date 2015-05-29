@@ -36,7 +36,6 @@ public abstract class AbstractCoreferenceResolution {
 	public AbstractCoreferenceResolution(TLanguage l){
 		language = l;
 	}
-
 	
 	// Mention Detection
 	public List<AbstractMention> getMentions(DEPTree tree){

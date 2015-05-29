@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import edu.emory.clir.clearnlp.coreference.config.MentionConfig;
+import edu.emory.clir.clearnlp.coreference.config.MentionConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
@@ -47,7 +47,7 @@ public class MentionDetectorTest {
 		PrintWriter writer = new PrintWriter(out);
 		
 		List<AbstractMention> mentions;
-		AbstractMentionDetector detector = new EnglishMentionDetector(new MentionConfig(true, true, true));
+		AbstractMentionDetector detector = new EnglishMentionDetector(new MentionConfiguration(true, true, true));
 		
 		for(DEPTree t : trees){
 			for(DEPNode n : t)	sb.append(n.getWordForm()+" ");

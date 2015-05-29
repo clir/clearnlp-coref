@@ -13,7 +13,9 @@ public class RelaxedStringMatch extends AbstractStringMatch{
 	}
 	
 	@Override
+	/* This is wrong! Relaxed String Match = Dropping relative clauses, PP, and participial modifiers */
 	protected String getWordSequence(AbstractMention mention){
-		return mention.getWordFrom();
+//		return mention.getWordFrom();
+		return null;
 	}
 }

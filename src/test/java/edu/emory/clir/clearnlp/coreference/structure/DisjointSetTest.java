@@ -28,9 +28,13 @@ public class DisjointSetTest {
 	@Test
 	public void main(){
 		
-		DisjointSet set = new DisjointSet(10, false);
+		DisjointSet set = new DisjointSet(10, true);
 		
-		System.out.println(set.union(1, 3));
-		System.out.println(set.union(3, 1));
+		set.union(1, 3, 0.8);	
+		set.union(3, 5, 0.8);
+		
+		System.out.println(set.find(5, 2));
+		
+		System.out.println(set);
 	}
 }

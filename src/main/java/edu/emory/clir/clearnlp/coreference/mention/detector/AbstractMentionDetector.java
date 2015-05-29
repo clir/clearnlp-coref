@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.ngram.Unigram;
-import edu.emory.clir.clearnlp.coreference.config.MentionConfig;
+import edu.emory.clir.clearnlp.coreference.config.MentionConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.EnglishMention;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
@@ -37,9 +37,9 @@ import edu.emory.clir.clearnlp.util.StringUtils;
  */
 public abstract class AbstractMentionDetector
 {
-	protected MentionConfig m_config;
+	protected MentionConfiguration m_config;
 	
-	public AbstractMentionDetector(MentionConfig config){
+	public AbstractMentionDetector(MentionConfiguration config){
 		m_config = config;
 	}
 	

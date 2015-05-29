@@ -38,6 +38,10 @@ public class Utterance implements Serializable{
 		trees = null;
 	}
 	
+	public int getTreeCount(){
+		return trees.size();
+	}
+	
 	public Utterance(int id, String raw, String stripped, List<String> treeList){
 		spearkerId = id;
 		utterance = raw;

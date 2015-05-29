@@ -47,6 +47,14 @@ public class Scene implements Serializable, Comparable<Scene>{
 		return sceneId;
 	}
 	
+	public int getUtteranceCount(){
+		return utterances.size();
+	}
+	
+	public List<Utterance> getUtterances(){
+		return utterances;
+	}
+	
 	public int addSpeaker(String speaker){
 		if(speaker == null) return -1;
 		if(!speakerIDs.containsValue(speaker))

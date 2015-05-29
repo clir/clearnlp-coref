@@ -16,6 +16,9 @@
 package edu.emory.clir.clearnlp.dialogue.structure;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -39,6 +42,12 @@ public class Season implements Serializable, Comparable<Season> {
 	
 	public int getId(){
 		return seasonId;
+	}
+	
+	public List<Episode> getEpisodes(){
+		List<Episode> list = new ArrayList<>(episodes.values());
+		Collections.sort(list);
+		return list;
 	}
 	
 	public Episode addEpisode(int id){

@@ -105,6 +105,10 @@ public abstract class AbstractMention implements Serializable {
 		return d_node;
 	}
 	
+	public DEPNode getHeadNode(){
+		return d_node.getHead();
+	}
+	
 	public EntityType getEntityType(){
 		return t_entity;
 	}
@@ -222,6 +226,18 @@ public abstract class AbstractMention implements Serializable {
 		return (mention.getSubTreeNodes() == null)? false :  mention.getSubTreeNodes().contains(getNode());
 	}
 	
+	public boolean matchNumberType(AbstractMention mention){
+		return mention.isNumberType(getNumberType());
+	}
+	
+	public boolean matchGenderType(AbstractMention mention){
+		return mention.isGenderType(getGenderType()) || isGenderType(GenderType.NEUTRAL) || mention.isGenderType(GenderType.NEUTRAL);
+	}
+	
+	public boolean hasSameHeadNode(AbstractMention mention){
+		return getNode().getHead() == mention.getNode().getHead();
+	}
+	
 	public boolean hasFeature(AttributeType type){
 		return m_attr.containsKey(type);
 	}
@@ -253,6 +269,7 @@ public abstract class AbstractMention implements Serializable {
 	
 	/* Abstract methods */
 	abstract public String getAcronym();
+	abstract public Set<String> getModifiers();
 	abstract public boolean isInAdjunctDomainOf(AbstractMention mention);
 	
 	@Override

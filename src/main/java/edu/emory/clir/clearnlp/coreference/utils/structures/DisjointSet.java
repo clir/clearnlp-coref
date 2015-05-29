@@ -38,28 +38,32 @@ public class DisjointSet implements Iterable<DoubleIntPair> {
 		}
 	}
 	
-	public int union(int id, int idx){
-		return union(id, idx, 1d);
+	public int union(int prev, int curr){
+		return union(prev, curr, 1d);
 	}
 	
-	public int union(int id, int idx, double score){
-		if(findHead(id) == idx)		s_root[id] = -1; 
-		if(s_confidence != null) 	s_confidence[idx] = score;
+	public int union(int prev, int curr, double score){
+		if(findHead(prev) == curr)		s_root[prev] = -1; 
+		if(s_confidence != null) 	s_confidence[curr] = score;
 		
-		s_root[idx] = id;
-		return findHead(id);
+		s_root[curr] = prev;
+		return findHead(prev);
 	}
 	
 	public int findHead(int id){
-		return (s_root[id] < 0)? id : findHead(s_root[id]); 
+		int head_id;
+		for(head_id = id; s_root[head_id] >= 0; head_id = s_root[head_id]);
+		return head_id;
 	}
 	
 	public int findClosest(int id){
-		return s_root[id]; 
+		return (s_root[id] >= 0)? s_root[id] : id; 
 	}
 	
 	public int find(int id, int rank){
-		return (s_root[id] < 0 || rank == 0)? id : find(s_root[id], --rank); 
+		int idx;
+		for(idx = id; s_root[idx] >= 0 && rank-- > 0; idx = s_root[idx]);
+		return idx; 
 	}
 	
 	public boolean isSameSet(int id, int idx){
@@ -71,7 +75,15 @@ public class DisjointSet implements Iterable<DoubleIntPair> {
 	}
 	
 	public double getHeadConfidence(int id){
-		return (id < 0)? s_confidence[id] : s_confidence[id] * getHeadConfidence(s_root[id]);
+		double confidence = s_confidence[id];
+		for(int curr_id = s_root[id]; curr_id >= 0; confidence*=s_confidence[curr_id], curr_id = s_root[curr_id]);
+		return confidence;
+	}
+	
+	public int getDistanceFromHead(int id){
+		int distance = 0;
+		for(int curr_id = s_root[id]; curr_id >= 0; distance++, curr_id = s_root[curr_id]);
+		return distance;
 	}
 	
 	@Override

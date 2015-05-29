@@ -20,12 +20,12 @@ package edu.emory.clir.clearnlp.coreference.config;
  * @version	1.0
  * @since 	May 27, 2015
  */
-public class MentionConfig {
+public class MentionConfiguration {
 	public boolean b_pronoun;
 	public boolean b_common;
 	public boolean b_proper;
 	
-	public MentionConfig(boolean pronoun, boolean common, boolean proper){
+	public MentionConfiguration(boolean pronoun, boolean common, boolean proper){
 		b_pronoun = pronoun;
 		b_common = common;
 		b_proper = proper;

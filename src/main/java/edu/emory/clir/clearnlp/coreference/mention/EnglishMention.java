@@ -15,6 +15,8 @@
  */
 package edu.emory.clir.clearnlp.coreference.mention;
 
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import edu.emory.clir.clearnlp.constituent.CTLibEn;
@@ -26,7 +28,10 @@ import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceStringUtils;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.pos.POSLibEn;
+import edu.emory.clir.clearnlp.pos.POSTagEn;
 import edu.emory.clir.clearnlp.util.Joiner;
+import edu.emory.clir.clearnlp.util.StringUtils;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -67,8 +72,8 @@ public class EnglishMention extends AbstractMention{
 
 	@Override
 	public String getAcronym() {
-		if(isNameEntity()){
-			String phrase = Joiner.join(getNode().getSubNodeList().stream()
+		if(getNode().isPOSTag(POSTagEn.POS_NNP) || getNode().isPOSTag(POSTagEn.POS_NNPS)){
+			String phrase = Joiner.join(getSubTreeNodes().stream()
 					.filter(node -> node.isPOSTag(CTLibEn.POS_NNP) || node.isPOSTag(CTLibEn.POS_NNPS))
 					.map(node -> node.getWordForm())
 					.collect(Collectors.toList()), " ");
@@ -84,5 +89,14 @@ public class EnglishMention extends AbstractMention{
 		if(head != null && adjuncHead != null)
 			return getNode().isLabel(DEPTagEn.DEP_POBJ) && adjuncHead.isLabel(DEPTagEn.DEP_PREP) && head == adjuncHead.getHead();
 		return false;
+	}
+
+	@Override
+	public Set<String> getModifiers() {
+		List<DEPNode> l_wordSequencesNodes = getNode().getDependentList();
+		return l_wordSequencesNodes.stream()
+				.filter(node -> POSLibEn.isNoun(node.getPOSTag()) || POSLibEn.isAdjective(node.getPOSTag()))
+				.map(node -> StringUtils.toLowerCase(node.getWordForm()))
+				.collect(Collectors.toSet());
 	}
 }

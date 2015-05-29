@@ -23,8 +23,10 @@ import java.util.List;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
+import edu.emory.clir.clearnlp.util.Joiner;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -66,7 +68,21 @@ public class CoreferenceTestUtil {
 		return getTestDocuments(path).subList(startIndex, endIndex);
 	}
 	
+	public static void printSentences(List<DEPTree> trees){
+		System.out.println("===== Sentences =====");
+		StringBuilder sb = new StringBuilder();
+		for(DEPTree tree : trees){
+			for(DEPNode node : tree){
+				sb.append(node.getWordForm());
+				sb.append(' ');
+			}
+			sb.append('\n');
+		}
+		System.out.println(sb.toString());
+	}
+	
 	public static void printCorefCluster(Pair<List<AbstractMention>, DisjointSet> resolution){
+		System.out.println("===== Clusters =====");
 		int i, linkedId, size =  resolution.o1.size();
 		
 		AbstractMention mention;
@@ -80,12 +96,13 @@ public class CoreferenceTestUtil {
 			if(linkedId == i)
 				System.out.println(i + ": " + mention.getWordFrom() + "\t(Singleton)");
 			else
-				System.out.println(i + ": " + mention.getWordFrom() + "\t<-\t" + linkedId + ": " + mentions.get(linkedId).getWordFrom());
+				System.out.println(i + ": " + mention.getWordFrom() + "\t->\t" + linkedId + ": " + mentions.get(linkedId).getWordFrom());
 		}	
 	}
 	
 	public static void printResolutionResult(Pair<List<AbstractMention>, DisjointSet> resolution){
-		System.out.println("===== Menions =====");	System.out.println(resolution.o1);
+		System.out.println("===== Menions =====");	System.out.println(Joiner.join(resolution.o1, "\n"));
+		System.out.println();
 		System.out.println("===== Results =====");	System.out.println(resolution.o2);
 	}
 }

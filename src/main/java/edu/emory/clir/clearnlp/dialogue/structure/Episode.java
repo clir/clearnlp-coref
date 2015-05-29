@@ -16,6 +16,9 @@
 package edu.emory.clir.clearnlp.dialogue.structure;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -39,6 +42,12 @@ public class Episode implements Serializable, Comparable<Episode> {
 	
 	public int getId(){
 		return episodeId;
+	}
+	
+	public List<Scene> getScenes(){
+		List<Scene> list = new ArrayList<>(scenes.values());
+		Collections.sort(list);
+		return list;
 	}
 	
 	public Scene addScene(int id){
