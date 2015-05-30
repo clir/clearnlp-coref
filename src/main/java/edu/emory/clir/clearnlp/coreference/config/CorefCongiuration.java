@@ -46,7 +46,7 @@ public class CorefCongiuration {
 		selectedSieves.add(new ExactStringMatch());	
 		selectedSieves.add(new RelaxedStringMatch());
 		selectedSieves.add(new PreciseConstructMatch());
-		selectedSieves.add(new StrictHeadMatch());
+//		selectedSieves.add(new StrictHeadMatch());
 		selectedSieves.add(new ProperHeadWordMatch());
 		selectedSieves.add(new PronounMatch());
 	}
@@ -59,7 +59,7 @@ public class CorefCongiuration {
 		if(properHeadWordMatch)	selectedSieves.add(new ProperHeadWordMatch());
 		if(pronunMatch)			selectedSieves.add(new PronounMatch());
 	}
-	
+
 	public List<AbstractSieve> getSieves(){
 		return selectedSieves;
 	}

@@ -15,7 +15,6 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
 /**
  * @author alexlutz
  * @version 1.0
- * need to add article mismatch here 
  */
 public class ProperHeadWordMatch extends AbstractSieve
 {
@@ -40,11 +39,14 @@ public class ProperHeadWordMatch extends AbstractSieve
 	
 	private boolean articleMatch(AbstractMention prev, AbstractMention curr)
 	{
-		String prevArticle = prev.getNode().getFirstDependentByLabel(DEPTagEn.DEP_ATTR).getWordForm();
-		String currArticle = curr.getNode().getFirstDependentByLabel(DEPTagEn.DEP_ATTR).getWordForm();
-		
-		if ((prevArticle.equalsIgnoreCase("a") || prevArticle.equalsIgnoreCase("the")) && currArticle.equalsIgnoreCase("the")) {
-			return true;
+		DEPNode prevNode = prev.getNode().getFirstDependentByLabel(DEPTagEn.DEP_ATTR);
+		DEPNode currNode = curr.getNode().getFirstDependentByLabel(DEPTagEn.DEP_ATTR);
+
+		if (prevNode != null && currNode != null) {
+			String prevArticle = prevNode.getWordForm(), currArticle = currNode.getWordForm();
+			if ((prevArticle.equalsIgnoreCase("a") || prevArticle.equalsIgnoreCase("the")) && currArticle.equalsIgnoreCase("the")) {
+				return true;
+			}
 		}
 		return false;
 	}

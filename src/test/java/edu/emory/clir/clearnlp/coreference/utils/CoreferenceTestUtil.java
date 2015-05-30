@@ -52,7 +52,7 @@ public class CoreferenceTestUtil {
 	}
 	
 	public static void printResolutionResult(Pair<List<AbstractMention>, DisjointSet> resolution){
-		System.out.println("===== Menions =====");	System.out.println(resolution.o1);
+		System.out.println("===== Mentions =====");	System.out.println(resolution.o1);
 		System.out.println("===== Results =====");	System.out.println(resolution.o2);
 	}
 }

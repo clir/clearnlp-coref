@@ -71,7 +71,7 @@ public class EnglishMention extends AbstractMention{
 			String phrase = Joiner.join(getNode().getSubNodeList().stream()
 					.filter(node -> node.isPOSTag(CTLibEn.POS_NNP) || node.isPOSTag(CTLibEn.POS_NNPS))
 					.map(node -> node.getWordForm())
-					.collect(Collectors.toCollection(ArrayList::new)), " ");
+					.collect(Collectors.toList()), " ");
 		
 			if(!phrase.isEmpty())	return CoreferenceStringUtils.getAllUpperCaseLetters(phrase);
 		}

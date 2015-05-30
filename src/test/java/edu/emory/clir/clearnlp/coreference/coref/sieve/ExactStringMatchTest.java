@@ -1,53 +1,39 @@
 package edu.emory.clir.clearnlp.coreference.coref.sieve;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Test;
-
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
-import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
+import edu.emory.clir.clearnlp.coreference.path.PathData;
 import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
-import edu.emory.clir.clearnlp.coreference.sieve.ProperHeadWordMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.PronounMatch;
+import edu.emory.clir.clearnlp.coreference.type.PronounType;
+import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSetWithConfidence;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
-import edu.emory.clir.clearnlp.reader.TSVReader;
-//need to fix
+import org.junit.Test;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * exact string is working correctly
+ * relaxed string match now working properly for decapitalized versions as well as capitalized
+ * predicate nominative is working correctly, appos works but can give incorrect results,
+ * fixed bug with ProperHeadWordMatch, numeric mismatch working correctly,
+ */
 public class ExactStringMatchTest
 {
 	@Test
 	public void test() throws IOException
 	{
-		AbstractSieve sieve = new ProperHeadWordMatch();
-		
-		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
-		reader.open(new FileInputStream("src/test/resources/edu/emory/clir/clearnlp/coreference/mention/input.mention.cnlp"));
-		
-		List<DEPTree> trees = new ArrayList<>();
-		
-		DEPTree tree;
-		while((tree = reader.next()) != null)
-			trees.add(tree);
-		
-		AbstractMentionDetector detector = new EnglishMentionDetector();
-		List<AbstractMention> mentions = detector.getMentionList(trees);
-		DisjointSetWithConfidence coreferences = new DisjointSetWithConfidence(mentions.size()); 
-		
-		long start = System.currentTimeMillis();
-		
-//		sieve.resolute(trees, mentions, coreferences);
-		
-		long end = System.currentTimeMillis();
-		
-		System.out.println(end - start);
-		
-		reader.close();
-		
-		System.out.println(sieve.getClass().toGenericString() + " " + coreferences.toString());
-		
-		System.out.println(mentions.get(0).getNode());
+//		AbstractSieve test = new ExactStringMatch(true);
+		AbstractSieve test = new PronounMatch();
+		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION, 130, 132);
+		DisjointSetWithConfidence set = new DisjointSetWithConfidence(10);
+		List<AbstractMention> list = new EnglishMentionDetector().getMentionList(trees);
+		test.resolute(trees, list, set);
+		System.out.println(list.toString());
+		System.out.println(set.toString());
+		System.out.println(list.stream().filter(x -> x.isPronounType(PronounType.INDEFINITE)).collect(Collectors.toList()));
 	}
 }

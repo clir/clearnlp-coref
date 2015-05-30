@@ -133,7 +133,6 @@ public class PreciseConstructMatch extends AbstractSieve
 
     private boolean predicateNominativeMatch(AbstractMention curr, AbstractMention prev)
     {
-//        Set<String> LV = new HashSet<>(Arrays.asList("be", "is", "am", "are", "seem", "been", "become", "appear"));
     	DEPNode p = prev.getNode();
     	DEPNode c = curr.getNode();
     	

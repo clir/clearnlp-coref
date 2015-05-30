@@ -1,7 +1,7 @@
 Joan found 70 seashells on the beach . 
 [Joan	(null)	PERSON	NEUTRAL	SINGULAR	null, seashells	(null)	COMMON	UNKNOWN	PLURAL	null, beach	(null)	COMMON	UNKNOWN	SINGULAR	null]
 
-she gave Sam some of her seashells . 
+she gave Sam some of her seashells .
 [she	(null)	PRONOUN	FEMALE	SINGULAR	SUBJECT, Sam	(null)	PERSON	NEUTRAL	SINGULAR	null, some	(null)	PRONOUN	NEUTRAL	SINGULAR	INDEFINITE, her	(null)	PRONOUN	FEMALE	SINGULAR	OBJECT, seashells	(null)	COMMON	UNKNOWN	PLURAL	null]
 
 She has 27 seashell left . 

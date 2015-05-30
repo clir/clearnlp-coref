@@ -16,8 +16,4 @@ public class RelaxedStringMatch extends AbstractStringMatch{
 	protected String getWordSequence(AbstractMention mention){
 		return mention.getWordFrom();
 	}
-	
-	protected boolean match(AbstractMention prev, AbstractMention curr){
-		return prev.getWordFrom().equals(curr.getWordFrom());
-	}
 }
