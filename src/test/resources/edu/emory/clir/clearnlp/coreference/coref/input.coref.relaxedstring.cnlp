@@ -1,0 +1,34 @@
+1	Clinton	clinton	NNP	_	9	nsubj	_	_	U-PERSON
+2	,	,	,	_	1	punct	_	_	O
+3	whose	whose	WP$	_	4	poss	_	_	O
+4	term	term	NN	_	5	nsubj	_	_	O
+5	ends	end	VBZ	_	1	relcl	_	_	O
+6	in	in	IN	_	5	prep	_	_	O
+7	January	january	NNP	_	6	pobj	_	_	U-DATE
+8	,	,	,	_	9	punct	_	_	O
+9	is	be	VBZ	_	0	root	_	_	O
+10	a	a	DT	_	14	det	_	_	O
+11	well	well	RB	_	13	advmod	_	_	O
+12	-	-	HYPH	_	13	punct	_	_	O
+13	known	know	VBN	_	14	amod	_	_	O
+14	president	president	NN	_	9	attr	_	_	O
+15	.	.	.	_	9	punct	_	_	O
+
+1	Clinton	clinton	NNP	_	2	nsubj	_	_	U-PERSON
+2	is	be	VBZ	_	0	root	_	_	O
+3	my	my	PRP$	_	4	poss	_	_	O
+4	favorite	favorite	NN	p2=JJ	2	attr	_	_	O
+5	!	!	.	_	2	punct	_	_	O
+
+1	The	the	DT	_	3	det	_	_	O
+2	broken	broken	JJ	p2=VBN	3	amod	_	_	O
+3	glass	glass	NN	_	4	nsubj	_	_	O
+4	cut	cut	VBD	_	0	root	_	_	O
+5	me	me	PRP	_	4	dobj	_	_	O
+6	.	.	.	_	4	punct	_	_	O
+
+1	The	the	DT	_	2	det	_	_	O
+2	glass	glass	NN	_	3	nsubj	_	_	O
+3	is	be	VBZ	_	0	root	_	_	O
+4	bad	bad	JJ	_	3	acomp	_	_	O
+5	.	.	.	_	3	punct	_	_	O

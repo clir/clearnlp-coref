@@ -44,9 +44,11 @@ public class RelaxedStringMatchTest {
 		config.mountSieves(new RelaxedStringMatch(true));
 		
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config); 
-		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION, 0, 4);
+		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_COREF_RELAXED_STRING, 2, 4, 9);
+//		List<DEPTree> trees = new NLPDecoder(TLanguage.ENGLISH).toDEPTrees("The broken glass cut me. The glass is bad.");
 		
 		Pair<List<AbstractMention>, DisjointSet> resolution = coref.getEntities(trees);
+		
 		CoreferenceTestUtil.printSentences(trees);
 		CoreferenceTestUtil.printResolutionResult(resolution);
 		CoreferenceTestUtil.printCorefCluster(resolution);
