@@ -18,6 +18,7 @@ package edu.emory.clir.clearnlp.coreference.utils.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.emory.clir.clearnlp.collection.pair.IntIntPair;
 import edu.emory.clir.clearnlp.constituent.CTLibEn;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -30,23 +31,30 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
 public class CoreferenceDSUtils {
 	
 	public static <T extends Comparable<T>>boolean isSequence(T o1, T o2, T o3){
-		return o1.compareTo(o2) < 0 && o2.compareTo(o3) < 0;
+		return o1.compareTo(o2) <= 0 && o2.compareTo(o3) <= 0;
 	}
 	
-	public static List<int[]> getQuotaionIndices(DEPTree tree){
-		List<int[]> list = new ArrayList<>();
+	public static List<IntIntPair[]> getQuotaionIndices(List<DEPTree> trees){
+		List<IntIntPair[]> list = new ArrayList<>();
 		
-		int start = -1, end = -1;
-		for(DEPNode node : tree){
-			if(node.isPOSTag(CTLibEn.POS_LQ))	start = node.getID();
-			else if(node.isPOSTag(CTLibEn.POS_RQ))	end = node.getID();
-			
-			if(start >= 0 && end >= 0){
-				list.add(new int[]{start, end});
-				start = -1;	end = -1;
+		DEPTree tree;
+		int treeIndex, size = trees.size();
+		IntIntPair leftQuote = null, rightQuote = null;
+		
+		for(treeIndex = 0; treeIndex < size; treeIndex++){
+			tree = trees.get(treeIndex);
+			for(DEPNode node : tree){
+				
+				if(node.isPOSTag(CTLibEn.POS_LQ))		leftQuote = new IntIntPair(treeIndex, node.getID()); 
+				else if(node.isPOSTag(CTLibEn.POS_RQ))	rightQuote = new IntIntPair(treeIndex, node.getID());
+				
+				if(leftQuote != null && rightQuote != null){
+					list.add(new IntIntPair[]{leftQuote, rightQuote});
+					leftQuote = null;	rightQuote = null;
+				}
 			}
 		}
-		
+
 		return list;
 	}
 	

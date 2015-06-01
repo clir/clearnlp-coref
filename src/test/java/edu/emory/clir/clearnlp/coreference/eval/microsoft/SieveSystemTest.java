@@ -41,8 +41,8 @@ public class SieveSystemTest {
 	public void test(){
 		/* Configuration */
 		CorefCongiuration config = new CorefCongiuration();
-		config.loadMentionDectors(true, false, true);
-		config.loadDefaultSieves(true, false, false, false, false, false);
+		config.loadMentionDectors(true, true, true);
+		config.loadDefaultSieves(true, true, false, false, false, false, false);
 		/* ************* */
 		
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
@@ -54,8 +54,8 @@ public class SieveSystemTest {
 			trees = CoreferenceTestUtil.getTestDocuments(filePath, 9);
 			resolution = coref.getEntities(trees);
 			
+			CoreferenceTestUtil.printSentences(trees);
 			CoreferenceTestUtil.printResolutionResult(resolution);
-			System.out.println();
 			CoreferenceTestUtil.printCorefCluster(resolution);
 			break;
 		}

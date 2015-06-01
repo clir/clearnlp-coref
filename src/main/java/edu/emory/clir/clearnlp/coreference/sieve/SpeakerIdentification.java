@@ -65,13 +65,12 @@ public class SpeakerIdentification extends AbstractSieve{
 
 		if(curr.matchNumberType(prev) && curr.matchGenderType(prev)){
 			
-			
 			if(bothInQuote(prev, curr)) {
 				if(bothInSameQuote(prev, curr) && (isBothFirstPerson(prevWord, currWord) || isBothThirdPerson(prevWord, currWord)))
 					return true;
 			}
 			else if(oneInQuote(prev, curr)) {
-				System.out.println(prev + "\t<-\t" + curr);
+				
 				if( (isFirstPerson(prevWord) && curr.isEntityType(EntityType.PERSON) && reportingVerbs.contains(curr.getHeadNode().getLemma())) ||
 					(isFirstPerson(currWord) && prev.isEntityType(EntityType.PERSON) && reportingVerbs.contains(prev.getHeadNode().getLemma())) )
 					return true;
