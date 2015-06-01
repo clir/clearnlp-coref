@@ -34,8 +34,7 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
  * might want to look more into versions of Strict Head Match
  * might want to add Relaxed Head Match?
  */
-public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolution 
-{
+public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolution {
 	private List<AbstractSieve> sieves;
 	
 	public SieveSystemCoreferenceResolution(CorefCongiuration config){
@@ -63,5 +62,11 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 		for(AbstractSieve sieve : sieves) sieve.resolute(trees, mentions, mentionLinks);
 		
 		return new Pair<List<AbstractMention>, DisjointSet>(mentions, mentionLinks);
+	}
+
+	@Override
+	protected boolean isSameEntity(List<AbstractMention> mentions, DisjointSet mentionLinks) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
