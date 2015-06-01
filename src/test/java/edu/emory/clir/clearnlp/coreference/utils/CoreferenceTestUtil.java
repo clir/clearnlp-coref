@@ -101,7 +101,7 @@ public class CoreferenceTestUtil {
 	}
 	
 	public static void printResolutionResult(Pair<List<AbstractMention>, DisjointSet> resolution){
-		System.out.println("===== Menions =====");	System.out.println(Joiner.join(resolution.o1, "\n"));
+		System.out.println("===== Mentions =====");	System.out.println(Joiner.join(resolution.o1, "\n"));
 		System.out.println();
 		System.out.println("===== Results =====");	System.out.println(resolution.o2);
 	}

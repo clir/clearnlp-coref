@@ -43,23 +43,9 @@ public class PronounMatch extends AbstractSieve {
 	
 	@Override
 	protected boolean match(AbstractMention prev, AbstractMention curr){
-		return matchesGender(prev, curr) && matchesNumber(prev, curr) && matchesEntity(prev, curr); // && matchesPronoun(prev, curr);
-	}
-	
-	private boolean matchesGender(AbstractMention prev, AbstractMention curr){
-		if(curr.isGenderType(GenderType.NEUTRAL) || prev.isGenderType(GenderType.NEUTRAL))
-			return !curr.isGenderType(GenderType.UNKNOWN) && !prev.isGenderType(GenderType.UNKNOWN);
-		return curr.getGenderType() == prev.getGenderType();
-	}
-	
-	private boolean matchesNumber(AbstractMention prev, AbstractMention curr){
-		return curr.isNumberType(prev.getNumberType());
-	}
-	
-	private boolean matchesEntity(AbstractMention prev, AbstractMention curr){
-		if(curr.isNameEntity())
-			return prev.getEntityType() == curr.getEntityType();
-		return !curr.isEntityType(EntityType.UNKNOWN) || prev.getEntityType() == curr.getEntityType();
+		if(curr.getWordFrom().equals("Sam"))
+			System.out.println(prev.getWordFrom() + "-" + prev.isNameEntity() + " " + curr.getWordFrom() + "-" + curr.isNameEntity());
+		return curr.matchGenderType(prev) && curr.matchNumberType(prev) && curr.matchEntityType(prev); // && matchesPronoun(prev, curr);
 	}
 	
 	private boolean matchesPronoun(AbstractMention prev, AbstractMention curr){

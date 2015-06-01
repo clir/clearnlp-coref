@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.utils.retriever.friends;
+package edu.emory.clir.clearnlp.dialogue.friends;
 
 import java.io.BufferedWriter;
 import java.io.File;

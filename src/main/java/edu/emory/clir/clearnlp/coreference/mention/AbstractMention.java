@@ -226,6 +226,13 @@ public abstract class AbstractMention implements Serializable {
 		return (mention.getSubTreeNodes() == null)? false :  mention.getSubTreeNodes().contains(getNode());
 	}
 	
+	public boolean matchEntityType(AbstractMention mention){
+		if(isNameEntity() && mention.isNameEntity())	return getEntityType() == mention.getEntityType() && getSubTreeWordSequence().equals(mention.getSubTreeWordSequence());
+		else if(isNameEntity())							return mention.isPronounType(PronounType.SUBJECT) || mention.isPronounType(PronounType.OBJECT);
+		else if(mention.isNameEntity())					return isPronounType(PronounType.SUBJECT) || isPronounType(PronounType.OBJECT);
+		return !isEntityType(EntityType.UNKNOWN) || getEntityType() == mention.getEntityType();
+	}
+	
 	public boolean matchNumberType(AbstractMention mention){
 		return mention.isNumberType(getNumberType());
 	}

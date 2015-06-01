@@ -48,4 +48,5 @@ public abstract class AbstractCoreferenceResolution {
 	
 	// Coreference Resolution
 	public abstract Pair<List<AbstractMention>, DisjointSet> getEntities(List<DEPTree> trees);
+	protected abstract boolean isSameEntity(List<AbstractMention> mentions, DisjointSet mentionLinks);
 }
