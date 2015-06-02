@@ -26,57 +26,46 @@ import edu.emory.clir.clearnlp.coreference.sieve.ProperHeadWordMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.SpeakerIdentification;
 import edu.emory.clir.clearnlp.coreference.sieve.StrictHeadMatch;
+import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
  * @since 	May 21, 2015
  */
-public class CorefCongiuration {
-	private MentionConfiguration mention_config;
+public class SieveSystemCongiuration extends AbstractCorefConfiguration{
 	private List<AbstractSieve> selectedSieves;
 	
-	public CorefCongiuration(){
+	public SieveSystemCongiuration(TLanguage lang){
+		super(lang);
 		selectedSieves = new ArrayList<>();
 	}
 	
-	public void  loadDefaultMentionDectors(){
-		loadMentionDectors(true, true, true);
-	}
-	
-	public void  loadMentionDectors(boolean pronoun, boolean common, boolean proper){
-		mention_config = new MentionConfiguration(pronoun, common, proper);
+	public List<AbstractSieve> getSieves(){
+		return selectedSieves;
 	}
 	
 	public void mountSieves(AbstractSieve... sieves){
 		for(AbstractSieve sieve : sieves)	selectedSieves.add(sieve);
 	}
 	
-	public void loadDefaultSieves(){	
+	public void loadDefaultSieves(boolean decapitalize){	
 		selectedSieves.add(new SpeakerIdentification());
-		selectedSieves.add(new ExactStringMatch());	
-		selectedSieves.add(new RelaxedStringMatch());
+		selectedSieves.add(new ExactStringMatch(decapitalize));	
+		selectedSieves.add(new RelaxedStringMatch(decapitalize));
 		selectedSieves.add(new PreciseConstructMatch());
 		selectedSieves.add(new StrictHeadMatch());
 		selectedSieves.add(new ProperHeadWordMatch());
 		selectedSieves.add(new PronounMatch());
 	}
 	
-	public void loadDefaultSieves(boolean speakerIdentification, boolean exactStringMatch, boolean relaxedStringMatch, boolean preciseContuctMatch, boolean stringHeadMatch, boolean properHeadWordMatch, boolean pronunMatch){
+	public void loadDefaultSieves(boolean decapitalize, boolean speakerIdentification, boolean exactStringMatch, boolean relaxedStringMatch, boolean preciseContuctMatch, boolean stringHeadMatch, boolean properHeadWordMatch, boolean pronunMatch){
 		if(speakerIdentification) 	selectedSieves.add(new SpeakerIdentification());
-		if(exactStringMatch) 	selectedSieves.add(new ExactStringMatch());	
-		if(relaxedStringMatch)	selectedSieves.add(new RelaxedStringMatch());
+		if(exactStringMatch) 	selectedSieves.add(new ExactStringMatch(decapitalize));	
+		if(relaxedStringMatch)	selectedSieves.add(new RelaxedStringMatch(decapitalize));
 		if(preciseContuctMatch)	selectedSieves.add(new PreciseConstructMatch());
 		if(stringHeadMatch)		selectedSieves.add(new StrictHeadMatch());
 		if(properHeadWordMatch)	selectedSieves.add(new ProperHeadWordMatch());
 		if(pronunMatch)			selectedSieves.add(new PronounMatch());
-	}
-	
-	public MentionConfiguration getMentionConfig(){
-		return mention_config;
-	}
-	
-	public List<AbstractSieve> getSieves(){
-		return selectedSieves;
 	}
 }
