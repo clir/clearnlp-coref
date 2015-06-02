@@ -67,30 +67,33 @@ public abstract class AbstractMentionDetector
 
 //	====================================== GETTER ======================================
 
-	public List<AbstractMention> getMentionList(List<DEPTree> trees)
-	{
+	public List<AbstractMention> getMentionList(List<DEPTree> trees){
+		int treeCount = 0;
 		List<AbstractMention> list = new ArrayList<>();
 		
-		for (DEPTree tree : trees) list.addAll(getMentionList(tree));
+		for (DEPTree tree : trees) 
+			list.addAll(getMentionList(treeCount++, tree));
+		processMentions(trees, list);
 		
 		return list;
 	}
+
+	public List<AbstractMention> getMentionList(DEPTree tree){
+		return getMentionList(-1, tree);
+	}
 	
-	public List<AbstractMention> getMentionList(DEPTree tree)
-	{
+	public List<AbstractMention> getMentionList(int treeId, DEPTree tree){
 		List<AbstractMention> list = new ArrayList<>();
 		EnglishMention mention;
 		
 		for (DEPNode node : tree){
-			mention = getMention(tree, node);
+			mention = getMention(treeId, tree, node);
 			if (mention != null) list.add(mention);
 		}
-		
-		processMentions(tree, list);
 		
 		return list;
 	}
 	
-	public abstract EnglishMention getMention(DEPTree tree, DEPNode node);
-	protected abstract void processMentions(DEPTree tree, List<AbstractMention> mentions);
+	public abstract EnglishMention getMention(int treeId, DEPTree tree, DEPNode node);
+	protected abstract void processMentions(List<DEPTree> tree, List<AbstractMention> mentions);
 }

@@ -49,6 +49,10 @@ public class CoreferenceTestUtil {
 		return trees;
 	}
 	
+	public static List<DEPTree> getTestDocuments(String path, int startIndex, int endIndex, int NERpos){
+		return getTestDocuments(path, NERpos).subList(startIndex, endIndex);
+	}
+	
 	public static List<DEPTree> getTestDocuments(String path, int NERpos){
 		DEPTree tree;
 		List<DEPTree> trees = new ArrayList<>();

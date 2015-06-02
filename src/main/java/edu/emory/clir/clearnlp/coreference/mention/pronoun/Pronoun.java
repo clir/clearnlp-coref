@@ -79,8 +79,8 @@ public class Pronoun implements Serializable{
 		p_type = PronounType.valueOf(p);
 	}
 	
-	public EnglishMention toMention(DEPTree tree, DEPNode node){
-		EnglishMention mention = new EnglishMention(tree, node);
+	public EnglishMention toMention(int t_id, DEPTree tree, DEPNode node){
+		EnglishMention mention = new EnglishMention(t_id, tree, node);
 		mention.setEntityType(e_type);
 		mention.setGenderType(g_type);
 		mention.setNumberType(n_type);

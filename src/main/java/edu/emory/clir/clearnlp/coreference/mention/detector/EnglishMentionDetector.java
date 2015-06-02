@@ -17,6 +17,7 @@ package edu.emory.clir.clearnlp.coreference.mention.detector;
 
 import java.util.List;
 
+import edu.emory.clir.clearnlp.collection.pair.IntIntPair;
 import edu.emory.clir.clearnlp.coreference.config.MentionConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.EnglishMention;
@@ -52,41 +53,41 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 //	====================================== MENTION TYPE ======================================
 	
 	@Override
-	public EnglishMention getMention(DEPTree tree, DEPNode node){
+	public EnglishMention getMention(int treeId, DEPTree tree, DEPNode node){
 		EnglishMention mention;
 		
-		if (m_config.b_pronoun && (mention = getPronounMention(tree, node)) != null )	return mention;
-		if (m_config.b_common && (mention = getCommonMention(tree, node)) != null)	return mention;
-		if (m_config.b_proper && (mention = getPersonMention (tree, node)) != null)	return mention;
+		if (m_config.b_pronoun && (mention = getPronounMention(treeId, tree, node)) != null )	return mention;
+		if (m_config.b_common && (mention = getCommonMention(treeId, tree, node)) != null)	return mention;
+		if (m_config.b_proper && (mention = getPersonMention (treeId, tree, node)) != null)	return mention;
 		
 		return null;
 	}
 	
-	protected EnglishMention getPronounMention(DEPTree tree, DEPNode node){
+	protected EnglishMention getPronounMention(int treeId, DEPTree tree, DEPNode node){
 		
 		if (pronounDetector.isPronoun(tree, node)){
 			Pronoun pronoun = pronounDetector.getPronoun(tree, node);
-			if(pronoun != null) return pronoun.toMention(tree, node);
+			if(pronoun != null) return pronoun.toMention(treeId, tree, node);
 		}
 		
 		return null;
 	}
 	
-	protected EnglishMention getCommonMention(DEPTree tree, DEPNode node){
+	protected EnglishMention getCommonMention(int treeId, DEPTree tree, DEPNode node){
 		
 		if (commonNounDetector.isCommonNoun(tree, node)){
 			CommonNoun commonNoun = commonNounDetector.getCommonNoun(tree, node);
-			if(commonNoun != null) return commonNoun.toMention(tree, node);
+			if(commonNoun != null) return commonNoun.toMention(treeId, tree, node);
 		}
 		
 		return null;
 	}
 
-	protected EnglishMention getPersonMention(DEPTree tree, DEPNode node){
+	protected EnglishMention getPersonMention(int treeId, DEPTree tree, DEPNode node){
 		
 		if (properNounDetector.isProperNoun(tree, node)){
 			ProperNoun properNoun = properNounDetector.getProperNoun(tree, node);
-			if(properNoun != null) return properNoun.toMention(tree, node);
+			if(properNoun != null) return properNoun.toMention(treeId, tree, node);
 		}
 		
 		return null;
@@ -94,27 +95,35 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 	
 //	====================================== MENTION ATTR ======================================
 	@Override
-	protected void processMentions(DEPTree tree, List<AbstractMention> mentions){
+	protected void processMentions(List<DEPTree> trees, List<AbstractMention> mentions){
 		
-		List<int[]> boundaries = CoreferenceDSUtils.getQuotaionIndices(tree);
+		List<IntIntPair[]> boundaries = CoreferenceDSUtils.getQuotaionIndices(trees);
 		
 		DEPNode curr;
+		IntIntPair[] boundary;
 		AbstractMention mention_prev, mention_curr;
-		int[] boundary;
-		int i, j, pos, m_size = mentions.size(), b_size = boundaries.size();
+		int i, j, n_pos, t_pos, m_size = mentions.size(), b_size = boundaries.size();
 		
 		for(i = 0; i < m_size; i++){
 			mention_curr = mentions.get(i);
 			mention_prev = (i > 0)? mentions.get(i-1) : null;
 			
 			/** Inside quotation detection **/
-			pos = mention_curr.getNode().getID();
+			t_pos = mention_curr.getTreeId();
+			n_pos = mention_curr.getNode().getID();
 			for(j = 0; j < b_size; j++){
 				boundary = boundaries.get(j);
-				if(boundary[0] > pos)	break;
-				if(CoreferenceDSUtils.isSequence(boundary[0], pos, boundary[1])){
-					mention_curr.addAttribute(AttributeType.QUOTE, j);
-					break;
+				if(CoreferenceDSUtils.isSequence(boundary[0].i1, t_pos, boundary[1].i1)){			// LQ_TreeID <= t_pos <= RQ_TreeID
+					if(boundary[0].i1 == boundary[1].i1){											// LQ_TreeID == t_pos == RQ_TreeID
+						if(CoreferenceDSUtils.isSequence(boundary[0].i2, n_pos, boundary[1].i2)){	// LQ_NodeId <= n_pos <= RQ_NodeId
+							mention_curr.addAttribute(AttributeType.QUOTE, j);	break;
+						}
+					}
+					else if((boundary[0].i1 < t_pos && t_pos < boundary[1].i1) ||		// LQ_TreeId < t_pos < RQ_TreeId
+							(boundary[0].i1 == t_pos && boundary[0].i2 < n_pos) ||		// LQ_TreeID == t_pos && LQ_NodeId < n_pos
+							(boundary[1].i1 == t_pos && boundary[1].i2 > n_pos) ){		// RQ_TreeID == t_pos && RQ_NodeId > n_pos
+						mention_curr.addAttribute(AttributeType.QUOTE, j);	break;
+					}
 				}
 			}
 			
