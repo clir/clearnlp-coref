@@ -71,8 +71,8 @@ public class SpeakerIdentification extends AbstractSieve{
 			}
 			else if(oneInQuote(prev, curr)) {
 				
-				if( (isFirstPerson(prevWord) && curr.isEntityType(EntityType.PERSON) && reportingVerbs.contains(curr.getHeadNode().getLemma())) ||
-					(isFirstPerson(currWord) && prev.isEntityType(EntityType.PERSON) && reportingVerbs.contains(prev.getHeadNode().getLemma())) )
+				if( (isFirstPerson(prevWord) && reportingVerbs.contains(curr.getHeadNode().getLemma())) ||	// && prev.isEntityType(EntityType.PERSON) ?
+					(isFirstPerson(currWord) && reportingVerbs.contains(prev.getHeadNode().getLemma())) )	// && prev.isEntityType(EntityType.PERSON) ?
 					return true;
 			}
 		}

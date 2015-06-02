@@ -42,7 +42,7 @@ public class SieveSystemTest {
 		/* Configuration */
 		CorefCongiuration config = new CorefCongiuration();
 		config.loadMentionDectors(true, true, true);
-		config.loadDefaultSieves(true, true, false, false, false, false, false);
+		config.loadDefaultSieves(true, false, false, false, false, false, false);
 		/* ************* */
 		
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);

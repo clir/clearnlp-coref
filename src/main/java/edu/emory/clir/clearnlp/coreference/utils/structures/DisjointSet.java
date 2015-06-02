@@ -15,6 +15,7 @@
  */
 package edu.emory.clir.clearnlp.coreference.utils.structures;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -25,7 +26,8 @@ import edu.emory.clir.clearnlp.collection.pair.DoubleIntPair;
  * @version	1.0
  * @since 	May 27, 2015
  */
-public class DisjointSet implements Iterable<DoubleIntPair> {
+public class DisjointSet implements Serializable, Iterable<DoubleIntPair> {
+	private static final long serialVersionUID = 3976817040635652271L;
 	private int[] s_root;
 	private double[] s_confidence;
 	

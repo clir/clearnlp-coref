@@ -30,7 +30,7 @@ public class RelaxedStringMatch extends AbstractStringMatch{
 		removePunctuations(l_subNodes, node);
 		removeRelativeClause(l_subNodes, node);
 		removePrepositionalMod(l_subNodes, node);
-		removeParticipialMod(l_subNodes, node);
+//		removeParticipialMod(l_subNodes, node);
 
 		return Joiner.join(l_subNodes.stream().map(n -> n.getWordForm()).collect(Collectors.toList()), " ");
 	}
