@@ -15,20 +15,22 @@
  */
 package edu.emory.clir.clearnlp.coreference.coref.sieve;
 
+import java.io.IOException;
+import java.util.List;
+
+import org.junit.Test;
+
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
-import edu.emory.clir.clearnlp.coreference.config.CorefConfiguration;
+import edu.emory.clir.clearnlp.coreference.config.SieveSystemCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
 import edu.emory.clir.clearnlp.coreference.sieve.StrictHeadMatch;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
-import org.junit.Test;
-
-import java.io.IOException;
-import java.util.List;
+import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -38,7 +40,7 @@ import java.util.List;
 public class StrictHeadMatchTest {
 	@Test
 	public void testStrictHeadMatch() throws IOException{
-		CorefConfiguration config = new CorefConfiguration();
+		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
 		config.loadDefaultMentionDectors();
 		config.mountSieves(new StrictHeadMatch());
 		

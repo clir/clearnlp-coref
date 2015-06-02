@@ -18,13 +18,12 @@ package edu.emory.clir.clearnlp.coreference;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
-import edu.emory.clir.clearnlp.coreference.config.CorefConfiguration;
+import edu.emory.clir.clearnlp.coreference.config.SieveSystemCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
-import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -37,10 +36,10 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
 public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolution {
 	private List<AbstractSieve> sieves;
 	
-	public SieveSystemCoreferenceResolution(CorefConfiguration config){
+	public SieveSystemCoreferenceResolution(SieveSystemCongiuration config){
 		
 		// Mention Detector declaration
-		super(TLanguage.ENGLISH);
+		super(config);
 		if(config.getMentionConfig() == null)	
 			throw new IllegalArgumentException("Mention detector configuration not sepecified.");
 		m_detector = new EnglishMentionDetector(config.getMentionConfig());
