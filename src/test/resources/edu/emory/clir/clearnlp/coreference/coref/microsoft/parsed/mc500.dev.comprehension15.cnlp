@@ -1,0 +1,197 @@
+1	Tammy	tammy	NNP	_	2	nsubj	_	_	U-PERSON
+2	was	be	VBD	_	0	root	_	_	O
+3	a	a	DT	_	5	det	_	_	O
+4	purple	purple	JJ	_	5	amod	_	_	O
+5	tiger	tiger	NN	_	2	attr	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	She	she	PRP	_	2	nsubj	_	_	O
+2	was	be	VBD	_	0	root	_	_	O
+3	friends	friend	NNS	_	2	attr	_	_	O
+4	with	with	IN	_	3	prep	_	_	O
+5	Bobby	bobby	NNP	_	4	pobj	_	_	U-PERSON
+6	the	the	DT	_	8	det	_	_	O
+7	blue	blue	JJ	_	8	amod	_	_	O
+8	bird	bird	NN	_	3	appos	_	_	O
+9	.	.	.	_	2	punct	_	_	O
+
+1	They	they	PRP	_	2	nsubj	_	_	O
+2	were	be	VBD	_	6	ccomp	_	_	O
+3	hungry	hungry	JJ	_	2	acomp	_	_	O
+4	so	so	RB	_	6	advmod	_	_	O
+5	they	they	PRP	_	6	nsubj	_	_	O
+6	went	go	VBD	_	0	root	_	_	O
+7	to	to	IN	_	6	prep	_	_	O
+8	the	the	DT	_	9	det	_	_	O
+9	store	store	NN	_	7	pobj	_	_	O
+10	together	together	RB	_	6	advmod	_	_	O
+11	.	.	.	_	6	punct	_	_	O
+
+1	At	at	IN	_	5	prep	_	_	O
+2	the	the	DT	_	3	det	_	_	O
+3	store	store	NN	_	1	pobj	_	_	O
+4	they	they	PRP	_	5	nsubj	_	_	O
+5	saw	see	VBD	_	0	root	_	_	O
+6	some	some	DT	_	7	det	_	_	O
+7	friends	friend	NNS	_	5	dobj	_	_	O
+8	.	.	.	_	5	punct	_	_	O
+
+1	They	they	PRP	_	2	nsubj	_	_	O
+2	saw	see	VBD	_	0	root	_	_	O
+3	Pat	pat	NNP	_	2	dobj	_	_	U-PERSON
+4	the	the	DT	_	6	det	_	_	O
+5	pink	pink	NN	p2=JJ	6	compound	_	_	O
+6	panther	panther	NN	p2=NNP	3	appos	_	_	O
+7	.	.	.	_	2	punct	_	_	O
+
+1	They	they	PRP	_	3	nsubj	_	_	O
+2	also	also	RB	_	3	advmod	_	_	O
+3	saw	see	VBD	_	0	root	_	_	O
+4	Roger	roger	NNP	_	3	dobj	_	_	U-PERSON
+5	the	the	DT	_	7	det	_	_	O
+6	red	red	JJ	_	7	amod	_	_	O
+7	rabbit	rabbit	NN	_	4	appos	_	_	O
+8	.	.	.	_	3	punct	_	_	O
+
+1	Pat	pat	NNP	_	2	nsubj	_	_	U-PERSON
+2	bought	buy	VBD	_	0	root	_	_	O
+3	potatoes	potato	NNS	_	2	dobj	_	_	O
+4	and	and	CC	_	3	cc	_	_	O
+5	eggs	egg	NNS	_	3	conj	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	Roger	roger	NNP	_	2	nsubj	_	_	U-PERSON
+2	bought	buy	VBD	_	0	root	_	_	O
+3	carrots	carrot	NNS	_	2	dobj	_	_	O
+4	and	and	CC	_	3	cc	_	_	O
+5	celery	celery	NN	p2=JJ	3	conj	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	Tammy	tammy	NNP	_	2	nsubj	_	_	U-PERSON
+2	bought	buy	VBD	_	0	root	_	_	O
+3	some	some	DT	_	4	det	_	_	O
+4	salad	salad	NN	_	2	dobj	_	_	O
+5	.	.	.	_	2	punct	_	_	O
+
+1	Tammy	tammy	NNP	_	3	nsubj	_	_	U-PERSON
+2	also	also	RB	_	3	advmod	_	_	O
+3	bought	buy	VBD	_	0	root	_	_	O
+4	a	a	DT	_	5	det	_	_	O
+5	pizza	pizza	NN	_	3	dobj	_	_	O
+6	.	.	.	_	3	punct	_	_	O
+
+1	Bobby	bobby	NNP	_	2	nsubj	_	_	U-PERSON
+2	bought	buy	VBD	p2=VBN	0	root	_	_	O
+3	seeds	seed	NNS	_	2	dobj	_	_	O
+4	.	.	.	_	2	punct	_	_	O
+
+1	They	they	PRP	_	3	nsubj	_	_	O
+2	all	all	DT	_	1	appos	_	_	O
+3	wanted	want	VBD	_	0	root	_	_	O
+4	to	to	TO	_	5	aux	_	_	O
+5	eat	eat	VB	_	3	xcomp	_	_	O
+6	dinner	dinner	NN	_	5	dobj	_	_	O
+7	.	.	.	_	3	punct	_	_	O
+
+1	They	they	PRP	_	2	nsubj	_	_	O
+2	went	go	VBD	_	0	root	_	_	O
+3	back	back	RB	_	2	advmod	_	_	O
+4	to	to	IN	_	3	prep	_	_	O
+5	Tammy	tammy	NNP	_	7	poss	_	_	U-PERSON
+6	's	's	POS	_	5	case	_	_	O
+7	house	house	NN	_	4	pobj	_	_	O
+8	to	to	TO	_	9	aux	_	_	O
+9	have	have	VB	_	2	advcl	_	_	O
+10	supper	supper	NN	_	9	dobj	_	_	O
+11	.	.	.	_	2	punct	_	_	O
+
+1	Tammy	tammy	NNP	_	2	nsubj	_	_	U-PERSON
+2	ate	eat	VBD	_	0	root	_	_	O
+3	salad	salad	NN	_	2	dobj	_	_	O
+4	and	and	CC	_	3	cc	_	_	O
+5	seeds	seed	NNS	_	3	conj	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	Roger	roger	NNP	_	2	nsubj	_	_	U-PERSON
+2	ate	eat	VBD	_	0	root	_	_	O
+3	carrots	carrot	NNS	_	2	dobj	_	_	O
+4	and	and	CC	_	3	cc	_	_	O
+5	celery	celery	NN	p2=JJ	3	conj	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	Bobby	bobby	NNP	_	2	nsubj	_	_	U-PERSON
+2	ate	eat	VBD	_	0	root	_	_	O
+3	potatoes	potato	NNS	_	2	dobj	_	_	O
+4	.	.	.	_	2	punct	_	_	O
+
+1	Pat	pat	NNP	_	2	nsubj	_	_	U-PERSON
+2	ate	eat	VBD	_	0	root	_	_	O
+3	eggs	egg	NNS	_	2	dobj	_	_	O
+4	and	and	CC	_	3	cc	_	_	O
+5	carrots	carrot	NNS	_	3	conj	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	Tammy	tammy	NNP	_	2	nsubj	_	_	U-PERSON
+2	was	be	VBD	_	8	ccomp	_	_	O
+3	still	still	RB	_	2	advmod	_	_	O
+4	hungry	hungry	JJ	_	2	acomp	_	_	O
+5	,	,	,	_	8	punct	_	_	O
+6	so	so	RB	p2=IN	8	advmod	_	_	O
+7	she	she	PRP	_	8	nsubj	_	_	O
+8	ate	eat	VBD	_	0	root	_	_	O
+9	some	some	DT	_	10	det	_	_	O
+10	pizza	pizza	NN	_	8	dobj	_	_	O
+11	too	too	RB	_	8	advmod	_	_	O
+12	.	.	.	_	8	punct	_	_	O
+
+1	They	they	PRP	_	2	nsubj	_	_	O
+2	were	be	VBD	_	0	root	_	_	O
+3	all	all	DT	p2=RB	2	advmod	_	_	O
+4	very	very	RB	_	5	advmod	_	_	O
+5	full	full	JJ	_	2	acomp	_	_	O
+6	.	.	.	_	2	punct	_	_	O
+
+1	They	they	PRP	_	2	nsubj	_	_	O
+2	took	take	VBD	_	0	root	_	_	O
+3	a	a	DT	_	4	det	_	_	O
+4	nap	nap	NN	_	2	dobj	_	_	O
+5	.	.	.	_	2	punct	_	_	O
+
+1	After	after	IN	_	3	mark	_	_	O
+2	they	they	PRP	_	3	nsubj	_	_	O
+3	woke	wake	VBD	_	6	advcl	_	_	O
+4	up	up	RP	_	3	prt	_	_	O
+5	they	they	PRP	_	6	nsubj	_	_	O
+6	played	play	VBD	_	0	root	_	_	O
+7	some	some	DT	_	8	det	_	_	O
+8	games	game	NNS	_	6	dobj	_	_	O
+9	.	.	.	_	6	punct	_	_	O
+
+1	Everyone	everyone	NN	_	2	nsubj	_	_	O
+2	had	have	VBD	_	0	root	_	_	O
+3	fun	fun	NN	p2=VBN	2	dobj	_	_	O
+4	at	at	IN	_	2	prep	_	_	O
+5	Tammy	tammy	NNP	_	7	poss	_	_	U-PERSON
+6	's	's	POS	_	5	case	_	_	O
+7	house	house	NN	_	4	pobj	_	_	O
+8	.	.	.	_	2	punct	_	_	O
+
+1	It	it	PRP	_	2	nsubj	_	_	O
+2	got	get	VBD	_	0	root	_	_	O
+3	late	late	RB	p2=JJ	2	advmod	_	_	O
+4	and	and	CC	_	2	cc	_	_	O
+5	everyone	everyone	NN	_	6	nsubj	_	_	O
+6	went	go	VBD	_	2	conj	_	_	O
+7	home	home	RB	_	6	advmod	_	_	O
+8	.	.	.	_	6	punct	_	_	O
+
+1	Tammy	tammy	NNP	_	2	nsubj	_	_	U-PERSON
+2	was	be	VBD	_	0	root	_	_	O
+3	pleased	pleased	JJ	p2=VBN	2	acomp	_	_	O
+4	with	with	IN	_	3	prep	_	_	O
+5	how	how	WRB	_	7	advmod	_	_	O
+6	it	it	PRP	_	7	nsubj	_	_	O
+7	turned	turn	VBD	_	4	pcomp	_	_	O
+8	out	out	RP	_	7	prt	_	_	O
+9	.	.	.	_	2	punct	_	_	O
+

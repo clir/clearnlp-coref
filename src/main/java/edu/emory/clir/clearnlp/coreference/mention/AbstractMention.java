@@ -42,6 +42,7 @@ import edu.emory.clir.clearnlp.util.Joiner;
 public abstract class AbstractMention implements Serializable {
 	private static final long serialVersionUID = 7276153831562287337L;
 
+	protected int treeId;
 	protected DEPTree d_tree;
 	protected DEPNode d_node;
 	protected List<DEPNode> l_subNodes;
@@ -56,36 +57,36 @@ public abstract class AbstractMention implements Serializable {
 	
 	/* Constructors */
 	public AbstractMention(){
-		init(null, null, null, null, null, null);
+		init(-1, null, null, null, null, null, null);
 	}
 	
-	public AbstractMention(DEPTree tree, DEPNode node){
-		init(tree, node, null, null, null, null);
+	public AbstractMention(int t_id, DEPTree tree, DEPNode node){
+		init(t_id, tree, node, null, null, null, null);
 	}
 	
-	public AbstractMention(DEPTree tree, DEPNode node, EntityType entityType){
-		init(tree, node, entityType, null, null, null);
+	public AbstractMention(int t_id, DEPTree tree, DEPNode node, EntityType entityType){
+		init(t_id, tree, node, entityType, null, null, null);
 	}
 	
-	public AbstractMention(DEPTree tree, DEPNode node, NumberType numberType){
-		init(tree, node, null, null, numberType, null);
+	public AbstractMention(int t_id, DEPTree tree, DEPNode node, NumberType numberType){
+		init(t_id, tree, node, null, null, numberType, null);
 	}
 	
-	public AbstractMention(DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType){
-		init(tree, node, entityType, genderType, null, null);
+	public AbstractMention(int t_id, DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType){
+		init(t_id, tree, node, entityType, genderType, null, null);
 	}
 	
-	public AbstractMention(DEPTree tree, DEPNode node, EntityType entityType, NumberType numberType){
-		init(tree, node, entityType, null, numberType, null);
+	public AbstractMention(int t_id, DEPTree tree, DEPNode node, EntityType entityType, NumberType numberType){
+		init(t_id, tree, node, entityType, null, numberType, null);
 	}
 	
-	public AbstractMention(DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType){
-		init(tree, node, entityType, genderType, numberType, pronounType);
+	public AbstractMention(int t_id, DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType){
+		init(t_id, tree, node, entityType, genderType, numberType, pronounType);
 	}
 	
-	private void init(DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType){
+	private void init(int t_id, DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType){
 		m_attr = new ObjectDoubleHashMap<>();
-		setTree(tree);	setNode(node);	
+		setTreeId(t_id);	setTree(tree);	setNode(node);	
 		setSubTreeNodes((node == null)? null : node.getSubNodeList());
 		setConjunctionMention(null);
 		setEntityType(entityType);
@@ -97,12 +98,20 @@ public abstract class AbstractMention implements Serializable {
 	}
 	
 	/* Getters */
+	public int getTreeId(){
+		return treeId;
+	}
+	
 	public DEPTree getTree(){
 		return d_tree;
 	}
 	
 	public DEPNode getNode(){
 		return d_node;
+	}
+	
+	public DEPNode getHeadNode(){
+		return d_node.getHead();
 	}
 	
 	public EntityType getEntityType(){
@@ -152,6 +161,10 @@ public abstract class AbstractMention implements Serializable {
 	}
 	
 	/* Setters */
+	public void setTreeId(int t_id){
+		treeId = t_id;
+	}
+	
 	public void setTree(DEPTree tree){
 		d_tree = tree;
 	}
@@ -222,6 +235,25 @@ public abstract class AbstractMention implements Serializable {
 		return (mention.getSubTreeNodes() == null)? false :  mention.getSubTreeNodes().contains(getNode());
 	}
 	
+	public boolean matchEntityType(AbstractMention mention){
+		if(isNameEntity() && mention.isNameEntity())	return getEntityType() == mention.getEntityType() && getSubTreeWordSequence().equals(mention.getSubTreeWordSequence());
+		else if(isNameEntity())							return mention.isPronounType(PronounType.SUBJECT) || mention.isPronounType(PronounType.OBJECT);
+		else if(mention.isNameEntity())					return isPronounType(PronounType.SUBJECT) || isPronounType(PronounType.OBJECT);
+		return !isEntityType(EntityType.UNKNOWN) || getEntityType() == mention.getEntityType();
+	}
+	
+	public boolean matchNumberType(AbstractMention mention){
+		return mention.isNumberType(getNumberType());
+	}
+	
+	public boolean matchGenderType(AbstractMention mention){
+		return mention.isGenderType(getGenderType()) || isGenderType(GenderType.NEUTRAL) || mention.isGenderType(GenderType.NEUTRAL);
+	}
+	
+	public boolean hasSameHeadNode(AbstractMention mention){
+		return getNode().getHead() == mention.getNode().getHead();
+	}
+	
 	public boolean hasFeature(AttributeType type){
 		return m_attr.containsKey(type);
 	}
@@ -253,16 +285,19 @@ public abstract class AbstractMention implements Serializable {
 	
 	/* Abstract methods */
 	abstract public String getAcronym();
+	abstract public Set<String> getModifiers();
+	abstract public boolean isInAdjunctDomainOf(AbstractMention mention);
 	
 	@Override
 	public String toString(){
 		StringJoiner joiner = new StringJoiner("\t");
-		joiner.add(getWordFrom());
+		joiner.add(getWordFrom()+"@"+getTreeId()+"."+getNode().getID());
 		joiner.add(CoreferenceStringUtils.connectStrings("(", (m_conj == null)? "null" : m_conj.getWordFrom(),")"));
 		joiner.add((t_entity == null)? "null" : t_entity.toString());
 		joiner.add((t_gender == null)? "null" : t_gender.toString());
 		joiner.add((t_number == null)? "null" : t_number.toString());
 		joiner.add((t_pronoun == null)? "null" : t_pronoun.toString());
+		joiner.add(m_attr.toString());
 		return joiner.toString();
 	}
 }

@@ -13,26 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.utils.retriever;
-
-import edu.emory.clir.clearnlp.coreference.utils.structures.ParameterPair;
-
+package edu.emory.clir.clearnlp.dialogue.util.parser;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	Apr 19, 2015
+ * @since 	May 24, 2015
  */
-public class FreebaseDataRetriever extends AbstractRestAPIDataRetriever {
+public class SceneTuple {
+	public int seasonId;
+	public int episodeId;
+	public int sceneId;
 	
-	public FreebaseDataRetriever(String url){
-		super(url);
+	public SceneTuple(int season_id, int episode_id, int scene_id){
+		seasonId = season_id;
+		episodeId = episode_id;
+		sceneId = scene_id;
 	}
 	
-	public static void main(String[] args) throws Exception{
-		AbstractRestAPIDataRetriever retriever = new FreebaseDataRetriever("https://www.googleapis.com/freebase/v1/topic/en/");
-		String result = retriever.REST_GetRequest("barack_obama", new ParameterPair("filter", "/people"));
-		
-		System.out.println(result);
+	@Override
+	public String toString(){
+		return "Season: " + seasonId + "\tEpsiode: " + episodeId + "\tScene: " + sceneId;
 	}
 }

@@ -1,0 +1,173 @@
+1	One	#crd#	CD	_	2	nummod	_	_	B-DATE
+2	day	day	NN	_	4	npadvmod	_	_	L-DATE
+3	Mary	mary	NNP	_	4	nsubj	_	_	U-PERSON
+4	took	take	VBD	_	0	root	_	_	O
+5	a	a	DT	_	6	det	_	_	O
+6	walk	walk	NN	_	4	dobj	_	_	O
+7	to	to	IN	_	4	prep	_	_	O
+8	the	the	DT	_	9	det	_	_	O
+9	park	park	NN	_	7	pobj	_	_	O
+10	.	.	.	_	4	punct	_	_	O
+
+1	The	the	DT	_	2	det	_	_	O
+2	park	park	NN	_	3	nsubj	_	_	O
+3	was	be	VBD	_	0	root	_	_	O
+4	very	very	RB	_	5	advmod	_	_	O
+5	close	close	JJ	p2=RB	3	acomp	_	_	O
+6	to	to	IN	_	5	prep	_	_	O
+7	her	her	PRP$	_	8	poss	_	_	O
+8	house	house	NN	_	6	pobj	_	_	O
+9	.	.	.	_	3	punct	_	_	O
+
+1	One	#crd#	CD	p2=PRP	3	nummod	_	_	U-CARDINAL
+2	her	her	PRP$	_	3	poss	_	_	O
+3	way	way	NN	_	8	npadvmod	_	_	O
+4	to	to	IN	_	3	prep	_	_	O
+5	the	the	DT	_	6	det	_	_	O
+6	park	park	NN	_	4	pobj	_	_	O
+7	she	she	PRP	_	8	nsubj	_	_	O
+8	passed	pass	VBD	_	0	root	_	_	O
+9	her	her	PRP$	_	10	poss	_	_	O
+10	friend	friend	NN	_	13	poss	_	_	O
+11	Kim	kim	NNP	_	10	appos	_	_	U-PERSON
+12	's	's	POS	_	10	case	_	_	O
+13	house	house	NN	_	8	dobj	_	_	O
+14	.	.	.	_	8	punct	_	_	O
+
+1	Mary	mary	NNP	_	2	nsubj	_	_	U-PERSON
+2	stopped	stop	VBD	_	0	root	_	_	O
+3	by	by	RP	p2=IN	2	prt	_	_	O
+4	and	and	CC	_	2	cc	_	_	O
+5	asked	ask	VBD	p2=VBN	2	conj	_	_	O
+6	if	if	IN	_	8	mark	_	_	O
+7	Kim	kim	NNP	_	8	nsubj	_	_	U-PERSON
+8	wanted	want	VBD	_	5	ccomp	_	_	O
+9	to	to	TO	_	10	aux	_	_	O
+10	play	play	VB	_	8	xcomp	_	_	O
+11	.	.	.	_	2	punct	_	_	O
+
+1	Kim	kim	NNP	_	2	nsubj	_	_	U-PERSON
+2	said	say	VBD	_	0	root	_	_	O
+3	yes	yes	UH	_	2	intj	_	_	O
+4	.	.	.	_	2	punct	_	_	O
+
+1	Mary	mary	NNP	_	4	nsubj	_	_	U-PERSON
+2	and	and	CC	_	1	cc	_	_	O
+3	Kim	kim	NNP	_	1	conj	_	_	U-PERSON
+4	walked	walk	VBD	_	0	root	_	_	O
+5	together	together	RB	_	4	advmod	_	_	O
+6	to	to	IN	_	4	prep	_	_	O
+7	the	the	DT	_	8	det	_	_	O
+8	park	park	NN	_	6	pobj	_	_	O
+9	.	.	.	_	4	punct	_	_	O
+
+1	John	john	NNP	_	3	poss	_	_	U-PERSON
+2	's	's	POS	_	1	case	_	_	O
+3	house	house	NN	_	4	nsubj	_	_	O
+4	was	be	VBD	_	0	root	_	_	O
+5	three	#crd#	CD	_	6	nummod	_	_	U-CARDINAL
+6	houses	house	NNS	_	4	attr	_	_	O
+7	down	down	RB	p2=RP	4	advmod	_	_	O
+8	.	.	.	_	4	punct	_	_	O
+
+1	Mary	mary	NNP	_	4	nsubj	_	_	U-PERSON
+2	and	and	CC	_	1	cc	_	_	O
+3	Kim	kim	NNP	_	1	conj	_	_	U-PERSON
+4	stopped	stop	VBD	_	0	root	_	_	O
+5	by	by	RP	p2=RB	4	prt	_	_	O
+6	to	to	TO	_	7	aux	_	_	O
+7	ask	ask	VB	_	4	xcomp	_	_	O
+8	John	john	NNP	_	7	dobj	_	_	U-PERSON
+9	if	if	IN	_	11	mark	_	_	O
+10	he	he	PRP	_	11	nsubj	_	_	O
+11	wanted	want	VBD	_	7	ccomp	_	_	O
+12	to	to	TO	_	13	aux	_	_	O
+13	play	play	VB	_	11	xcomp	_	_	O
+14	at	at	IN	_	13	prep	_	_	O
+15	the	the	DT	_	16	det	_	_	O
+16	park	park	NN	_	14	pobj	_	_	O
+17	.	.	.	_	4	punct	_	_	O
+
+1	John	john	NNP	_	2	nsubj	_	_	U-PERSON
+2	said	say	VBD	_	0	root	_	_	O
+3	no	no	UH	_	2	intj	_	_	O
+4	.	.	.	_	2	punct	_	_	O
+
+1	He	he	PRP	_	2	nsubj	_	_	O
+2	was	be	VBD	_	0	root	_	_	O
+3	afraid	afraid	JJ	_	2	acomp	_	_	O
+4	of	of	IN	_	3	prep	_	_	O
+5	being	be	VBG	_	6	auxpass	_	_	O
+6	chased	chase	VBN	_	4	pcomp	_	_	O
+7	by	by	IN	_	6	agent	_	_	O
+8	a	a	DT	_	9	det	_	_	O
+9	squirrel	squirrel	NN	_	7	pobj	_	_	O
+10	.	.	.	_	2	punct	_	_	O
+
+1	Mary	mary	NNP	_	2	nsubj	_	_	U-PERSON
+2	worried	worry	VBD	p2=JJ	0	root	_	_	O
+3	that	that	IN	_	7	mark	_	_	O
+4	John	john	NNP	_	7	nsubj	_	_	U-PERSON
+5	did	do	VBD	_	7	aux	_	_	O
+6	n't	not	RB	_	7	neg	_	_	O
+7	like	like	VB	p2=IN	2	ccomp	_	_	O
+8	her	her	PRP	_	7	dobj	_	_	O
+9	,	,	,	_	2	punct	_	_	O
+10	but	but	CC	_	2	cc	_	_	O
+11	John	john	NNP	_	12	nsubj	_	_	U-PERSON
+12	thought	think	VBD	_	2	conj	_	_	O
+13	she	she	PRP	_	14	nsubj	_	_	O
+14	was	be	VBD	_	12	ccomp	_	_	O
+15	a	a	DT	_	17	det	_	_	O
+16	good	good	JJ	_	17	amod	_	_	O
+17	friend	friend	NN	_	14	attr	_	_	O
+18	.	.	.	_	12	punct	_	_	O
+
+1	So	so	RB	_	5	advmod	_	_	O
+2	Mary	mary	NNP	_	5	nsubj	_	_	U-PERSON
+3	and	and	CC	_	2	cc	_	_	O
+4	Kim	kim	NNP	_	2	conj	_	_	U-PERSON
+5	went	go	VBD	_	0	root	_	_	O
+6	to	to	IN	_	5	prep	_	_	O
+7	the	the	DT	_	8	det	_	_	O
+8	park	park	NN	_	6	pobj	_	_	O
+9	to	to	TO	_	10	aux	_	_	O
+10	play	play	VB	_	8	relcl	_	_	O
+11	.	.	.	_	5	punct	_	_	O
+
+1	They	they	PRP	_	2	nsubj	_	_	O
+2	loved	love	VBD	_	0	root	_	_	O
+3	the	the	DT	_	4	det	_	_	O
+4	park	park	NN	_	2	dobj	_	_	O
+5	.	.	.	_	2	punct	_	_	O
+
+1	They	they	PRP	_	2	nsubj	_	_	O
+2	loved	love	VBD	_	0	root	_	_	O
+3	the	the	DT	_	4	det	_	_	O
+4	flowers	flower	NNS	_	2	dobj	_	_	O
+5	,	,	,	_	2	punct	_	_	O
+6	and	and	CC	_	2	cc	_	_	O
+7	the	the	DT	_	8	det	_	_	O
+8	swings	swing	NNS	_	2	conj	_	_	O
+9	!	!	.	_	2	punct	_	_	O
+
+1	Soon	soon	RB	_	3	advmod	_	_	O
+2	it	it	PRP	_	3	nsubj	_	_	O
+3	was	be	VBD	_	0	root	_	_	O
+4	dinnertime	dinnertime	NN	p2=JJ	3	attr	_	_	O
+5	and	and	CC	_	4	cc	_	_	O
+6	the	the	DT	_	7	det	_	_	O
+7	girls	girl	NNS	_	8	nsubj	_	_	O
+8	went	go	VBD	_	3	conj	_	_	O
+9	home	home	RB	_	8	advmod	_	_	O
+10	.	.	.	_	8	punct	_	_	O
+
+1	What	what	WDT	p2=WP	4	det	_	_	O
+2	a	a	DT	_	4	det	_	_	O
+3	lovely	lovely	JJ	_	4	amod	_	_	O
+4	day	day	NN	_	0	root	_	_	O
+5	at	at	IN	_	4	prep	_	_	O
+6	the	the	DT	_	7	det	_	_	O
+7	park	park	NN	_	5	pobj	_	_	O
+8	.	.	.	_	4	punct	_	_	O
+

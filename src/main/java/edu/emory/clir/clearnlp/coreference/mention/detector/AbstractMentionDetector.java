@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.ngram.Unigram;
+import edu.emory.clir.clearnlp.coreference.config.MentionConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.EnglishMention;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
@@ -36,6 +37,12 @@ import edu.emory.clir.clearnlp.util.StringUtils;
  */
 public abstract class AbstractMentionDetector
 {
+	protected MentionConfiguration m_config;
+	
+	public AbstractMentionDetector(MentionConfiguration config){
+		m_config = config;
+	}
+	
 //	====================================== LEXICA ======================================
 	
 	protected void addDictionary(InputStream in, Unigram<String> map)
@@ -60,30 +67,33 @@ public abstract class AbstractMentionDetector
 
 //	====================================== GETTER ======================================
 
-	public List<AbstractMention> getMentionList(List<DEPTree> trees)
-	{
+	public List<AbstractMention> getMentionList(List<DEPTree> trees){
+		int treeCount = 0;
 		List<AbstractMention> list = new ArrayList<>();
 		
-		for (DEPTree tree : trees) list.addAll(getMentionList(tree));
+		for (DEPTree tree : trees) 
+			list.addAll(getMentionList(treeCount++, tree));
+		processMentions(trees, list);
 		
 		return list;
 	}
+
+	public List<AbstractMention> getMentionList(DEPTree tree){
+		return getMentionList(-1, tree);
+	}
 	
-	public List<AbstractMention> getMentionList(DEPTree tree)
-	{
+	public List<AbstractMention> getMentionList(int treeId, DEPTree tree){
 		List<AbstractMention> list = new ArrayList<>();
 		EnglishMention mention;
 		
 		for (DEPNode node : tree){
-			mention = getMention(tree, node);
+			mention = getMention(treeId, tree, node);
 			if (mention != null) list.add(mention);
 		}
-		
-		processMentions(tree, list);
 		
 		return list;
 	}
 	
-	public abstract EnglishMention getMention(DEPTree tree, DEPNode node);
-	protected abstract void processMentions(DEPTree tree, List<AbstractMention> mentions);
+	public abstract EnglishMention getMention(int treeId, DEPTree tree, DEPNode node);
+	protected abstract void processMentions(List<DEPTree> tree, List<AbstractMention> mentions);
 }

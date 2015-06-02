@@ -29,6 +29,7 @@ import edu.emory.clir.clearnlp.coreference.mention.pronoun.Pronoun;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.pos.POSTagEn;
 import edu.emory.clir.clearnlp.util.Splitter;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
@@ -69,7 +70,9 @@ public class EnglishPronounDetector extends AbstractPronounDetector {
 	@Override
 	public boolean isPronoun(DEPTree tree, DEPNode node) {
 		// Common pronoun
-		return !node.isLabel(DEPTagEn.DEP_COMPOUND) && (m_pronouns.containsKey(node.getLemma()) || m_pronouns.containsKey(node.getWordForm()) || (node.isPOSTag(CTLibEn.POS_PRP) || node.isPOSTag(CTLibEn.POS_PRPS)));
+		return 	!node.isLabel(DEPTagEn.DEP_COMPOUND) &&
+				!node.isPOSTag(POSTagEn.POS_IN) &&
+				(m_pronouns.containsKey(node.getLemma()) || m_pronouns.containsKey(node.getWordForm()) || (node.isPOSTag(CTLibEn.POS_PRP) || node.isPOSTag(CTLibEn.POS_PRPS)));
 	}
 	
 	@Override
