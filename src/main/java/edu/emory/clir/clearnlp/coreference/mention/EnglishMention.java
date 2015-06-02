@@ -16,7 +16,6 @@
 package edu.emory.clir.clearnlp.coreference.mention;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import edu.emory.clir.clearnlp.constituent.CTLibEn;
@@ -92,11 +91,11 @@ public class EnglishMention extends AbstractMention{
 	}
 
 	@Override
-	public Set<String> getModifiers() {
+	public List<String> getModifiersList() {
 		List<DEPNode> l_wordSequencesNodes = getNode().getDependentList();
 		return l_wordSequencesNodes.stream()
 				.filter(node -> POSLibEn.isNoun(node.getPOSTag()) || POSLibEn.isAdjective(node.getPOSTag()))
 				.map(node -> StringUtils.toLowerCase(node.getWordForm()))
-				.collect(Collectors.toSet());
+				.collect(Collectors.toList());
 	}
 }

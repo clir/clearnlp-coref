@@ -18,6 +18,7 @@ package edu.emory.clir.clearnlp.coreference.mention;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.StringJoiner;
@@ -285,8 +286,12 @@ public abstract class AbstractMention implements Serializable {
 	
 	/* Abstract methods */
 	abstract public String getAcronym();
-	abstract public Set<String> getModifiers();
+	abstract public List<String> getModifiersList();
 	abstract public boolean isInAdjunctDomainOf(AbstractMention mention);
+	
+	public Set<String> getModifiersSet(){
+		return new HashSet<>(getModifiersList());
+	}
 	
 	@Override
 	public String toString(){
