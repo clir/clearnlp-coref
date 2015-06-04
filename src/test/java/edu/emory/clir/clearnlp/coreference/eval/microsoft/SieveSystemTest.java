@@ -22,9 +22,11 @@ import org.junit.Test;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
+import edu.emory.clir.clearnlp.coreference.annotation.BratCorefAnnotator;
 import edu.emory.clir.clearnlp.coreference.config.SieveSystemCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
+import edu.emory.clir.clearnlp.coreference.path.PathVisualization;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -42,11 +44,13 @@ public class SieveSystemTest {
 	public void test(){
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadMentionDectors(true, true, true);
-		config.loadDefaultSieves(true, true, false, false, false, false, false, false);
+		config.loadMentionDectors(true, false, true);
+		config.loadDefaultSieves(true, false, true, false, false, false, false, false);
+//		config.mountSieves(new PreciseConstructMatch());
 		/* ************* */
 		
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
+		BratCorefAnnotator annotator = new BratCorefAnnotator(PathVisualization.MS_DATA);
 		List<String> l_filePaths = FileUtils.getFileList(PathData.ENG_COREF_MICROSOFT_PARSED_DIR, ".cnlp", false);
 		
 		List<DEPTree> trees;
@@ -58,6 +62,9 @@ public class SieveSystemTest {
 			CoreferenceTestUtil.printSentences(trees);
 			CoreferenceTestUtil.printResolutionResult(resolution);
 			CoreferenceTestUtil.printCorefCluster(resolution);
+			
+			annotator.export(FileUtils.getBaseName(filePath), trees, resolution.o1, resolution.o2);
+			
 			break;
 		}
 	}
