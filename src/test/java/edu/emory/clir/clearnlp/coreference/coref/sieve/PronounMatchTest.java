@@ -25,7 +25,7 @@ import org.junit.Test;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
-import edu.emory.clir.clearnlp.coreference.config.CorefCongiuration;
+import edu.emory.clir.clearnlp.coreference.config.CorefConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
 import edu.emory.clir.clearnlp.coreference.sieve.PreciseConstructMatch;
@@ -52,7 +52,7 @@ public class PronounMatchTest {
 	@Test
 	public void testAdjunctDomain(){
 		/* Configuration */
-		CorefCongiuration config = new CorefCongiuration();
+		CorefConfiguration config = new CorefConfiguration();
 		config.mountSieves(new PreciseConstructMatch());
 		/* ************* */
 		

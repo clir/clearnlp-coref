@@ -23,7 +23,7 @@ import edu.emory.clir.clearnlp.NLPDecoder;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
-import edu.emory.clir.clearnlp.coreference.config.CorefCongiuration;
+import edu.emory.clir.clearnlp.coreference.config.CorefConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.sieve.PreciseConstructMatch;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
@@ -39,10 +39,11 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
 public class PreciseConstructMatchTest {
 	@Test
 	public void testPreciseConstructMatch(){
-		CorefCongiuration config = new CorefCongiuration();
+		CorefConfiguration config = new CorefConfiguration();
 		config.loadDefaultMentionDectors();
 		config.mountSieves(new PreciseConstructMatch());
-		
+		config.loadDefaultMentionDectors();
+
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config); 
 //		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION, 0, 4);
 		List<DEPTree> trees = new NLPDecoder(TLanguage.ENGLISH).toDEPTrees("My favorite actress is actress Rebecca Shaeffer.");

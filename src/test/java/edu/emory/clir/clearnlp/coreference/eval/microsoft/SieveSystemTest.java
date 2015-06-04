@@ -22,7 +22,7 @@ import org.junit.Test;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
-import edu.emory.clir.clearnlp.coreference.config.CorefCongiuration;
+import edu.emory.clir.clearnlp.coreference.config.CorefConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
@@ -40,7 +40,7 @@ public class SieveSystemTest {
 	@Test
 	public void test(){
 		/* Configuration */
-		CorefCongiuration config = new CorefCongiuration();
+		CorefConfiguration config = new CorefConfiguration();
 		config.loadMentionDectors(true, true, true);
 		config.loadDefaultSieves(true, false, false, false, false, false, false);
 		/* ************* */

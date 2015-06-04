@@ -15,11 +15,6 @@
  */
 package edu.emory.clir.clearnlp.coreference.utils;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
@@ -27,6 +22,11 @@ import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 import edu.emory.clir.clearnlp.util.Joiner;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -96,7 +96,7 @@ public class CoreferenceTestUtil {
 		for(i = 0; i < size; i++){
 			mention = resolution.o1.get(i);
 			linkedId = set.findHead(i);
-			
+
 			if(linkedId == i)
 				System.out.println(i + ": " + mention.getWordFrom() + "\t(Singleton)");
 			else

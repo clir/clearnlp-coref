@@ -23,7 +23,7 @@ import org.junit.Test;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
-import edu.emory.clir.clearnlp.coreference.config.CorefCongiuration;
+import edu.emory.clir.clearnlp.coreference.config.CorefConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
 import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
@@ -39,7 +39,7 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
 public class RelaxedStringMatchTest {
 	@Test
 	public void testRelaxedStringMatch() throws IOException{
-		CorefCongiuration config = new CorefCongiuration();
+		CorefConfiguration config = new CorefConfiguration();
 		config.loadDefaultMentionDectors();
 		config.mountSieves(new RelaxedStringMatch(true));
 		

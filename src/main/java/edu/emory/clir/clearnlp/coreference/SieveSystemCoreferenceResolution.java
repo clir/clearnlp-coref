@@ -18,7 +18,7 @@ package edu.emory.clir.clearnlp.coreference;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
-import edu.emory.clir.clearnlp.coreference.config.CorefCongiuration;
+import edu.emory.clir.clearnlp.coreference.config.CorefConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
@@ -37,7 +37,7 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
 public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolution {
 	private List<AbstractSieve> sieves;
 	
-	public SieveSystemCoreferenceResolution(CorefCongiuration config){
+	public SieveSystemCoreferenceResolution(CorefConfiguration config){
 		
 		// Mention Detector declaration
 		super(TLanguage.ENGLISH);
