@@ -18,11 +18,11 @@ package edu.emory.clir.clearnlp.coreference;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
+import edu.emory.clir.clearnlp.coreference.config.AbstractCorefConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
-import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
 
 /**
@@ -30,11 +30,11 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
  */
 public abstract class AbstractCoreferenceResolution {
 	
-	protected TLanguage language;
+	protected AbstractCorefConfiguration config;
 	protected AbstractMentionDetector m_detector;
 
-	public AbstractCoreferenceResolution(TLanguage l){
-		language = l;
+	public AbstractCoreferenceResolution(AbstractCorefConfiguration config){
+		this.config = config;
 	}
 	
 	// Mention Detection
