@@ -33,7 +33,7 @@ public class ProperHeadWordMatch extends AbstractSieve
 							l_currDependents = curr.getNode().getDependentListByLabel(DEPTagEn.DEP_NUMMOD).stream().map(node -> node.getWordForm()).collect(Collectors.toList());
 			return l_prevDependents.equals(l_currDependents);
 		}
-		return false;
+		return true;
 	}
 	
 	private boolean matchArticle(AbstractMention prev, AbstractMention curr){
@@ -42,6 +42,6 @@ public class ProperHeadWordMatch extends AbstractSieve
 			String prevArticle = StringUtils.toLowerCase(prevFirstDdependent.getWordForm()), currArticle = StringUtils.toLowerCase(currFirstDdependent.getWordForm());
 			return s_articles.contains(prevArticle) && currArticle.equals("the");
 		}
-		return false;
+		return true;
 	}
 }
