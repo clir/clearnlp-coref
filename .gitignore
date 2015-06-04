@@ -5,3 +5,4 @@
 .idea/
 clearnlp-coref.iml
 /.settings/
+/src/test/resources/edu/emory/clir/clearnlp/visualization/

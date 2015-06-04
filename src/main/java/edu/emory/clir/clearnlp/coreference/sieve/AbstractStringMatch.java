@@ -15,6 +15,10 @@ public abstract class AbstractStringMatch extends AbstractSieve {
 	}
 	
 	public AbstractStringMatch(boolean decapitalize){
+		setDecapitalize(decapitalize);
+	}
+	
+	public void setDecapitalize(boolean decapitalize){
 		this.decapitalize = decapitalize;
 	}
 	
