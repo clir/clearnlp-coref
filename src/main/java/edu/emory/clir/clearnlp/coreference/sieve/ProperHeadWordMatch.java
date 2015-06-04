@@ -16,15 +16,11 @@ import edu.emory.clir.clearnlp.util.StringUtils;
  */
 public class ProperHeadWordMatch extends AbstractSieve
 {
-	private Set<String> s_articles;
-	
-	public ProperHeadWordMatch() {
-		s_articles = DSUtils.toHashSet("a", "an", "the");
-	}
+	private final Set<String> s_articles = DSUtils.toHashSet("a", "an", "the");
 	
 	@Override
 	protected boolean match(AbstractMention prev, AbstractMention curr){
-		return matchArticle(prev, curr) && matchNumMod(prev, curr);
+		return !matchArticle(prev, curr) && !matchNumMod(prev, curr);
 	}
 	
 	private boolean matchNumMod(AbstractMention prev, AbstractMention curr){
