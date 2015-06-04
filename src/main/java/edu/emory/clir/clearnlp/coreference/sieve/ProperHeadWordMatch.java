@@ -24,9 +24,10 @@ public class ProperHeadWordMatch extends AbstractSieve
 	
 	@Override
 	protected boolean match(AbstractMention prev, AbstractMention curr){
-		return matchArticle(prev, curr) && matchNumMod(prev, curr);
+		return !matchArticle(prev, curr) && !matchNumMod(prev, curr);
 	}
 	
+
 	private boolean matchNumMod(AbstractMention prev, AbstractMention curr){
 		if(curr.hasSameHeadNode(prev)){
 			List<String> 	l_prevDependents = prev.getNode().getDependentListByLabel(DEPTagEn.DEP_NUMMOD).stream().map(node -> node.getWordForm()).collect(Collectors.toList()),

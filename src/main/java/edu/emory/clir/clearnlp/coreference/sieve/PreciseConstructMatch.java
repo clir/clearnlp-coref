@@ -26,7 +26,7 @@ public class PreciseConstructMatch extends AbstractSieve{
 	private boolean acronymMatch(AbstractMention prev, AbstractMention curr){
         if (curr.getNode().isPOSTag(POSTagEn.POS_NNP) && prev.getNode().isPOSTag(POSTagEn.POS_NNP)){
         	String curr_acronym = curr.getAcronym(), prev_acronym = prev.getAcronym();
-        	if(curr_acronym != null && prev_acronym != null)
+        	if(curr_acronym != null && prev_acronym != null && curr_acronym.length() > 1)
         		return curr_acronym.equals(prev_acronym);
         }
         return false;

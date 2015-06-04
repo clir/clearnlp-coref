@@ -16,6 +16,7 @@
 package edu.emory.clir.clearnlp.coreference.eval.microsoft;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -42,7 +43,8 @@ public class SieveSystemTest {
 		/* Configuration */
 		CorefConfiguration config = new CorefConfiguration();
 		config.loadMentionDectors(true, true, true);
-		config.loadDefaultSieves(true, false, false, false, false, false, false);
+//		config.loadDefaultSieves(true, false, false, false, false, false, false);
+		config.loadDefaultSieves();
 		/* ************* */
 		
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
@@ -55,7 +57,7 @@ public class SieveSystemTest {
 			resolution = coref.getEntities(trees);
 			
 			CoreferenceTestUtil.printSentences(trees);
-			CoreferenceTestUtil.printResolutionResult(resolution);
+//			CoreferenceTestUtil.printResolutionResult(resolution);
 			CoreferenceTestUtil.printCorefCluster(resolution);
 			break;
 		}
