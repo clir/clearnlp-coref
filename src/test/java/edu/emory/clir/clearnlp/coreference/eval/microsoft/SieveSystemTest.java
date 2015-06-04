@@ -22,7 +22,7 @@ import org.junit.Test;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
-import edu.emory.clir.clearnlp.coreference.annotation.BratCorefAnnotator;
+import edu.emory.clir.clearnlp.coreference.annotation.BratCorefVisualizer;
 import edu.emory.clir.clearnlp.coreference.config.SieveSystemCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
@@ -50,7 +50,7 @@ public class SieveSystemTest {
 		/* ************* */
 		
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
-		BratCorefAnnotator annotator = new BratCorefAnnotator(PathVisualization.MS_DATA);
+		BratCorefVisualizer annotator = new BratCorefVisualizer(PathVisualization.MS_DATA);
 		List<String> l_filePaths = FileUtils.getFileList(PathData.ENG_COREF_MICROSOFT_PARSED_DIR, ".cnlp", false);
 		
 		List<DEPTree> trees;
