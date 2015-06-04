@@ -21,6 +21,8 @@ package edu.emory.clir.clearnlp.coreference.path;
  * @since 	Jun 4, 2015
  */
 public interface PathVisualization {
-	String 	ROOT = "src/test/resources/edu/emory/clir/clearnlp/visualization/data",
-			MS_DATA = ROOT + "/ms_coref";
+	String 	ROOT = "src/test/resources/edu/emory/clir/clearnlp/visualization",
+			DATA = ROOT + "/data";
+	
+	String	MS_DATA = DATA + "/ms_coref";
 }

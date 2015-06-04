@@ -32,14 +32,14 @@ import edu.emory.clir.clearnlp.util.constant.StringConst;
  * @version	1.0
  * @since 	Jun 4, 2015
  */
-public class BratCorefAnnotator {
+public class BratCorefVisualizer {
 	private String rootPath;
 	
-	public BratCorefAnnotator(){
+	public BratCorefVisualizer(){
 		this.rootPath = "";
 	}
 	
-	public BratCorefAnnotator(String rootPath){
+	public BratCorefVisualizer(String rootPath){
 		setRootPath(rootPath);
 	}
 	
@@ -51,6 +51,10 @@ public class BratCorefAnnotator {
 		if(rootPath.charAt(rootPath.length()-1) != CharConst.FW_SLASH);
 			rootPath = rootPath + "/";
 		this.rootPath = rootPath;
+	}
+	
+	public static void export(String rootPath, String fileName, List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet links){
+		new BratCorefVisualizer(rootPath).export(fileName, trees, mentions, links);
 	}
 	
 	public void export(String fileName, List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet links){
