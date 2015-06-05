@@ -54,7 +54,7 @@ public class Season1Test {
 		TSVReader t_reader = new TSVReader(0, 1, 2, 3, 9, 4, 5, 6, -1, -1);
 		BratCorefVisualizer visualizer = new BratCorefVisualizer(PathVisualization.FRIENDS);
 		
-		/* Configuration */
+		/* Coref Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
 		config.loadDefaultMentionDectors();
 		config.loadDefaultSieves(true, true, true, true, true, false, false, false);
@@ -71,7 +71,6 @@ public class Season1Test {
 				resolution = coref.getEntities(trees);
 				visualizer.export(scene_meta.getFileName(), trees, resolution.o1, resolution.o2);
 			}
-			break;
 		}
 	}
 }
