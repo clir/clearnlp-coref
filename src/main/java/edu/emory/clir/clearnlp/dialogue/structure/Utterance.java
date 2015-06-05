@@ -15,8 +15,13 @@
  */
 package edu.emory.clir.clearnlp.dialogue.structure;
 
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.reader.AbstractReader;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -37,16 +42,43 @@ public class Utterance implements Serializable{
 		statement = null;
 		trees = null;
 	}
-	
-	public int getTreeCount(){
-		return trees.size();
-	}
-	
+
 	public Utterance(int id, String raw, String stripped, List<String> treeList){
 		spearkerId = id;
 		utterance = raw;
 		statement = stripped;
 		trees = treeList;
+	}
+	
+	public int getSpeakerId(){
+		return spearkerId;
+	}
+	
+	public String getUtterance(){
+		return utterance;
+	}
+	
+	public String getStatement(){
+		return statement;
+	}
+	
+	public int getTreeCount(){
+		return (trees == null)? -1 : trees.size();
+	}
+	
+	public List<String> getRawTrees(){
+		return trees;
+	}
+	
+	public List<DEPTree> getDEPTrees(AbstractReader<DEPTree> reader){
+		List<DEPTree> list = new ArrayList<>();
+		if(trees != null){
+			for(String tree : trees){
+				reader.open(new ByteArrayInputStream(tree.getBytes()));
+				list.add(reader.next());
+			}
+		}
+		return list;
 	}
 	
 	@Override

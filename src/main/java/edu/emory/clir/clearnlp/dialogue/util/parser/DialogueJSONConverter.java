@@ -16,6 +16,8 @@
 package edu.emory.clir.clearnlp.dialogue.util.parser;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +45,7 @@ public class DialogueJSONConverter {
 	private final static String ROOT_DIR = "/Users/HenryChen/Box Sync/Coref/FriendScripts/season1/scene";
 	private final static String OUTPUT_PATH = "/Users/HenryChen/Box Sync/Coref/FriendScripts/FriendScripts.json";
 	private final static NLPDecoder decoder = new NLPDecoder(TLanguage.ENGLISH);
-	
+
 	public static void main(String[] args){
 		Gson gson = new Gson();
 		Map<Integer, Season> m_seasons = new TreeMap<>();

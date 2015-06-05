@@ -13,57 +13,64 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.eval.microsoft;
+package edu.emory.clir.clearnlp.coreference.eval.friends;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Test;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.annotation.BratCorefVisualizer;
-import edu.emory.clir.clearnlp.coreference.config.AbstractCorefConfiguration;
 import edu.emory.clir.clearnlp.coreference.config.SieveSystemCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
-import edu.emory.clir.clearnlp.coreference.path.PathData;
 import edu.emory.clir.clearnlp.coreference.path.PathVisualization;
-import edu.emory.clir.clearnlp.coreference.sieve.IndefinitePronounMatch;
-import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
-import edu.emory.clir.clearnlp.util.FileUtils;
+import edu.emory.clir.clearnlp.dialogue.structure.Episode;
+import edu.emory.clir.clearnlp.dialogue.structure.Scene;
+import edu.emory.clir.clearnlp.dialogue.structure.Season;
+import edu.emory.clir.clearnlp.dialogue.util.parser.JSONDialogueReader;
+import edu.emory.clir.clearnlp.dialogue.util.parser.SceneTuple;
+import edu.emory.clir.clearnlp.reader.TSVReader;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
-import org.junit.Test;
-
-import java.util.List;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	May 27, 2015
+ * @since 	Jun 5, 2015
  */
-public class SieveSystemTest {
-
+public class Season1Test {
 	@Test
-	public void test(){
+	public void testSeason1() throws IOException{
+		JSONDialogueReader j_reader = new JSONDialogueReader();
+		Map<Integer, Season> m_seasons = j_reader.read("/Users/HenryChen/Box Sync/Coref/FriendScripts/FriendScripts.season1.json");
+		Season season1 = m_seasons.get(1);
+		
+		SceneTuple scene_meta;
+		TSVReader t_reader = new TSVReader(0, 1, 2, 3, 9, 4, 5, 6, -1, -1);
+		BratCorefVisualizer visualizer = new BratCorefVisualizer(PathVisualization.FRIENDS);
+		
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadMentionDectors(true, false, true);
-		config.loadDefaultSieves(true, true, true, true, true, true, true, true);
+		config.loadDefaultMentionDectors();
+		config.loadDefaultSieves(true, true, true, true, true, false, false, false);
 		/* ************* */
 		
+		List<DEPTree> trees; Pair<List<AbstractMention>, DisjointSet> resolution;
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
-		BratCorefVisualizer annotator = new BratCorefVisualizer(PathVisualization.MS_DATA);
-		List<String> l_filePaths = FileUtils.getFileList(PathData.ENG_COREF_MICROSOFT_PARSED_DIR, ".cnlp", false);
 		
-		List<DEPTree> trees;
-		Pair<List<AbstractMention>, DisjointSet> resolution;
-		for(String filePath : l_filePaths){
-			trees = CoreferenceTestUtil.getTestDocuments(filePath, 9);
-			resolution = coref.getEntities(trees);
-			
-			CoreferenceTestUtil.printSentences(trees);
-			CoreferenceTestUtil.printResolutionResult(resolution);
-			CoreferenceTestUtil.printCorefCluster(resolution);
-			
-			annotator.export(FileUtils.getBaseName(filePath), trees, resolution.o1, resolution.o2);
+		for(Episode episode : season1){
+			for(Scene scene : episode){
+				scene_meta = new SceneTuple(season1.getId(), episode.getId(), scene.getId());
+				trees = scene.getAllDEPTrees(t_reader);
+				
+				resolution = coref.getEntities(trees);
+				visualizer.export(scene_meta.getFileName(), trees, resolution.o1, resolution.o2);
+			}
 			break;
 		}
 	}

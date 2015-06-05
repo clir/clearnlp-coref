@@ -40,13 +40,11 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 		
 		// Mention Detector declaration
 		super(config);
-		if(config.getMentionConfig() == null)	
-			throw new IllegalArgumentException("Mention detector configuration not sepecified.");
+		if(config.getMentionConfig() == null)	throw new IllegalArgumentException("Mention detector configuration not sepecified.");
 		m_detector = new EnglishMentionDetector(config.getMentionConfig());
 		
 		// Sieve layer class declarations
-		if(config.getSieves().isEmpty()) 
-			System.out.println("WARNING: No coreference sieve initialized.");
+		if(config.getSieves().isEmpty()) 	System.out.println("WARNING: No coreference sieve initialized.");
 		sieves = config.getSieves();
 	}
 
@@ -61,11 +59,5 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 		for(AbstractSieve sieve : sieves) sieve.resolute(trees, mentions, mentionLinks);
 		
 		return new Pair<List<AbstractMention>, DisjointSet>(mentions, mentionLinks);
-	}
-
-	@Override
-	protected boolean isSameEntity(List<AbstractMention> mentions, DisjointSet mentionLinks) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }
