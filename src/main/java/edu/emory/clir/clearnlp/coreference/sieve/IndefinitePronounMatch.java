@@ -1,26 +1,25 @@
 package edu.emory.clir.clearnlp.coreference.sieve;
 
+import java.util.List;
+import java.util.Set;
+
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.type.PronounType;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
-import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.DSUtils;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author alexlutz ({@code ajlutz@emory.edu})
  * @version 1.0
  * @since 6/4/15 at 6:07 PM
  * needs a little more refinement
- * */
-public class IndefinitePronounMatch extends AbstractSieve
-{
+ **/
+public class IndefinitePronounMatch extends AbstractSieve{
     private final Set<String> bannedWords = DSUtils.toHashSet("everyone", "everybody", "everything", "anything");
-
+    
+    @Override
     public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet mentionLinks)
     {
         int i = 0, size = mentions.size();
@@ -45,8 +44,7 @@ public class IndefinitePronounMatch extends AbstractSieve
     private boolean breakTest(String mention)
 
     @Override
-    protected boolean match(AbstractMention prev, AbstractMention curr)
-    {
+    protected boolean match(AbstractMention prev, AbstractMention curr){
         return false;
     }
 }

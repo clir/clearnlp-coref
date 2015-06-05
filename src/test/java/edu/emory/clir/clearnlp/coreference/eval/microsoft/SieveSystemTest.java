@@ -18,7 +18,6 @@ package edu.emory.clir.clearnlp.coreference.eval.microsoft;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
-import edu.emory.clir.clearnlp.coreference.annotation.BratCorefVisualizer;
 import edu.emory.clir.clearnlp.coreference.config.AbstractCorefConfiguration;
 import edu.emory.clir.clearnlp.coreference.config.SieveSystemCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
@@ -27,9 +26,11 @@ import edu.emory.clir.clearnlp.coreference.path.PathVisualization;
 import edu.emory.clir.clearnlp.coreference.sieve.IndefinitePronounMatch;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.visualization.BratCorefVisualizer;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.FileUtils;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
+
 import org.junit.Test;
 
 import java.util.List;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.annotation;
+package edu.emory.clir.clearnlp.coreference.visualization;
 
 import java.io.PrintWriter;
 import java.util.List;
