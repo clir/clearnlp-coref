@@ -42,6 +42,8 @@ public class IndefinitePronounMatch extends AbstractSieve
         return mention.equals("all") && next.equals("over") || mention.equals("each") && next.equals("other");
     }
 
+    private boolean breakTest(String mention)
+
     @Override
     protected boolean match(AbstractMention prev, AbstractMention curr)
     {
