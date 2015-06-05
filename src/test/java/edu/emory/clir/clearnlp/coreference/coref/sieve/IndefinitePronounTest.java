@@ -1,5 +1,6 @@
 package edu.emory.clir.clearnlp.coreference.coref.sieve;
 
+import com.sun.jdi.VirtualMachine;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
@@ -15,6 +16,7 @@ import edu.emory.clir.clearnlp.util.FileUtils;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**

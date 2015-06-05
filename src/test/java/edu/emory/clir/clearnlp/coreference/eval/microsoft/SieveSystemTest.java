@@ -46,8 +46,6 @@ public class SieveSystemTest {
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
 		config.loadMentionDectors(true, true, true);
-//		config.loadDefaultSieves(true, false, false, false, false, false, false);
-		config.mountSieves(new IndefinitePronounMatch());
 		config.loadDefaultSieves(true);
 		/* ************* */
 		

@@ -3,8 +3,13 @@ package edu.emory.clir.clearnlp.coreference.sieve;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.type.PronounType;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+import edu.emory.clir.clearnlp.dependency.DEPNode;
+import edu.emory.clir.clearnlp.dependency.DEPTagEn;
+import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.util.DSUtils;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author alexlutz ({@code ajlutz@emory.edu})
@@ -14,24 +19,32 @@ import java.util.List;
  * */
 public class IndefinitePronounMatch extends AbstractSieve
 {
-    public void resolute(List<AbstractMention> mentions, DisjointSet mentionLinks){
-        AbstractMention curr, prev;
-        int i = 0, j = 1, size = mentions.size();
+    private final Set<String> bannedWords = DSUtils.toHashSet("everyone", "everybody", "everything", "anything");
 
-        for(; i < size - 1; i++,j++ ){
-            prev = mentions.get(i);
-            curr = mentions.get(j);
-            if(match(prev, curr)){
-                if(!mentionLinks.isSameSet(i, j))
-                    mentionLinks.union(j, i);
-                break;
+    public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet mentionLinks)
+    {
+        int i = 0, size = mentions.size();
+        AbstractMention mention;
+        for (; i < size; i++) {
+            if ((mention = mentions.get(i)).isPronounType(PronounType.INDEFINITE)) {
+                DEPTree tree = mention.getTree();
+                int index = mention.getNode().getID() + 1;
+                if (!(tree.get(index).isLabel(DEPTagEn.DEP_PUNCT)) && tree.get(index).getAncestorSet().contains(mention.getHeadNode()) && !bannedWords.contains(mention.getWordFrom()) && adverbTest(mention.getWordFrom(), tree.get(index).getWordForm())) {
+                    if (!mentionLinks.isSameSet(i, i+1))
+                        mentionLinks.union(i, i+1);
+                }
             }
         }
     }
 
+    private boolean adverbTest(String mention, String next)
+    {
+        return mention.equals("all") && next.equals("over") || mention.equals("each") && next.equals("other");
+    }
 
+    @Override
     protected boolean match(AbstractMention prev, AbstractMention curr)
     {
-        return prev.isPronounType(PronounType.INDEFINITE) && prev.getNode().getAncestorSet().stream().filter(x -> x == curr.getHeadNode()).count() > 0;
+        return false;
     }
 }
