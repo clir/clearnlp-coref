@@ -2,6 +2,7 @@ package edu.emory.clir.clearnlp.coreference.coref.sieve;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 

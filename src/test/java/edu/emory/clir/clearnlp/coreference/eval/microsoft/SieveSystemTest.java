@@ -24,6 +24,7 @@ import edu.emory.clir.clearnlp.coreference.config.SieveSystemCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
 import edu.emory.clir.clearnlp.coreference.path.PathVisualization;
+import edu.emory.clir.clearnlp.coreference.sieve.IndefinitePronounMatch;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -46,7 +47,8 @@ public class SieveSystemTest {
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
 		config.loadMentionDectors(true, true, true);
 //		config.loadDefaultSieves(true, false, false, false, false, false, false);
-		config.loadDefaultSieves(false);
+		config.mountSieves(new IndefinitePronounMatch());
+		config.loadDefaultSieves(true);
 		/* ************* */
 		
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
@@ -63,9 +65,9 @@ public class SieveSystemTest {
 //			CoreferenceTestUtil.printResolutionResult(resolution);
 			CoreferenceTestUtil.printCorefCluster(resolution);
 			
-			annotator.export(FileUtils.getBaseName(filePath), trees, resolution.o1, resolution.o2);
+//			annotator.export(FileUtils.getBaseName(filePath), trees, resolution.o1, resolution.o2);
 			
-			break;
+//			break;
 		}
 	}
 }

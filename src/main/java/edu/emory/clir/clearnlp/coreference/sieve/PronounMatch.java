@@ -41,8 +41,6 @@ public class PronounMatch extends AbstractSieve {
 	
 	@Override
 	protected boolean match(AbstractMention prev, AbstractMention curr){
-		if(curr.getWordFrom().equals("Sam"))
-			System.out.println(prev.getWordFrom() + "-" + prev.isNameEntity() + " " + curr.getWordFrom() + "-" + curr.isNameEntity());
 		return curr.matchGenderType(prev) && curr.matchNumberType(prev) && curr.matchEntityType(prev); // && matchesPronoun(prev, curr);
 	}
 	

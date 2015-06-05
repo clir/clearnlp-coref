@@ -4,10 +4,7 @@ import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.pos.POSTagEn;
-/*
- * need to fix init, and acronym 
- */
-public class PreciseConstructMatch extends AbstractSieve{	
+public class PreciseConstructMatch extends AbstractSieve{
 
 	@Override
 	protected boolean match(AbstractMention prev, AbstractMention curr) {

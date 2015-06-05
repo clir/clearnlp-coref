@@ -23,7 +23,7 @@ public class SpeakerIdentification extends AbstractSieve{
 	private final Set<String> reportingVerbs;
 	private final Set<String> firstPersonSingularPronouns = DSUtils.toHashSet("i", "me", "my", "mine");
 	private final Set<String> firstPersonPluralPronouns	= DSUtils.toHashSet("we", "our", "ours", "us");
-	private final Set<String> secondPersonPronouns = DSUtils.toHashSet("you", "your", "yours");		//will need later
+	private final Set<String> secondPersonPronouns = DSUtils.toHashSet("you", "your", "yours");
 	private final Set<String> thirdPersonSingularPronouns = DSUtils.toHashSet("he", "him", "his", "she", "her", "hers", "it", "its");
 	private final Set<String> thirdPersonPluralPronouns = DSUtils.toHashSet("they", "them", "their", "theirs");
 	
