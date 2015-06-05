@@ -4,10 +4,7 @@ import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.pos.POSTagEn;
-/*
- * need to fix init, and acronym 
- */
-public class PreciseConstructMatch extends AbstractSieve{	
+public class PreciseConstructMatch extends AbstractSieve{
 
 	@Override
 	protected boolean match(AbstractMention prev, AbstractMention curr) {
@@ -25,11 +22,9 @@ public class PreciseConstructMatch extends AbstractSieve{
 	
 	private boolean acronymMatch(AbstractMention prev, AbstractMention curr){
         if (curr.getNode().isPOSTag(POSTagEn.POS_NNP) && prev.getNode().isPOSTag(POSTagEn.POS_NNP)){
-        	if(curr.matchEntityType(prev)){
-        		String curr_acronym = curr.getAcronym(), prev_acronym = prev.getAcronym();
-            	if(curr_acronym != null && prev_acronym != null)
-            		return curr_acronym.equals(prev_acronym);
-        	}
+        	String curr_acronym = curr.getAcronym(), prev_acronym = prev.getAcronym();
+        	if(curr_acronym != null && prev_acronym != null && curr_acronym.length() > 1)
+        		return curr_acronym.equals(prev_acronym);
         }
         return false;
     }    

@@ -240,6 +240,7 @@ public abstract class AbstractMention implements Serializable {
 		if(isNameEntity() && mention.isNameEntity())	return getEntityType() == mention.getEntityType() && getSubTreeWordSequence().equals(mention.getSubTreeWordSequence());
 		else if(isNameEntity())							return mention.isPronounType(PronounType.SUBJECT) || mention.isPronounType(PronounType.OBJECT);
 		else if(mention.isNameEntity())					return isPronounType(PronounType.SUBJECT) || isPronounType(PronounType.OBJECT);
+		else if(isEntityType(EntityType.COMMON))		return !(getEntityType() == mention.getEntityType());
 		return !isEntityType(EntityType.UNKNOWN) || getEntityType() == mention.getEntityType();
 	}
 	
@@ -248,7 +249,8 @@ public abstract class AbstractMention implements Serializable {
 	}
 	
 	public boolean matchGenderType(AbstractMention mention){
-		return mention.isGenderType(getGenderType()) || isGenderType(GenderType.NEUTRAL) || mention.isGenderType(GenderType.NEUTRAL);
+//		return mention.isGenderType(getGenderType()) || isGenderType(GenderType.NEUTRAL) || mention.isGenderType(GenderType.NEUTRAL);
+		return mention.isGenderType(getGenderType()) || isGenderType(GenderType.NEUTRAL) && mention.isGenderType(GenderType.NEUTRAL);
 	}
 	
 	public boolean hasSameHeadNode(AbstractMention mention){
