@@ -45,7 +45,7 @@ public class SieveSystemTest {
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
 		config.loadMentionDectors(true, false, true);
-		config.loadDefaultSieves(true, false, true, false, false, false, false, false);
+		config.loadDefaultSieves(true, true, true, true, true, true, true, true);
 //		config.mountSieves(new PreciseConstructMatch());
 		/* ************* */
 		
@@ -64,7 +64,6 @@ public class SieveSystemTest {
 			CoreferenceTestUtil.printCorefCluster(resolution);
 			
 			annotator.export(FileUtils.getBaseName(filePath), trees, resolution.o1, resolution.o2);
-			
 			break;
 		}
 	}

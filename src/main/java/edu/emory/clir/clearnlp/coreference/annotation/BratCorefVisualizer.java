@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.StringJoiner;
 
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
+import edu.emory.clir.clearnlp.coreference.type.AttributeType;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -58,33 +59,45 @@ public class BratCorefVisualizer {
 	}
 	
 	public void export(String fileName, List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet links){
-		PrintWriter annotation_writer = new PrintWriter(IOUtils.createBufferedPrintStream(rootPath + fileName + ".ann")),
+		try {
+			PrintWriter annotation_writer = new PrintWriter(IOUtils.createBufferedPrintStream(rootPath + fileName + ".ann")),
 					sentence_writer = new PrintWriter(IOUtils.createBufferedPrintStream(rootPath + fileName + ".txt"));
-		StringJoiner annotation_constructor = new StringJoiner(StringConst.NEW_LINE),
-					 sentence_constructor = new StringJoiner(StringConst.SPACE);
-		
-		int index = 0, size = mentions.size();
-		AbstractMention mention = mentions.get(index);
-		
-		// List out mentions
-		for(DEPTree tree : trees)
-			for(DEPNode node : tree){
-				if(mention != null && node == mention.getNode()){
-					index++;
-					annotation_constructor.add(getMentionAnnotation(mention, index, sentence_constructor.length()));
-					mention = (index < size)? mentions.get(index) : null;
+			StringJoiner annotation_constructor = new StringJoiner(StringConst.NEW_LINE),
+						 sentence_constructor = new StringJoiner(StringConst.SPACE);
+			
+			int index = 0, attrIndex = 0, size = mentions.size();
+			AbstractMention mention = mentions.get(index);
+			
+			// List out mentions
+			for(DEPTree tree : trees)
+				for(DEPNode node : tree){
+					if(mention != null && node == mention.getNode()){
+						index++;
+						annotation_constructor.add(getMentionAnnotation(mention, index, sentence_constructor.length()));
+						
+						// List out attributes
+						annotation_constructor.add(getAttributeAnnotation(++attrIndex, index, "EntityType", mention.getEntityType().toString()));
+						annotation_constructor.add(getAttributeAnnotation(++attrIndex, index, "NumberType", mention.getNumberType().toString()));
+						System.out.println(mention);
+						annotation_constructor.add(getAttributeAnnotation(++attrIndex, index, "GenderType", mention.getGenderType().toString()));
+						if(mention.getPronounType() != null) 				annotation_constructor.add(getAttributeAnnotation(++attrIndex, index, "PronounType", mention.getPronounType().toString()));
+						if(mention.hasFeature(AttributeType.QUOTE))			annotation_constructor.add(getAttributeAnnotation(++attrIndex, index, "Quotation", "true"));
+						if(mention.hasFeature(AttributeType.CONJUNCTION))	annotation_constructor.add(getAttributeAnnotation(++attrIndex, index, "Conjunction", "true"));
+						
+						mention = (index < size)? mentions.get(index) : null;
+					}
+					sentence_constructor.add(node.getWordForm());
 				}
-				sentence_constructor.add(node.getWordForm());
-			}
-		
-		// List out links
-		int link, relCount = 1;
-		for(index = 0; index < size; index++)
-			if( (link = links.findClosest(index)) != index)
-				annotation_constructor.add(getRelationAnnotation(relCount++, link, index));
-		
-		annotation_writer.println(annotation_constructor.toString());	annotation_writer.close();
-		sentence_writer.println(sentence_constructor.toString());		sentence_writer.close();
+			
+			// List out links
+			int link, relCount = 1;
+			for(index = 0; index < size; index++)
+				if( (link = links.findClosest(index)) != index)
+					annotation_constructor.add(getRelationAnnotation(relCount++, link, index));
+			
+			annotation_writer.println(annotation_constructor.toString());	annotation_writer.close();
+			sentence_writer.println(sentence_constructor.toString());		sentence_writer.close();
+		} catch (Exception e) { e.printStackTrace(); }
 	}
 	 
 	private String getMentionAnnotation(AbstractMention mention, int index, int offset){
@@ -99,11 +112,19 @@ public class BratCorefVisualizer {
 		return joiner.toString();
 	}
 	
-	private String getRelationAnnotation(int id, int prevId, int currId){
-		StringJoiner joiner = new StringJoiner(StringConst.SPACE, "R"+id+"\t", "");
+	private String getRelationAnnotation(int relId, int prevId, int currId){
+		StringJoiner joiner = new StringJoiner(StringConst.SPACE, "R"+relId+"\t", "");
 		joiner.add("Coreference");
 		joiner.add("Arg1:T"+(prevId+1));
 		joiner.add("Arg2:T"+(currId+1));
+		return joiner.toString();
+	}
+	
+	private String getAttributeAnnotation(int AttrIndex, int MentionIndex, String AttrType, String AttrVal){
+		StringJoiner joiner = new StringJoiner(StringConst.SPACE, "A"+AttrIndex+"\t", "");
+		joiner.add(AttrType);
+		joiner.add("T"+MentionIndex);
+		joiner.add(AttrVal);
 		return joiner.toString();
 	}
 }
