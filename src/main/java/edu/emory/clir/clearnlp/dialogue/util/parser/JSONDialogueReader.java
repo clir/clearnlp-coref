@@ -15,29 +15,36 @@
  */
 package edu.emory.clir.clearnlp.dialogue.util.parser;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import edu.emory.clir.clearnlp.dialogue.structure.Season;
+import edu.emory.clir.clearnlp.util.IOUtils;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	May 24, 2015
+ * @since 	Jun 5, 2015
  */
-public class SceneTuple {
-	public int seasonId;
-	public int episodeId;
-	public int sceneId;
+public class JSONDialogueReader {
+	private Gson gson;
+	private Type type;
 	
-	public SceneTuple(int season_id, int episode_id, int scene_id){
-		seasonId = season_id;
-		episodeId = episode_id;
-		sceneId = scene_id;
+	public JSONDialogueReader(){
+		gson = new Gson();
+		type = new TypeToken<Map<Integer, Season>>(){}.getType();
 	}
 	
-	public String getFileName(){
-		return "s" + seasonId + "e" + episodeId + ".scene" + sceneId;
+	public Map<Integer, Season> read(String filePath) throws IOException{
+		return gson.fromJson(IOUtils.createBufferedReader(filePath), type);
 	}
 	
-	@Override
-	public String toString(){
-		return "Season: " + seasonId + "\tEpsiode: " + episodeId + "\tScene: " + sceneId;
+	public Map<Integer, Season> read(InputStream in){
+		return gson.fromJson(IOUtils.createBufferedReader(in), type);
 	}
 }

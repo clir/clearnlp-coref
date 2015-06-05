@@ -81,10 +81,16 @@ public class EnglishProperNounDetector extends AbstractProperNounDetector{
 					properNoun.g_type = GenderType.UNKNOWN;
 					properNoun.n_type = NumberType.UNCOUNTABLE;
 					break;
+				default:
+					properNoun.e_type = EntityType.UNKNOWN;
+					properNoun.g_type = GenderType.UNKNOWN;
+					properNoun.n_type = NumberType.UNKNOWN;
+					break;
 			}
 		}
 		else{
 			properNoun.e_type = EntityType.UNKNOWN;
+			properNoun.g_type = GenderType.UNKNOWN;
 			properNoun.n_type = NumberType.UNKNOWN;
 		}
 
@@ -100,6 +106,7 @@ public class EnglishProperNounDetector extends AbstractProperNounDetector{
 		if(m_femaleNames.contains(properNoun.wordFrom))	
 			if(m_maleNames.contains(properNoun.wordFrom))	properNoun.g_type = GenderType.NEUTRAL;
 			else											properNoun.g_type = GenderType.FEMALE;
-			
+		else
+			properNoun.g_type = GenderType.UNKNOWN;
 	}
 }

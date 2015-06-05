@@ -18,9 +18,14 @@ package edu.emory.clir.clearnlp.dialogue.structure;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import edu.emory.clir.clearnlp.collection.pair.Pair;
+import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.reader.AbstractReader;
 import edu.emory.clir.clearnlp.util.Joiner;
 
 /**
@@ -28,7 +33,7 @@ import edu.emory.clir.clearnlp.util.Joiner;
  * @version	1.0
  * @since 	May 22, 2015
  */
-public class Scene implements Serializable, Comparable<Scene>{
+public class Scene implements Serializable, Comparable<Scene>, Iterable<Pair<String, Utterance>>{
 	private static final long serialVersionUID = 5315569961140509729L;
 	
 	private int sceneId;
@@ -51,8 +56,35 @@ public class Scene implements Serializable, Comparable<Scene>{
 		return utterances.size();
 	}
 	
+	public String getSpeakerName(int id){
+		return speakerIDs.getOrDefault(id, null);
+	}
+	
+	public List<String> getUtteranceSpeakers(){
+		return utterances.stream().map(u -> speakerIDs.getOrDefault(u.getSpeakerId(), "null") + ":").collect(Collectors.toList());
+	}
+	
+	public Pair<String, Utterance> getUtterance(int id){
+		Utterance utterance = utterances.get(id);
+		return new Pair<>(getSpeakerName(utterance.getSpeakerId()), utterance);
+	}
+	
 	public List<Utterance> getUtterances(){
 		return utterances;
+	}
+	
+	public List<String> getAllRawTrees(){
+		List<String> list = new ArrayList<>();
+		for(Utterance utterance : utterances)
+			list.addAll(utterance.getRawTrees());
+		return list;
+	}
+	
+	public List<DEPTree> getAllDEPTrees(AbstractReader<DEPTree> reader){
+		List<DEPTree> list = new ArrayList<>();
+		for(Utterance utterance : utterances)
+			list.addAll(utterance.getDEPTrees(reader));
+		return list;
 	}
 	
 	public int addSpeaker(String speaker){
@@ -82,5 +114,19 @@ public class Scene implements Serializable, Comparable<Scene>{
 	@Override
 	public String toString(){
 		return Joiner.join(utterances, "\n");
+	}
+
+	@Override
+	public Iterator<Pair<String, Utterance>> iterator() {
+		Iterator<Pair<String, Utterance>> it = new Iterator<Pair<String,Utterance>>() {
+			int index = 0, size = utterances.size();
+			
+			@Override
+			public boolean hasNext() { return index < size; }
+
+			@Override
+			public Pair<String, Utterance> next() { return getUtterance(index++); }
+		};
+		return it;
 	}
 }
