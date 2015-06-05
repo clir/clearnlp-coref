@@ -32,5 +32,5 @@ public interface PathData {
 	
 	String 	ENG_MENTION = MENTION + "input.mention.cnlp",
 			ENG_MENTION_QUOTE = MENTION + "input.mention.quote.cnlp",
-			ENG_MENTION_CONJUNCTION = MENTION + "input.menton.conjunctions.cnlp";
+			ENG_MENTION_CONJUNCTION = MENTION + "input.mention.conjunctions.cnlp";
 }

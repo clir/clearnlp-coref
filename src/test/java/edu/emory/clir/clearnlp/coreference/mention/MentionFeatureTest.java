@@ -27,6 +27,7 @@ import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetect
 import edu.emory.clir.clearnlp.coreference.path.PathData;
 import edu.emory.clir.clearnlp.coreference.type.AttributeType;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
+import edu.emory.clir.clearnlp.coreference.visualization.BratCorefVisualizer;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
@@ -57,5 +58,7 @@ public class MentionFeatureTest {
 		
 		for(AbstractMention mention : mentions)
 			if(mention.hasConjunctionMention())	System.out.println(mention.getConjunctionMentions());
+		
+		BratCorefVisualizer.export("/Users/HenryChen/Desktop/", "conjunctionTest", trees, mentions);
 	}
 }
