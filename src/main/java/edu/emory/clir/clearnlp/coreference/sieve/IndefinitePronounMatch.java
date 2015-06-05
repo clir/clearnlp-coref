@@ -6,6 +6,7 @@ import java.util.Set;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.type.PronounType;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.DSUtils;
@@ -23,12 +24,10 @@ public class IndefinitePronounMatch extends AbstractSieve{
     public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet mentionLinks)
     {
         int i = 0, size = mentions.size();
-        AbstractMention mention;
+        AbstractMention prev, curr = null;
         for (; i < size; i++) {
-            if ((mention = mentions.get(i)).isPronounType(PronounType.INDEFINITE)) {
-                DEPTree tree = mention.getTree();
-                int index = mention.getNode().getID() + 1;
-                if (!(tree.get(index).isLabel(DEPTagEn.DEP_PUNCT)) && tree.get(index).getAncestorSet().contains(mention.getHeadNode()) && !bannedWords.contains(mention.getWordFrom()) && adverbTest(mention.getWordFrom(), tree.get(index).getWordForm())) {
+            if ((prev = mentions.get(i)).isPronounType(PronounType.INDEFINITE)) {
+                if (match(prev, curr)) {
                     if (!mentionLinks.isSameSet(i, i+1))
                         mentionLinks.union(i, i+1);
                 }
@@ -38,13 +37,20 @@ public class IndefinitePronounMatch extends AbstractSieve{
 
     private boolean adverbTest(String mention, String next)
     {
-        return mention.equals("all") && next.equals("over") || mention.equals("each") && next.equals("other");
+        return mention.equals("each") && next.equals("other");
     }
 
-    private boolean breakTest(String mention)
+    private boolean breakTest(String mention, String next)
+    {
+        return mention.equals("all") && next.equals("over");
+    }
+
 
     @Override
-    protected boolean match(AbstractMention prev, AbstractMention curr){
-        return false;
+    protected boolean match(AbstractMention prev, AbstractMention curr)
+    {
+        DEPTree tree = prev.getTree();
+        DEPNode nextWord = tree.get(prev.getNode().getID() + 1);
+        return nextWord.isLabel(DEPTagEn.DEP_PUNCT) && nextWord.getAncestorSet().contains(prev.getHeadNode()) && !bannedWords.contains(prev.getWordFrom()) && adverbTest(prev.getWordFrom(), nextWord.getWordForm()) && !breakTest(prev.getWordFrom(), nextWord.getWordForm());
     }
 }
