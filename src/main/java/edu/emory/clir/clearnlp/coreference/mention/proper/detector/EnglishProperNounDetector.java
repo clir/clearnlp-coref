@@ -81,6 +81,11 @@ public class EnglishProperNounDetector extends AbstractProperNounDetector{
 					properNoun.g_type = GenderType.UNKNOWN;
 					properNoun.n_type = NumberType.UNCOUNTABLE;
 					break;
+				default:
+					properNoun.e_type = EntityType.UNKNOWN;
+					properNoun.g_type = GenderType.UNKNOWN;
+					properNoun.n_type = NumberType.UNKNOWN;
+					break;
 			}
 		}
 		else{

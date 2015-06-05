@@ -18,6 +18,7 @@ package edu.emory.clir.clearnlp.dialogue.structure;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -29,7 +30,7 @@ import edu.emory.clir.clearnlp.util.Joiner;
  * @version	1.0
  * @since 	May 24, 2015
  */
-public class Episode implements Serializable, Comparable<Episode> {
+public class Episode implements Serializable, Comparable<Episode>, Iterable<Scene> {
 	private static final long serialVersionUID = 6820752751873428267L;
 
 	private int episodeId;
@@ -62,5 +63,12 @@ public class Episode implements Serializable, Comparable<Episode> {
 	@Override
 	public String toString(){
 		return Joiner.join(scenes.values(), "\n");
+	}
+
+	@Override
+	public Iterator<Scene> iterator() {
+		List<Scene> scenes = getScenes();
+		Collections.sort(scenes);
+		return scenes.iterator();
 	}
 }

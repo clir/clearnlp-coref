@@ -24,5 +24,6 @@ public interface PathVisualization {
 	String 	ROOT = "src/test/resources/edu/emory/clir/clearnlp/visualization",
 			DATA = ROOT + "/data";
 	
-	String	MS_DATA = DATA + "/ms_coref";
+	String	MS_DATA = DATA + "/ms_coref",
+			FRIENDS = DATA + "/friends";
 }

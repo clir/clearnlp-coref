@@ -78,7 +78,6 @@ public class BratCorefVisualizer {
 						// List out attributes
 						annotation_constructor.add(getAttributeAnnotation(++attrIndex, index, "EntityType", mention.getEntityType().toString()));
 						annotation_constructor.add(getAttributeAnnotation(++attrIndex, index, "NumberType", mention.getNumberType().toString()));
-						System.out.println(mention);
 						annotation_constructor.add(getAttributeAnnotation(++attrIndex, index, "GenderType", mention.getGenderType().toString()));
 						if(mention.getPronounType() != null) 				annotation_constructor.add(getAttributeAnnotation(++attrIndex, index, "PronounType", mention.getPronounType().toString()));
 						if(mention.hasFeature(AttributeType.QUOTE))			annotation_constructor.add(getAttributeAnnotation(++attrIndex, index, "Quotation", "true"));
@@ -100,11 +99,56 @@ public class BratCorefVisualizer {
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 	 
+	public void export(String fileName, List<String> prefixes, List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet links){
+		if(prefixes.size() != trees.size()) throw new IllegalArgumentException("Prefix counts do not match with tree counts.");
+		try {
+			PrintWriter annotation_writer = new PrintWriter(IOUtils.createBufferedPrintStream(rootPath + fileName + ".ann")),
+					sentence_writer = new PrintWriter(IOUtils.createBufferedPrintStream(rootPath + fileName + ".txt"));
+			StringJoiner annotation_constructor = new StringJoiner(StringConst.NEW_LINE),
+						 sentence_constructor = new StringJoiner(StringConst.SPACE);
+			
+			int t_index = 0, n_index = 0, attrIndex = 0, size = mentions.size();
+			AbstractMention mention = mentions.get(n_index);
+			
+			// List out mentions
+			for(DEPTree tree : trees){
+				sentence_constructor.add(prefixes.get(t_index++)+":");
+				for(DEPNode node : tree){
+					if(mention != null && node == mention.getNode()){
+						n_index++;
+						annotation_constructor.add(getMentionAnnotation(mention, n_index, sentence_constructor.length()));
+						
+						// List out attributes
+						annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "EntityType", mention.getEntityType().toString()));
+						annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "NumberType", mention.getNumberType().toString()));
+						System.out.println(mention);
+						annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "GenderType", mention.getGenderType().toString()));
+						if(mention.getPronounType() != null) 				annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "PronounType", mention.getPronounType().toString()));
+						if(mention.hasFeature(AttributeType.QUOTE))			annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Quotation", "true"));
+						if(mention.hasFeature(AttributeType.CONJUNCTION))	annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Conjunction", "true"));
+						
+						mention = (n_index < size)? mentions.get(n_index) : null;
+					}
+					sentence_constructor.add(node.getWordForm());
+				}
+			}
+			
+			// List out links
+			int link, relCount = 1;
+			for(n_index = 0; n_index < size; n_index++)
+				if( (link = links.findClosest(n_index)) != n_index)
+					annotation_constructor.add(getRelationAnnotation(relCount++, link, n_index));
+			
+			annotation_writer.println(annotation_constructor.toString());	annotation_writer.close();
+			sentence_writer.println(sentence_constructor.toString());		sentence_writer.close();
+		} catch (Exception e) { e.printStackTrace(); }
+	}
+	
 	private String getMentionAnnotation(AbstractMention mention, int index, int offset){
 		String wordForm = mention.getWordFrom();
 		StringJoiner joiner = new StringJoiner(StringConst.TAB);
 		
-		offset ++;
+		if(offset > 0) offset ++;
 		joiner.add("T"+index);
 		joiner.add("Mention" + " " + offset + " " + (offset+wordForm.length()));
 		joiner.add(wordForm);
