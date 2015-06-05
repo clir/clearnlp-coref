@@ -46,7 +46,7 @@ public class SieveSystemTest {
 	public void test(){
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadMentionDectors(true, false, true);
+		config.loadMentionDectors(true, true, true);
 		config.loadDefaultSieves(true, true, true, true, true, true, true, true);
 		/* ************* */
 		

@@ -25,5 +25,6 @@ public interface PathVisualization {
 			DATA = ROOT + "/data";
 	
 	String	MS_DATA = DATA + "/ms_coref",
-			FRIENDS = DATA + "/friends";
+			FRIENDS = DATA + "/friends",
+			QA_ARITHMETIC = DATA + "/qa_arithmetic";
 }

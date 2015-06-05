@@ -16,8 +16,6 @@
 package edu.emory.clir.clearnlp.coreference.mention;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.List;
 
 import org.junit.Test;
@@ -26,10 +24,10 @@ import edu.emory.clir.clearnlp.coreference.config.MentionConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
+import edu.emory.clir.clearnlp.coreference.path.PathVisualization;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
-import edu.emory.clir.clearnlp.dependency.DEPNode;
+import edu.emory.clir.clearnlp.coreference.visualization.BratCorefVisualizer;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
-import edu.emory.clir.clearnlp.util.IOUtils;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -40,26 +38,11 @@ public class MentionDetectorTest {
 	
 	@Test
 	public void getMentionsTest() throws IOException{
-		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION);
-		OutputStream out = IOUtils.createFileOutputStream(PathData.ENG_MENTION + ".out"); 
+		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION); 
 		
-		StringBuilder sb = new StringBuilder();
-		PrintWriter writer = new PrintWriter(out);
-		
-		List<AbstractMention> mentions;
 		AbstractMentionDetector detector = new EnglishMentionDetector(new MentionConfiguration(true, true, true));
+		List<AbstractMention> mentions = detector.getMentionList(trees);
 		
-		for(DEPTree t : trees){
-			for(DEPNode n : t)	sb.append(n.getWordForm()+" ");
-			writer.println(sb.toString());
-			
-			mentions = detector.getMentionList(t);
-			writer.println(mentions.toString());
-			
-			writer.println();	sb.setLength(0);
-		}
-		
-		out.close();
-		writer.close();
+		BratCorefVisualizer.export(PathVisualization.QA_ARITHMETIC, "mentions", trees, mentions);
 	}
 }
