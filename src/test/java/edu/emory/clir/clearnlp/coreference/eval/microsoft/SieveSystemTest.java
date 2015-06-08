@@ -17,16 +17,23 @@ package edu.emory.clir.clearnlp.coreference.eval.microsoft;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
+import edu.emory.clir.clearnlp.coreference.config.AbstractCorefConfiguration;
 import edu.emory.clir.clearnlp.coreference.config.SieveSystemCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
 import edu.emory.clir.clearnlp.coreference.path.PathVisualization;
+import edu.emory.clir.clearnlp.coreference.sieve.ExactStringMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.SimplePronounMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.SpeakerIdentification;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
+import edu.emory.clir.clearnlp.coreference.utils.CorpusReconstructor;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.coreference.visualization.BratCorefVisualizer;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -41,14 +48,30 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
 public class SieveSystemTest {
 
 	@Test
-	public void test(){
+	@Ignore
+	public void testAllSieves(){
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
 		config.loadMentionDectors(true, true, true);
 		config.loadDefaultSieves(true, true, true, true, true, true, true, true);
 		/* ************* */
 		
-		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
+		testCorefSieveSystem(config);
+	}
+	
+	@Test
+	public void testSelectedSieves(){
+		/* Configuration */
+		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
+		config.loadMentionDectors(true, true, true);
+		config.mountSieves(new SpeakerIdentification(), new ExactStringMatch(), new RelaxedStringMatch(), new SimplePronounMatch());
+		/* ************* */
+		
+		testCorefSieveSystem(config);
+	}
+	
+	public void testCorefSieveSystem(AbstractCorefConfiguration config){
+		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution((SieveSystemCongiuration)config);
 		BratCorefVisualizer annotator = new BratCorefVisualizer(PathVisualization.MS_DATA);
 		List<String> l_filePaths = FileUtils.getFileList(PathData.ENG_COREF_MICROSOFT_PARSED_DIR, ".cnlp", false);
 		
@@ -62,8 +85,8 @@ public class SieveSystemTest {
 			CoreferenceTestUtil.printResolutionResult(resolution);
 			CoreferenceTestUtil.printCorefCluster(resolution);
 			
-			annotator.export(FileUtils.getBaseName(filePath), trees, resolution.o1, resolution.o2);
-			break;
+			CorpusReconstructor.reconstruct(trees, resolution.o1, resolution.o2, "/Users/HenryChen/Desktop/MS_Output/"+FileUtils.getBaseName(filePath));
+//			annotator.export(FileUtils.getBaseName(filePath), trees, resolution.o1, resolution.o2);
 		}
 	}
 }

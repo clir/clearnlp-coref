@@ -25,8 +25,10 @@ import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.config.SieveSystemCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+import edu.emory.clir.clearnlp.dependency.DEPLibEn;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.pos.POSTagEn;
 import edu.emory.clir.clearnlp.util.FileUtils;
 import edu.emory.clir.clearnlp.util.IOUtils;
 import edu.emory.clir.clearnlp.util.constant.StringConst;
@@ -38,6 +40,12 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
  * @since 	Jun 8, 2015
  */
 public class CorpusReconstructor {
+	public static void reconstruct(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet links, String output){
+		PrintWriter writer = new PrintWriter(IOUtils.createBufferedPrintStream(output + ".reconstructed"));
+		writer.println(reconstruct(trees, mentions, links));
+		writer.close();
+	}
+	
 	public static void reconstruct(String input, String output, boolean isDirectory){
 		List<DEPTree> trees;
 		PrintWriter writer;
@@ -82,7 +90,13 @@ public class CorpusReconstructor {
 			for(DEPNode node : tree){
 				token = node.getWordForm();
 				if(node == mention.getNode()){
-					if(!links.isSingleton(m_index))	token = mentions.get(links.findHead(m_index)).getWordFrom();
+					if(!links.isSingleton(m_index))
+//						if(!mentions.get(links.findHead(m_index)).isEntityType(EntityType.COMMON))	// Excluding common noun mentions
+							token = mentions.get(links.findHead(m_index)).getWordFrom();
+					
+					if(node.isLabel(DEPLibEn.DEP_POSS) || node.isPOSTag(POSTagEn.POS_PRPS))
+						token = (token.charAt(token.length()-1) == 's')? token + "\'" : token + "\'s";
+					
 					if(m_index + 1 < m_size)		mention = mentions.get(++m_index);
 				}
 				joiner.add(token);
