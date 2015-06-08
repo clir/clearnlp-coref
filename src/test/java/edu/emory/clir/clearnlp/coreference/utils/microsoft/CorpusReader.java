@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.eval.microsoft;
+package edu.emory.clir.clearnlp.coreference.utils.microsoft;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,8 +21,8 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.NLPDecoder;
-import edu.emory.clir.clearnlp.coreference.path.PathData;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.util.FileUtils;
 import edu.emory.clir.clearnlp.util.IOUtils;
 import edu.emory.clir.clearnlp.util.Splitter;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
@@ -33,16 +33,15 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
  * @since 	May 27, 2015
  */
 public class CorpusReader {
-	public static void main(String[] args) throws IOException{
-		String line;
+	public static void parse(String fileName, String output_dir) throws IOException{
+		String line;	PrintWriter writer;
 		NLPDecoder decoder = new NLPDecoder(TLanguage.ENGLISH);
-		BufferedReader reader = IOUtils.createBufferedReader(PathData.ENG_COREF_MICROSOFT_RAW);
-		PrintWriter writer;
+		BufferedReader reader = IOUtils.createBufferedReader(fileName);
 		
 		int count = 0;
 		List<DEPTree> trees;
 		while( (line = reader.readLine()) != null){
-			writer = new PrintWriter(IOUtils.createFileOutputStream("/Users/HenryChen/Documents/ClearNLP-QA/clearnlp-coref/src/test/resources/edu/emory/clir/clearnlp/coreference/coref/microsoft/parsed/mc500.dev.comprehension"+(++count)+".cnlp"));
+			writer = new PrintWriter(IOUtils.createFileOutputStream(output_dir + FileUtils.getBaseName(fileName) + "." + (++count) + ".cnlp"));
 			trees = decoder.toDEPTrees(Splitter.splitTabs(line)[2]);
 			for(DEPTree tree : trees)	writer.println(tree+"\n");
 			writer.close();

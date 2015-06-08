@@ -56,12 +56,12 @@ public class BratCorefVisualizer {
 		this.rootPath = rootPath;
 	}
 	
-	public static void export(String rootPath, String fileName, List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet links){
-		new BratCorefVisualizer(rootPath).export(fileName, trees, mentions, links);
-	}
-	
 	public static void export(String rootPath, String fileName, List<DEPTree> trees, List<AbstractMention> mentions){
 		new BratCorefVisualizer(rootPath).export(fileName, trees, mentions);
+	}
+	
+	public static void export(String rootPath, String fileName, List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet links){
+		new BratCorefVisualizer(rootPath).export(fileName, trees, mentions, links);
 	}
 	
 	public static void export(String rootPath, String fileName, List<String> prefixes, List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet links){
