@@ -18,6 +18,7 @@ package edu.emory.clir.clearnlp.coreference.coref.sieve;
 import java.io.IOException;
 import java.util.List;
 
+import edu.emory.clir.clearnlp.coreference.sieve.IndefinitePronounMatch;
 import org.junit.Test;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
@@ -43,7 +44,8 @@ public class SieveSystemTest {
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
 		config.loadDefaultMentionDectors();
-		config.loadDefaultSieves(true, false, false, false, false, false, false, false);
+		config.loadDefaultSieves(true);
+
 		/* ************* */
 		
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);

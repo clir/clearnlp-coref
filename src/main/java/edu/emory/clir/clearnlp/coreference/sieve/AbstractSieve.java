@@ -31,14 +31,15 @@ abstract public class AbstractSieve{
 		AbstractMention curr, prev;
 		int i, j, size = mentions.size();
 		
-		for(i = size - 1; i > 0; i--){
+//		for(i = size - 1; i > 0; i--){
+		for (i = 1; i < size; i++){
 			curr = mentions.get(i);
 			
 			for(j = i - 1; j >= 0; j--){
 				prev = mentions.get(j);
 				
 				if(match(prev, curr)){
-					if(!mentionLinks.isSameSet(i, j)) 
+					if(!mentionLinks.isSameSet(i, j))
 						mentionLinks.union(j, i);
 					break;
 				}

@@ -238,8 +238,8 @@ public abstract class AbstractMention implements Serializable {
 	
 	public boolean matchEntityType(AbstractMention mention){
 		if(isNameEntity() && mention.isNameEntity())	return getEntityType() == mention.getEntityType() && getSubTreeWordSequence().equals(mention.getSubTreeWordSequence());
-		else if(isNameEntity())							return mention.isPronounType(PronounType.SUBJECT) || mention.isPronounType(PronounType.OBJECT);
-		else if(mention.isNameEntity())					return isPronounType(PronounType.SUBJECT) || isPronounType(PronounType.OBJECT);
+		else if(isNameEntity())							return mention.isPronounType(PronounType.SUBJECT) || mention.isPronounType(PronounType.OBJECT) || mention.isPronounType(PronounType.POSSESSIVE);
+		else if(mention.isNameEntity())					return isPronounType(PronounType.SUBJECT) || isPronounType(PronounType.OBJECT) || isPronounType(PronounType.POSSESSIVE);
 		else if(isEntityType(EntityType.COMMON))		return !(getEntityType() == mention.getEntityType());
 		return !isEntityType(EntityType.UNKNOWN) || getEntityType() == mention.getEntityType();
 	}
