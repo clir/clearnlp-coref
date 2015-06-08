@@ -249,8 +249,7 @@ public abstract class AbstractMention implements Serializable {
 	}
 	
 	public boolean matchGenderType(AbstractMention mention){
-//		return mention.isGenderType(getGenderType()) || isGenderType(GenderType.NEUTRAL) || mention.isGenderType(GenderType.NEUTRAL);
-		return mention.isGenderType(getGenderType()) || isGenderType(GenderType.NEUTRAL) && mention.isGenderType(GenderType.NEUTRAL);
+		return mention.isGenderType(getGenderType()) || isGenderType(GenderType.NEUTRAL) || mention.isGenderType(GenderType.NEUTRAL);
 	}
 	
 	public boolean hasSameHeadNode(AbstractMention mention){
@@ -268,6 +267,10 @@ public abstract class AbstractMention implements Serializable {
 	/* String handling methods */
 	public String getWordFrom(){
 		return d_node.getWordForm();
+	}
+	
+	public String getLemma(){
+		return d_node.getLemma();
 	}
 
 	public String getSubTreeWordSequence(){

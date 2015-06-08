@@ -69,15 +69,17 @@ public class EnglishPronounDetector extends AbstractPronounDetector {
 
 	@Override
 	public boolean isPronoun(DEPTree tree, DEPNode node) {
-		// Common pronoun
-		return 	!node.isLabel(DEPTagEn.DEP_COMPOUND) &&
+		// Pronoun pronoun
+		return 	!node.isLabel(DEPTagEn.DEP_COMPOUND) &&	
+				!node.isLabel(DEPTagEn.DEP_AMOD) &&
+				!node.isLabel(DEPTagEn.DEP_ADVMOD) &&
 				!node.isPOSTag(POSTagEn.POS_IN) &&
 				(m_pronouns.containsKey(node.getLemma()) || m_pronouns.containsKey(node.getWordForm()) || (node.isPOSTag(CTLibEn.POS_PRP) || node.isPOSTag(CTLibEn.POS_PRPS)));
 	}
 	
 	@Override
 	public Pronoun getPronoun(DEPTree tree, DEPNode node) {
-		// Common pronoun
+		// Pronoun pronoun
 		Pronoun pronoun;
 		
 		if( (pronoun = getPronoun(node.getLemma())) != null || (pronoun = getPronoun(node.getWordForm())) != null)	return pronoun;

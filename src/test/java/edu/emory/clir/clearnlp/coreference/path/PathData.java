@@ -23,14 +23,15 @@ package edu.emory.clir.clearnlp.coreference.path;
 public interface PathData {
 	String 	ROOT = "src/test/resources/edu/emory/clir/clearnlp/coreference/",
 			COREF = ROOT + "coref/",
-			MENTION = ROOT + "mention/";
+			MENTION = ROOT + "mention/",
+			COREF_MICROSOFT = COREF + "microsoft/";
 	
 	String 	ENG_COREF_ADJUNTION = COREF + "input.coref.adjunction.cnlp",
 			ENG_COREF_RELAXED_STRING = COREF + "input.coref.relaxedstring.cnlp",
-			ENG_COREF_MICROSOFT_RAW = COREF + "microsoft/mc500.dev.tsv",
-			ENG_COREF_MICROSOFT_PARSED_DIR = COREF + "microsoft/parsed/";
+			ENG_COREF_MICROSOFT_RAW = COREF_MICROSOFT + "mc500.dev.tsv",
+			ENG_COREF_MICROSOFT_PARSED_DIR = COREF_MICROSOFT + "parsed/";
 	
 	String 	ENG_MENTION = MENTION + "input.mention.cnlp",
 			ENG_MENTION_QUOTE = MENTION + "input.mention.quote.cnlp",
-			ENG_MENTION_CONJUNCTION = MENTION + "input.menton.conjunctions.cnlp";
+			ENG_MENTION_CONJUNCTION = MENTION + "input.mention.conjunctions.cnlp";
 }

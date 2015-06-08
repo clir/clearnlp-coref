@@ -13,18 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.path;
+package edu.emory.clir.clearnlp.coreference.structure;
+
+import org.junit.Test;
+
+import edu.emory.clir.clearnlp.coreference.path.PathData;
+import edu.emory.clir.clearnlp.coreference.utils.CorpusReconstructor;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	Jun 4, 2015
+ * @since 	Jun 8, 2015
  */
-public interface PathVisualization {
-	String 	ROOT = "src/test/resources/edu/emory/clir/clearnlp/visualization",
-			DATA = ROOT + "/data";
-	
-	String	MS_DATA = DATA + "/ms_coref",
-			FRIENDS = DATA + "/friends",
-			QA_ARITHMETIC = DATA + "/qa_arithmetic";
+public class CorpusRecontructorTest {
+	@Test
+	public void test(){
+		String 	in = PathData.ENG_COREF_MICROSOFT_PARSED_DIR,
+				out = "/Users/HenryChen/Desktop/MS_Output/";
+		
+		CorpusReconstructor.reconstruct(in, out, true);
+	}
 }
