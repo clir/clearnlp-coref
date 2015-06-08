@@ -16,8 +16,6 @@
 package edu.emory.clir.clearnlp.dialogue.util.parser;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;

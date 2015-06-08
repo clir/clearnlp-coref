@@ -68,6 +68,10 @@ public class DisjointSet implements Serializable, Iterable<DoubleIntPair> {
 		return idx; 
 	}
 	
+	public boolean isSingleton(int id){
+		return s_root[id] < 0;
+	}
+	
 	public boolean isSameSet(int id, int idx){
 		return findHead(id) == findHead(idx);
 	}

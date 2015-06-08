@@ -49,10 +49,11 @@ public class SpeakerIdentification extends AbstractSieve{
 				
 				if(match(prev, curr)){
 					if(!mentionLinks.isSameSet(i, j))
-						if(curr.isEntityType(EntityType.PERSON))
+						if(curr.isEntityType(EntityType.PERSON) || !curr.hasFeature(AttributeType.QUOTE))
 							mentionLinks.union(i, j);
-						else
+						else 
 							mentionLinks.union(j, i);
+							
 					break;
 				}
 			}

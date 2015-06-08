@@ -15,7 +15,15 @@
  */
 package edu.emory.clir.clearnlp.coreference.utils.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import edu.emory.clir.clearnlp.tokenization.AbstractTokenizer;
+import edu.emory.clir.clearnlp.tokenization.EnglishTokenizer;
 import edu.emory.clir.clearnlp.util.CharUtils;
+import edu.emory.clir.clearnlp.util.Joiner;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -38,5 +46,22 @@ public class CoreferenceStringUtils {
 			if(CharUtils.isUpperCase(c))	sb.append(c);
 		
 		return sb.toString();
+	}
+	
+	public static List<String> tokenize(String line){
+		AbstractTokenizer tokenizer = new EnglishTokenizer();
+		return tokenizer.tokenize(line);
+	}
+	
+	public static List<String> segmentize2Sentences(String document){
+		AbstractTokenizer tokenizer = new EnglishTokenizer();
+		InputStream in = new ByteArrayInputStream(document.getBytes());
+		return tokenizer.segmentize(in).stream().map(l -> Joiner.join(l, " ")).collect(Collectors.toList());
+	}
+	
+	public static List<List<String>> segmentize2Tokens(String document){
+		AbstractTokenizer tokenizer = new EnglishTokenizer();
+		InputStream in = new ByteArrayInputStream(document.getBytes());
+		return tokenizer.segmentize(in);
 	}
 }
