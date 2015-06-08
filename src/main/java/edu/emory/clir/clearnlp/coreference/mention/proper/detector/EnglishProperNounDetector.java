@@ -101,12 +101,12 @@ public class EnglishProperNounDetector extends AbstractProperNounDetector{
 	private void processPersonTag(ProperNoun properNoun){
 		properNoun.e_type = EntityType.PERSON;
 		properNoun.n_type = NumberType.SINGULAR;
-		
+			
 		if(m_maleNames.contains(properNoun.wordFrom))		properNoun.g_type = GenderType.MALE;
 		if(m_femaleNames.contains(properNoun.wordFrom))	
 			if(m_maleNames.contains(properNoun.wordFrom))	properNoun.g_type = GenderType.NEUTRAL;
 			else											properNoun.g_type = GenderType.FEMALE;
 		else
-			properNoun.g_type = GenderType.UNKNOWN;
+			properNoun.g_type = GenderType.NEUTRAL;
 	}
 }
