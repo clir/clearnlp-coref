@@ -53,7 +53,7 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 //	====================================== MENTION TYPE ======================================
 	
 	@Override
-	public EnglishMention getMention(int treeId, DEPTree tree, DEPNode node){
+	public AbstractMention getMention(int treeId, DEPTree tree, DEPNode node){
 		EnglishMention mention;
 		
 		if (m_config.b_pronoun && (mention = getPronounMention(treeId, tree, node)) != null )	return mention;
