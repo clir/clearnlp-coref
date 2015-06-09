@@ -33,7 +33,6 @@ import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.SimplePronounMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.SpeakerIdentification;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
-import edu.emory.clir.clearnlp.coreference.utils.CorpusReconstructor;
 import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.coreference.visualization.BratCorefVisualizer;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -56,16 +55,11 @@ public class SieveSystemTest {
 		config.loadDefaultSieves(false, true, true, false, true, true, true, true);
 		/* ************* */
 		
-		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
-//		BratCorefVisualizer annotator = new BratCorefVisualizer(PathVisualization.MS_DATA);
-//		config.loadMentionDectors(true, true, true);
-//		config.loadDefaultSieves(true, true, true, true, true, true, true, true);
-		/* ************* */
-		
 		testCorefSieveSystem(config);
 	}
 	
 	@Test
+//	@Ignore
 	public void testSelectedSieves(){
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
@@ -88,11 +82,12 @@ public class SieveSystemTest {
 			resolution = coref.getEntities(trees);
 			
 			CoreferenceTestUtil.printSentences(trees);
-//			CoreferenceTestUtil.printResolutionResult(resolution);
+			CoreferenceTestUtil.printResolutionResult(resolution);
 			CoreferenceTestUtil.printCorefCluster(resolution);
 			
-			CorpusReconstructor.reconstruct(trees, resolution.o1, resolution.o2, "/Users/HenryChen/Desktop/MS_Output/"+FileUtils.getBaseName(filePath));
+//			CorpusReconstructor.reconstruct(trees, resolution.o1, resolution.o2, "/Users/HenryChen/Desktop/MS_Output/"+FileUtils.getBaseName(filePath));
 //			annotator.export(FileUtils.getBaseName(filePath), trees, resolution.o1, resolution.o2);
+			break;
 		}
 	}
 }
