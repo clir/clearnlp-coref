@@ -24,7 +24,6 @@ import java.util.List;
 import edu.emory.clir.clearnlp.collection.ngram.Unigram;
 import edu.emory.clir.clearnlp.coreference.config.MentionConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
-import edu.emory.clir.clearnlp.coreference.mention.EnglishMention;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.IOUtils;
@@ -84,7 +83,7 @@ public abstract class AbstractMentionDetector
 	
 	public List<AbstractMention> getMentionList(int treeId, DEPTree tree){
 		List<AbstractMention> list = new ArrayList<>();
-		EnglishMention mention;
+		AbstractMention mention;
 		
 		for (DEPNode node : tree){
 			mention = getMention(treeId, tree, node);
@@ -94,6 +93,6 @@ public abstract class AbstractMentionDetector
 		return list;
 	}
 	
-	public abstract EnglishMention getMention(int treeId, DEPTree tree, DEPNode node);
+	public abstract AbstractMention getMention(int treeId, DEPTree tree, DEPNode node);
 	protected abstract void processMentions(List<DEPTree> tree, List<AbstractMention> mentions);
 }
