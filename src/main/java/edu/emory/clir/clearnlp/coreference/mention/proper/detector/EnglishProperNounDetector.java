@@ -102,9 +102,13 @@ public class EnglishProperNounDetector extends AbstractProperNounDetector{
 		properNoun.e_type = EntityType.PERSON;
 		properNoun.n_type = NumberType.SINGULAR;
 
-		if(m_maleNames.contains(properNoun.wordFrom) && m_femaleNames.contains(properNoun.wordFrom)) 		properNoun.g_type = GenderType.NEUTRAL; 
-		if(m_femaleNames.contains(properNoun.wordFrom))	properNoun.g_type = GenderType.FEMALE;
-		if(m_maleNames.contains(properNoun.wordFrom))	properNoun.g_type = GenderType.MALE;
+		if(m_maleNames.contains(properNoun.wordFrom)){
+			properNoun.g_type = GenderType.MALE;
+			if(m_femaleNames.contains(properNoun.wordFrom))	
+				properNoun.g_type = GenderType.NEUTRAL;
+		}
+		else if(m_femaleNames.contains(properNoun.wordFrom))	
+			properNoun.g_type = GenderType.FEMALE;
 		else
 			properNoun.g_type = GenderType.NEUTRAL;
 	}
