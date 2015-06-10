@@ -45,6 +45,14 @@ public class EnglishMention extends AbstractMention{
 		this.setNode(node);
 	}
 	
+	public EnglishMention(EnglishMention... mentions){
+		super(mentions);
+	}
+	
+	public EnglishMention(List<AbstractMention> mentions){
+		super(mentions);
+	}
+	
 	public EnglishMention(int t_id, DEPTree tree, DEPNode node){
 		super(t_id, tree, node);
 	}
