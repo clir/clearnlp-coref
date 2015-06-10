@@ -44,30 +44,38 @@ public class CorpusConverter {
 		
 		final String extension = ".cnlp";
 		for(String filePath : l_filePaths)
-			CoNLL12toCNLP(decoder, IOUtils.createFileInputStream(filePath), IOUtils.createBufferedPrintStream(filePath + extension));
+			if(!CoNLL12toCNLP(decoder, IOUtils.createFileInputStream(filePath), IOUtils.createBufferedPrintStream(filePath + extension)))
+				System.out.println("WARNING: Empty output for " + filePath);
 	}
 	
-	public static void CoNLL12toCNLP(NLPDecoder decoder, InputStream in, OutputStream out){
+	public static boolean CoNLL12toCNLP(NLPDecoder decoder, InputStream in, OutputStream out){
 		Pair<List<List<String>>, List<List<String>>> tokenLinkPair = getCoNLL12Document(in);
+		if(tokenLinkPair.o1.isEmpty() || tokenLinkPair.o2.isEmpty())	return false;
+		
 		PrintWriter writer = new PrintWriter(IOUtils.createBufferedPrintStream(out));
 		
-		String link;
 		DEPTree tree;	
-		DEPNode node;
 		List<String> tokens, links;
-		int i, j, size = tokenLinkPair.o1.size();
+		int i, i_link, size = tokenLinkPair.o1.size();
 		for(i = 0; i < size; i++){
 			tokens = tokenLinkPair.o1.get(i);
 			links = tokenLinkPair.o2.get(i);
 			
 			tree = decoder.toDEPTree(tokens);
-			for(j = 0; j < tree.size(); j++){
-				node = tree.get(j);
-				link = (j > 0)? links.get(j-1) : StringConst.HYPHEN;
-				writer.println(node.toString() + "\t" + link);
-			}
+
+			i_link = 0;
+			for(DEPNode node : tree)	
+				writer.println(node.toString() + StringConst.TAB + links.get(i_link++));
+			
+//			for(j = 1; j < tree.size(); j++){
+//				node = tree.get(j);
+//				link = (j > 0)? links.get(j-1) : StringConst.HYPHEN;
+//				writer.println(node.toString() + "\t" + link);
+//			}
 			writer.println();
-		}		
+		}
+		writer.close();
+		return true;
 	}
 	
 	private static Pair<List<List<String>>, List<List<String>>> getCoNLL12Document(InputStream in){
