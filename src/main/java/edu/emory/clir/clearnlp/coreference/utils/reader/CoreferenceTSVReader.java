@@ -19,18 +19,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import edu.emory.clir.clearnlp.collection.pair.IntIntPair;
+import edu.emory.clir.clearnlp.collection.pair.ObjectIntPair;
 import edu.emory.clir.clearnlp.coreference.config.MentionConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.coreference.utils.structures.Tuple;
+import edu.emory.clir.clearnlp.dependency.DEPLibEn;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
+import edu.emory.clir.clearnlp.util.CharTokenizer;
+import edu.emory.clir.clearnlp.util.Joiner;
+import edu.emory.clir.clearnlp.util.constant.CharConst;
 import edu.emory.clir.clearnlp.util.constant.StringConst;
 
 /**
@@ -41,6 +46,7 @@ import edu.emory.clir.clearnlp.util.constant.StringConst;
 public class CoreferenceTSVReader extends TSVReader{
 	private int i_corefLink;
 	private AbstractMentionDetector m_detector;
+	public CharTokenizer T_PIPE  = new CharTokenizer('|');
 	
 	public CoreferenceTSVReader(int iID, int iForm, int iLemma, int iPOSTag, int iNERTag, int iFeats, int iHeadID, int iDeprel, int iXHeads, int iSHeads, int iCorefLink) {
 		super(iID, iForm, iLemma, iPOSTag, iNERTag, iFeats, iHeadID, iDeprel, iXHeads, iSHeads);
@@ -52,35 +58,91 @@ public class CoreferenceTSVReader extends TSVReader{
 		List<DEPTree> trees = new ArrayList<>();
 		List<IntIntPair> links = new ArrayList<>();
 		List<AbstractMention> mentions = new ArrayList<>();
-		Map<Integer, Set<Integer>> m_coreferants = new HashMap<>();
 		
-		int i, m_index, t_index, size;
-		String[] line;
+		int i, m_index, t_index;
 		List<String[]> lines;
-		DEPTree tree; DEPNode node;
 		AbstractMention mention;
+		DEPTree tree; DEPNode node;
+		Map<Integer, List<IntIntPair>> mentionRanges;
+		Map<ObjectIntPair<IntIntPair>, Integer> m_ids =  new HashMap<>();
+		Map<Integer, List<ObjectIntPair<IntIntPair>>> clusters = new HashMap<>();
+		
 		try {
 			while( (lines = readLines()) != null){
-				t_index = trees.size();
+				// Tree construction
 				tree = getDEPTree(lines);
-				trees.add(tree);
 				
-				size = tree.size();
-				for(i = 0; i < size; i++){
-					node = tree.get(i);
-					line = lines.get(i);
-					
-					if(!line[i_corefLink].equals(StringConst.HYPHEN)){
-						m_index = mentions.size();
-						mention = m_detector.getMention(t_index, tree, node);
-						mentions.add(mention);
-						// Handling links here
-					}
+				// Mention identification (clusterId -> treeId(beginIndex, endIndex) )
+				mentionRanges = getCoNLLCorefMentionRange(lines);
+				for(Entry<Integer, List<IntIntPair>> e : mentionRanges.entrySet()){
+					clusters.computeIfAbsent(e.getKey(), ArrayList::new)
+							.addAll(e.getValue().stream().map(pair -> new ObjectIntPair<>(pair, trees.size())).collect(Collectors.toList()));
 				}
+				
+				trees.add(tree);
 			}
 			
 		} catch (Exception e) { e.printStackTrace(); }
 		
+		// Mention creation
+//		for(List<ObjectIntPair<IntIntPair>> cluster : clusters.values())
+//			for(ObjectIntPair<IntIntPair> mentionRange : cluster){
+//				t_index = mentionRange.i;
+//				tree = trees.get(t_index);
+//				for(i = mentionRange.o.i1; i < mentionRange.o.i2; i++){
+//					node = tree.get(i);
+//					mention = m_detector.getMention(t_index, tree, node);
+//					
+//					if(mention != null){
+//						m_ids.put(mentionRange, mentions.size());
+//						mentions.add(mention);
+//					}
+//				}
+//			}
+		
+		// Coreferant relation construction
+		
+		// Print clusters
+//		for(Entry<Integer, List<ObjectIntPair<IntIntPair>>> e : clusters.entrySet())
+//			System.out.println(e.getKey() + "\t->\t" + Joiner.join(e.getValue().stream().map(pair -> "["+pair.i+"."+pair.o.i1+"-"+pair.i+"."+pair.o.i2+"]").collect(Collectors.toList()), ", "));
+		// Print mentions
+//		for(AbstractMention m : mentions)	System.out.println(m);
+		
 		return new Tuple<>(trees, mentions, links);
+	}
+	
+	private Map<Integer, List<IntIntPair>> getCoNLLCorefMentionRange(List<String[]> lines){
+		Map<Integer, List<IntIntPair>> map = new HashMap<>();
+		
+		String corefAnnotation;
+		String[] clusterAnnotations;
+		int i, c_index, size = lines.size();
+		
+		for(i = 0; i < size; i++){
+			corefAnnotation = lines.get(i)[i_corefLink];
+			
+			if(!corefAnnotation.equals(StringConst.HYPHEN)){
+				clusterAnnotations = T_PIPE.tokenize(corefAnnotation);
+				
+				for(String clusterAnnotation : clusterAnnotations){
+					if(clusterAnnotation.indexOf(CharConst.LRB) >= 0){
+						if(clusterAnnotation.indexOf(CharConst.RRB) >= 0){
+							c_index = Integer.parseInt(clusterAnnotation.substring(1, clusterAnnotation.length()-1));
+							map.computeIfAbsent(c_index, ArrayList::new).add(new IntIntPair(i, i+1));
+						}
+						else{
+							c_index = Integer.parseInt(clusterAnnotation.substring(1));
+							map.computeIfAbsent(c_index, ArrayList::new).add(new IntIntPair(i, -1));
+						}
+					}
+					else if(clusterAnnotation.indexOf(CharConst.RRB) >= 0){
+						c_index = Integer.parseInt(clusterAnnotation.substring(0, clusterAnnotation.length()-1));
+						for(IntIntPair pair : map.get(c_index))	if(pair.i2 < 0) pair.i2 = i+1;
+					}
+				}
+			}
+		}
+		
+		return map;
 	}
 }
