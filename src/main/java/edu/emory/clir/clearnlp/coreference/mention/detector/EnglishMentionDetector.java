@@ -15,7 +15,11 @@
  */
 package edu.emory.clir.clearnlp.coreference.mention.detector;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import edu.emory.clir.clearnlp.collection.pair.IntIntPair;
 import edu.emory.clir.clearnlp.coreference.config.MentionConfiguration;
@@ -96,15 +100,15 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 //	====================================== MENTION ATTR ======================================
 	@Override
 	protected void processMentions(List<DEPTree> trees, List<AbstractMention> mentions){
-		
 		List<IntIntPair[]> boundaries = CoreferenceDSUtils.getQuotaionIndices(trees);
 		
-		DEPNode curr;
 		IntIntPair[] boundary;
+		List<AbstractMention> multipleMentions;
 		AbstractMention mention_prev, mention_curr;
+		Set<AbstractMention> visitedMultiMentions = new HashSet<>();
 		int i, j, n_pos, t_pos, m_size = mentions.size(), b_size = boundaries.size();
 		
-		for(i = 0; i < m_size; i++){
+		for(i = m_size-1; i >= 0; i--){
 			mention_curr = mentions.get(i);
 			mention_prev = (i > 0)? mentions.get(i-1) : null;
 			
@@ -128,11 +132,36 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 			}
 			
 			/** Multiple Mention detection **/
-			if(mention_prev != null){
-				curr = mention_curr.getNode();
-				if(curr.isLabel(DEPLibEn.DEP_CONJ) && curr.isDependentOf(mention_prev.getNode()))
-					mention_curr.setConjunctionMention(mention_prev);
+			if(!visitedMultiMentions.contains(mention_curr)){
+				multipleMentions = getMultipleMentions(i, mention_curr, mentions);
+				Collections.reverse(multipleMentions);
+				if(multipleMentions.size() > 1){
+					mentions.add(i+1, new EnglishMention(multipleMentions));
+					visitedMultiMentions.addAll(multipleMentions);
+				}
 			}
 		}
+	}
+	
+	private List<AbstractMention> getMultipleMentions(int m_index, AbstractMention mention, List<AbstractMention> mentions){
+		List<AbstractMention> list = new ArrayList<>();
+		AbstractMention mention_curr, mention_prev;
+		
+		for(int i = m_index; i >= 0; i--){
+			mention_curr = mentions.get(i);
+			mention_prev = (i < 1)? null : mentions.get(i-1);
+			
+			if(	mention_curr.getNode().isLabel(DEPLibEn.DEP_CONJ) && 
+				mention_curr.getNode().isDependentOf(mention_prev.getNode())){
+				list.add(mention_curr);
+			}
+			else if(mention_curr != mention){
+				list.add(mention_curr);
+				break;
+			}
+			else break;
+		}
+		
+		return list;
 	}
 }

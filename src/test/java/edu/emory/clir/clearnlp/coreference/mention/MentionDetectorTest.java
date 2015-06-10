@@ -24,9 +24,7 @@ import edu.emory.clir.clearnlp.coreference.config.MentionConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
-import edu.emory.clir.clearnlp.coreference.path.PathVisualization;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
-import edu.emory.clir.clearnlp.coreference.visualization.BratCorefVisualizer;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
@@ -43,6 +41,6 @@ public class MentionDetectorTest {
 		AbstractMentionDetector detector = new EnglishMentionDetector(new MentionConfiguration(true, true, true));
 		List<AbstractMention> mentions = detector.getMentionList(trees);
 		
-		BratCorefVisualizer.export(PathVisualization.QA_ARITHMETIC, "mentions", trees, mentions);
+//		BratCorefVisualizer.export(PathVisualization.QA_ARITHMETIC, "mentions", trees, mentions);
 	}
 }
