@@ -17,7 +17,9 @@ package edu.emory.clir.clearnlp.coreference.utils.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import edu.emory.clir.clearnlp.tokenization.AbstractTokenizer;
@@ -46,6 +48,28 @@ public class CoreferenceStringUtils {
 			if(CharUtils.isUpperCase(c))	sb.append(c);
 		
 		return sb.toString();
+	}
+	
+	public static List<Integer> getAllIndicesOf(String line, char delim){
+		List<Integer> list = new ArrayList<>();
+		
+		int i, size = line.length();
+		for(i = 0; i < size; i++)
+			if(line.charAt(i) == delim)
+				list.add(i);
+		
+		return list;
+	}
+	
+	public static List<Integer> getAllIndicesOf(String line, Set<Character> delims){
+		List<Integer> list = new ArrayList<>();
+		
+		int i, size = line.length();
+		for(i = 0; i < size; i++)
+			if(delims.contains(line.charAt(i)))	
+				list.add(i);
+		
+		return list;
 	}
 	
 	public static List<String> tokenize(String line){
