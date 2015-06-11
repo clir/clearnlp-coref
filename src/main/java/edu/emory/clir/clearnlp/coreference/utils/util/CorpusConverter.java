@@ -40,15 +40,16 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
 public class CorpusConverter {
 	public static void main(String[] args){
 		NLPDecoder decoder = new NLPDecoder(TLanguage.ENGLISH);
-		List<String> l_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-12", ".v4_auto_conll", true);
+//		List<String> l_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-12", ".v4_auto_conll", true);
+		List<String> l_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13", ".v4_gold_conll", true);
 		
 		final String extension = ".cnlp";
 		for(String filePath : l_filePaths)
-			if(!CoNLL12toCNLP(decoder, IOUtils.createFileInputStream(filePath), IOUtils.createBufferedPrintStream(filePath + extension)))
+			if(!CoNLLtoCNLP(decoder, IOUtils.createFileInputStream(filePath), IOUtils.createBufferedPrintStream(filePath + extension)))
 				System.out.println("WARNING: Empty output for " + filePath);
 	}
 	
-	public static boolean CoNLL12toCNLP(NLPDecoder decoder, InputStream in, OutputStream out){
+	public static boolean CoNLLtoCNLP(NLPDecoder decoder, InputStream in, OutputStream out){
 		Pair<List<List<String>>, List<List<String>>> tokenLinkPair = getCoNLL12Document(in);
 		if(tokenLinkPair.o1.isEmpty() || tokenLinkPair.o2.isEmpty())	return false;
 		
@@ -66,12 +67,6 @@ public class CorpusConverter {
 			i_link = 0;
 			for(DEPNode node : tree)	
 				writer.println(node.toString() + StringConst.TAB + links.get(i_link++));
-			
-//			for(j = 1; j < tree.size(); j++){
-//				node = tree.get(j);
-//				link = (j > 0)? links.get(j-1) : StringConst.HYPHEN;
-//				writer.println(node.toString() + "\t" + link);
-//			}
 			writer.println();
 		}
 		writer.close();

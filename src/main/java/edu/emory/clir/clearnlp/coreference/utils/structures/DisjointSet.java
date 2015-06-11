@@ -16,8 +16,16 @@
 package edu.emory.clir.clearnlp.coreference.utils.structures;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import edu.emory.clir.clearnlp.collection.pair.DoubleIntPair;
 
@@ -90,6 +98,38 @@ public class DisjointSet implements Serializable, Iterable<DoubleIntPair> {
 		int distance = 0;
 		for(int curr_id = s_root[id]; curr_id >= 0; distance++, curr_id = s_root[curr_id]);
 		return distance;
+	}
+	
+	public List<Set<Integer>> getClusterSets(boolean includeSingleton){
+		Map<Integer, Set<Integer>> clusters = new HashMap<>();
+		
+		int i, headId;
+		for(i = s_root.length-1; i >= 0; i--){
+			headId = findHead(i);
+			clusters.computeIfAbsent(headId, HashSet::new).add(i);
+		}
+		
+		if(includeSingleton)	
+			return new ArrayList<>(clusters.values());
+		return clusters.values().stream().filter(set -> set.size() > 1).collect(Collectors.toList());
+	}
+	
+	public List<List<Integer>> getClusterLists(boolean includeSingleton, boolean sort){
+		Map<Integer, List<Integer>> clusters = new HashMap<>();
+		
+		int i, headId;
+		for(i = s_root.length-1; i >= 0; i--){
+			headId = findHead(i);
+			clusters.computeIfAbsent(headId, ArrayList::new).add(i);
+		}
+		
+		if(sort)
+			for(List<Integer> cluster : clusters.values())
+				Collections.sort(cluster);
+		
+		if(includeSingleton)	
+			return new ArrayList<>(clusters.values());
+		return clusters.values().stream().filter(set -> set.size() > 1).collect(Collectors.toList());
 	}
 	
 	@Override
