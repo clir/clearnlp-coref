@@ -272,6 +272,10 @@ public abstract class AbstractMention implements Serializable {
 		return mention.isGenderType(getGenderType()) || isGenderType(GenderType.NEUTRAL) || mention.isGenderType(GenderType.NEUTRAL);
 	}
 	
+	public boolean hasSubTreeNodes(){
+		return l_subNodes != null;
+	}
+	
 	public boolean hasSameHeadNode(AbstractMention mention){
 		return getNode().getHead() == mention.getNode().getHead();
 	}

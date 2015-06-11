@@ -151,7 +151,7 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 			mention_curr = mentions.get(i);
 			mention_prev = (i < 1)? null : mentions.get(i-1);
 			
-			if(	mention_curr.getNode().isLabel(DEPLibEn.DEP_CONJ) && 
+			if(	mention_prev != null && mention_curr.getNode().isLabel(DEPLibEn.DEP_CONJ) && 
 				mention_curr.getNode().isDependentOf(mention_prev.getNode())){
 				list.add(mention_curr);
 			}
