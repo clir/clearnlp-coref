@@ -17,9 +17,9 @@ package edu.emory.clir.clearnlp.coreference.components;
 
 import java.util.List;
 
-import edu.emory.clir.clearnlp.collection.pair.IntIntPair;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.utils.reader.CoreferenceTSVReader;
+import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
 import edu.emory.clir.clearnlp.coreference.utils.structures.Tuple;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.FileUtils;
@@ -47,26 +47,33 @@ public class CoreferenceModelGenerator {
 	
 	public static void trainCoNLL(CoreferenceTSVReader reader, CoreferenceTrainer trainer){
 		List<String> l_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-12", ".cnlp", true);
+//		List<String> l_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13", ".cnlp", true);
 		
+		int i, j, size;
 		DEPTree tree1, tree2;
 		AbstractMention mention1, mention2;
-		Tuple<List<DEPTree>, List<AbstractMention>, List<IntIntPair>> document;
+		Tuple<List<DEPTree>, List<AbstractMention>, DisjointSet> document;
 		for(String filePath : l_filePaths){
 			System.out.println(filePath);
 			reader.open(IOUtils.createFileInputStream(filePath));
 			document = reader.getCoNLLDocument();
 			
-//			for(IntIntPair pair : document.t3){
-//				mention1 = document.t2.get(pair.i1);
-//				mention2 = document.t2.get(pair.i2);
-//				tree1 = document.t1.get(mention1.getTreeId());
-//				tree2 = document.t1.get(mention2.getTreeId());
-//				
-//				trainer.addInstance(mention1, tree1, mention2, tree2);
-//			}
+			for(List<Integer> cluster : document.t3.getClusterLists(false, true)){
+				size = cluster.size();
+				for(i = 0; i < size-1; i++){
+					mention1 = document.t2.get(i);
+					tree1 = document.t1.get(mention1.getTreeId());
+					
+					for(j = i + 1; j < size; j++){
+						mention2 = document.t2.get(j);
+						tree2 = document.t1.get(mention2.getTreeId());
+						
+						trainer.addInstance(mention1, tree1, mention2, tree2);
+					}
+				}
+			}
 			
 			reader.close();
-			break;
 		}
 	}
 }
