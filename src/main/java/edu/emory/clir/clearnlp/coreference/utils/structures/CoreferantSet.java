@@ -34,18 +34,38 @@ import edu.emory.clir.clearnlp.collection.pair.DoubleIntPair;
  * @version	1.0
  * @since 	May 27, 2015
  */
-public class DisjointSet implements Serializable, Iterable<DoubleIntPair> {
+public class CoreferantSet implements Serializable, Iterable<DoubleIntPair> {
 	private static final long serialVersionUID = 3976817040635652271L;
 	private int[] s_root;
 	private double[] s_confidence;
+	private List<List<Integer>> l_clusters;
 	
-	public DisjointSet(int size, boolean confidence){
+	public CoreferantSet(int size){
+		init(size, false, true);
+	}
+	
+	public CoreferantSet(int size, boolean confidence, boolean disjointClusters){
+		init(size, confidence, disjointClusters);
+	}
+	
+	private void init(int size, boolean confidence, boolean disjointClusters){
 		s_root = new int[size];	
 		Arrays.fill(s_root, -1);
+		
 		if(confidence){
 			s_confidence = new double[size];
 			Arrays.fill(s_confidence, 1d);
 		}
+		
+		if(!disjointClusters)	l_clusters = new ArrayList<>();
+	}
+	
+	public int size(){
+		return s_root.length;
+	}
+	public void setHead(int id){
+		s_root[id] = -1;
+		if(s_confidence != null) s_confidence[id] = 1d;
 	}
 	
 	public int union(int prev, int curr){
@@ -60,10 +80,44 @@ public class DisjointSet implements Serializable, Iterable<DoubleIntPair> {
 		return findHead(prev);
 	}
 	
+	public int addCluster(List<Integer> cluster){
+		if(l_clusters != null){
+			Collections.sort(cluster);
+			
+			for(int i = cluster.size()-1; i > 0; i--)
+				union(cluster.get(i-1), cluster.get(i));
+			
+			l_clusters.add(cluster);
+			return l_clusters.size() -1;
+		}
+		return -1;
+	}
+	
+	public void initDisjointCluster(){
+		l_clusters = null;
+		l_clusters = getClusterLists(true);
+	}
+	
+	public void addClusters(List<List<Integer>> clusters){
+		if(l_clusters != null)
+			for(List<Integer> cluster : clusters)	addCluster(cluster);
+	}
+	
 	public int findHead(int id){
 		int head_id;
 		for(head_id = id; s_root[head_id] >= 0; head_id = s_root[head_id]);
 		return head_id;
+	}
+	
+	public int findClusterHead(int id){
+		if(l_clusters != null){
+			int index;
+			for(List<Integer> cluster : l_clusters){
+				index = Collections.binarySearch(cluster, id);
+				if(index > 0)	return cluster.get(0);
+			}
+		}
+		return findHead(id);
 	}
 	
 	public int findClosest(int id){
@@ -101,35 +155,45 @@ public class DisjointSet implements Serializable, Iterable<DoubleIntPair> {
 	}
 	
 	public List<Set<Integer>> getClusterSets(boolean includeSingleton){
-		Map<Integer, Set<Integer>> clusters = new HashMap<>();
+		List<Set<Integer>> list = (l_clusters == null)? new ArrayList<>() : l_clusters.stream().map(l -> new HashSet<>(l)).collect(Collectors.toList());
 		
-		int i, headId;
-		for(i = s_root.length-1; i >= 0; i--){
-			headId = findHead(i);
-			clusters.computeIfAbsent(headId, HashSet::new).add(i);
+		if(list.isEmpty()){
+			int i, headId;
+			Map<Integer, Set<Integer>> clusters = new HashMap<>();
+
+			for(i = s_root.length-1; i >= 0; i--){
+				headId = findHead(i);
+				clusters.computeIfAbsent(headId, HashSet::new).add(i);
+			}
+			
+			list = new ArrayList<>(clusters.values());
 		}
 		
 		if(includeSingleton)	
-			return new ArrayList<>(clusters.values());
-		return clusters.values().stream().filter(set -> set.size() > 1).collect(Collectors.toList());
+			return list.stream().filter(set -> !set.isEmpty()).collect(Collectors.toList());
+		return list.stream().filter(set -> set.size() > 1).collect(Collectors.toList());
 	}
 	
-	public List<List<Integer>> getClusterLists(boolean includeSingleton, boolean sort){
-		Map<Integer, List<Integer>> clusters = new HashMap<>();
+	public List<List<Integer>> getClusterLists(boolean includeSingleton){
+		List<List<Integer>> list = (l_clusters == null)? new ArrayList<>() : l_clusters;
 		
-		int i, headId;
-		for(i = s_root.length-1; i >= 0; i--){
-			headId = findHead(i);
-			clusters.computeIfAbsent(headId, ArrayList::new).add(i);
+		if(list.isEmpty()){
+			int i, headId;
+			Map<Integer, List<Integer>> clusters = new HashMap<>();
+			
+			for(i = s_root.length-1; i >= 0; i--){
+				headId = findHead(i);
+				clusters.computeIfAbsent(headId, ArrayList::new).add(i);
+			}
+			
+			list = new ArrayList<>(clusters.values());
 		}
-		
-		if(sort)
-			for(List<Integer> cluster : clusters.values())
-				Collections.sort(cluster);
+				
+		for(List<Integer> cluster : list)	Collections.sort(cluster);
 		
 		if(includeSingleton)	
-			return new ArrayList<>(clusters.values());
-		return clusters.values().stream().filter(set -> set.size() > 1).collect(Collectors.toList());
+			return list.stream().filter(set -> !set.isEmpty()).collect(Collectors.toList());
+		return list.stream().filter(set -> set.size() > 1).collect(Collectors.toList());
 	}
 	
 	@Override

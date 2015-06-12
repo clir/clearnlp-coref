@@ -22,7 +22,7 @@ import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
@@ -85,26 +85,28 @@ public class CoreferenceTestUtil {
 		System.out.println(sb.toString());
 	}
 	
-	public static void printCorefCluster(Pair<List<AbstractMention>, DisjointSet> resolution){
+	public static void printCorefCluster(Pair<List<AbstractMention>, CoreferantSet> resolution){
+		printCorefCluster(resolution.o1, resolution.o2);
+	}
+	
+	public static void printCorefCluster(List<AbstractMention> mentions, CoreferantSet set){
 		System.out.println("===== Clusters =====");
-		int i, linkedId, size =  resolution.o1.size();
-		
+
 		AbstractMention mention;
-		DisjointSet set = resolution.o2;
-		List<AbstractMention> mentions = resolution.o1;
+		int i, linkedId, size =  mentions.size();
 		
 		for(i = 0; i < size; i++){
-			mention = resolution.o1.get(i);
-//			linkedId = set.findHead(i);
-			linkedId = set.find(i, 1);
+			mention = mentions.get(i);
+			linkedId = set.findClusterHead(i);
+			
 			if(linkedId == i)
 				System.out.println(i + ": " + mention.getWordFrom() + "\t(Singleton)");
 			else
 				System.out.println(i + ": " + mention.getWordFrom() + "\t->\t" + linkedId + ": " + mentions.get(linkedId).getWordFrom());
 		}	
 	}
-	
-	public static void printResolutionResult(Pair<List<AbstractMention>, DisjointSet> resolution){
+
+	public static void printResolutionResult(Pair<List<AbstractMention>, CoreferantSet> resolution){
 		System.out.println("===== Mentions =====");	System.out.println(Joiner.join(resolution.o1, "\n"));
 		System.out.println();
 		System.out.println("===== Results =====");	System.out.println(resolution.o2);

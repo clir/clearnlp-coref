@@ -37,7 +37,7 @@ public class CoreferenceFileUtil {
 		
 		try {
 			for(String filePath : filePaths){
-				d_joiner = new StringJoiner(" ");
+				d_joiner = new StringJoiner("\n");
 				reader = IOUtils.createBufferedReader(filePath);
 				
 				while( (line = reader.readLine()) != null)	d_joiner.add(line);

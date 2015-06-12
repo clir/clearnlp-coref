@@ -8,7 +8,7 @@ import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.type.AttributeType;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.DSUtils;
 import edu.emory.clir.clearnlp.util.IOUtils;
@@ -37,7 +37,7 @@ public class SpeakerIdentification extends AbstractSieve{
 	}
 	
 	@Override
-	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet mentionLinks){
+	public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, CoreferantSet mentionLinks){
 		AbstractMention curr, prev;
 		int i, j, size = mentions.size();
 		
@@ -49,7 +49,7 @@ public class SpeakerIdentification extends AbstractSieve{
 				
 				if(match(prev, curr)){
 					if(!mentionLinks.isSameSet(i, j))
-						if(curr.isEntityType(EntityType.PERSON) || !curr.hasFeature(AttributeType.QUOTE))
+						if(curr.isEntityType(EntityType.PERSON) || !curr.hasAttribute(AttributeType.QUOTE))
 							mentionLinks.union(i, j);
 						else 
 							mentionLinks.union(j, i);
@@ -82,7 +82,7 @@ public class SpeakerIdentification extends AbstractSieve{
 	}
 	
 	private boolean bothInQuote(AbstractMention prev, AbstractMention curr){
-		return prev.hasFeature(AttributeType.QUOTE) && curr.hasFeature(AttributeType.QUOTE);
+		return prev.hasAttribute(AttributeType.QUOTE) && curr.hasAttribute(AttributeType.QUOTE);
 	}
 	
 	private boolean bothInSameQuote(AbstractMention prev, AbstractMention curr){
@@ -90,8 +90,8 @@ public class SpeakerIdentification extends AbstractSieve{
 	}
 	
 	private boolean oneInQuote(AbstractMention prev, AbstractMention curr){
-		return 	(prev.hasFeature(AttributeType.QUOTE) && !curr.hasFeature(AttributeType.QUOTE)) || 
-				(!prev.hasFeature(AttributeType.QUOTE) && curr.hasFeature(AttributeType.QUOTE));
+		return 	(prev.hasAttribute(AttributeType.QUOTE) && !curr.hasAttribute(AttributeType.QUOTE)) || 
+				(!prev.hasAttribute(AttributeType.QUOTE) && curr.hasAttribute(AttributeType.QUOTE));
 	}
 	
 	private boolean isFirstPerson(String s){

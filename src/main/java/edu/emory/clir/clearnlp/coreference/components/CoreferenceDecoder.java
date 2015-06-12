@@ -15,9 +15,13 @@
  */
 package edu.emory.clir.clearnlp.coreference.components;
 
+import java.util.List;
+
 import edu.emory.clir.clearnlp.classification.model.StringModel;
 import edu.emory.clir.clearnlp.classification.prediction.StringPrediction;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
+import edu.emory.clir.clearnlp.coreference.type.CoreferenceLabel;
+import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
@@ -25,9 +29,9 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
  * @version	1.0
  * @since 	Jun 9, 2015
  */
-public class CoreferenceDecoder {
+public class CoreferenceDecoder implements CoreferenceLabel{
 	private StringModel model;
-	private CoreferenceFeatureExtractor extractor;
+	private CoreferenceFeatureExtractor extractor;  
 	
 	public CoreferenceDecoder(StringModel model){
 		this.model = model;
@@ -39,5 +43,28 @@ public class CoreferenceDecoder {
 	
 	public StringPrediction predictBest(AbstractMention mention1, DEPTree tree1, AbstractMention mention2, DEPTree tree2){
 		return model.predictBest(extractor.getFeatures(mention1, tree1, mention2, tree2));
+	}
+	
+	public CoreferantSet decode(List<DEPTree> trees, List<AbstractMention> mentions, boolean confidence){
+		String label;
+		DEPTree prev_tree, curr_tree;
+		int i, j, size = mentions.size();
+		AbstractMention prev_mention, curr_mention;
+		CoreferantSet links = new CoreferantSet(size, confidence, true);
+		
+		for(i = size - 1; i > 0; i--){
+			curr_mention = mentions.get(i);
+			curr_tree = (curr_mention.hasTree())? curr_mention.getTree() : null;
+			for(j = i - 1; j >= 0; j--){
+				prev_mention = mentions.get(j);
+				prev_tree = (prev_mention.hasTree())? prev_mention.getTree() : null;		
+				
+				label = predictBest(prev_mention, prev_tree, curr_mention, curr_tree).getLabel();
+				if(label.equals(LINK))			links.union(j, i);
+				else if(label.equals(SHIFT))	break;
+			}
+		}
+		
+		return links;
 	}
 }

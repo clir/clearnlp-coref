@@ -30,7 +30,7 @@ import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
 import edu.emory.clir.clearnlp.coreference.sieve.PreciseConstructMatch;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -62,7 +62,7 @@ public class PronounMatchTest {
 		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_COREF_ADJUNTION);
 		
 		List<AbstractMention> mentions = coref.getMentions(trees);	
-		Pair<List<AbstractMention>, DisjointSet> resolution = coref.getEntities(trees);
+		Pair<List<AbstractMention>, CoreferantSet> resolution = coref.getEntities(trees);
 		
 		for(AbstractMention mention : mentions)
 			System.out.println(mention);

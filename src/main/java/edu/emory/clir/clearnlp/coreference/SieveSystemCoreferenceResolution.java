@@ -22,7 +22,7 @@ import edu.emory.clir.clearnlp.coreference.config.SieveSystemCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
 import edu.emory.clir.clearnlp.coreference.sieve.AbstractSieve;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
@@ -49,15 +49,15 @@ public class SieveSystemCoreferenceResolution extends AbstractCoreferenceResolut
 	}
 
 	@Override
-	public Pair<List<AbstractMention>, DisjointSet> getEntities(List<DEPTree> trees) {
+	public Pair<List<AbstractMention>, CoreferantSet> getEntities(List<DEPTree> trees) {
 
 		// Mention Detection
 		List<AbstractMention> mentions = m_detector.getMentionList(trees);
-		DisjointSet mentionLinks = new DisjointSet(mentions.size(), true);
+		CoreferantSet mentionLinks = new CoreferantSet(mentions.size(), true, true);
 		
 		// Coreference Resolution
 		for(AbstractSieve sieve : sieves) sieve.resolute(trees, mentions, mentionLinks);
 		
-		return new Pair<List<AbstractMention>, DisjointSet>(mentions, mentionLinks);
+		return new Pair<List<AbstractMention>, CoreferantSet>(mentions, mentionLinks);
 	}
 }

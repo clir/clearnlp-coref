@@ -13,28 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.structure;
-
-import org.junit.Test;
-
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+package edu.emory.clir.clearnlp.coreference.type;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	May 27, 2015
+ * @since 	Jun 11, 2015
  */
-public class DisjointSetTest {
-	@Test
-	public void main(){
-		
-		DisjointSet set = new DisjointSet(10, true);
-		
-		set.union(1, 3, 0.8);	
-		set.union(3, 5, 0.8);
-		
-		System.out.println(set.find(5, 2));
-		
-		System.out.println(set);
-	}
+public interface FeatureType {
+	int ExactString = 0,
+		RelaxedString = 1;
+	
+	String TRUE = "true",
+		   FALSE = "false";
 }

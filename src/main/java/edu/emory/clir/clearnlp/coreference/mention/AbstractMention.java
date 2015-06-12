@@ -112,17 +112,25 @@ public abstract class AbstractMention implements Serializable {
 	}
 	
 	private void initMultipleMention(){
-		setGenderType(l_subMentions.get(0).getGenderType());
-		setNumberType(NumberType.PLURAL);
-		
-		AbstractMention mention;
+		AbstractMention mention = l_subMentions.get(0);
 		int i, size = l_subMentions.size();
 		ObjectIntHashMap<EntityType> entityMap = new ObjectIntHashMap<>();
+		
+		setTree(mention.getTree());
+		setTreeId(mention.getTreeId());
+		setGenderType(mention.getGenderType());
+		setNumberType(NumberType.PLURAL);
+		
+		
 		for(i = 0; i < size; i++){
 			mention = l_subMentions.get(i);
 			entityMap.add(mention.getEntityType());
+			
 			if(!isGenderType(GenderType.NEUTRAL) && !isGenderType(mention.getGenderType()))
 				setGenderType(GenderType.NEUTRAL);
+			if(getTreeId() != -1 && getTreeId() != mention.getTreeId()){
+				setTree(null);	setTreeId(-1);
+			}
 		}
 		setEntityType(Collections.max(entityMap.toList()).o);
 	}
@@ -164,7 +172,7 @@ public abstract class AbstractMention implements Serializable {
 		return m_attr.get(type);
 	}
 	
-	public ObjectDoubleHashMap<AttributeType> getFeatureMap(){
+	public ObjectDoubleHashMap<AttributeType> getAttributeMap(){
 		return m_attr;
 	}
 	
@@ -211,7 +219,7 @@ public abstract class AbstractMention implements Serializable {
 	
 	public void setSubMentions(List<AbstractMention> mentions){
 		l_subMentions = mentions;
-		if(l_subMentions != null && !hasFeature(AttributeType.CONJUNCTION)) 
+		if(l_subMentions != null && !hasAttribute(AttributeType.CONJUNCTION)) 
 			addAttribute(AttributeType.CONJUNCTION);
 	}
 	
@@ -272,6 +280,10 @@ public abstract class AbstractMention implements Serializable {
 		return mention.isGenderType(getGenderType()) || isGenderType(GenderType.NEUTRAL) || mention.isGenderType(GenderType.NEUTRAL);
 	}
 	
+	public boolean hasTree(){
+		return getTree() != null && getTreeId() >= 0;
+	}
+	
 	public boolean hasSubTreeNodes(){
 		return l_subNodes != null;
 	}
@@ -280,12 +292,14 @@ public abstract class AbstractMention implements Serializable {
 		return getNode().getHead() == mention.getNode().getHead();
 	}
 	
-	public boolean hasFeature(AttributeType type){
+	public boolean hasAttribute(AttributeType type){
 		return m_attr.containsKey(type);
 	}
 	
 	/* String handling methods */
 	public String getWordFrom(){
+		if(isMultipleMention())
+			return Joiner.join(l_subMentions.stream().map(m -> m.getWordFrom()).collect(Collectors.toList()), ", ");
 		return d_node.getWordForm();
 	}
 	
@@ -322,11 +336,11 @@ public abstract class AbstractMention implements Serializable {
 	public String toString(){
 		StringJoiner joiner = new StringJoiner("\t");
 		
-		if(l_subMentions == null)
-			joiner.add(getWordFrom() + StringConst.AT + getTreeId() + StringConst.PERIOD + getNode().getID());
-		else
+		if(isMultipleMention())
 			joiner.add(Joiner.join(l_subMentions.stream().map(m -> m.getWordFrom()).collect(Collectors.toList()), StringConst.COMMA));
-		
+		else
+			joiner.add(getWordFrom() + StringConst.AT + getTreeId() + StringConst.PERIOD + getNode().getID());
+
 		joiner.add((t_entity == null)? StringConst.UNDERSCORE : t_entity.toString());
 		joiner.add((t_gender == null)? StringConst.UNDERSCORE : t_gender.toString());
 		joiner.add((t_number == null)? StringConst.UNDERSCORE : t_number.toString());
