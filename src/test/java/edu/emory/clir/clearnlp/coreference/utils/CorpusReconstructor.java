@@ -24,7 +24,7 @@ import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.config.SieveSystemCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPLibEn;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -40,7 +40,7 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
  * @since 	Jun 8, 2015
  */
 public class CorpusReconstructor {
-	public static void reconstruct(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet links, String output){
+	public static void reconstruct(List<DEPTree> trees, List<AbstractMention> mentions, CoreferantSet links, String output){
 		PrintWriter writer = new PrintWriter(IOUtils.createBufferedPrintStream(output + ".reconstructed"));
 		writer.println(reconstruct(trees, mentions, links));
 		writer.close();
@@ -49,7 +49,7 @@ public class CorpusReconstructor {
 	public static void reconstruct(String input, String output, boolean isDirectory){
 		List<DEPTree> trees;
 		PrintWriter writer;
-		Pair<List<AbstractMention>, DisjointSet> resolution;
+		Pair<List<AbstractMention>, CoreferantSet> resolution;
 		
 		/* Coref Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
@@ -79,7 +79,7 @@ public class CorpusReconstructor {
 		}
 	}
 	
-	private static String reconstruct(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet links){
+	private static String reconstruct(List<DEPTree> trees, List<AbstractMention> mentions, CoreferantSet links){
 		StringJoiner joiner = new StringJoiner(StringConst.SPACE);
 		
 		String token;

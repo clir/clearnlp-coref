@@ -21,7 +21,7 @@ import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.config.AbstractCorefConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 
@@ -47,5 +47,5 @@ public abstract class AbstractCoreferenceResolution {
 	}
 	
 	// Coreference Resolution
-	public abstract Pair<List<AbstractMention>, DisjointSet> getEntities(List<DEPTree> trees);
+	public abstract Pair<List<AbstractMention>, CoreferantSet> getEntities(List<DEPTree> trees);
 }
