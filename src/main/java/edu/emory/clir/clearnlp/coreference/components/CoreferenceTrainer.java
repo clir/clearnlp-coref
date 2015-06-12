@@ -16,12 +16,18 @@
 package edu.emory.clir.clearnlp.coreference.components;
 
 import java.io.ObjectOutputStream;
+import java.util.List;
 
 import edu.emory.clir.clearnlp.classification.instance.StringInstance;
 import edu.emory.clir.clearnlp.classification.model.StringModel;
 import edu.emory.clir.clearnlp.classification.trainer.AbstractOnlineTrainer;
 import edu.emory.clir.clearnlp.classification.trainer.AdaGradSVM;
+import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
+import edu.emory.clir.clearnlp.coreference.type.CoreferenceLabel;
+import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
+import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
+import edu.emory.clir.clearnlp.coreference.utils.structures.Tuple;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
@@ -29,7 +35,7 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
  * @version	1.0
  * @since 	Jun 9, 2015
  */
-public class CoreferenceTrainer {
+public class CoreferenceTrainer implements CoreferenceLabel{
 	private StringModel model;
 	private AbstractOnlineTrainer trainer;
 	private CoreferenceFeatureExtractor extractor;
@@ -41,12 +47,36 @@ public class CoreferenceTrainer {
 		trainer = new AdaGradSVM(model, labelCutoff, featureCutoff, average, alpha, rho, bias);
 	}
 	
-	public String getLabel(AbstractMention mention1, DEPTree tree1, AbstractMention mention2, DEPTree tree2){
-		return null;
+	public void addDocument(Tuple<List<DEPTree>, List<AbstractMention>, CoreferantSet> document){
+		CoreferantSet links = document.t3;
+		List<DEPTree> trees = document.t1;
+		List<AbstractMention> mentions = document.t2;
+		
+		String label;
+		int i, j, size = mentions.size();
+		DEPTree prev_tree, curr_tree;
+		AbstractMention prev_mention, curr_mention;
+		
+		for(i = size - 1; i > 0; i--){
+			curr_mention = mentions.get(i);
+			curr_tree = (curr_mention.hasTree())? curr_mention.getTree() : null;
+			for(j = i - 1; j >= 0; j--){
+				prev_mention = mentions.get(j);
+				prev_tree = (prev_mention.hasTree())? prev_mention.getTree() : null;		
+				
+				label = getLabel(links, j, i);
+				addInstance(label, prev_mention, prev_tree, curr_mention, curr_tree);
+				if(label.equals(SHIFT))	break;
+			}
+		}
 	}
 	
-	public void addInstance(AbstractMention mention1, DEPTree tree1, AbstractMention mention2, DEPTree tree2){
-		addInstance(getLabel(mention1, tree1, mention2, tree2), mention1, tree1, mention2, tree2);
+	private String getLabel(CoreferantSet links, int prevId, int currId){
+		int prevHead = links.findHead(prevId), currHead = links.findHead(currId);
+		
+		if(prevHead == currHead)	return LINK;
+		else if(prevId < currHead)	return SHIFT;
+		else						return UNLINK;
 	}
 	
 	private void addInstance(String label, AbstractMention mention1, DEPTree tree1, AbstractMention mention2, DEPTree tree2){
