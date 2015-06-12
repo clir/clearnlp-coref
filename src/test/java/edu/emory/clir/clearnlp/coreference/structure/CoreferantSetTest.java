@@ -17,18 +17,18 @@ package edu.emory.clir.clearnlp.coreference.structure;
 
 import org.junit.Test;
 
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
  * @since 	May 27, 2015
  */
-public class DisjointSetTest {
+public class CoreferantSetTest {
 	@Test
-	public void main(){
+	public void testDisjointCoreferantSet(){
 		
-		DisjointSet set = new DisjointSet(10, true);
+		CoreferantSet set = new CoreferantSet(10, true, true);
 		
 		set.union(1, 3, 0.8);	
 		set.union(3, 5, 0.8);
