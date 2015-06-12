@@ -73,7 +73,6 @@ public class CoreferenceModelTest {
 		}
 		
 		System.out.print("TRAINING...");
-		trainer.trainModel();
 		System.out.println("DONE");
 	}
 	

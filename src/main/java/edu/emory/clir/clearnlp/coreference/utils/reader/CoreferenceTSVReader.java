@@ -40,7 +40,6 @@ import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 import edu.emory.clir.clearnlp.util.CharTokenizer;
-import edu.emory.clir.clearnlp.util.Joiner;
 import edu.emory.clir.clearnlp.util.constant.CharConst;
 import edu.emory.clir.clearnlp.util.constant.StringConst;
 
@@ -108,9 +107,8 @@ public class CoreferenceTSVReader extends TSVReader{
 		links.initDisjointCluster();
 		System.out.println(links.getClusterLists(false));
 		
-		i = 0;
 		for(List<Integer> cluster : l_mentionIndices)	System.out.println(cluster);
-		for(AbstractMention m : mentions)	System.out.println(i++ + ": " + m);
+		i = 0;	for(AbstractMention m : mentions)	System.out.println(i++ + ": " + m);
 		CoreferenceTestUtil.printCorefCluster(mentions, links);
 		
 		/* Debug console printer
@@ -194,7 +192,7 @@ public class CoreferenceTSVReader extends TSVReader{
 		
 		// ~~Strict mention matching (mention span DEPNode map constructions)
 		AbstractMention mention;
-		int i, size = mentions.size();
+		int i, j, size = mentions.size();
 		Map<DEPNode, Integer> m_singleMentionId = new HashMap<>();
 		Map<Set<DEPNode>, Integer> m_multiMetnionId = new HashMap<>(); 
 		for(i = 0; i < size; i++){
@@ -231,6 +229,21 @@ public class CoreferenceTSVReader extends TSVReader{
 			
 			if(!m_indices.isEmpty()){
 				Collections.sort(m_indices);
+				
+				// Filter out childMentions
+//				int prevId, currId;
+//				size = m_indices.size();
+//				for(i = size - 1; i > 0 ; i--){
+//					currId = m_indices.get(i);
+//					for(j = i - 1; j >= 0; j--){
+//						prevId = m_indices.get(j);
+//						if(mentions.get(prevId).isParentMention(mentions.get(currId))){
+//							m_indices.remove(i);
+//							break;
+//						}
+//					}
+//				}
+
 				clusterIndices.add(m_indices);
 			}
 		}

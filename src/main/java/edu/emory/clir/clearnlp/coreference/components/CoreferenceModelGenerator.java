@@ -59,7 +59,7 @@ public class CoreferenceModelGenerator {
 			reader.close();
 		}
 		
-//		trainer.trainModel();
-//		trainer.exportModel(out);
+		trainer.trainModel();
+		trainer.exportModel(out);
 	}
 }

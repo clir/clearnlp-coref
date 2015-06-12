@@ -22,10 +22,8 @@ import edu.emory.clir.clearnlp.classification.instance.StringInstance;
 import edu.emory.clir.clearnlp.classification.model.StringModel;
 import edu.emory.clir.clearnlp.classification.trainer.AbstractOnlineTrainer;
 import edu.emory.clir.clearnlp.classification.trainer.AdaGradSVM;
-import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.type.CoreferenceLabel;
-import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
 import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.coreference.utils.structures.Tuple;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -40,11 +38,19 @@ public class CoreferenceTrainer implements CoreferenceLabel{
 	private AbstractOnlineTrainer trainer;
 	private CoreferenceFeatureExtractor extractor;
 	
+	/* Trainer information */
+	private boolean average;
+	private int labelCutoff, featureCutoff;
+	private double alpha, rho, bias;
+	
      /* alpha(0.01) : learning rate, rho(0.1) : regularizaiton, bias(0) */
 	public CoreferenceTrainer(int labelCutoff, int featureCutoff, boolean average, double alpha, double rho, double bias){
 		model = new StringModel(false);
 		extractor = new CoreferenceFeatureExtractor();
-		trainer = new AdaGradSVM(model, labelCutoff, featureCutoff, average, alpha, rho, bias);
+		
+		this.average = average;
+		this.alpha = alpha;	this.rho = rho;	this.bias = bias;
+		this.labelCutoff = labelCutoff;	this.featureCutoff = featureCutoff;
 	}
 	
 	public void addDocument(Tuple<List<DEPTree>, List<AbstractMention>, CoreferantSet> document){
@@ -72,7 +78,7 @@ public class CoreferenceTrainer implements CoreferenceLabel{
 	}
 	
 	private String getLabel(CoreferantSet links, int prevId, int currId){
-		int prevHead = links.findHead(prevId), currHead = links.findHead(currId);
+		int prevHead = links.findClosest(prevId), currHead = links.findClosest(currId);
 		
 		if(prevHead == currHead)	return LINK;
 		else if(prevId < currHead)	return SHIFT;
@@ -86,6 +92,10 @@ public class CoreferenceTrainer implements CoreferenceLabel{
 	
 	public StringModel getModel(){
 		return model;
+	}
+	
+	public void initTrainer(){
+		if(trainer == null)	trainer = new AdaGradSVM(model, labelCutoff, featureCutoff, average, alpha, rho, bias);
 	}
 	
 	public void trainModel(){

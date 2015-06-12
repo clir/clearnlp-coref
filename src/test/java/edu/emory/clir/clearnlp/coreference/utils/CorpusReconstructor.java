@@ -24,6 +24,7 @@ import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.config.SieveSystemCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
+import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPLibEn;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
@@ -40,13 +41,13 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
  * @since 	Jun 8, 2015
  */
 public class CorpusReconstructor {
-	public static void reconstruct(List<DEPTree> trees, List<AbstractMention> mentions, CoreferantSet links, String output){
+	public static void reconstruct(List<DEPTree> trees, List<AbstractMention> mentions, CoreferantSet links, String output, boolean excludeCommon){
 		PrintWriter writer = new PrintWriter(IOUtils.createBufferedPrintStream(output + ".reconstructed"));
-		writer.println(reconstruct(trees, mentions, links));
+		writer.println(reconstruct(trees, mentions, links, excludeCommon));
 		writer.close();
 	}
 	
-	public static void reconstruct(String input, String output, boolean isDirectory){
+	public static void reconstruct(String input, String output, boolean isDirectory, boolean excludeCommon){
 		List<DEPTree> trees;
 		PrintWriter writer;
 		Pair<List<AbstractMention>, CoreferantSet> resolution;
@@ -65,7 +66,7 @@ public class CorpusReconstructor {
 				resolution = coref.getEntities(trees);
 				
 				writer = new PrintWriter(IOUtils.createBufferedPrintStream(output + FileUtils.getBaseName(filePath) + ".reconstructed"));
-				writer.println(reconstruct(trees, resolution.o1, resolution.o2));
+				writer.println(reconstruct(trees, resolution.o1, resolution.o2, excludeCommon));
 				writer.close();
 			}
 		}
@@ -74,12 +75,12 @@ public class CorpusReconstructor {
 			resolution = coref.getEntities(trees);
 			
 			writer = new PrintWriter(IOUtils.createBufferedPrintStream(output + ".reconstructed"));
-			writer.println(reconstruct(trees, resolution.o1, resolution.o2));
+			writer.println(reconstruct(trees, resolution.o1, resolution.o2, excludeCommon));
 			writer.close();
 		}
 	}
 	
-	private static String reconstruct(List<DEPTree> trees, List<AbstractMention> mentions, CoreferantSet links){
+	private static String reconstruct(List<DEPTree> trees, List<AbstractMention> mentions, CoreferantSet links, boolean excludeCommon){
 		StringJoiner joiner = new StringJoiner(StringConst.SPACE);
 		
 		String token;
@@ -91,7 +92,7 @@ public class CorpusReconstructor {
 				token = node.getWordForm();
 				if(node == mention.getNode()){
 					if(!links.isSingleton(m_index))
-//						if(!mentions.get(links.findHead(m_index)).isEntityType(EntityType.COMMON))	// Excluding common noun mentions
+						if(!excludeCommon || !mentions.get(links.findHead(m_index)).isEntityType(EntityType.COMMON))
 							token = mentions.get(links.findHead(m_index)).getWordFrom();
 					
 					if(node.isLabel(DEPLibEn.DEP_POSS) || node.isPOSTag(POSTagEn.POS_PRPS))
