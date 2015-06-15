@@ -35,14 +35,15 @@ public class CoreferenceDecoder implements CoreferenceLabel{
 	
 	public CoreferenceDecoder(StringModel model){
 		this.model = model;
+		extractor = new CoreferenceFeatureExtractor();
 	}
 	
-	public StringPrediction[] predictAll(AbstractMention mention1, DEPTree tree1, AbstractMention mention2, DEPTree tree2){
-		return model.predictAll(extractor.getFeatures(mention1, tree1, mention2, tree2));
+	public StringPrediction[] predictAll(List<DEPTree> trees, AbstractMention mention1, DEPTree tree1, AbstractMention mention2, DEPTree tree2){
+		return model.predictAll(extractor.getFeatures(trees, mention1, tree1, mention2, tree2));
 	}
 	
-	public StringPrediction predictBest(AbstractMention mention1, DEPTree tree1, AbstractMention mention2, DEPTree tree2){
-		return model.predictBest(extractor.getFeatures(mention1, tree1, mention2, tree2));
+	public StringPrediction predictBest(List<DEPTree> trees, AbstractMention mention1, DEPTree tree1, AbstractMention mention2, DEPTree tree2){
+		return model.predictBest(extractor.getFeatures(trees, mention1, tree1, mention2, tree2));
 	}
 	
 	public CoreferantSet decode(List<DEPTree> trees, List<AbstractMention> mentions, boolean confidence){
@@ -59,7 +60,7 @@ public class CoreferenceDecoder implements CoreferenceLabel{
 				prev_mention = mentions.get(j);
 				prev_tree = (prev_mention.hasTree())? prev_mention.getTree() : null;		
 				
-				label = predictBest(prev_mention, prev_tree, curr_mention, curr_tree).getLabel();
+				label = predictBest(trees, prev_mention, prev_tree, curr_mention, curr_tree).getLabel();
 				if(label.equals(LINK))			links.union(j, i);
 				else if(label.equals(SHIFT))	break;
 			}

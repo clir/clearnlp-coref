@@ -19,11 +19,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
-import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.utils.reader.CoreferenceTSVReader;
-import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
-import edu.emory.clir.clearnlp.coreference.utils.structures.Tuple;
-import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.FileUtils;
 import edu.emory.clir.clearnlp.util.IOUtils;
 
