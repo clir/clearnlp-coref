@@ -91,6 +91,7 @@ public class CoreferantSet implements Serializable, Iterable<DoubleIntPair> {
 	public void addClusters(List<List<Integer>> clusters){
 		if(l_clusters != null)
 			for(List<Integer> cluster : clusters)	addCluster(cluster);
+		initDisjointClusters();
 	}
 	
 	public int addCluster(List<Integer> cluster){
@@ -104,6 +105,11 @@ public class CoreferantSet implements Serializable, Iterable<DoubleIntPair> {
 			return l_clusters.size() -1;
 		}
 		return -1;
+	}
+	
+	public void initDisjointClusters(){
+		l_clusters = null;
+		l_clusters = getClusterLists(true);
 	}
 	
 	public int findHead(int id){

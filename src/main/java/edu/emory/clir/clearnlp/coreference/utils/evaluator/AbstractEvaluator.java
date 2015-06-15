@@ -15,6 +15,9 @@
  */
 package edu.emory.clir.clearnlp.coreference.utils.evaluator;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import edu.emory.clir.clearnlp.collection.triple.Triple;
 import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 
@@ -24,6 +27,14 @@ import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
  * @since 	Jun 15, 2015
  */
 public abstract class AbstractEvaluator {	
+	protected double PrecisionSumSore, RecallSumScore;
+	protected int DocCount, PrecisionCount, RecallCount;
+	
+	public AbstractEvaluator(){
+		PrecisionSumSore = 0d; RecallSumScore = 0d;
+		DocCount = 0; PrecisionCount = 0; RecallCount = 0;
+	}
+	
 	abstract public double evaluatePrecision(CoreferantSet key, CoreferantSet prediction);
 	abstract public double evaluateRecall(CoreferantSet key, CoreferantSet prediction);
 	
@@ -33,6 +44,7 @@ public abstract class AbstractEvaluator {
 	
 	// Precision, Recall, F1
 	public Triple<Double, Double, Double> getEvaluationTriple(CoreferantSet key, CoreferantSet prediction){
+		DocCount++;
 		return new Triple<>(evaluatePrecision(key, prediction), evaluateRecall(key, prediction), evaluateF1Score(key, prediction));
 	}
 	
@@ -46,15 +58,29 @@ public abstract class AbstractEvaluator {
 	}
 	
 	// Protected methods
-	protected double evaluateF1Score(double percision, double recall){
-		return 2 * (percision * recall) / (percision + recall);
+	protected double evaluateF1Score(double precision, double recall){
+		return 2 * (precision * recall) / (precision + recall);
 	}
 	
-	protected double evaluateFScore(int f, double percision, double recall){
-		return (1 + f * f) * (percision * recall) / (f * f * percision + recall);
+	protected double evaluateFScore(int f, double precision, double recall){
+		return (1 + f * f) * (precision * recall) / (f * f * precision + recall);
 	}
 	
-	protected double evaluateGMeasure(double percision, double recall){
-		return Math.sqrt(percision * recall);
+	protected double evaluateGMeasure(double precision, double recall){
+		return Math.sqrt(precision * recall);
+	}
+	
+	// Stats
+	public String getEvaluationSummary(){
+		StringBuilder sb = new StringBuilder();
+		NumberFormat formatter = new DecimalFormat("#0.000");
+		double precision = PrecisionSumSore/PrecisionCount,
+			   recall = RecallSumScore/RecallCount; 
+		
+		sb.append("Evaluation document count: "); 	sb.append(DocCount);
+		sb.append("\nPrecision: "); 				sb.append(formatter.format(precision*100));	sb.append("% out of " + PrecisionCount + " predictions.");
+		sb.append("\nRecall: ");					sb.append(formatter.format(recall*100));	sb.append("% out of " + RecallCount + " entities.");
+		sb.append("\nF1 Score: ");					sb.append(formatter.format(evaluateF1Score(precision, recall)*100) + "%");
+		return sb.toString();
 	}
 }
