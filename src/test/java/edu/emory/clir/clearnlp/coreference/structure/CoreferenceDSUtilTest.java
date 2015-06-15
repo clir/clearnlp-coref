@@ -13,21 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.utils.structures;
+package edu.emory.clir.clearnlp.coreference.structure;
+
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
+import org.junit.Test;
+
+import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceDSUtils;
+import edu.emory.clir.clearnlp.util.DSUtils;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	Jun 9, 2015
+ * @since 	Jun 15, 2015
  */
-public class Tuple<A, B, C> {
-	public A t1;
-	public B t2;
-	public C t3;
-	
-	public Tuple(A item1, B item2, C item3){
-		t1 = item1;
-		t2 = item2;
-		t3 = item3;
+public class CoreferenceDSUtilTest {
+	@Test
+	public void testGetOverlapCount(){
+		List<Integer> list1 = DSUtils.toArrayList(1, 2, 3, 4, 5, 6), 
+					  list2 = DSUtils.toArrayList(4, 6, 5);
+		
+		assertEquals(CoreferenceDSUtils.getOverlapCount(list1, list2, false), 3);
 	}
 }

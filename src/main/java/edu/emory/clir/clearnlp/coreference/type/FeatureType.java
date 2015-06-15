@@ -22,7 +22,8 @@ package edu.emory.clir.clearnlp.coreference.type;
  */
 public interface FeatureType {
 	int ExactString = 0,
-		RelaxedString = 1;
+		RelaxedString = 1,
+		SentenceOffset = 2;
 	
 	String TRUE = "true",
 		   FALSE = "false";

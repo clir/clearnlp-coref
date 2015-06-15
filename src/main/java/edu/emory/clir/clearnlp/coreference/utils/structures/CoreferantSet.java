@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -39,6 +40,13 @@ public class CoreferantSet implements Serializable, Iterable<DoubleIntPair> {
 	private int[] s_root;
 	private double[] s_confidence;
 	private List<List<Integer>> l_clusters;
+	
+	private Comparator<List<Integer>> clusterComparator = new Comparator<List<Integer>>() {
+		@Override
+		public int compare(List<Integer> o1, List<Integer> o2) {
+			return o1.get(0) - o2.get(0);
+		}
+	};
 	
 	public CoreferantSet(int size){
 		init(size, false, true);
@@ -80,6 +88,11 @@ public class CoreferantSet implements Serializable, Iterable<DoubleIntPair> {
 		return findHead(prev);
 	}
 	
+	public void addClusters(List<List<Integer>> clusters){
+		if(l_clusters != null)
+			for(List<Integer> cluster : clusters)	addCluster(cluster);
+	}
+	
 	public int addCluster(List<Integer> cluster){
 		if(l_clusters != null){
 			Collections.sort(cluster);
@@ -91,16 +104,6 @@ public class CoreferantSet implements Serializable, Iterable<DoubleIntPair> {
 			return l_clusters.size() -1;
 		}
 		return -1;
-	}
-	
-	public void initDisjointCluster(){
-		l_clusters = null;
-		l_clusters = getClusterLists(true);
-	}
-	
-	public void addClusters(List<List<Integer>> clusters){
-		if(l_clusters != null)
-			for(List<Integer> cluster : clusters)	addCluster(cluster);
 	}
 	
 	public int findHead(int id){
@@ -124,7 +127,7 @@ public class CoreferantSet implements Serializable, Iterable<DoubleIntPair> {
 		return (s_root[id] >= 0)? s_root[id] : id; 
 	}
 	
-	public int find(int id, int rank){
+	public int findByRank(int id, int rank){
 		int idx;
 		for(idx = id; s_root[idx] >= 0 && rank-- > 0; idx = s_root[idx]);
 		return idx; 
@@ -136,6 +139,12 @@ public class CoreferantSet implements Serializable, Iterable<DoubleIntPair> {
 	
 	public boolean isSameSet(int id, int idx){
 		return findHead(id) == findHead(idx);
+	}
+	
+	public List<Integer> getCluster(int id){
+		if(l_clusters != null && id < l_clusters.size())
+			return l_clusters.get(id);
+		return null;
 	}
 	
 	public double getConfidence(int id){
@@ -190,6 +199,7 @@ public class CoreferantSet implements Serializable, Iterable<DoubleIntPair> {
 		}
 				
 		for(List<Integer> cluster : list)	Collections.sort(cluster);
+		Collections.sort(list, clusterComparator);
 		
 		if(includeSingleton)	
 			return list.stream().filter(set -> !set.isEmpty()).collect(Collectors.toList());

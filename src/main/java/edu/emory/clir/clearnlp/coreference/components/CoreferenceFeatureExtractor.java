@@ -15,6 +15,8 @@
  */
 package edu.emory.clir.clearnlp.coreference.components;
 
+import java.util.List;
+
 import edu.emory.clir.clearnlp.classification.vector.StringFeatureVector;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.type.FeatureType;
@@ -27,13 +29,16 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
  */
 public class CoreferenceFeatureExtractor implements FeatureType{
 
-	public StringFeatureVector getFeatures(AbstractMention mention1, DEPTree tree1, AbstractMention mention2, DEPTree tree2){
+	public StringFeatureVector getFeatures(List<DEPTree> trees, AbstractMention mention1, DEPTree tree1, AbstractMention mention2, DEPTree tree2){
 		StringFeatureVector vector = new StringFeatureVector();
 		
 		if(!mention1.isMultipleMention() && !mention2.isMultipleMention()){
 			/* Exact String Match */
 			if(mention1.getSubTreeWordSequence().equals(mention2.getSubTreeWordSequence()))	vector.addFeature(ExactString, TRUE);
 			else																			vector.addFeature(ExactString, FALSE);
+			
+			/* Sentence offset */
+			vector.addFeature(SentenceOffset, Integer.toString(mention2.getTreeId() - mention1.getTreeId()));
 		}
 		
 		return vector;

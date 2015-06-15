@@ -29,13 +29,13 @@ import java.util.stream.Collectors;
 import edu.emory.clir.clearnlp.collection.pair.IntIntPair;
 import edu.emory.clir.clearnlp.collection.pair.ObjectIntPair;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
+import edu.emory.clir.clearnlp.collection.triple.Triple;
 import edu.emory.clir.clearnlp.coreference.config.MentionConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.mention.detector.AbstractMentionDetector;
 import edu.emory.clir.clearnlp.coreference.mention.detector.EnglishMentionDetector;
-import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
 import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
-import edu.emory.clir.clearnlp.coreference.utils.structures.Tuple;
+import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceDSUtils;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
@@ -70,8 +70,7 @@ public class CoreferenceTSVReader extends TSVReader{
 		return new Pair<>(trees, mentions);
 	}
 
-	public Tuple<List<DEPTree>, List<AbstractMention>, CoreferantSet> getGoldCoNLLDocument(){
-		int i;
+	public Triple<List<DEPTree>, List<AbstractMention>, CoreferantSet> getGoldCoNLLDocument(){
 		DEPTree tree;
 		List<String[]> lines;
 		Map<Integer, List<IntIntPair>> mentionRanges;
@@ -101,27 +100,20 @@ public class CoreferenceTSVReader extends TSVReader{
 		// Coreferant relation construction
 		CoreferantSet links = new CoreferantSet(mentions.size(), false, false);
 		List<List<Integer>> l_mentionIndices = getMentionIndices(trees, mentions, clusters.values());
-
+		CoreferenceDSUtils.sortListBySublistSizeThenHead(l_mentionIndices, true);
 		links.addClusters(l_mentionIndices);
-		System.out.println(links.getClusterLists(false));
-		links.initDisjointCluster();
-		System.out.println(links.getClusterLists(false));
 		
-		for(List<Integer> cluster : l_mentionIndices)	System.out.println(cluster);
-		i = 0;	for(AbstractMention m : mentions)	System.out.println(i++ + ": " + m);
-		CoreferenceTestUtil.printCorefCluster(mentions, links);
+		// Debug Output
+//		for(List<Integer> cluster : links.getClusterLists(false)){
+//			System.out.println(cluster);
+//			System.out.println(cluster.stream().map(index -> mentions.get(index).getWordFrom()).collect(Collectors.toList()));
+//		}
+//		
+//		System.out.println(links.getClusterLists(false));
+//		int i = 0;	for(AbstractMention m : mentions)	System.out.println(i++ + ": " + m);
+//		CoreferenceTestUtil.printCorefCluster(mentions, links);
 		
-		/* Debug console printer
-		 * // Print clusters
-		 * for(Entry<Integer, List<ObjectIntPair<IntIntPair>>> e : clusters.entrySet())
-		 * System.out.println(e.getKey() + "\t->\t" + Joiner.join(e.getValue().stream().map(pair -> "["+pair.i+"."+pair.o.i1+"-"+pair.i+"."+pair.o.i2+"]").collect(Collectors.toList()), ", "));
-		 * // Print mentions
-		 * for(AbstractMention m : mentions)	System.out.println(m);
-		 * // Print links
-		 * System.out.println(links);
-		 */
-		
-		return new Tuple<>(trees, mentions, links);
+		return new Triple<>(trees, mentions, links);
 	}
 	
 	public Pair<List<DEPTree>, Map<Integer, List<ObjectIntPair<IntIntPair>>>> getCoNLLDocumentMentionSpan(){
@@ -201,7 +193,6 @@ public class CoreferenceTSVReader extends TSVReader{
 			else							m_singleMentionId.put(mention.getNode(), i);
 		}
 		
-		// Strict mention matching
 		Integer index;
 		List<Integer> m_indices;
 		Set<Integer> corferentId;
@@ -231,18 +222,18 @@ public class CoreferenceTSVReader extends TSVReader{
 				Collections.sort(m_indices);
 				
 				// Filter out childMentions
-//				int prevId, currId;
-//				size = m_indices.size();
-//				for(i = size - 1; i > 0 ; i--){
-//					currId = m_indices.get(i);
-//					for(j = i - 1; j >= 0; j--){
-//						prevId = m_indices.get(j);
-//						if(mentions.get(prevId).isParentMention(mentions.get(currId))){
-//							m_indices.remove(i);
-//							break;
-//						}
-//					}
-//				}
+				int prevId, currId;
+				size = m_indices.size();
+				for(i = size - 1; i > 0 ; i--){
+					currId = m_indices.get(i);
+					for(j = i - 1; j >= 0; j--){
+						prevId = m_indices.get(j);
+						if(mentions.get(prevId).isParentMention(mentions.get(currId))){
+							m_indices.remove(i);
+							break;
+						}
+					}
+				}
 
 				clusterIndices.add(m_indices);
 			}

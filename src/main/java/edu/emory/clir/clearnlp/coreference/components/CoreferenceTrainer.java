@@ -22,10 +22,10 @@ import edu.emory.clir.clearnlp.classification.instance.StringInstance;
 import edu.emory.clir.clearnlp.classification.model.StringModel;
 import edu.emory.clir.clearnlp.classification.trainer.AbstractOnlineTrainer;
 import edu.emory.clir.clearnlp.classification.trainer.AdaGradSVM;
+import edu.emory.clir.clearnlp.collection.triple.Triple;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.type.CoreferenceLabel;
 import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
-import edu.emory.clir.clearnlp.coreference.utils.structures.Tuple;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 
 /**
@@ -53,10 +53,10 @@ public class CoreferenceTrainer implements CoreferenceLabel{
 		this.labelCutoff = labelCutoff;	this.featureCutoff = featureCutoff;
 	}
 	
-	public void addDocument(Tuple<List<DEPTree>, List<AbstractMention>, CoreferantSet> document){
-		CoreferantSet links = document.t3;
-		List<DEPTree> trees = document.t1;
-		List<AbstractMention> mentions = document.t2;
+	public void addDocument(Triple<List<DEPTree>, List<AbstractMention>, CoreferantSet> document){
+		CoreferantSet links = document.o3;
+		List<DEPTree> trees = document.o1;
+		List<AbstractMention> mentions = document.o2;
 		
 		String label;
 		int i, j, size = mentions.size();
@@ -71,22 +71,20 @@ public class CoreferenceTrainer implements CoreferenceLabel{
 				prev_tree = (prev_mention.hasTree())? prev_mention.getTree() : null;		
 				
 				label = getLabel(links, j, i);
-				addInstance(label, prev_mention, prev_tree, curr_mention, curr_tree);
+				addInstance(label, trees, prev_mention, prev_tree, curr_mention, curr_tree);
 				if(label.equals(SHIFT))	break;
 			}
 		}
 	}
 	
 	private String getLabel(CoreferantSet links, int prevId, int currId){
-		int prevHead = links.findClosest(prevId), currHead = links.findClosest(currId);
-		
-		if(prevHead == currHead)	return LINK;
-		else if(prevId < currHead)	return SHIFT;
-		else						return UNLINK;
+		if(links.isSameSet(prevId, currId))		return LINK;
+		if(prevId < links.findClosest(currId))	return SHIFT;
+		return UNLINK;
 	}
 	
-	private void addInstance(String label, AbstractMention mention1, DEPTree tree1, AbstractMention mention2, DEPTree tree2){
-		StringInstance instance = new StringInstance(label, extractor.getFeatures(mention1, tree1, mention2, tree2));
+	private void addInstance(String label, List<DEPTree> trees, AbstractMention mention1, DEPTree tree1, AbstractMention mention2, DEPTree tree2){
+		StringInstance instance = new StringInstance(label, extractor.getFeatures(trees, mention1, tree1, mention2, tree2));
 		model.addInstance(instance);
 	}
 	

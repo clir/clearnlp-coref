@@ -80,7 +80,7 @@ public class CorpusReconstructor {
 		}
 	}
 	
-	private static String reconstruct(List<DEPTree> trees, List<AbstractMention> mentions, CoreferantSet links, boolean excludeCommon){
+	public static String reconstruct(List<DEPTree> trees, List<AbstractMention> mentions, CoreferantSet links, boolean excludeCommon){
 		StringJoiner joiner = new StringJoiner(StringConst.SPACE);
 		
 		String token;

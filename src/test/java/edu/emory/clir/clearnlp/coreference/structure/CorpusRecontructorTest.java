@@ -16,7 +16,9 @@
 package edu.emory.clir.clearnlp.coreference.structure;
 
 import java.io.BufferedReader;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.StringJoiner;
 
 import org.junit.Test;
 
@@ -32,9 +34,11 @@ import edu.emory.clir.clearnlp.coreference.sieve.SimplePronounMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.SpeakerIdentification;
 import edu.emory.clir.clearnlp.coreference.utils.CorpusReconstructor;
 import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
+import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceStringUtils;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.FileUtils;
 import edu.emory.clir.clearnlp.util.IOUtils;
+import edu.emory.clir.clearnlp.util.Joiner;
 import edu.emory.clir.clearnlp.util.Splitter;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
@@ -48,6 +52,7 @@ public class CorpusRecontructorTest {
 	public void test(){
 		NLPDecoder decoder = new NLPDecoder(TLanguage.ENGLISH);
 		List<String> l_filePath = FileUtils.getFileList("/Users/HenryChen/Desktop/MS_Input", ".tsv", true);
+		String outputPath = "/Users/HenryChen/Desktop/MS_Output/"; 
 		
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
@@ -58,27 +63,33 @@ public class CorpusRecontructorTest {
 		Pair<List<AbstractMention>, CoreferantSet> resolution;
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution((SieveSystemCongiuration)config);
 		
-		int count;
 		String line, out;
+		StringJoiner joiner;
 		List<DEPTree> trees;
 		BufferedReader reader;
+		PrintWriter writer;
 		for(String filePath : l_filePath){
-			count = 0;
-			
+			joiner = new StringJoiner("\n\n");
 			try {
 				reader = IOUtils.createBufferedReader(filePath);
 				
 				while( (line = reader.readLine()) != null){
-					line = Splitter.splitTabs(line)[2].replaceAll("\\\\newline", "");
+					line = Splitter.splitTabs(line)[2]
+							.replaceAll("\\\\newline", "")
+							.replaceAll("\\\\", "");
+					
 					trees = decoder.toDEPTrees(line);
 					resolution = coref.getEntities(trees);
 					
-					out = "/Users/HenryChen/Desktop/MS_Output/" + FileUtils.getBaseName(filePath) + ".comprehension" + count++;
-					CorpusReconstructor.reconstruct(trees, resolution.o1, resolution.o2, out, true);
+					out = CorpusReconstructor.reconstruct(trees, resolution.o1, resolution.o2, true);
+					joiner.add(Joiner.join(CoreferenceStringUtils.segmentize2Sentences(out), "\n"));
 				}
 				
 				reader.close();
 			} catch (Exception e) {	e.printStackTrace(); }
+			writer = new PrintWriter(IOUtils.createBufferedPrintStream(outputPath + FileUtils.getBaseName(filePath) + ".onlyProper.reconstructed"));
+			writer.print(joiner.toString());
+			writer.close();
 		}
 	}
 }

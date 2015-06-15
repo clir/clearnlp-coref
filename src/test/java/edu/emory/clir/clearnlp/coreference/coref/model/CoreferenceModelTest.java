@@ -20,12 +20,12 @@ import java.util.List;
 import org.junit.Test;
 
 import edu.emory.clir.clearnlp.collection.pair.IntIntPair;
+import edu.emory.clir.clearnlp.collection.triple.Triple;
 import edu.emory.clir.clearnlp.coreference.components.CoreferenceDecoder;
 import edu.emory.clir.clearnlp.coreference.components.CoreferenceTrainer;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.utils.reader.CoreferenceTSVReader;
 import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
-import edu.emory.clir.clearnlp.coreference.utils.structures.Tuple;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.FileUtils;
 import edu.emory.clir.clearnlp.util.IOUtils;
@@ -36,6 +36,7 @@ import edu.emory.clir.clearnlp.util.IOUtils;
  * @since 	Jun 11, 2015
  */
 public class CoreferenceModelTest {
+	public static final int iter = 10;
 	public static final int labelCutoff = 0;
 	public static final int featureCutoff = 0;
 	public static final boolean average = true;
@@ -55,9 +56,9 @@ public class CoreferenceModelTest {
 		train(trainer, reader, trn_filePaths);
 		
 		CoreferenceDecoder decoder = new CoreferenceDecoder(trainer.getModel());
-//		evaluate(decoder, reader, dev_filePaths);
+		evaluate(decoder, reader, dev_filePaths);
 		
-		System.out.println("Performance Summary:");
+		System.out.println("\nPerformance Summary:");
 		System.out.println("Traning document count: " + TRN_DOCUMENT);
 		System.out.println("Evaluation document count: " + EVAL_DOCUMENT);
 		System.out.printf("Result: %d/%d, %.3f%%", CORRECT, TOTAL, (double)CORRECT/TOTAL*100);
@@ -69,29 +70,34 @@ public class CoreferenceModelTest {
 			reader.open(IOUtils.createFileInputStream(filePath));			
 			trainer.addDocument(reader.getGoldCoNLLDocument());
 			reader.close();	TRN_DOCUMENT++;
-			break;
 		}
 		
-		System.out.print("TRAINING...");
-		System.out.println("DONE");
+		System.out.println("\nTRAINING...");
+		trainer.initTrainer();
+		for(int i = 0; i < iter; i++){
+			System.out.println("Iteration #" + i);
+			trainer.trainModel();
+		}
+		System.out.println(".........\nDONE!");
 	}
 	
 	private void evaluate(CoreferenceDecoder decoder, CoreferenceTSVReader reader, List<String> l_filePaths){
-		System.out.println("DECODING/EVALUATING...");
+		System.out.println("\nDECODING/EVALUATING...");
 		
 		IntIntPair evalResult;	CoreferantSet prediction;
-		Tuple<List<DEPTree>, List<AbstractMention>, CoreferantSet> document;
+		Triple<List<DEPTree>, List<AbstractMention>, CoreferantSet> document;
 		
 		for(String filePath : l_filePaths){
 			reader.open(IOUtils.createFileInputStream(filePath));
 			document = reader.getGoldCoNLLDocument();
 			reader.close();	EVAL_DOCUMENT++;
 			
-			System.out.println("Decoding " + FileUtils.getBaseName(filePath));
-			prediction = decoder.decode(document.t1, document.t2, false);
+			System.out.print("Decoding " + FileUtils.getBaseName(filePath) + "... ");
+			prediction = decoder.decode(document.o1, document.o2, false);
 			
-			System.out.println("Evaluating with " + FileUtils.getBaseName(filePath));
-			evalResult = evaluate(document.t3, prediction);
+			System.out.print("Evaluating... ");
+			evalResult = evaluate(document.o3, prediction);
+			System.out.println("DONE.");
 			
 			CORRECT += evalResult.i1;
 			TOTAL += evalResult.i2;
