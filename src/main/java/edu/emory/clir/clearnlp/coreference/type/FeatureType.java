@@ -23,7 +23,16 @@ package edu.emory.clir.clearnlp.coreference.type;
 public interface FeatureType {
 	int ExactString = 0,
 		RelaxedString = 1,
-		SentenceOffset = 2;
+		SentenceOffset = 2,
+		TokenOffset = 3,
+		CurrentPOSTag = 4,
+		GenderMatch = 5,
+		NumberMatch = 6,
+		EntityMatch = 7,
+		SpeakerStatus = 8,
+		CurrentDEPLabel = 9,
+		PronounMatch = 10,
+		IsParentRel = 11;
 	
 	String TRUE = "true",
 		   FALSE = "false";
