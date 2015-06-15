@@ -93,10 +93,10 @@ public class BratCorefVisualizer {
 						annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "GenderType", mention.getGenderType().toString()));
 						if(mention.getPronounType() != null) 				annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "PronounType", mention.getPronounType().toString()));
 						if(mention.hasAttribute(AttributeType.QUOTE))			annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Quotation", "true"));
-						if(mention.hasAttribute(AttributeType.CONJUNCTION)){
-							annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Conjunction", "true"));
-							annotation_constructor.add(getConjuncRelationAnnotation(relCount++, m_mentionIndex.get(mention.getConjunctionMention()), n_index));
-						}
+//						if(mention.hasAttribute(AttributeType.CONJUNCTION)){
+//							annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Conjunction", "true"));
+//							annotation_constructor.add(getConjuncRelationAnnotation(relCount++, m_mentionIndex.get(mention.getConjunctionMention()), n_index));
+//						}
 						
 						mention = (n_index < size)? mentions.get(n_index) : null;
 					}
@@ -134,10 +134,10 @@ public class BratCorefVisualizer {
 						annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "GenderType", mention.getGenderType().toString()));
 						if(mention.getPronounType() != null) 				annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "PronounType", mention.getPronounType().toString()));
 						if(mention.hasAttribute(AttributeType.QUOTE))			annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Quotation", "true"));
-						if(mention.hasAttribute(AttributeType.CONJUNCTION)){
-							annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Conjunction", "true"));
-							annotation_constructor.add(getConjuncRelationAnnotation(relCount++, m_mentionIndex.get(mention.getConjunctionMention()), n_index));
-						}
+//						if(mention.hasAttribute(AttributeType.CONJUNCTION)){
+//							annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Conjunction", "true"));
+//							annotation_constructor.add(getConjuncRelationAnnotation(relCount++, m_mentionIndex.get(mention.getConjunctionMention()), n_index));
+//						}
 						
 						mention = (n_index < size)? mentions.get(n_index) : null;
 					}
@@ -182,10 +182,10 @@ public class BratCorefVisualizer {
 						annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "GenderType", mention.getGenderType().toString()));
 						if(mention.getPronounType() != null) 				annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "PronounType", mention.getPronounType().toString()));
 						if(mention.hasAttribute(AttributeType.QUOTE))			annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Quotation", "true"));
-						if(mention.hasAttribute(AttributeType.CONJUNCTION)){
-							annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Conjunction", "true"));
-							annotation_constructor.add(getConjuncRelationAnnotation(relCount++, m_mentionIndex.get(mention.getConjunctionMention()), n_index));
-						}
+//						if(mention.hasAttribute(AttributeType.CONJUNCTION)){
+//							annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Conjunction", "true"));
+//							annotation_constructor.add(getConjuncRelationAnnotation(relCount++, m_mentionIndex.get(mention.getConjunctionMention()), n_index));
+//						}
 						
 						mention = (n_index < size)? mentions.get(n_index) : null;
 					}
