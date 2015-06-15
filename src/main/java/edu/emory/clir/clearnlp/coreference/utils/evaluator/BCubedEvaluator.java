@@ -56,8 +56,10 @@ public class BCubedEvaluator extends AbstractEvaluator{
 				outputChain = l_outputChains.get(i_outputChain);
 
 				if(truthChain.get(0) == outputChain.get(0)){
-					s_scores[i_truthChain] = (double)CoreferenceDSUtils.getOverlapCount(truthChain, outputChain, true) / truthChain.size();
-					i_outputChain++;	break;
+					s_scores[i_truthChain] = (double) CoreferenceDSUtils.getOverlapCount(truthChain, outputChain, true) / truthChain.size();
+					
+					i_outputChain++;
+					break;
 				}
 				if(truthChain.get(0) < outputChain.get(0))	break;	
 			}
@@ -67,9 +69,15 @@ public class BCubedEvaluator extends AbstractEvaluator{
 			s_weights = new double[truth_size];
 			Arrays.fill(s_weights, 1d);
 		}
-		for(i = 0; i < truth_size; i++)
-			score += s_weights[i] * s_scores[i];
 		
+		double singleScore;
+		for(i = 0; i < truth_size; i++){
+			singleScore = s_weights[i] * s_scores[i];
+			score += singleScore; 
+			RecallSumScore+= singleScore;
+		}
+		
+		RecallCount += truth_size;
 		return score / truth_size;
 	}
 
@@ -91,9 +99,12 @@ public class BCubedEvaluator extends AbstractEvaluator{
 				
 				if(truthChain.get(0) == outputChain.get(0)){
 					truth_index[i_outputChain] = i_truthChain;
-					s_scores[i_outputChain] = (double)CoreferenceDSUtils.getOverlapCount(truthChain, outputChain, true) / outputChain.size();
-					i_outputChain++;	break;
+					s_scores[i_outputChain] = (double) CoreferenceDSUtils.getOverlapCount(truthChain, outputChain, true) / outputChain.size();
+					
+					i_outputChain++;
+					break;
 				}
+				if(truthChain.get(0) < outputChain.get(0))	break;	
 			}
 		}
 		
@@ -101,9 +112,15 @@ public class BCubedEvaluator extends AbstractEvaluator{
 			s_weights = new double[truth_size];
 			Arrays.fill(s_weights, 1d);
 		}
-		for(i = 0, j = 0; i < output_size; i++)
-			score += (s_scores[i] == 0)? 0 : s_weights[j++] * s_scores[i];
 		
+		double singleScore;
+		for(i = 0, j = 0; i < output_size; i++){
+			singleScore = (s_scores[i] == 0)? 0 : s_weights[j++] * s_scores[i];
+			score += singleScore;
+			PrecisionSumSore += singleScore;
+		}
+			 
+		PrecisionCount += output_size;
 		return score / output_size;
 	}
 }
