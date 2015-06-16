@@ -5,7 +5,7 @@ import java.util.Set;
 
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.type.PronounType;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -21,7 +21,7 @@ public class IndefinitePronounMatch extends AbstractSieve{
     private final Set<String> bannedWords = DSUtils.toHashSet("everyone", "everybody", "everything", "anything");
     
     @Override
-    public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet mentionLinks)
+    public void resolute(List<DEPTree> trees, List<AbstractMention> mentions, CoreferantSet mentionLinks)
     {
         int i = 0, size = mentions.size();
         AbstractMention prev, curr = null;

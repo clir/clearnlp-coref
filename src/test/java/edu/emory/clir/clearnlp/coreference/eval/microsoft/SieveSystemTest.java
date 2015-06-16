@@ -33,7 +33,7 @@ import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.SimplePronounMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.SpeakerIdentification;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.coreference.visualization.BratCorefVisualizer;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.FileUtils;
@@ -76,7 +76,7 @@ public class SieveSystemTest {
 		List<String> l_filePaths = FileUtils.getFileList(PathData.ENG_COREF_MICROSOFT_PARSED_DIR, ".cnlp", false);
 		
 		List<DEPTree> trees;
-		Pair<List<AbstractMention>, DisjointSet> resolution;
+		Pair<List<AbstractMention>, CoreferantSet> resolution;
 		for(String filePath : l_filePaths){
 			trees = CoreferenceTestUtil.getTestDocuments(filePath, 9);
 			resolution = coref.getEntities(trees);

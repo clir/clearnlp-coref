@@ -13,21 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.utils.structures;
+package edu.emory.clir.clearnlp.coreference.type;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	Jun 9, 2015
+ * @since 	Jun 11, 2015
  */
-public class Tuple<A, B, C> {
-	public A t1;
-	public B t2;
-	public C t3;
+public interface FeatureType {
+	int ExactString = 0,
+		RelaxedString = 1,
+		SentenceOffset = 2,
+		TokenOffset = 3,
+		CurrentPOSTag = 4,
+		GenderMatch = 5,
+		NumberMatch = 6,
+		EntityMatch = 7,
+		SpeakerStatus = 8,
+		CurrentDEPLabel = 9,
+		PronounMatch = 10,
+		IsParentRel = 11;
 	
-	public Tuple(A item1, B item2, C item3){
-		t1 = item1;
-		t2 = item2;
-		t3 = item3;
-	}
+	String TRUE = "true",
+		   FALSE = "false";
 }

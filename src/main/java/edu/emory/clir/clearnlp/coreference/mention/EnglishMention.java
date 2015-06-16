@@ -45,6 +45,14 @@ public class EnglishMention extends AbstractMention{
 		this.setNode(node);
 	}
 	
+	public EnglishMention(EnglishMention... mentions){
+		super(mentions);
+	}
+	
+	public EnglishMention(List<AbstractMention> mentions){
+		super(mentions);
+	}
+	
 	public EnglishMention(int t_id, DEPTree tree, DEPNode node){
 		super(t_id, tree, node);
 	}
@@ -71,7 +79,7 @@ public class EnglishMention extends AbstractMention{
 
 	@Override
 	public String getAcronym() {
-		if(getNode().isPOSTag(POSTagEn.POS_NNP) || getNode().isPOSTag(POSTagEn.POS_NNPS)){
+		if(!isMultipleMention() && (getNode().isPOSTag(POSTagEn.POS_NNP) || getNode().isPOSTag(POSTagEn.POS_NNPS))){
 			String phrase = Joiner.join(getSubTreeNodes().stream()
 					.filter(node -> node.isPOSTag(CTLibEn.POS_NNP) || node.isPOSTag(CTLibEn.POS_NNPS))
 					.map(node -> node.getWordForm())
@@ -84,18 +92,23 @@ public class EnglishMention extends AbstractMention{
 
 	@Override
 	public boolean isInAdjunctDomainOf(AbstractMention mention) {
-		DEPNode head = mention.getNode().getHead(), adjuncHead = getNode().getHead();
-		if(head != null && adjuncHead != null)
-			return getNode().isLabel(DEPTagEn.DEP_POBJ) && adjuncHead.isLabel(DEPTagEn.DEP_PREP) && head == adjuncHead.getHead();
+		if(!isMultipleMention()){
+			DEPNode head = mention.getNode().getHead(), adjuncHead = getNode().getHead();
+			if(head != null && adjuncHead != null)
+				return getNode().isLabel(DEPTagEn.DEP_POBJ) && adjuncHead.isLabel(DEPTagEn.DEP_PREP) && head == adjuncHead.getHead();
+		}
 		return false;
 	}
 
 	@Override
 	public List<String> getModifiersList() {
-		List<DEPNode> l_wordSequencesNodes = getNode().getDependentList();
-		return l_wordSequencesNodes.stream()
-				.filter(node -> POSLibEn.isNoun(node.getPOSTag()) || POSLibEn.isAdjective(node.getPOSTag()))
-				.map(node -> StringUtils.toLowerCase(node.getWordForm()))
-				.collect(Collectors.toList());
+		if(!isMultipleMention()){
+			List<DEPNode> l_wordSequencesNodes = getNode().getDependentList();
+			return l_wordSequencesNodes.stream()
+					.filter(node -> POSLibEn.isNoun(node.getPOSTag()) || POSLibEn.isAdjective(node.getPOSTag()))
+					.map(node -> StringUtils.toLowerCase(node.getWordForm()))
+					.collect(Collectors.toList());
+		}
+		return null;
 	}
 }

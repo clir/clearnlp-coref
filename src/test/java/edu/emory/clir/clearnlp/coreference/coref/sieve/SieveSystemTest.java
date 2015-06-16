@@ -28,7 +28,7 @@ import edu.emory.clir.clearnlp.coreference.config.SieveSystemCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
@@ -51,7 +51,7 @@ public class SieveSystemTest {
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
 		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION, 0, 4);
 		
-		Pair<List<AbstractMention>, DisjointSet> resolution = coref.getEntities(trees);
+		Pair<List<AbstractMention>, CoreferantSet> resolution = coref.getEntities(trees);
 		CoreferenceTestUtil.printSentences(trees);
 		CoreferenceTestUtil.printResolutionResult(resolution);
 		CoreferenceTestUtil.printCorefCluster(resolution);

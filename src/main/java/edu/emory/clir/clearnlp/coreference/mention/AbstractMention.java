@@ -16,7 +16,6 @@
 package edu.emory.clir.clearnlp.coreference.mention;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -25,15 +24,17 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 import edu.emory.clir.clearnlp.collection.map.ObjectDoubleHashMap;
+import edu.emory.clir.clearnlp.collection.map.ObjectIntHashMap;
 import edu.emory.clir.clearnlp.coreference.type.AttributeType;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
 import edu.emory.clir.clearnlp.coreference.type.GenderType;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
 import edu.emory.clir.clearnlp.coreference.type.PronounType;
-import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceStringUtils;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.util.DSUtils;
 import edu.emory.clir.clearnlp.util.Joiner;
+import edu.emory.clir.clearnlp.util.constant.StringConst;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -47,7 +48,7 @@ public abstract class AbstractMention implements Serializable {
 	protected DEPTree d_tree;
 	protected DEPNode d_node;
 	protected List<DEPNode> l_subNodes;
-	protected AbstractMention m_conj;
+	protected List<AbstractMention> l_subMentions; // d_node = null; l_subNodes = null;
 	
 	protected EntityType t_entity;
 	protected GenderType t_gender;
@@ -59,6 +60,18 @@ public abstract class AbstractMention implements Serializable {
 	/* Constructors */
 	public AbstractMention(){
 		init(-1, null, null, null, null, null, null);
+	}
+	
+	public AbstractMention(AbstractMention... mentions){
+		init(-1, null, null, null, null, null, null);
+		setSubMentions(DSUtils.toArrayList(mentions));
+		initMultipleMention();
+	}
+	
+	public AbstractMention(List<AbstractMention> mentions){
+		init(-1, null, null, null, null, null, null);
+		setSubMentions(mentions);
+		initMultipleMention();
 	}
 	
 	public AbstractMention(int t_id, DEPTree tree, DEPNode node){
@@ -89,13 +102,37 @@ public abstract class AbstractMention implements Serializable {
 		m_attr = new ObjectDoubleHashMap<>();
 		setTreeId(t_id);	setTree(tree);	setNode(node);	
 		setSubTreeNodes((node == null)? null : node.getSubNodeList());
-		setConjunctionMention(null);
+		setSubMentions(null);
 		setEntityType(entityType);
 		setGenderType(genderType);
 		setNumberType(numberType);
 		
 		if(entityType == EntityType.PRONOUN && pronounType == null)	setPronounType(PronounType.UNKNOWN);
 		else														setPronounType(pronounType);
+	}
+	
+	private void initMultipleMention(){
+		AbstractMention mention = l_subMentions.get(0);
+		int i, size = l_subMentions.size();
+		ObjectIntHashMap<EntityType> entityMap = new ObjectIntHashMap<>();
+		
+		setTree(mention.getTree());
+		setTreeId(mention.getTreeId());
+		setGenderType(mention.getGenderType());
+		setNumberType(NumberType.PLURAL);
+		
+		
+		for(i = 0; i < size; i++){
+			mention = l_subMentions.get(i);
+			entityMap.add(mention.getEntityType());
+			
+			if(!isGenderType(GenderType.NEUTRAL) && !isGenderType(mention.getGenderType()))
+				setGenderType(GenderType.NEUTRAL);
+			if(getTreeId() != -1 && getTreeId() != mention.getTreeId()){
+				setTree(null);	setTreeId(-1);
+			}
+		}
+		setEntityType(Collections.max(entityMap.toList()).o);
 	}
 	
 	/* Getters */
@@ -135,30 +172,16 @@ public abstract class AbstractMention implements Serializable {
 		return m_attr.get(type);
 	}
 	
-	public ObjectDoubleHashMap<AttributeType> getFeatureMap(){
+	public ObjectDoubleHashMap<AttributeType> getAttributeMap(){
 		return m_attr;
+	}
+	
+	public List<AbstractMention> getSubMentions(){
+		return l_subMentions;
 	}
 	
 	public List<DEPNode> getSubTreeNodes(){
 		return l_subNodes;
-	}
-	
-	public AbstractMention getConjunctionMention(){
-		return m_conj;
-	}
-	
-	public List<AbstractMention> getConjunctionMentions(){
-		if(hasConjunctionMention()){
-			AbstractMention mention = this;
-			List<AbstractMention> mentions = new ArrayList<>();
-			
-			do		mentions.add(mention);
-			while((	mention = mention.getConjunctionMention()) != null );
-			
-			Collections.reverse(mentions);
-			return mentions;
-		}
-		return null;
 	}
 	
 	/* Setters */
@@ -194,9 +217,10 @@ public abstract class AbstractMention implements Serializable {
 		l_subNodes = nodes;
 	}
 	
-	public void setConjunctionMention(AbstractMention mention){
-		m_conj = mention;
-		if(m_conj != null) addAttribute(AttributeType.CONJUNCTION);
+	public void setSubMentions(List<AbstractMention> mentions){
+		l_subMentions = mentions;
+		if(l_subMentions != null && !hasAttribute(AttributeType.CONJUNCTION)) 
+			addAttribute(AttributeType.CONJUNCTION);
 	}
 	
 	public void addAttribute(AttributeType type){
@@ -210,6 +234,10 @@ public abstract class AbstractMention implements Serializable {
 	/* boolean methods */
 	public boolean isEntityType(EntityType type){
 		return t_entity == type;
+	}
+	
+	public boolean isMultipleMention(){
+		return l_subMentions != null && l_subMentions.size() > 1;
 	}
 	
 	public boolean isNameEntity(){
@@ -252,20 +280,26 @@ public abstract class AbstractMention implements Serializable {
 		return mention.isGenderType(getGenderType()) || isGenderType(GenderType.NEUTRAL) || mention.isGenderType(GenderType.NEUTRAL);
 	}
 	
+	public boolean hasTree(){
+		return getTree() != null && getTreeId() >= 0;
+	}
+	
+	public boolean hasSubTreeNodes(){
+		return l_subNodes != null;
+	}
+	
 	public boolean hasSameHeadNode(AbstractMention mention){
 		return getNode().getHead() == mention.getNode().getHead();
 	}
 	
-	public boolean hasFeature(AttributeType type){
+	public boolean hasAttribute(AttributeType type){
 		return m_attr.containsKey(type);
-	}
-	
-	public boolean hasConjunctionMention(){
-		return m_conj != null;
 	}
 	
 	/* String handling methods */
 	public String getWordFrom(){
+		if(isMultipleMention())
+			return Joiner.join(l_subMentions.stream().map(m -> m.getWordFrom()).collect(Collectors.toList()), StringConst.PIPE);
 		return d_node.getWordForm();
 	}
 	
@@ -301,12 +335,16 @@ public abstract class AbstractMention implements Serializable {
 	@Override
 	public String toString(){
 		StringJoiner joiner = new StringJoiner("\t");
-		joiner.add(getWordFrom()+"@"+getTreeId()+"."+getNode().getID());
-		joiner.add(CoreferenceStringUtils.connectStrings("(", (m_conj == null)? "null" : m_conj.getWordFrom(),")"));
-		joiner.add((t_entity == null)? "null" : t_entity.toString());
-		joiner.add((t_gender == null)? "null" : t_gender.toString());
-		joiner.add((t_number == null)? "null" : t_number.toString());
-		joiner.add((t_pronoun == null)? "null" : t_pronoun.toString());
+		
+		if(isMultipleMention())
+			joiner.add(Joiner.join(l_subMentions.stream().map(m -> m.getWordFrom()).collect(Collectors.toList()), StringConst.COMMA));
+		else
+			joiner.add(getWordFrom() + StringConst.AT + getTreeId() + StringConst.PERIOD + getNode().getID());
+
+		joiner.add((t_entity == null)? StringConst.UNDERSCORE : t_entity.toString());
+		joiner.add((t_gender == null)? StringConst.UNDERSCORE : t_gender.toString());
+		joiner.add((t_number == null)? StringConst.UNDERSCORE : t_number.toString());
+		joiner.add((t_pronoun == null)? StringConst.UNDERSCORE : t_pronoun.toString());
 		joiner.add(m_attr.toString());
 		return joiner.toString();
 	}

@@ -15,10 +15,32 @@
  */
 package edu.emory.clir.clearnlp.coreference.structure;
 
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.StringJoiner;
+
 import org.junit.Test;
 
-import edu.emory.clir.clearnlp.coreference.path.PathData;
+import edu.emory.clir.clearnlp.NLPDecoder;
+import edu.emory.clir.clearnlp.collection.pair.Pair;
+import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
+import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
+import edu.emory.clir.clearnlp.coreference.config.SieveSystemCongiuration;
+import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
+import edu.emory.clir.clearnlp.coreference.sieve.ExactStringMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.SimplePronounMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.SpeakerIdentification;
 import edu.emory.clir.clearnlp.coreference.utils.CorpusReconstructor;
+import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
+import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceStringUtils;
+import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.util.FileUtils;
+import edu.emory.clir.clearnlp.util.IOUtils;
+import edu.emory.clir.clearnlp.util.Joiner;
+import edu.emory.clir.clearnlp.util.Splitter;
+import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -28,9 +50,46 @@ import edu.emory.clir.clearnlp.coreference.utils.CorpusReconstructor;
 public class CorpusRecontructorTest {
 	@Test
 	public void test(){
-		String 	in = PathData.ENG_COREF_MICROSOFT_PARSED_DIR,
-				out = "/Users/HenryChen/Desktop/MS_Output/";
+		NLPDecoder decoder = new NLPDecoder(TLanguage.ENGLISH);
+		List<String> l_filePath = FileUtils.getFileList("/Users/HenryChen/Desktop/MS_Input", ".tsv", true);
+		String outputPath = "/Users/HenryChen/Desktop/MS_Output/"; 
 		
-		CorpusReconstructor.reconstruct(in, out, true);
+		/* Configuration */
+		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
+		config.loadMentionDectors(true, true, true);
+		config.mountSieves(new SpeakerIdentification(), new ExactStringMatch(), new RelaxedStringMatch(), new SimplePronounMatch());
+		/* ************* */
+		
+		Pair<List<AbstractMention>, CoreferantSet> resolution;
+		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution((SieveSystemCongiuration)config);
+		
+		String line, out;
+		StringJoiner joiner;
+		List<DEPTree> trees;
+		BufferedReader reader;
+		PrintWriter writer;
+		for(String filePath : l_filePath){
+			joiner = new StringJoiner("\n\n");
+			try {
+				reader = IOUtils.createBufferedReader(filePath);
+				
+				while( (line = reader.readLine()) != null){
+					line = Splitter.splitTabs(line)[2]
+							.replaceAll("\\\\newline", "")
+							.replaceAll("\\\\", "");
+					
+					trees = decoder.toDEPTrees(line);
+					resolution = coref.getEntities(trees);
+					
+					out = CorpusReconstructor.reconstruct(trees, resolution.o1, resolution.o2, true);
+					joiner.add(Joiner.join(CoreferenceStringUtils.segmentize2Sentences(out), "\n"));
+				}
+				
+				reader.close();
+			} catch (Exception e) {	e.printStackTrace(); }
+			writer = new PrintWriter(IOUtils.createBufferedPrintStream(outputPath + FileUtils.getBaseName(filePath) + ".onlyProper.reconstructed"));
+			writer.print(joiner.toString());
+			writer.close();
+		}
 	}
 }

@@ -46,7 +46,7 @@ public class MentionFeatureTest {
 		List<AbstractMention> mentions = detector.getMentionList(trees);
 		
 		for(AbstractMention mention : mentions)
-			System.out.println(mention.getNode().getWordForm() + " -> " + mention.hasFeature(AttributeType.QUOTE));
+			System.out.println(mention.getNode().getWordForm() + " -> " + mention.hasAttribute(AttributeType.QUOTE));
 	}
 	
 	@Test
@@ -57,8 +57,8 @@ public class MentionFeatureTest {
 		List<AbstractMention> mentions = detector.getMentionList(trees);
 		
 		for(AbstractMention mention : mentions)
-			if(mention.hasConjunctionMention())	System.out.println(mention.getConjunctionMentions());
+			System.out.println(mention);
 		
-		BratCorefVisualizer.export("/Users/HenryChen/Desktop/", "conjunctionTest", trees, mentions);
+//		BratCorefVisualizer.export("/Users/HenryChen/Desktop/", "conjunctionTest", trees, mentions);
 	}
 }

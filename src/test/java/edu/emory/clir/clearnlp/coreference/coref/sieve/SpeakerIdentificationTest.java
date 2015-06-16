@@ -29,7 +29,7 @@ import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
 import edu.emory.clir.clearnlp.coreference.sieve.SpeakerIdentification;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
@@ -49,7 +49,7 @@ public class SpeakerIdentificationTest {
 		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION_QUOTE);
 //		List<DEPTree> trees = new NLPDecoder(TLanguage.ENGLISH).toDEPTrees("\"I love this so much,\" said Tom, \"but I hate it with noodles.\"");
 		
-		Pair<List<AbstractMention>, DisjointSet> resolution = coref.getEntities(trees);
+		Pair<List<AbstractMention>, CoreferantSet> resolution = coref.getEntities(trees);
 		CoreferenceTestUtil.printSentences(trees);
 		CoreferenceTestUtil.printResolutionResult(resolution);
 		CoreferenceTestUtil.printCorefCluster(resolution);

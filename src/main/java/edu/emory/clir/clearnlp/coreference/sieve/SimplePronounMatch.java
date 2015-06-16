@@ -47,7 +47,7 @@ public class SimplePronounMatch extends AbstractSieve{
 	}
 	
 	private boolean matchPronoun(AbstractMention entity, AbstractMention pronoun){
-		if(!entity.hasFeature(AttributeType.QUOTE) && !pronoun.hasFeature(AttributeType.QUOTE)){
+		if(!entity.hasAttribute(AttributeType.QUOTE) && !pronoun.hasAttribute(AttributeType.QUOTE)){
 			if(entity.isNameEntity()){
 				if(!anonymousPronouns.contains(pronoun.getLemma()))
 					return pronoun.matchGenderType(entity) && pronoun.matchNumberType(entity);

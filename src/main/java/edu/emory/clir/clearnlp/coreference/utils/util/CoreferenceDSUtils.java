@@ -16,6 +16,8 @@
 package edu.emory.clir.clearnlp.coreference.utils.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.pair.IntIntPair;
@@ -66,5 +68,48 @@ public class CoreferenceDSUtils {
 				list.add(node);
 		
 		return list;
+	}
+	
+	public static <T extends Comparable<T>>void sortListBySublistSizeThenHead(List<List<T>> list, boolean reverseOrder){
+		Collections.sort(list, new Comparator<List<T>>() {
+			@Override
+			public int compare(List<T> o1, List<T> o2) {
+				int size1 = o1.size(), size2 = o2.size();
+				if(size1 == size2 && size1 > 0 && size2 > 0)
+					return o1.get(0).compareTo(o2.get(0));
+				return size1 - size2;
+			}
+		});
+		if(reverseOrder) Collections.reverse(list);
+	}
+	
+	public static <T extends Comparable<T>>int getOverlapCount(List<T> list1, List<T> list2, boolean sorted){
+		if(!sorted){
+			Collections.sort(list1);
+			Collections.sort(list2);
+		}
+		
+		if(list1.size() > list2.size()){
+			List<T> temp = list1;
+			list1 = list2; list2 = temp;
+		}
+		
+		T l1_ele, l2_ele;
+		int i = 0, j = 0, comp, count = 0, size1 = list1.size(), size2 = list2.size();
+		
+		for(; i < size1; i++){
+			l1_ele = list1.get(i);
+			
+			for(; j < size2; j++){
+				l2_ele = list2.get(j);
+				
+				comp = l1_ele.compareTo(l2_ele);
+				if(comp > 0)		continue;
+				else if(comp == 0){	j++; count++; }
+				break;
+			}
+		}
+		
+		return count;
 	}
 }

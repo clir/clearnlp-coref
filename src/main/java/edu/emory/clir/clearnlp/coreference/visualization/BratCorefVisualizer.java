@@ -23,7 +23,7 @@ import java.util.StringJoiner;
 
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.type.AttributeType;
-import edu.emory.clir.clearnlp.coreference.utils.structures.DisjointSet;
+import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.IOUtils;
@@ -60,11 +60,11 @@ public class BratCorefVisualizer {
 		new BratCorefVisualizer(rootPath).export(fileName, trees, mentions);
 	}
 	
-	public static void export(String rootPath, String fileName, List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet links){
+	public static void export(String rootPath, String fileName, List<DEPTree> trees, List<AbstractMention> mentions, CoreferantSet links){
 		new BratCorefVisualizer(rootPath).export(fileName, trees, mentions, links);
 	}
 	
-	public static void export(String rootPath, String fileName, List<String> prefixes, List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet links){
+	public static void export(String rootPath, String fileName, List<String> prefixes, List<DEPTree> trees, List<AbstractMention> mentions, CoreferantSet links){
 		new BratCorefVisualizer(rootPath).export(fileName, prefixes, trees, mentions, links);
 	}
 	
@@ -92,11 +92,11 @@ public class BratCorefVisualizer {
 						annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "NumberType", mention.getNumberType().toString()));
 						annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "GenderType", mention.getGenderType().toString()));
 						if(mention.getPronounType() != null) 				annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "PronounType", mention.getPronounType().toString()));
-						if(mention.hasFeature(AttributeType.QUOTE))			annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Quotation", "true"));
-						if(mention.hasFeature(AttributeType.CONJUNCTION)){
-							annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Conjunction", "true"));
-							annotation_constructor.add(getConjuncRelationAnnotation(relCount++, m_mentionIndex.get(mention.getConjunctionMention()), n_index));
-						}
+						if(mention.hasAttribute(AttributeType.QUOTE))			annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Quotation", "true"));
+//						if(mention.hasAttribute(AttributeType.CONJUNCTION)){
+//							annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Conjunction", "true"));
+//							annotation_constructor.add(getConjuncRelationAnnotation(relCount++, m_mentionIndex.get(mention.getConjunctionMention()), n_index));
+//						}
 						
 						mention = (n_index < size)? mentions.get(n_index) : null;
 					}
@@ -109,7 +109,7 @@ public class BratCorefVisualizer {
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
-	public void export(String fileName, List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet links){
+	public void export(String fileName, List<DEPTree> trees, List<AbstractMention> mentions, CoreferantSet links){
 		try {
 			PrintWriter annotation_writer = new PrintWriter(IOUtils.createBufferedPrintStream(rootPath + fileName + ".ann")),
 					sentence_writer = new PrintWriter(IOUtils.createBufferedPrintStream(rootPath + fileName + ".txt"));
@@ -133,11 +133,11 @@ public class BratCorefVisualizer {
 						annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "NumberType", mention.getNumberType().toString()));
 						annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "GenderType", mention.getGenderType().toString()));
 						if(mention.getPronounType() != null) 				annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "PronounType", mention.getPronounType().toString()));
-						if(mention.hasFeature(AttributeType.QUOTE))			annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Quotation", "true"));
-						if(mention.hasFeature(AttributeType.CONJUNCTION)){
-							annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Conjunction", "true"));
-							annotation_constructor.add(getConjuncRelationAnnotation(relCount++, m_mentionIndex.get(mention.getConjunctionMention()), n_index));
-						}
+						if(mention.hasAttribute(AttributeType.QUOTE))			annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Quotation", "true"));
+//						if(mention.hasAttribute(AttributeType.CONJUNCTION)){
+//							annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Conjunction", "true"));
+//							annotation_constructor.add(getConjuncRelationAnnotation(relCount++, m_mentionIndex.get(mention.getConjunctionMention()), n_index));
+//						}
 						
 						mention = (n_index < size)? mentions.get(n_index) : null;
 					}
@@ -155,7 +155,7 @@ public class BratCorefVisualizer {
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 	 
-	public void export(String fileName, List<String> prefixes, List<DEPTree> trees, List<AbstractMention> mentions, DisjointSet links){
+	public void export(String fileName, List<String> prefixes, List<DEPTree> trees, List<AbstractMention> mentions, CoreferantSet links){
 		if(prefixes.size() != trees.size()) throw new IllegalArgumentException("Prefix counts do not match with tree counts.");
 		try {
 			PrintWriter annotation_writer = new PrintWriter(IOUtils.createBufferedPrintStream(rootPath + fileName + ".ann")),
@@ -181,11 +181,11 @@ public class BratCorefVisualizer {
 						annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "NumberType", mention.getNumberType().toString()));
 						annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "GenderType", mention.getGenderType().toString()));
 						if(mention.getPronounType() != null) 				annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "PronounType", mention.getPronounType().toString()));
-						if(mention.hasFeature(AttributeType.QUOTE))			annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Quotation", "true"));
-						if(mention.hasFeature(AttributeType.CONJUNCTION)){
-							annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Conjunction", "true"));
-							annotation_constructor.add(getConjuncRelationAnnotation(relCount++, m_mentionIndex.get(mention.getConjunctionMention()), n_index));
-						}
+						if(mention.hasAttribute(AttributeType.QUOTE))			annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Quotation", "true"));
+//						if(mention.hasAttribute(AttributeType.CONJUNCTION)){
+//							annotation_constructor.add(getAttributeAnnotation(++attrIndex, n_index, "Conjunction", "true"));
+//							annotation_constructor.add(getConjuncRelationAnnotation(relCount++, m_mentionIndex.get(mention.getConjunctionMention()), n_index));
+//						}
 						
 						mention = (n_index < size)? mentions.get(n_index) : null;
 					}
