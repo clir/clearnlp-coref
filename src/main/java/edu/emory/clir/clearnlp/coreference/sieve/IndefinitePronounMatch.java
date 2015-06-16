@@ -35,22 +35,15 @@ public class IndefinitePronounMatch extends AbstractSieve{
         }
     }
 
-    private boolean adverbTest(String mention, String next)
-    {
-        return mention.equals("each") && next.equals("other");
-    }
-
-    private boolean breakTest(String mention, String next)
-    {
-        return mention.equals("all") && next.equals("over");
-    }
-
-
     @Override
     protected boolean match(AbstractMention prev, AbstractMention curr)
     {
         DEPTree tree = prev.getTree();
         DEPNode nextWord = tree.get(prev.getNode().getID() + 1);
-        return nextWord.isLabel(DEPTagEn.DEP_PUNCT) && nextWord.getAncestorSet().contains(prev.getHeadNode()) && !bannedWords.contains(prev.getWordFrom()) && adverbTest(prev.getWordFrom(), nextWord.getWordForm()) && !breakTest(prev.getWordFrom(), nextWord.getWordForm());
+        if (nextWord != null) 
+        	return nextWord.isLabel(DEPTagEn.DEP_PUNCT) 
+        			&& nextWord.getAncestorSet().contains(prev.getHeadNode()) 
+        			&& !bannedWords.contains(prev.getWordFrom());
+        return false;
     }
 }

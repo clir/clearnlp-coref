@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import edu.emory.clir.clearnlp.NLPDecoder;
 import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
