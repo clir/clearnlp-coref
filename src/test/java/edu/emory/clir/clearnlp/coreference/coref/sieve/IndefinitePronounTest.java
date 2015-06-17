@@ -11,6 +11,7 @@ import edu.emory.clir.clearnlp.coreference.config.SieveSystemCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
 import edu.emory.clir.clearnlp.coreference.sieve.IndefinitePronounMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.RuleBasedPleonasticIt;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
 import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -33,7 +34,6 @@ public class IndefinitePronounTest
         AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
 
         List<String> l_filePaths = FileUtils.getFileList(PathData.ENG_COREF_MICROSOFT_PARSED_DIR, ".cnlp", false);
-
         List<DEPTree> trees;
         Pair<List<AbstractMention>, CoreferantSet> resolution;
         for(String filePath : l_filePaths) {
@@ -44,7 +44,7 @@ public class IndefinitePronounTest
 			CoreferenceTestUtil.printResolutionResult(resolution);
             CoreferenceTestUtil.printCorefCluster(resolution);
 
-			break;
+//			break;
         }
     }
 }

@@ -25,7 +25,7 @@ public class IndefinitePronounMatch extends AbstractSieve{
     {
         int i = 0, size = mentions.size();
         AbstractMention prev, curr = null;
-        for (; i < size; i++) {
+        for (; i < size-1; i++) {
             if ((prev = mentions.get(i)).isPronounType(PronounType.INDEFINITE)) {
                 if (match(prev, curr)) {
                     if (!mentionLinks.isSameSet(i, i+1))

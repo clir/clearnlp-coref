@@ -7,6 +7,8 @@ import java.util.function.Predicate;
 
 import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
+import edu.emory.clir.clearnlp.coreference.type.AttributeType;
+import edu.emory.clir.clearnlp.dependency.DEPLib;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTagEn;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -26,14 +28,16 @@ import edu.emory.clir.clearnlp.util.IOUtils;
  * need to re-evaluate since the mention that I am passing is "it" so I might want to pass in the id of the mention in the tree n_id THIS IS KEY RIGHT NOW
  * might want to make rule it followed by weather verb
  * NEED TO FIX WITH HEAD WORDS SINCE it is really raining DOES NOT HAVE IS AS THE ROOT
+ * WANT TO MOVE COG NOUN INTO ITBE PATTTERN
+ * MAKE TREE GLOBAL VARIABLE?
  */
 public class RuleBasedPleonasticIt
 {
 	private final Set<String> seasons;
 	private final Set<String> cognitiveVerbs;
-	private final Set<String> modalAdjectives;
 	private final Set<String> cognitiveNouns;
 	private final Set<String> weatherTerms;		//need to make sure that I have all of the present-progressive terms
+	private final Set<String> timeWords;
 	private final Predicate<String> isAdverb	= x -> POSLibEn.isAdverb(x);
 	private final Predicate<String> isAdjective	= x -> POSLibEn.isAdjective(x);
 	private final Predicate<String> isVerb		= x -> POSLibEn.isVerb(x);
@@ -44,20 +48,19 @@ public class RuleBasedPleonasticIt
 	public RuleBasedPleonasticIt()
 	{
 		seasons			= DSUtils.toHashSet("summer", "autumn", "fall", "winter", "spring");
-		cognitiveVerbs	= DSUtils.toHashSet("recommend", "think", "believe", "know", "anticipate", "assume", "expect");
-		modalAdjectives	= DSUtils.toHashSet("necessary", "possible", "certain", "likely", "important", "economical", "easy", "good", "useful", "advisable", 
-				"convenient", "sufficient", "desirable", "difficult", "legal","elementary", "painless", "plain", "painful", "simple", "problematic", "hard", 
-				"tought", "trying", "preferable", "better", "worse", "criminal", "illegal", "worthless", "worthy");
+		cognitiveVerbs	= DSUtils.createStringHashSet(IOUtils.createFileInputStream(PathSieve.COGNITIVE_VERBS));//only used in one thing might want to remove
 		cognitiveNouns	= DSUtils.createStringHashSet(IOUtils.createFileInputStream(PathSieve.COGNITIVE_NOUNS));
 		weatherTerms	= DSUtils.toHashSet("cloudy", "rainy", "snowy", "sleet", "rain", "snow", "thunder", "cold", "hot", "humid", "freezing", "sunny", 
 				"overcast", "hazy", "foggy", "hail", "windy", "sleet", "gusty", "drizzle", "drizzly", "damp", "stormy", "showering", "gust", "storm", 
 				"arid", "muggy", "raining", "snowing", "sleeting", "hailing", "drizzling", "storming", "gusting", "thundering");
+		timeWords = DSUtils.toHashSet("early", "late", "time", "afternoon", "bedtime", "morning", "evening", "daytime", "bedtime"
+				+ "twilight", "tonight", "dinnertime", "sometime", "midnight", "midafternoon");
 	}
 	
 	public void removePleonasticIt(List<AbstractMention> mentions)
 	{
 		for (AbstractMention mention : mentions) {
-			if (mention.getWordFrom().equals("it")) {
+			if (!mention.hasAttribute(AttributeType.CONJUNCTION) && mention.getLemma().equals("it")) {
 				if(isPleonastic(mention)) {
 					System.out.println(mention.getTree().toString() +"\n");
 //					mentions.remove(mention);
@@ -83,30 +86,24 @@ public class RuleBasedPleonasticIt
 		int i = findPOS(tree, 0, isNoun);
 		i = findPOS(tree, ++i, isVerb);
 		i = findWord(tree, ++i, "it");
-		i = specialConstruct2(tree, ++i);
+		i = findPOS(tree, ++i, isAdjective);
 		return forTo(tree, ++i);
-	}
-	
-	private int specialConstruct2(DEPTree tree, int i)
-	{
-		int answer;
-		if ((answer = findPOS(tree, i, isAdjective)) > 0) return answer;
-		else return answer = findContainsWord(tree, i, modalAdjectives);
 	}
 	
 	private boolean findItBe(DEPTree tree, int id)	
 	{
 		int i = 3, size = tree.size();
 		DEPNode node = tree.get(id);
-		if (node.getHead().equals("be")) {	
+		if (node.getHead().getLemma().equals("be")) {	
 			for (; i < size; i++) {
 				node = tree.get(i);
 				if 		(isAdverb.test(node.getPOSTag())) continue;
 				else if (isAdjective.test(node.getPOSTag())) return itBeAdj(tree, ++i);
-				else if (node.isPOSTag("VBD") || node.isPOSTag("VBN")) return hasWord(tree, ++i, "that");
+				else if (node.isPOSTag("VBD") || node.isPOSTag("VBN") && hasContainsWord(tree, ++i, cognitiveVerbs)) return hasWord(tree, ++i, "that");
 				else if (hasContainsWord(tree, i, seasons)) return true;	
-				else if (node.getLemma().equals("time") || node.getLemma().equals("early") || node.getLemma().equals("late")) return true;
+				else if (hasContainsWord(tree, i, timeWords)) return true;
 				else if (node.isLabel(DEPTagEn.DEP_NUMMOD)) return true;
+				else if (hasContainsWord(tree, i, weatherTerms)) return true;
 				return false;
 				}
 			}
@@ -126,6 +123,7 @@ public class RuleBasedPleonasticIt
 			String pos = tree.get(i).getPOSTag();
 			if (isAdverb.test(pos)) continue;
 			else if (f1.test(pos)) return true;
+			return false;
 		}
 		return false;
 	}
@@ -143,6 +141,7 @@ public class RuleBasedPleonasticIt
 			String pos = tree.get(i).getPOSTag();
 			if (isAdverb.test(pos)) continue;
 			else if (f1.test(pos)) return i;
+			return size;
 		}
 		return size;
 	}
@@ -165,6 +164,7 @@ public class RuleBasedPleonasticIt
 			DEPNode node = tree.get(i);
 			if (isAdverb.test(node.getPOSTag())) continue;
 			else if (node.getLemma().equals(word)) return true;
+			return false;
 		}
 		return false;
 	}
@@ -182,6 +182,7 @@ public class RuleBasedPleonasticIt
 			DEPNode node = tree.get(i);
 			if (isAdverb.test(node.getPOSTag())) continue;
 			if (node.getLemma().equals(word)) return i;
+			return size;
 		}
 		return size;
 	}
@@ -204,6 +205,7 @@ public class RuleBasedPleonasticIt
 			DEPNode node = tree.get(i);
 			if (isAdverb.test(node.getPOSTag())) continue;
 			else if (node.getLemma().equals(word) && node.isPOSTag(pos)) return i;
+			return size;
 		}
 		return size;
 	}
@@ -215,6 +217,7 @@ public class RuleBasedPleonasticIt
 			DEPNode node = tree.get(i);
 			if (isAdverb.test(node.getPOSTag())) continue;
 			else if (container.contains(node.getWordForm())) return true;
+			return false;
 		}
 		return false;
 	}
@@ -224,27 +227,28 @@ public class RuleBasedPleonasticIt
 //		int a = findContainsWord(tree, i, container);
 //		return (a < size) ? true : false;
 //	}
-	
-	private int findContainsWord(DEPTree tree, int i, Set<String> container)
-	{
-		int size = tree.size();
-		for (; i < size; i++){
-			DEPNode node = tree.get(i);
-			if (isAdverb.test(node.getPOSTag())) continue;
-			else if (container.contains(node.getWordForm())) return i;
-		}
-		return size;
-	}
+//	
+//	private int findContainsWord(DEPTree tree, int i, Set<String> container)
+//	{
+//		int size = tree.size();
+//		for (; i < size; i++){
+//			DEPNode node = tree.get(i);
+//			if (isAdverb.test(node.getPOSTag())) continue;
+//			else if (container.contains(node.getWordForm())) return i;
+//			return size;
+//		}
+//		return size;
+//	}
 	
 	private boolean heuristicSeem(DEPTree tree, int id)	//missing one
 	{
-		return tree.get(id).getHead().getLemma().equals("seem");
+		return tree.get(id).getHead().getLemma().equals("seem") && !hasPOSByTag(tree, tree.get(DEPLib.ROOT_ID).getID(), POSTagEn.POS_TO);
 	}
 	
 	private boolean cognitiveNounPattern(DEPTree tree, int id)	
 	{
 		DEPNode node = tree.get(id);
-		return node.getHead().getWordForm().equals("be") && cogSplit(tree);
+		return node.getHead().getLemma().equals("be") && cogSplit(tree);
 	}
 	
 	private boolean cogSplit(DEPTree tree)	//need better

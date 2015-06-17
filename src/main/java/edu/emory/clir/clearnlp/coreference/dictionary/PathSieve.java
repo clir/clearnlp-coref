@@ -6,5 +6,6 @@ public interface PathSieve
 	String 	ENG_DEMONYM = ROOT + "english_demonym.txt",
 		    REPORT_VERBS = ROOT + "english_reportVerbs.txt",
 		    ENG_STOPWORDS = ROOT + "english_stopwords.txt",
-		    COGNITIVE_NOUNS = ROOT + "cognitive_nouns.txt";
+		    COGNITIVE_NOUNS = ROOT + "cognitive_nouns.txt",
+		    COGNITIVE_VERBS = ROOT + "cognitive_verbs.txt";
 }
