@@ -46,8 +46,8 @@ public class SpeakerIdentificationTest {
 		config.mountSieves(new SpeakerIdentification());
 		
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config); 
-		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION_QUOTE);
-//		List<DEPTree> trees = new NLPDecoder(TLanguage.ENGLISH).toDEPTrees("\"I love this so much,\" said Tom, \"but I hate it with noodles.\"");
+//		List<DEPTree> trees = CoreferenceTestUtil.getTestDocuments(PathData.ENG_MENTION_QUOTE);
+		List<DEPTree> trees = new NLPDecoder(TLanguage.ENGLISH).toDEPTrees("\"I love this so much,\" said Tom, \"but I hate it with noodles.\"");
 		
 		Pair<List<AbstractMention>, CoreferantSet> resolution = coref.getEntities(trees);
 		CoreferenceTestUtil.printSentences(trees);

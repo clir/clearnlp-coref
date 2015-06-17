@@ -21,18 +21,14 @@ import edu.emory.clir.clearnlp.util.IOUtils;
  * @author alexlutz
  * @version 1.0
  * @since	6/10/15
- * need to trace both success and failure 
- * also create version that can be implemented by the parser
  * need to re-look at cognitive noun patterns
- * need to test cases in paper to make sure those are working
- * need to re-evaluate since the mention that I am passing is "it" so I might want to pass in the id of the mention in the tree n_id THIS IS KEY RIGHT NOW
- * might want to make rule it followed by weather verb
  * NEED TO FIX WITH HEAD WORDS SINCE it is really raining DOES NOT HAVE IS AS THE ROOT
  * WANT TO MOVE COG NOUN INTO ITBE PATTTERN
- * MAKE TREE GLOBAL VARIABLE?
+ * MAKE TREE GLOBAL VARIABLE
  */
 public class RuleBasedPleonasticIt
 {
+	private DEPTree tree;
 	private final Set<String> seasons;
 	private final Set<String> cognitiveVerbs;
 	private final Set<String> cognitiveNouns;
@@ -73,21 +69,22 @@ public class RuleBasedPleonasticIt
 	{
 		DEPTree tree = mention.getTree();
 		int id = mention.getNode().getID();
-		return findItBe(tree, id) || specialConstruct(tree, id) || heuristicSeem(tree, id) || cognitiveNounPattern(tree, id); 
+		return findItBe(tree, id) || specialConstruct(tree, id) || heuristicSeem(tree, id) || cognitiveNounPattern(tree, id) || nonBePattern(tree, id); 
 	}
 
 	private boolean itBeAdj(DEPTree tree, int i)
 	{
-		return hasWord(tree, i, "that") || hasPOS(tree, i, isPronoun) || forTo(tree, i);
+		return hasWord(tree, i, "that") || hasPOS(tree, i, isPronoun) || forTo(tree, i) || hasPOSByTag(tree, i, POSTagEn.POS_TO);
 	}
 	
 	private boolean specialConstruct(DEPTree tree, int id)
 	{
-		int i = findPOS(tree, 0, isNoun);
+		int i = findPOS(tree, 1, isNoun);
 		i = findPOS(tree, ++i, isVerb);
 		i = findWord(tree, ++i, "it");
 		i = findPOS(tree, ++i, isAdjective);
-		return forTo(tree, ++i);
+//		return forTo(tree, ++i) || hasPOSByTag(tree, ++i, POSTagEn.POS_TO);	//this does not match with the patterns that he gives but matches with his examples
+		return (i < tree.size()) ? true : false;
 	}
 	
 	private boolean findItBe(DEPTree tree, int id)	
@@ -98,19 +95,18 @@ public class RuleBasedPleonasticIt
 			for (; i < size; i++) {
 				node = tree.get(i);
 				if 		(isAdverb.test(node.getPOSTag())) continue;
-				else if (isAdjective.test(node.getPOSTag())) return itBeAdj(tree, ++i);
-				else if (node.isPOSTag("VBD") || node.isPOSTag("VBN") && hasContainsWord(tree, ++i, cognitiveVerbs)) return hasWord(tree, ++i, "that");
-				else if (hasContainsWord(tree, i, seasons)) return true;	
-				else if (hasContainsWord(tree, i, timeWords)) return true;
-				else if (node.isLabel(DEPTagEn.DEP_NUMMOD)) return true;
 				else if (hasContainsWord(tree, i, weatherTerms)) return true;
+				else if (hasContainsWord(tree, i, timeWords)) return true;
+				else if (hasContainsWord(tree, i, seasons)) return true;	
+				else if (node.isLabel(DEPTagEn.DEP_NUMMOD)) return true;
+				else if (isAdjective.test(node.getPOSTag())) return itBeAdj(tree, ++i);
 				return false;
 				}
 			}
 		return false;
 	}
 	
-	private boolean forTo(DEPTree tree, int i)
+	private boolean forTo(DEPTree tree, int i)	//need to make the for optional
 	{
 		i = findWordWithPOSTag(tree, i, "for", POSTagEn.POS_IN);
 		return (i < tree.size()) ?  hasPOSByTag(tree, i, POSTagEn.POS_TO) : false;
@@ -242,7 +238,7 @@ public class RuleBasedPleonasticIt
 	
 	private boolean heuristicSeem(DEPTree tree, int id)	//missing one
 	{
-		return tree.get(id).getHead().getLemma().equals("seem") && !hasPOSByTag(tree, tree.get(DEPLib.ROOT_ID).getID(), POSTagEn.POS_TO);
+		return tree.get(id).getHead().getLemma().equals("seem") && !hasPOSByTag(tree, tree.getFirstRoot().getID(), POSTagEn.POS_TO);
 	}
 	
 	private boolean cognitiveNounPattern(DEPTree tree, int id)	
@@ -261,5 +257,12 @@ public class RuleBasedPleonasticIt
 	private boolean cogEnd(DEPTree tree)
 	{
 		return cognitiveNouns.contains(tree.get(4).getWordForm()) && tree.get(5).getLemma().equals("lemma");
+	}
+	
+	private boolean nonBePattern(DEPTree tree, int id)
+	{
+		DEPNode node = tree.getFirstRoot();	
+		if(node.isPOSTag("VBD") || node.isPOSTag("VBN") && cognitiveVerbs.contains(node.getLemma())) return hasWord(tree, node.getID()+1, "that");
+		return false;
 	}
 }
