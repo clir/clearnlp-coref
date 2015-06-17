@@ -88,10 +88,11 @@ public class CoreferantSet implements Serializable, Iterable<DoubleIntPair> {
 		return findHead(prev);
 	}
 	
-	public void addClusters(List<List<Integer>> clusters){
+	public void addClusters(List<List<Integer>> clusters, boolean toDisjointClusters){
 		if(l_clusters != null)
 			for(List<Integer> cluster : clusters)	addCluster(cluster);
-		initDisjointClusters();
+		if(toDisjointClusters)	initDisjointClusters();
+		else					initSingletonClusters();
 	}
 	
 	public int addCluster(List<Integer> cluster){
@@ -105,6 +106,23 @@ public class CoreferantSet implements Serializable, Iterable<DoubleIntPair> {
 			return l_clusters.size() -1;
 		}
 		return -1;
+	}
+	
+	public void initSingletonClusters(){
+		List<Integer> list; 
+		Set<Integer> existed = new HashSet<>();
+		
+		for(List<Integer> cluster : l_clusters)
+			existed.addAll(cluster);
+		
+		for(int i = 0; i < size(); i++){
+			if(!existed.contains(i)){
+				list = new ArrayList<>();
+				list.add(i);
+				l_clusters.add(list);
+			}
+		}
+		l_clusters.sort(clusterComparator);
 	}
 	
 	public void initDisjointClusters(){
@@ -205,7 +223,7 @@ public class CoreferantSet implements Serializable, Iterable<DoubleIntPair> {
 		}
 				
 		for(List<Integer> cluster : list)	Collections.sort(cluster);
-		Collections.sort(list, clusterComparator);
+		list.sort(clusterComparator);
 		
 		if(includeSingleton)	
 			return list.stream().filter(set -> !set.isEmpty()).collect(Collectors.toList());

@@ -265,7 +265,7 @@ public abstract class AbstractMention implements Serializable {
 	}
 	
 	public boolean matchEntityType(AbstractMention mention){
-		if(isNameEntity() && mention.isNameEntity())	return getEntityType() == mention.getEntityType() && getSubTreeWordSequence().equals(mention.getSubTreeWordSequence());
+		if(isNameEntity() && mention.isNameEntity())	return getEntityType() == mention.getEntityType() || (hasSubTreeNodes() && mention.hasSubTreeNodes() && getSubTreeWordSequence().equals(mention.getSubTreeWordSequence()));
 		else if(isNameEntity())							return mention.isPronounType(PronounType.SUBJECT) || mention.isPronounType(PronounType.OBJECT) || mention.isPronounType(PronounType.POSSESSIVE);
 		else if(mention.isNameEntity())					return isPronounType(PronounType.SUBJECT) || isPronounType(PronounType.OBJECT) || isPronounType(PronounType.POSSESSIVE);
 		else if(isEntityType(EntityType.COMMON))		return !(getEntityType() == mention.getEntityType());
@@ -308,11 +308,11 @@ public abstract class AbstractMention implements Serializable {
 	}
 
 	public String getSubTreeWordSequence(){
-		return Joiner.join(getSubTreeWordList(), " ");
+		return (hasSubTreeNodes())? Joiner.join(getSubTreeWordList(), " ") : null;
 	}
 	
 	public List<String> getSubTreeWordList(){
-		return getSubTreeNodes().stream().map(node -> node.getWordForm()).collect(Collectors.toList());
+		return (hasSubTreeNodes())? getSubTreeNodes().stream().map(node -> node.getWordForm()).collect(Collectors.toList()) : null;
 	}
 	
 	public String getHeadNodeWordForm(){

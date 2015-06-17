@@ -33,20 +33,20 @@ public class SimplePronounMatch extends AbstractSieve{
 	private final Set<String> anonymousPronouns = DSUtils.toHashSet("it", "its", "itself");
 	
 	@Override
-	protected boolean match(AbstractMention prev, AbstractMention curr) {
+	public boolean match(AbstractMention prev, AbstractMention curr) {
 		if(!isTargetPronoun(prev) && isTargetPronoun(curr))
 			return matchPronoun(prev, curr);
 		return false;
 	}
 	
-	private boolean isTargetPronoun(AbstractMention mention){
+	public boolean isTargetPronoun(AbstractMention mention){
 		return 	mention.isPronounType(PronounType.SUBJECT) || 
 				mention.isPronounType(PronounType.OBJECT) ||
 				mention.isPronounType(PronounType.POSSESSIVE) ||
 				mention.isPronounType(PronounType.REFLEXIVE);
 	}
 	
-	private boolean matchPronoun(AbstractMention entity, AbstractMention pronoun){
+	public boolean matchPronoun(AbstractMention entity, AbstractMention pronoun){
 		if(!entity.hasAttribute(AttributeType.QUOTE) && !pronoun.hasAttribute(AttributeType.QUOTE)){
 			if(entity.isNameEntity()){
 				if(!anonymousPronouns.contains(pronoun.getLemma()))

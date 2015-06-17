@@ -112,4 +112,10 @@ public class CoreferenceDSUtils {
 		
 		return count;
 	}
+	
+	public static <T extends Object>void swapAddresses(T o1, T o2){
+		T temp = o2;
+		o2 = o1;
+		o1 = temp;
+	}
 }

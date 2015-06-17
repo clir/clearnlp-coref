@@ -19,8 +19,10 @@ public class ProperHeadWordMatch extends AbstractSieve
 	private final Set<String> s_articles = DSUtils.toHashSet("a", "an", "the");
 	
 	@Override
-	protected boolean match(AbstractMention prev, AbstractMention curr){
-		return !matchArticle(prev, curr) && !matchNumMod(prev, curr);
+	public boolean match(AbstractMention prev, AbstractMention curr){
+		if(!prev.isMultipleMention() && !curr.isMultipleMention())
+			return !matchArticle(prev, curr) && !matchNumMod(prev, curr);
+		return false;
 	}
 	
 

@@ -40,7 +40,7 @@ public class PronounMatch extends AbstractSieve {
 	}
 	
 	@Override
-	protected boolean match(AbstractMention prev, AbstractMention curr){
+	public boolean match(AbstractMention prev, AbstractMention curr){
 		return curr.matchGenderType(prev) && curr.matchNumberType(prev) && curr.matchEntityType(prev); // && matchesPronoun(prev, curr);
 	}
 	

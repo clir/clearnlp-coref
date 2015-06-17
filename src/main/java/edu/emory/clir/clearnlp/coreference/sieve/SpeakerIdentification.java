@@ -61,20 +61,21 @@ public class SpeakerIdentification extends AbstractSieve{
 	}
 	
 	@Override
-	protected boolean match(AbstractMention prev, AbstractMention curr){
+	public boolean match(AbstractMention prev, AbstractMention curr){
 		String prevWord = StringUtils.toLowerCase(prev.getWordFrom()), currWord = StringUtils.toLowerCase(curr.getWordFrom());
 
 		if(curr.matchNumberType(prev) && curr.matchGenderType(prev)){
-			
-			if(bothInQuote(prev, curr)) {
-				if(bothInSameQuote(prev, curr) && (isBothFirstPerson(prevWord, currWord) || isBothThirdPerson(prevWord, currWord)))
-					return true;
-			}
-			else if(oneInQuote(prev, curr)) {
-				
-				if( (isFirstPerson(prevWord) && reportingVerbs.contains(curr.getHeadNode().getLemma())) ||	// && prev.isEntityType(EntityType.PERSON) ?
-					(isFirstPerson(currWord) && reportingVerbs.contains(prev.getHeadNode().getLemma())) )	// && prev.isEntityType(EntityType.PERSON) ?
-					return true;
+			if(!prev.isMultipleMention() && !curr.isMultipleMention()){
+				if(bothInQuote(prev, curr)) {
+					if(bothInSameQuote(prev, curr) && (isBothFirstPerson(prevWord, currWord) || isBothThirdPerson(prevWord, currWord)))
+						return true;
+				}
+				else if(oneInQuote(prev, curr)) {
+					
+					if( (isFirstPerson(prevWord) && reportingVerbs.contains(curr.getHeadNode().getLemma())) ||	// && prev.isEntityType(EntityType.PERSON) ?
+						(isFirstPerson(currWord) && reportingVerbs.contains(prev.getHeadNode().getLemma())) )	// && prev.isEntityType(EntityType.PERSON) ?
+						return true;
+				}
 			}
 		}
 	
