@@ -24,6 +24,9 @@ import edu.emory.clir.clearnlp.collection.triple.Triple;
 import edu.emory.clir.clearnlp.coreference.components.CoreferenceDecoder;
 import edu.emory.clir.clearnlp.coreference.components.CoreferenceTrainer;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
+import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
+import edu.emory.clir.clearnlp.coreference.utils.evaluator.AbstractEvaluator;
+import edu.emory.clir.clearnlp.coreference.utils.evaluator.BCubedEvaluator;
 import edu.emory.clir.clearnlp.coreference.utils.reader.CoreferenceTSVReader;
 import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -44,27 +47,32 @@ public class CoreferenceModelTest {
 	public static final double rho = 0.1;
 	public static final double bias = 0;
 	
-	public static int TRN_DOCUMENT = 0, EVAL_DOCUMENT = 0, CORRECT = 0, TOTAL = 0;
+	public static int TRN_DOCUMENT = 0, EVAL_DOCUMENT = 0;
+	public static double PRECISION = 0d, RECALL = 0d, F1 = 0d;
 	
 	@Test
 	public void test(){
 		CoreferenceTSVReader reader = new CoreferenceTSVReader(0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
-		List<String> trn_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13-dummy/train", ".cnlp", true),
-				 dev_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13-dummy/development", ".cnlp", true);
+//		List<String> trn_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13-dummy/train-dummy", ".cnlp", true),
+//				 dev_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13-dummy/train-dummy", ".cnlp", true);
+		
+		List<String> trn_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/train", ".cnlp", true),
+				 dev_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/test", ".cnlp", true);
 		
 		CoreferenceTrainer trainer = new CoreferenceTrainer(labelCutoff, featureCutoff, average, alpha, rho, bias);
 		train(trainer, reader, trn_filePaths);
 		
+		BCubedEvaluator evaluator = new BCubedEvaluator();
 		CoreferenceDecoder decoder = new CoreferenceDecoder(trainer.getModel());
-		evaluate(decoder, reader, dev_filePaths);
+		evaluate(decoder, reader, evaluator, dev_filePaths);
 		
 		System.out.println("\nPerformance Summary:");
 		System.out.println("Traning document count: " + TRN_DOCUMENT);
-		System.out.println("Evaluation document count: " + EVAL_DOCUMENT);
-		System.out.printf("Result: %d/%d, %.3f%%", CORRECT, TOTAL, (double)CORRECT/TOTAL*100);
+		System.out.println(evaluator.getEvaluationSummary());
 	}
 	
 	private void train(CoreferenceTrainer trainer, CoreferenceTSVReader reader, List<String> trn_filePaths){	
+		System.out.println("\nInitializing...");
 		for(String filePath : trn_filePaths){
 			System.out.println("Adding document " + FileUtils.getBaseName(filePath));
 			reader.open(IOUtils.createFileInputStream(filePath));			
@@ -81,11 +89,13 @@ public class CoreferenceModelTest {
 		System.out.println(".........\nDONE!");
 	}
 	
-	private void evaluate(CoreferenceDecoder decoder, CoreferenceTSVReader reader, List<String> l_filePaths){
+	private void evaluate(CoreferenceDecoder decoder, CoreferenceTSVReader reader, AbstractEvaluator evaluator, List<String> l_filePaths){
 		System.out.println("\nDECODING/EVALUATING...");
 		
-		IntIntPair evalResult;	CoreferantSet prediction;
+		CoreferantSet prediction;
+		Triple<Double, Double, Double> evaluation;
 		Triple<List<DEPTree>, List<AbstractMention>, CoreferantSet> document;
+		
 		
 		for(String filePath : l_filePaths){
 			reader.open(IOUtils.createFileInputStream(filePath));
@@ -95,22 +105,19 @@ public class CoreferenceModelTest {
 			System.out.print("Decoding " + FileUtils.getBaseName(filePath) + "... ");
 			prediction = decoder.decode(document.o1, document.o2, false);
 			
-			System.out.print("Evaluating... ");
-			evalResult = evaluate(document.o3, prediction);
-			System.out.println("DONE.");
+//			System.out.println("\nKey:");
+//			System.out.println(document.o3.getClusterLists(true));
+//			CoreferenceTestUtil.printCorefCluster(document.o2, document.o3);
+//			System.out.println("\nPrediction:");
+//			System.out.println(prediction.getClusterLists(true));
+//			CoreferenceTestUtil.printCorefCluster(document.o2, prediction);
 			
-			CORRECT += evalResult.i1;
-			TOTAL += evalResult.i2;
+			System.out.print("Evaluating... ");
+			evaluation = evaluator.getEvaluationTriple(document.o3, prediction);
+			PRECISION += evaluation.o1;
+			RECALL += evaluation.o2;
+			F1 += evaluation.o3;
+			System.out.println("DONE " + evaluation);
 		}
-	}
-	
-	private IntIntPair evaluate(CoreferantSet key, CoreferantSet prediction){
-		int i, size = key.size(), correctCount = 0;
-		
-		for(i = 0; i < size; i++)
-			if(key.findHead(i) == prediction.findHead(i))
-				correctCount++;
-		
-		return new IntIntPair(correctCount, size);
 	}
 }

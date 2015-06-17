@@ -36,7 +36,7 @@ public class IndefinitePronounMatch extends AbstractSieve{
     }
 
     @Override
-    protected boolean match(AbstractMention prev, AbstractMention curr)
+    public boolean match(AbstractMention prev, AbstractMention curr)
     {
         DEPTree tree = prev.getTree();
         DEPNode nextWord = tree.get(prev.getNode().getID() + 1);
