@@ -168,7 +168,26 @@ public class CoreferantSet implements Serializable, Iterable<DoubleIntPair> {
 	public List<Integer> getCluster(int id){
 		if(l_clusters != null && id < l_clusters.size())
 			return l_clusters.get(id);
-		return null;
+		else{
+			List<Integer> list = new ArrayList<>();
+			for(int head_id = id; s_root[head_id] >= 0; list.add(head_id), head_id = s_root[head_id]);
+			Collections.sort(list);
+			return list;
+		}
+	}
+	
+	public List<Integer> getClusterByRank(int id, int rank){
+		if(l_clusters != null && id < l_clusters.size()){
+			List<Integer> list = l_clusters.get(id);
+			int size = list.size();
+			return (rank > size)? list : list.subList(size-rank, list.size());
+		}
+		else{
+			List<Integer> list = new ArrayList<>();
+			for(int head_id = id; rank-- > 0 && s_root[head_id] >= 0; list.add(head_id), head_id = s_root[head_id]);
+			Collections.sort(list);
+			return list;
+		}
 	}
 	
 	public double getConfidence(int id){
