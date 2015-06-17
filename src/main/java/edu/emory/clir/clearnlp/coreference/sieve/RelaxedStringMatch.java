@@ -24,15 +24,18 @@ public class RelaxedStringMatch extends AbstractStringMatch{
 	@Override
 	/* This is wrong! Relaxed String Match = Dropping relative clauses, PP, and participial modifiers */
 	protected String getWordSequence(AbstractMention mention){
-		List<DEPNode> l_subNodes = new ArrayList<>(mention.getSubTreeNodes());
-		DEPNode node = mention.getNode();
-		
-		removePunctuations(l_subNodes, node);
-		removeRelativeClause(l_subNodes, node);
-		removePrepositionalMod(l_subNodes, node);
-//		removeParticipialMod(l_subNodes, node);
-
-		return Joiner.join(l_subNodes.stream().map(n -> n.getWordForm()).collect(Collectors.toList()), " ");
+		if(mention.getSubTreeNodes() != null){
+			List<DEPNode> l_subNodes = new ArrayList<>(mention.getSubTreeNodes());
+			DEPNode node = mention.getNode();
+			
+			removePunctuations(l_subNodes, node);
+			removeRelativeClause(l_subNodes, node);
+			removePrepositionalMod(l_subNodes, node);
+	//		removeParticipialMod(l_subNodes, node);
+	
+			return Joiner.join(l_subNodes.stream().map(n -> n.getWordForm()).collect(Collectors.toList()), " ");
+		}
+		return null;
 	}
 	
 	private void removePunctuations(List<DEPNode> l_subNodes, DEPNode node){

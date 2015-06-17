@@ -45,7 +45,8 @@ public abstract class AbstractEvaluator {
 	// Precision, Recall, F1
 	public Triple<Double, Double, Double> getEvaluationTriple(CoreferantSet key, CoreferantSet prediction){
 		DocCount++;
-		return new Triple<>(evaluatePrecision(key, prediction), evaluateRecall(key, prediction), evaluateF1Score(key, prediction));
+		double precision = evaluatePrecision(key, prediction), recall = evaluateRecall(key, prediction), f1 = evaluateF1Score(precision, recall);
+		return new Triple<>(precision, recall, f1);
 	}
 	
 	public double evaluateFScore(int f, CoreferantSet key, CoreferantSet prediction){

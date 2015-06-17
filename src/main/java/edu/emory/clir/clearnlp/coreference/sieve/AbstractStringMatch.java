@@ -25,7 +25,7 @@ public abstract class AbstractStringMatch extends AbstractSieve {
 	abstract protected String getWordSequence(AbstractMention mention);
 	
 	@Override
-	protected boolean match(AbstractMention prev, AbstractMention curr){
+	public boolean match(AbstractMention prev, AbstractMention curr){
 		String prevWords = getWordSequence(prev), currWords = getWordSequence(curr);
 		if(prevWords == null || currWords == null) return false;
 		

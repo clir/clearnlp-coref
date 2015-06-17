@@ -30,9 +30,11 @@ public class StrictHeadMatch extends AbstractSieve {
 	}
 	
 	@Override
-	protected boolean match(AbstractMention prev, AbstractMention curr){
-		return 	!prev.isParentMention(curr) &&			// Not i-within i condition 
-				(matchWordInclusion(prev, curr));
+	public boolean match(AbstractMention prev, AbstractMention curr){
+		if(!prev.isMultipleMention() && !curr.isMultipleMention())
+			return 	!prev.isParentMention(curr) &&			// Not i-within i condition 
+					(matchWordInclusion(prev, curr));
+		return false;
 	}
 	
 	/* This will mathch everything */

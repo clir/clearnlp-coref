@@ -18,18 +18,27 @@ package edu.emory.clir.clearnlp.coreference.coref.sieve;
 import java.io.IOException;
 import java.util.List;
 
-import edu.emory.clir.clearnlp.coreference.sieve.IndefinitePronounMatch;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import edu.emory.clir.clearnlp.collection.pair.Pair;
+import edu.emory.clir.clearnlp.collection.triple.Triple;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.config.SieveSystemCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
+import edu.emory.clir.clearnlp.coreference.sieve.ExactStringMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.SimplePronounMatch;
+import edu.emory.clir.clearnlp.coreference.sieve.SpeakerIdentification;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
+import edu.emory.clir.clearnlp.coreference.utils.evaluator.BCubedEvaluator;
+import edu.emory.clir.clearnlp.coreference.utils.reader.CoreferenceTSVReader;
 import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.util.FileUtils;
+import edu.emory.clir.clearnlp.util.IOUtils;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
 /**
@@ -39,13 +48,16 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
  */
 public class SieveSystemTest {
 	
+	public static int EVAL_DOCUMENT = 0;
+	public static double PRECISION = 0d, RECALL = 0d, F1 = 0d;
+	
 	@Test
+	@Ignore
 	public void corefTest() throws IOException{
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
 		config.loadDefaultMentionDectors();
 		config.loadDefaultSieves(true);
-
 		/* ************* */
 		
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
@@ -55,5 +67,50 @@ public class SieveSystemTest {
 		CoreferenceTestUtil.printSentences(trees);
 		CoreferenceTestUtil.printResolutionResult(resolution);
 		CoreferenceTestUtil.printCorefCluster(resolution);
+	}
+	
+	@Test
+	public void BCubedEval(){
+		BCubedEvaluator evaluator = new BCubedEvaluator();
+		CoreferenceTSVReader reader = new CoreferenceTSVReader(0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
+		List<String> test_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/test", ".cnlp", true);
+		
+		/* Configuration */
+		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
+		config.loadDefaultMentionDectors();
+		config.loadDefaultSieves(true);
+//		config.mountSieves(new SpeakerIdentification(), new ExactStringMatch(true), new RelaxedStringMatch(true), new SimplePronounMatch());
+		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
+		/* ************* */
+		
+		CoreferantSet prediction;
+		Triple<Double, Double, Double> evaluation;
+		Triple<List<DEPTree>, List<AbstractMention>, CoreferantSet> document;
+		
+		for(String filePath : test_filePaths){
+			reader.open(IOUtils.createFileInputStream(filePath));
+			document = reader.getGoldCoNLLDocument();
+			reader.close();	EVAL_DOCUMENT++;
+			
+			System.out.print("Decoding " + FileUtils.getBaseName(filePath) + "... ");
+			prediction = coref.getEntities(document.o1).o2;			
+			
+//			System.out.println("\nKey:");
+//			System.out.println(document.o3.getClusterLists(true));
+//			CoreferenceTestUtil.printCorefCluster(document.o2, document.o3);
+//			System.out.println("\nPrediction:");
+//			System.out.println(prediction.getClusterLists(true));
+//			CoreferenceTestUtil.printCorefCluster(document.o2, prediction);
+			
+			System.out.print("Evaluating... ");
+			evaluation = evaluator.getEvaluationTriple(document.o3, prediction);
+			PRECISION += evaluation.o1;
+			RECALL += evaluation.o2;
+			F1 += evaluation.o3;
+			System.out.println("DONE " + evaluation);
+		}
+		
+		System.out.println("\nPerformance Summary:");
+		System.out.println(evaluator.getEvaluationSummary());
 	}
 }

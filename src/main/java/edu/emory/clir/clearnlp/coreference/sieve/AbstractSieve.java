@@ -47,5 +47,5 @@ abstract public class AbstractSieve{
 		}
 	}
 	
-	abstract protected boolean match(AbstractMention prev, AbstractMention curr);
+	abstract public boolean match(AbstractMention prev, AbstractMention curr);
 }

@@ -93,7 +93,7 @@ public class CoreferenceTSVReader extends TSVReader{
 			}
 			
 		} catch (Exception e) { e.printStackTrace(); }
-		
+	
 		// Mention creation
 		List<AbstractMention> mentions = m_detector.getMentionList(trees);
 		
@@ -101,17 +101,7 @@ public class CoreferenceTSVReader extends TSVReader{
 		CoreferantSet links = new CoreferantSet(mentions.size(), false, false);
 		List<List<Integer>> l_mentionIndices = getMentionIndices(trees, mentions, clusters.values());
 		CoreferenceDSUtils.sortListBySublistSizeThenHead(l_mentionIndices, true);
-		links.addClusters(l_mentionIndices);
-		
-		// Debug Output
-//		for(List<Integer> cluster : links.getClusterLists(false)){
-//			System.out.println(cluster);
-//			System.out.println(cluster.stream().map(index -> mentions.get(index).getWordFrom()).collect(Collectors.toList()));
-//		}
-//		
-//		System.out.println(links.getClusterLists(false));
-//		int i = 0;	for(AbstractMention m : mentions)	System.out.println(i++ + ": " + m);
-//		CoreferenceTestUtil.printCorefCluster(mentions, links);
+		links.addClusters(l_mentionIndices, false);
 		
 		return new Triple<>(trees, mentions, links);
 	}
@@ -175,7 +165,6 @@ public class CoreferenceTSVReader extends TSVReader{
 				}
 			}
 		}
-		
 		return map;
 	}
 	
@@ -234,7 +223,6 @@ public class CoreferenceTSVReader extends TSVReader{
 						}
 					}
 				}
-
 				clusterIndices.add(m_indices);
 			}
 		}
