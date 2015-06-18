@@ -19,12 +19,10 @@ import java.util.List;
 
 import org.junit.Test;
 
-import edu.emory.clir.clearnlp.collection.pair.IntIntPair;
 import edu.emory.clir.clearnlp.collection.triple.Triple;
 import edu.emory.clir.clearnlp.coreference.components.CoreferenceDecoder;
 import edu.emory.clir.clearnlp.coreference.components.CoreferenceTrainer;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
-import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
 import edu.emory.clir.clearnlp.coreference.utils.evaluator.AbstractEvaluator;
 import edu.emory.clir.clearnlp.coreference.utils.evaluator.BCubedEvaluator;
 import edu.emory.clir.clearnlp.coreference.utils.reader.CoreferenceTSVReader;
@@ -52,12 +50,15 @@ public class CoreferenceModelTest {
 	
 	@Test
 	public void test(){
-		CoreferenceTSVReader reader = new CoreferenceTSVReader(0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
+		CoreferenceTSVReader reader = new CoreferenceTSVReader(false, 0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
 //		List<String> trn_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13-dummy/train-dummy", ".cnlp", true),
 //				 dev_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13-dummy/train-dummy", ".cnlp", true);
 		
 		List<String> trn_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/train", ".cnlp", true),
 				 dev_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/test", ".cnlp", true);
+		
+		trn_filePaths.addAll(FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/development", ".cnlp", true));
+		trn_filePaths.addAll(FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/test", ".cnlp", true));
 		
 		CoreferenceTrainer trainer = new CoreferenceTrainer(labelCutoff, featureCutoff, average, alpha, rho, bias);
 		train(trainer, reader, trn_filePaths);

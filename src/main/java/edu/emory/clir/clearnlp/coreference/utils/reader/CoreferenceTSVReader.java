@@ -50,12 +50,14 @@ import edu.emory.clir.clearnlp.util.constant.StringConst;
  */
 public class CoreferenceTSVReader extends TSVReader{
 	private int i_corefLink;
+	private boolean toDisjointClusters;
 	private AbstractMentionDetector m_detector;
 	public CharTokenizer T_PIPE  = new CharTokenizer('|');
 	
-	public CoreferenceTSVReader(int iID, int iForm, int iLemma, int iPOSTag, int iNERTag, int iFeats, int iHeadID, int iDeprel, int iXHeads, int iSHeads, int iCorefLink) {
+	public CoreferenceTSVReader(boolean toDisjointClusters, int iID, int iForm, int iLemma, int iPOSTag, int iNERTag, int iFeats, int iHeadID, int iDeprel, int iXHeads, int iSHeads, int iCorefLink) {
 		super(iID, iForm, iLemma, iPOSTag, iNERTag, iFeats, iHeadID, iDeprel, iXHeads, iSHeads);
 		i_corefLink = iCorefLink;
+		this.toDisjointClusters = toDisjointClusters;
 		m_detector = new EnglishMentionDetector(new MentionConfiguration(true, true, true));
 	}
 	
@@ -101,7 +103,7 @@ public class CoreferenceTSVReader extends TSVReader{
 		CoreferantSet links = new CoreferantSet(mentions.size(), false, false);
 		List<List<Integer>> l_mentionIndices = getMentionIndices(trees, mentions, clusters.values());
 		CoreferenceDSUtils.sortListBySublistSizeThenHead(l_mentionIndices, true);
-		links.addClusters(l_mentionIndices, false);
+		links.addClusters(l_mentionIndices, toDisjointClusters);
 		
 		return new Triple<>(trees, mentions, links);
 	}
