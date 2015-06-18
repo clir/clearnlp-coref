@@ -72,14 +72,14 @@ public class SieveSystemTest {
 	@Test
 	public void BCubedEval(){
 		BCubedEvaluator evaluator = new BCubedEvaluator();
-		CoreferenceTSVReader reader = new CoreferenceTSVReader(0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
-		List<String> test_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/test", ".cnlp", true);
+		CoreferenceTSVReader reader = new CoreferenceTSVReader(false, 0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
+		List<String> test_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/train", ".cnlp", true);
 		
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
 		config.loadDefaultMentionDectors();
-		config.loadDefaultSieves(true);
-//		config.mountSieves(new SpeakerIdentification(), new ExactStringMatch(true), new RelaxedStringMatch(true), new SimplePronounMatch());
+//		config.loadDefaultSieves(true);
+		config.mountSieves(new SpeakerIdentification(), new ExactStringMatch(true), new RelaxedStringMatch(true), new SimplePronounMatch());
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
 		/* ************* */
 		
