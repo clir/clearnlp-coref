@@ -103,3 +103,5 @@ guarantee
 fearfulness
 utterance
 mistake
+plan
+conclusion
