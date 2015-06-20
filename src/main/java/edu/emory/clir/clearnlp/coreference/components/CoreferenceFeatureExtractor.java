@@ -24,7 +24,6 @@ import edu.emory.clir.clearnlp.coreference.sieve.PreciseConstructMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.SimplePronounMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.SpeakerIdentification;
-import edu.emory.clir.clearnlp.coreference.type.AttributeType;
 import edu.emory.clir.clearnlp.coreference.type.FeatureType;
 import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceDSUtils;
 import edu.emory.clir.clearnlp.dependency.DEPNode;

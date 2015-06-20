@@ -55,7 +55,7 @@ public class MentionRecallTest {
 		
 		List<AbstractMention> mentions;
 		Pair<List<DEPTree>, Map<Integer, List<ObjectIntPair<IntIntPair>>>> document;
-		CoreferenceTSVReader reader = new CoreferenceTSVReader(0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
+		CoreferenceTSVReader reader = new CoreferenceTSVReader(false, 0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
 		AbstractMentionDetector m_detector = new EnglishMentionDetector(new MentionConfiguration(true, true, true));
 		
 		IntIntPair result;
@@ -85,7 +85,7 @@ public class MentionRecallTest {
 		
 		List<AbstractMention> mentions;
 		Pair<List<DEPTree>, Map<Integer, List<ObjectIntPair<IntIntPair>>>> document;
-		CoreferenceTSVReader reader = new CoreferenceTSVReader(0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
+		CoreferenceTSVReader reader = new CoreferenceTSVReader(false, 0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
 		AbstractMentionDetector m_detector = new EnglishMentionDetector(new MentionConfiguration(true, true, true));
 		
 		IntIntPair result;

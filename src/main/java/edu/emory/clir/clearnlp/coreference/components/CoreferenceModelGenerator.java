@@ -37,7 +37,7 @@ public class CoreferenceModelGenerator {
 	public static final double bias = 0;
 	
 	public static void main(String[] args) throws IOException{
-		CoreferenceTSVReader reader = new CoreferenceTSVReader(0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
+		CoreferenceTSVReader reader = new CoreferenceTSVReader(false, 0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
 		CoreferenceTrainer trainer = new CoreferenceTrainer(labelCutoff, featureCutoff, average, alpha, rho, bias);
 		ObjectOutputStream out = IOUtils.createObjectXZBufferedOutputStream("/Users/HenryChen/Desktop/coref_model.xz");
 		
