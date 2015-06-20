@@ -30,7 +30,7 @@ public class RuleBasedPleonasticIt
 	private final Set<String> seasons;
 	private final Set<String> cognitiveVerbs;
 	private final Set<String> cognitiveNouns;
-	private final Set<String> weatherTerms;		//need to make sure that I have all of the present-progressive terms
+	private final Set<String> weatherTerms;		
 	private final Set<String> timeWords;
 	private final Predicate<String> isAdverb	= x -> POSLibEn.isAdverb(x);
 	private final Predicate<String> isAdjective	= x -> POSLibEn.isAdjective(x);
