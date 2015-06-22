@@ -73,7 +73,7 @@ public class EnglishMention extends AbstractMention{
 		super(t_id, tree, node, entityType, numberType);
 	}
 	
-	public EnglishMention(int t_id, DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType){
+	public EnglishMention(int t_id,DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType){
 		super(t_id, tree, node, entityType, genderType, numberType, pronounType);
 	}
 

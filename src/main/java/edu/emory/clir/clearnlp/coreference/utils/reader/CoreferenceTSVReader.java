@@ -54,11 +54,22 @@ public class CoreferenceTSVReader extends TSVReader{
 	private AbstractMentionDetector m_detector;
 	public CharTokenizer T_PIPE  = new CharTokenizer('|');
 	
-	public CoreferenceTSVReader(boolean toDisjointClusters, int iID, int iForm, int iLemma, int iPOSTag, int iNERTag, int iFeats, int iHeadID, int iDeprel, int iXHeads, int iSHeads, int iCorefLink) {
+	public CoreferenceTSVReader(boolean toDisjointClusters, int iID, int iForm, int iLemma, int iPOSTag, int iNERTag, int iFeats, int iHeadID, int iDeprel, int iXHeads, int iSHeads, int iCorefLink){
 		super(iID, iForm, iLemma, iPOSTag, iNERTag, iFeats, iHeadID, iDeprel, iXHeads, iSHeads);
 		i_corefLink = iCorefLink;
 		this.toDisjointClusters = toDisjointClusters;
-		m_detector = new EnglishMentionDetector(new MentionConfiguration(true, true, true));
+		setMentionDetector(new MentionConfiguration(true, true, true));
+	}
+	
+	public CoreferenceTSVReader(MentionConfiguration m_config, boolean toDisjointClusters, int iID, int iForm, int iLemma, int iPOSTag, int iNERTag, int iFeats, int iHeadID, int iDeprel, int iXHeads, int iSHeads, int iCorefLink){
+		super(iID, iForm, iLemma, iPOSTag, iNERTag, iFeats, iHeadID, iDeprel, iXHeads, iSHeads);
+		i_corefLink = iCorefLink;
+		this.toDisjointClusters = toDisjointClusters;
+		setMentionDetector(m_config);
+	}
+	
+	public void setMentionDetector(MentionConfiguration config){
+		m_detector = new EnglishMentionDetector(config);
 	}
 	
 	public Pair<List<DEPTree>, List<AbstractMention>> getCoNLLDocument(){

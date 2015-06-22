@@ -44,6 +44,7 @@ import edu.emory.clir.clearnlp.util.constant.StringConst;
 public abstract class AbstractMention implements Serializable {
 	private static final long serialVersionUID = 7276153831562287337L;
 
+	protected int mentionId;
 	protected int treeId;
 	protected DEPTree d_tree;
 	protected DEPNode d_node;
@@ -59,48 +60,48 @@ public abstract class AbstractMention implements Serializable {
 	
 	/* Constructors */
 	public AbstractMention(){
-		init(-1, null, null, null, null, null, null);
+		init(-1, -1, null, null, null, null, null, null);
 	}
 	
 	public AbstractMention(AbstractMention... mentions){
-		init(-1, null, null, null, null, null, null);
+		init(-1, -1, null, null, null, null, null, null);
 		setSubMentions(DSUtils.toArrayList(mentions));
 		initMultipleMention();
 	}
 	
 	public AbstractMention(List<AbstractMention> mentions){
-		init(-1, null, null, null, null, null, null);
+		init(-1, -1, null, null, null, null, null, null);
 		setSubMentions(mentions);
 		initMultipleMention();
 	}
 	
 	public AbstractMention(int t_id, DEPTree tree, DEPNode node){
-		init(t_id, tree, node, null, null, null, null);
+		init(t_id, -1, tree, node, null, null, null, null);
 	}
 	
 	public AbstractMention(int t_id, DEPTree tree, DEPNode node, EntityType entityType){
-		init(t_id, tree, node, entityType, null, null, null);
+		init(t_id, -1, tree, node, entityType, null, null, null);
 	}
 	
 	public AbstractMention(int t_id, DEPTree tree, DEPNode node, NumberType numberType){
-		init(t_id, tree, node, null, null, numberType, null);
+		init(t_id, -1, tree, node, null, null, numberType, null);
 	}
 	
 	public AbstractMention(int t_id, DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType){
-		init(t_id, tree, node, entityType, genderType, null, null);
+		init(t_id, -1, tree, node, entityType, genderType, null, null);
 	}
 	
 	public AbstractMention(int t_id, DEPTree tree, DEPNode node, EntityType entityType, NumberType numberType){
-		init(t_id, tree, node, entityType, null, numberType, null);
+		init(t_id, -1, tree, node, entityType, null, numberType, null);
 	}
 	
 	public AbstractMention(int t_id, DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType){
-		init(t_id, tree, node, entityType, genderType, numberType, pronounType);
+		init(t_id, -1, tree, node, entityType, genderType, numberType, pronounType);
 	}
 	
-	private void init(int t_id, DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType){
+	private void init(int t_id, int m_id, DEPTree tree, DEPNode node, EntityType entityType, GenderType genderType, NumberType numberType, PronounType pronounType){
 		m_attr = new ObjectDoubleHashMap<>();
-		setTreeId(t_id);	setTree(tree);	setNode(node);	
+		setMentionId(m_id); setTreeId(t_id);	setTree(tree);	setNode(node);	
 		setSubTreeNodes((node == null)? null : node.getSubNodeList());
 		setSubMentions(null);
 		setEntityType(entityType);
@@ -136,6 +137,10 @@ public abstract class AbstractMention implements Serializable {
 	}
 	
 	/* Getters */
+	public int getMentionId(){
+		return mentionId;
+	}
+	
 	public int getTreeId(){
 		return treeId;
 	}
@@ -185,6 +190,10 @@ public abstract class AbstractMention implements Serializable {
 	}
 	
 	/* Setters */
+	public void setMentionId(int m_id){
+		mentionId = m_id;
+	}
+	
 	public void setTreeId(int t_id){
 		treeId = t_id;
 	}
@@ -241,7 +250,7 @@ public abstract class AbstractMention implements Serializable {
 	}
 	
 	public boolean isNameEntity(){
-		return isEntityType(EntityType.PERSON) || isEntityType(EntityType.LOCATION) || isEntityType(EntityType.ORGANIZATION);
+		return isEntityType(EntityType.PERSON) || isEntityType(EntityType.LOCATION) || isEntityType(EntityType.ORGANIZATION) || isEntityType(EntityType.GEOPOLITICAL);
 	}
 	
 	public boolean isGenderType(GenderType type){

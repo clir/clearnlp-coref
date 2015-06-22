@@ -36,8 +36,16 @@ public interface FeatureType {
 		WordFormMatch = 12,
 		MultiMentionSizes = 13,
 		HeadNodePOSTag = 14,
-		PreciseConstuctMatch = 16;
+		PreciseConstuctMatch = 16,
+		NEPronounPair = 17,
+		PronounType = 18,
+		MultiMentionWordForm = 19,
+		AppositionMatch = 20,
+		PredicateNomMatch = 21,
+		AcronymMatch = 22,
+		MultiMentionIndex = 23;
 	
 	final String TRUE = "true",
-		   FALSE = "false";
+		   FALSE = "false",
+		   NULL = "null";
 }

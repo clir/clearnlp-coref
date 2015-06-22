@@ -76,6 +76,11 @@ public class EnglishProperNounDetector extends AbstractProperNounDetector{
 					properNoun.g_type = GenderType.UNKNOWN;
 					properNoun.n_type = NumberType.SINGULAR;
 					break;
+				case "GPE":
+					properNoun.e_type = EntityType.GEOPOLITICAL;
+					properNoun.g_type = GenderType.UNKNOWN;
+					properNoun.n_type = NumberType.SINGULAR;
+					break;
 				case "DATE":
 					properNoun.e_type = EntityType.DATE;
 					properNoun.g_type = GenderType.UNKNOWN;

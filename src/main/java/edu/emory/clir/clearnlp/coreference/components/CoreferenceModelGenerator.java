@@ -41,10 +41,10 @@ public class CoreferenceModelGenerator {
 		CoreferenceTrainer trainer = new CoreferenceTrainer(labelCutoff, featureCutoff, average, alpha, rho, bias);
 		ObjectOutputStream out = IOUtils.createObjectXZBufferedOutputStream("/Users/HenryChen/Desktop/coref_model.xz");
 		
-		trainCoNLL(reader, trainer, out);
+		trainCoNLL(10, reader, trainer, out);
 	}
 	
-	public static void trainCoNLL(CoreferenceTSVReader reader, CoreferenceTrainer trainer, ObjectOutputStream out){
+	public static void trainCoNLL(int iter, CoreferenceTSVReader reader, CoreferenceTrainer trainer, ObjectOutputStream out){
 		List<String> l_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13-dummy/train", ".cnlp", true);
 //		List<String> l_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13", ".cnlp", true);
 		
@@ -54,8 +54,8 @@ public class CoreferenceModelGenerator {
 			trainer.addDocument(reader.getGoldCoNLLDocument());
 			reader.close();
 		}
-		
-		trainer.trainModel();
+		trainer.initTrainer();
+		while(iter-- > 0)	trainer.trainModel();
 		trainer.exportModel(out);
 	}
 }

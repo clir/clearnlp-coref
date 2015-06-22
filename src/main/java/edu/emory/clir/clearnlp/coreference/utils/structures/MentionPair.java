@@ -1,5 +1,5 @@
 /**
- * Copyright 2014, Emory University
+ * Copyright 2015, Emory University
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,27 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.coreference.type;
+package edu.emory.clir.clearnlp.coreference.utils.structures;
 
+import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 
 /**
- * @since 3.0.0
- * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
+ * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
+ * @version	1.0
+ * @since 	Jun 19, 2015
  */
-public enum EntityType{	
-	// Pronoun
-	PRONOUN,
+public class MentionPair {
+	public AbstractMention m1, m2;
 	
-	// Common noun
-	COMMON,
+	public MentionPair(AbstractMention mention1, AbstractMention mention2){
+		setMentions(mention1, mention2);
+	}
 	
-	// Named entity
-	PERSON,
-	ORGANIZATION,
-	GEOPOLITICAL,
-	LOCATION,
-	DATE,
-	
-	// Other
-	UNKNOWN;
+	public void setMentions(AbstractMention mention1, AbstractMention mention2){
+		m1 = mention1; m2 = mention2;
+	}
 }

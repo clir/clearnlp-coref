@@ -141,6 +141,10 @@ public class EnglishMentionDetector extends AbstractMentionDetector{
 				}
 			}
 		}
+		
+		m_size = mentions.size();
+		for(i = 0; i < m_size; i++)
+			mentions.get(i).setMentionId(i);
 	}
 	
 	private List<AbstractMention> getMultipleMentions(int m_index, AbstractMention mention, List<AbstractMention> mentions){
