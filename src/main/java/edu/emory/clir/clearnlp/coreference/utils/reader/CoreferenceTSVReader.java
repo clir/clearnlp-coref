@@ -50,20 +50,22 @@ import edu.emory.clir.clearnlp.util.constant.StringConst;
  */
 public class CoreferenceTSVReader extends TSVReader{
 	private int i_corefLink;
-	private boolean toDisjointClusters;
+	private boolean toDisjointClusters, filterCorpus;
 	private AbstractMentionDetector m_detector;
 	public CharTokenizer T_PIPE  = new CharTokenizer('|');
 	
-	public CoreferenceTSVReader(boolean toDisjointClusters, int iID, int iForm, int iLemma, int iPOSTag, int iNERTag, int iFeats, int iHeadID, int iDeprel, int iXHeads, int iSHeads, int iCorefLink){
+	public CoreferenceTSVReader(boolean filterCorpus, boolean toDisjointClusters, int iID, int iForm, int iLemma, int iPOSTag, int iNERTag, int iFeats, int iHeadID, int iDeprel, int iXHeads, int iSHeads, int iCorefLink){
 		super(iID, iForm, iLemma, iPOSTag, iNERTag, iFeats, iHeadID, iDeprel, iXHeads, iSHeads);
 		i_corefLink = iCorefLink;
+		this.filterCorpus = filterCorpus;
 		this.toDisjointClusters = toDisjointClusters;
 		setMentionDetector(new MentionConfiguration(true, true, true));
 	}
 	
-	public CoreferenceTSVReader(MentionConfiguration m_config, boolean toDisjointClusters, int iID, int iForm, int iLemma, int iPOSTag, int iNERTag, int iFeats, int iHeadID, int iDeprel, int iXHeads, int iSHeads, int iCorefLink){
+	public CoreferenceTSVReader(MentionConfiguration m_config, boolean filterCorpus, boolean toDisjointClusters, int iID, int iForm, int iLemma, int iPOSTag, int iNERTag, int iFeats, int iHeadID, int iDeprel, int iXHeads, int iSHeads, int iCorefLink){
 		super(iID, iForm, iLemma, iPOSTag, iNERTag, iFeats, iHeadID, iDeprel, iXHeads, iSHeads);
 		i_corefLink = iCorefLink;
+		this.filterCorpus = filterCorpus;
 		this.toDisjointClusters = toDisjointClusters;
 		setMentionDetector(m_config);
 	}
@@ -113,7 +115,14 @@ public class CoreferenceTSVReader extends TSVReader{
 		// Coreferant relation construction
 		CoreferantSet links = new CoreferantSet(mentions.size(), false, false);
 		List<List<Integer>> l_mentionIndices = getMentionIndices(trees, mentions, clusters.values());
-		CoreferenceDSUtils.sortListBySublistSizeThenHead(l_mentionIndices, true);
+		
+		// Corpus filtration
+		if(filterCorpus){
+			CoreferenceDSUtils.sortListBySublistSizeThenHead(l_mentionIndices, false);
+			filterOverlappingMentions(mentions, l_mentionIndices);
+			l_mentionIndices = l_mentionIndices.stream().filter(cluster -> cluster.size() > 0).collect(Collectors.toList());
+		}
+		
 		links.addClusters(l_mentionIndices, toDisjointClusters);
 		
 		return new Triple<>(trees, mentions, links);
@@ -241,5 +250,29 @@ public class CoreferenceTSVReader extends TSVReader{
 		}
 		
 		return clusterIndices;
+	}
+	
+	private void filterOverlappingMentions(List<AbstractMention> mentions, List<List<Integer>> clusters){
+		List<Integer> cluster1;
+		int i, j, size = clusters.size();
+		
+		for(i = 0; i < size - 1; i++){
+			cluster1 = clusters.get(i);
+			for(j = i + 1; j < size; j++)
+				filterOverlappingMentions_Aux(mentions, cluster1, clusters.get(j));
+		}
+	}
+	
+	private void filterOverlappingMentions_Aux(List<AbstractMention> mentions, List<Integer> cluster1, List<Integer> cluster2){
+		int i, j, index1, size1 = cluster1.size(), size2;
+		
+		for(i = 0; i < size1; i++){
+			index1 = cluster1.get(i);
+			size2 = cluster2.size();
+			for(j = size2 - 1; j >= 0; j--){
+				if(index1 == cluster2.get(j))
+					cluster2.remove(j);
+			}
+		}
 	}
 }
