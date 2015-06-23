@@ -23,6 +23,7 @@ import edu.emory.clir.clearnlp.classification.model.StringModel;
 import edu.emory.clir.clearnlp.classification.prediction.StringPrediction;
 import edu.emory.clir.clearnlp.classification.trainer.AbstractOnlineTrainer;
 import edu.emory.clir.clearnlp.classification.trainer.AdaGradSVM;
+import edu.emory.clir.clearnlp.classification.vector.StringFeatureVector;
 import edu.emory.clir.clearnlp.collection.triple.Triple;
 import edu.emory.clir.clearnlp.component.utils.CFlag;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
@@ -105,7 +106,10 @@ public class CoreferenceComponent implements CoreferenceLabel{
 					label = predictBest(trees, bootstrapLinks, prev_mention, prev_tree, curr_mention, curr_tree).getLabel();
 				}
 				
-				if(label.equals(LINK)) bootstrapLinks.union(j, i);
+				if(label.equals(LINK)){
+					bootstrapLinks.union(j, i);
+					if(c_flag == CFlag.DECODE)	break;
+				}
 				if(label.equals(SHIFT))	break;
 			}
 		}
@@ -151,7 +155,9 @@ public class CoreferenceComponent implements CoreferenceLabel{
 	}
 	
 	public StringPrediction predictBest(List<DEPTree> trees, CoreferantSet bootstrapLinks, AbstractMention mention1, DEPTree tree1, AbstractMention mention2, DEPTree tree2){
-		return model.predictBest(extractor.getFeatures(trees, bootstrapLinks, mention1, tree1, mention2, tree2));
+		StringFeatureVector vector = extractor.getFeatures(trees, bootstrapLinks, mention1, tree1, mention2, tree2); 
+		System.out.println(vector);
+		return model.predictBest(vector);
 	}
 	
 	// Model handling

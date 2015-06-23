@@ -54,6 +54,7 @@ public class CoreferenceModelGenerator {
 			component.train(reader.getGoldCoNLLDocument());
 			reader.close();
 		}
+		
 		component.initTrainer();
 		component.trainModel(iter);
 		component.exportModel(out);
