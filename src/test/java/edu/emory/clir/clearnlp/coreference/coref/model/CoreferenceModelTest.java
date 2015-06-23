@@ -20,8 +20,8 @@ import java.util.List;
 import org.junit.Test;
 
 import edu.emory.clir.clearnlp.collection.triple.Triple;
-import edu.emory.clir.clearnlp.coreference.components.CoreferenceDecoder;
-import edu.emory.clir.clearnlp.coreference.components.CoreferenceTrainer;
+import edu.emory.clir.clearnlp.component.utils.CFlag;
+import edu.emory.clir.clearnlp.coreference.components.CoreferenceComponent;
 import edu.emory.clir.clearnlp.coreference.config.MentionConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.utils.evaluator.AbstractEvaluator;
@@ -52,47 +52,50 @@ public class CoreferenceModelTest {
 	@Test
 	public void test(){
 		MentionConfiguration m_config = new MentionConfiguration(true, true, true);
-		CoreferenceTSVReader reader = new CoreferenceTSVReader(m_config, true, 0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
-//		List<String> trn_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13-dummy/train-dummy", ".cnlp", true),
-//				 dev_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13-dummy/train-dummy", ".cnlp", true);
-		
+		CoreferenceTSVReader reader = new CoreferenceTSVReader(m_config, true, true, 0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);		
 		List<String> trn_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/train", ".cnlp", true),
 				 dev_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/test", ".cnlp", true);
 //		
 //		trn_filePaths.addAll(FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/development", ".cnlp", true));
 //		trn_filePaths.addAll(FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/test", ".cnlp", true));
 		
-		CoreferenceTrainer trainer = new CoreferenceTrainer(labelCutoff, featureCutoff, average, alpha, rho, bias);
-		train(trainer, reader, trn_filePaths);
+		CoreferenceComponent component = new CoreferenceComponent(labelCutoff, featureCutoff, average, alpha, rho, bias);
+		train(component, reader, trn_filePaths);
 		
 		BCubedEvaluator evaluator = new BCubedEvaluator();
-		CoreferenceDecoder decoder = new CoreferenceDecoder(trainer.getModel());
-		evaluate(decoder, reader, evaluator, dev_filePaths);
+		evaluate(component, reader, evaluator, dev_filePaths);
 		
 		System.out.println("\nPerformance Summary:");
 		System.out.println("Traning document count: " + TRN_DOCUMENT);
 		System.out.println(evaluator.getEvaluationSummary());
 	}
 	
-	private void train(CoreferenceTrainer trainer, CoreferenceTSVReader reader, List<String> trn_filePaths){	
+	private void train(CoreferenceComponent component, CoreferenceTSVReader reader, List<String> trn_filePaths){
+		component.setFlag(CFlag.TRAIN);
 		System.out.println("Initializing...");
+		
 		for(String filePath : trn_filePaths){
 			System.out.println("Adding document " + FileUtils.getBaseName(filePath));
 			reader.open(IOUtils.createFileInputStream(filePath));			
-			trainer.addDocument(reader.getGoldCoNLLDocument());
+			component.train(reader.getGoldCoNLLDocument());
 			reader.close();	TRN_DOCUMENT++;
 		}
 		
 		System.out.println("\nTRAINING...");
-		trainer.initTrainer();
-		for(int i = 0; i < iter; i++){
-			System.out.println("Iteration #" + i);
-			trainer.trainModel();
-		}
+		
+		component.initTrainer();
+		
+		System.out.println("\nTrainer info:");
+		System.out.println(component.getTrainer().trainerInfoFull());
+		System.out.println();
+		
+		component.trainModel(iter);
+		
 		System.out.println(".........\nDONE!");
 	}
 	
-	private void evaluate(CoreferenceDecoder decoder, CoreferenceTSVReader reader, AbstractEvaluator evaluator, List<String> eval_filePaths){
+	private void evaluate(CoreferenceComponent component, CoreferenceTSVReader reader, AbstractEvaluator evaluator, List<String> eval_filePaths){
+		component.setFlag(CFlag.DECODE);
 		System.out.println("\nDECODING/EVALUATING...");
 		
 		CoreferantSet prediction;
@@ -103,17 +106,11 @@ public class CoreferenceModelTest {
 		for(String filePath : eval_filePaths){
 			reader.open(IOUtils.createFileInputStream(filePath));
 			document = reader.getGoldCoNLLDocument();
+			
 			reader.close();	EVAL_DOCUMENT++;
 			
 			System.out.print("Decoding " + FileUtils.getBaseName(filePath) + "... ");
-			prediction = decoder.decode(document.o1, document.o2, false);
-			
-//			System.out.println("\nKey:");
-//			System.out.println(document.o3.getClusterLists(true));
-//			CoreferenceTestUtil.printCorefCluster(document.o2, document.o3);
-//			System.out.println("\nPrediction:");
-//			System.out.println(prediction.getClusterLists(true));
-//			CoreferenceTestUtil.printCorefCluster(document.o2, prediction);
+			prediction = component.decode(document);
 			
 			System.out.print("Evaluating... ");
 			evaluation = evaluator.getEvaluationTriple(document.o3, prediction);

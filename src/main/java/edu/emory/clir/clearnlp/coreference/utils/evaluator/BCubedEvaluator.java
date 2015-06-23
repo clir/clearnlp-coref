@@ -43,7 +43,7 @@ public class BCubedEvaluator extends AbstractEvaluator{
 	}
 	
 	public double evaluateRecall(double[] s_weights, CoreferantSet key, CoreferantSet prediction) {
-		List<List<Integer>> l_truthChains = key.getClusterLists(true), l_outputChains = prediction.getClusterLists(true);
+		List<List<Integer>> l_truthChains = key.getClusterLists(includeSingleton), l_outputChains = prediction.getClusterLists(includeSingleton);
 		
 		double score = 0d;
 		List<Integer> truthChain, outputChain;
@@ -84,7 +84,7 @@ public class BCubedEvaluator extends AbstractEvaluator{
 	
 	
 	public double evaluatePrecision(double[] s_weights, CoreferantSet key, CoreferantSet prediction) {
-		List<List<Integer>> l_truthChains = key.getClusterLists(true), l_outputChains = prediction.getClusterLists(true);
+		List<List<Integer>> l_truthChains = key.getClusterLists(includeSingleton), l_outputChains = prediction.getClusterLists(includeSingleton);
 		
 		double score = 0d;
 		List<Integer> truthChain, outputChain;

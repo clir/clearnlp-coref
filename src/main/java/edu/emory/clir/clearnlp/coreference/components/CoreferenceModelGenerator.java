@@ -37,25 +37,25 @@ public class CoreferenceModelGenerator {
 	public static final double bias = 0;
 	
 	public static void main(String[] args) throws IOException{
-		CoreferenceTSVReader reader = new CoreferenceTSVReader(false, 0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
-		CoreferenceTrainer trainer = new CoreferenceTrainer(labelCutoff, featureCutoff, average, alpha, rho, bias);
+		CoreferenceTSVReader reader = new CoreferenceTSVReader(true, false, 0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
+		CoreferenceComponent component = new CoreferenceComponent(labelCutoff, featureCutoff, average, alpha, rho, bias);
 		ObjectOutputStream out = IOUtils.createObjectXZBufferedOutputStream("/Users/HenryChen/Desktop/coref_model.xz");
 		
-		trainCoNLL(10, reader, trainer, out);
+		trainCoNLL(10, reader, component, out);
 	}
 	
-	public static void trainCoNLL(int iter, CoreferenceTSVReader reader, CoreferenceTrainer trainer, ObjectOutputStream out){
+	public static void trainCoNLL(int iter, CoreferenceTSVReader reader, CoreferenceComponent component, ObjectOutputStream out){
 		List<String> l_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13-dummy/train", ".cnlp", true);
 //		List<String> l_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13", ".cnlp", true);
 		
 		for(String filePath : l_filePaths){
 			System.out.println(filePath);
 			reader.open(IOUtils.createFileInputStream(filePath));
-			trainer.addDocument(reader.getGoldCoNLLDocument());
+			component.train(reader.getGoldCoNLLDocument());
 			reader.close();
 		}
-		trainer.initTrainer();
-		while(iter-- > 0)	trainer.trainModel();
-		trainer.exportModel(out);
+		component.initTrainer();
+		component.trainModel(iter);
+		component.exportModel(out);
 	}
 }

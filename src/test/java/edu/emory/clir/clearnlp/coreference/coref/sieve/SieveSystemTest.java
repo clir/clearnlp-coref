@@ -74,7 +74,7 @@ public class SieveSystemTest {
 	public void BCubedEval(){
 		BCubedEvaluator evaluator = new BCubedEvaluator();
 		MentionConfiguration m_config = new MentionConfiguration(false, true, true);
-		CoreferenceTSVReader reader = new CoreferenceTSVReader(m_config, false, 0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
+		CoreferenceTSVReader reader = new CoreferenceTSVReader(m_config, true, false, 0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
 		List<String> test_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/test", ".cnlp", true);
 		
 		/* Configuration */

@@ -27,10 +27,18 @@ import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
  * @since 	Jun 15, 2015
  */
 public abstract class AbstractEvaluator {	
+	protected boolean includeSingleton;
 	protected double PrecisionSumSore, RecallSumScore;
 	protected int DocCount, PrecisionCount, RecallCount, MentionCount;
 	
 	public AbstractEvaluator(){
+		includeSingleton = false;
+		PrecisionSumSore = 0d; RecallSumScore = 0d;
+		DocCount = 0; PrecisionCount = 0; RecallCount = 0; MentionCount = 0;
+	}
+	
+	public AbstractEvaluator(boolean includeSingleton){
+		this.includeSingleton = includeSingleton;
 		PrecisionSumSore = 0d; RecallSumScore = 0d;
 		DocCount = 0; PrecisionCount = 0; RecallCount = 0; MentionCount = 0;
 	}
