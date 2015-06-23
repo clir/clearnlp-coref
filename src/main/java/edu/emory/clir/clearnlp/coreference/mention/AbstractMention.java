@@ -308,7 +308,7 @@ public abstract class AbstractMention implements Serializable {
 	/* String handling methods */
 	public String getWordFrom(){
 		if(isMultipleMention())
-			return Joiner.join(l_subMentions.stream().map(m -> m.getWordFrom()).collect(Collectors.toList()), StringConst.PIPE);
+			return Joiner.join(l_subMentions.stream().map(m -> m.getWordFrom()).collect(Collectors.toList()), StringConst.COMMA);
 		return d_node.getWordForm();
 	}
 	
