@@ -25,6 +25,7 @@ import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.collection.triple.Triple;
 import edu.emory.clir.clearnlp.coreference.AbstractCoreferenceResolution;
 import edu.emory.clir.clearnlp.coreference.SieveSystemCoreferenceResolution;
+import edu.emory.clir.clearnlp.coreference.config.MentionConfiguration;
 import edu.emory.clir.clearnlp.coreference.config.SieveSystemCongiuration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.path.PathData;
@@ -72,12 +73,13 @@ public class SieveSystemTest {
 	@Test
 	public void BCubedEval(){
 		BCubedEvaluator evaluator = new BCubedEvaluator();
-		CoreferenceTSVReader reader = new CoreferenceTSVReader(false, 0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
-		List<String> test_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/train", ".cnlp", true);
+		MentionConfiguration m_config = new MentionConfiguration(false, true, true);
+		CoreferenceTSVReader reader = new CoreferenceTSVReader(m_config, true, false, 0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
+		List<String> test_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/test", ".cnlp", true);
 		
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadDefaultMentionDectors();
+		config.loadMentionDectors(false, true, true);
 //		config.loadDefaultSieves(true);
 		config.mountSieves(new SpeakerIdentification(), new ExactStringMatch(true), new RelaxedStringMatch(true), new SimplePronounMatch());
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
@@ -94,13 +96,6 @@ public class SieveSystemTest {
 			
 			System.out.print("Decoding " + FileUtils.getBaseName(filePath) + "... ");
 			prediction = coref.getEntities(document.o1).o2;			
-			
-//			System.out.println("\nKey:");
-//			System.out.println(document.o3.getClusterLists(true));
-//			CoreferenceTestUtil.printCorefCluster(document.o2, document.o3);
-//			System.out.println("\nPrediction:");
-//			System.out.println(prediction.getClusterLists(true));
-//			CoreferenceTestUtil.printCorefCluster(document.o2, prediction);
 			
 			System.out.print("Evaluating... ");
 			evaluation = evaluator.getEvaluationTriple(document.o3, prediction);

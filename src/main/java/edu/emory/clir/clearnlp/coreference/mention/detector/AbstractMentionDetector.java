@@ -78,10 +78,13 @@ public abstract class AbstractMentionDetector
 	}
 
 	public List<AbstractMention> getMentionList(DEPTree tree){
-		return getMentionList(-1, tree);
+		List<AbstractMention> list = getMentionList(-1, tree);
+		for(int i = 0; i < list.size(); i++)
+			list.get(i).setMentionId(i);
+		return list;
 	}
 	
-	public List<AbstractMention> getMentionList(int treeId, DEPTree tree){
+	protected List<AbstractMention> getMentionList(int treeId, DEPTree tree){
 		List<AbstractMention> list = new ArrayList<>();
 		AbstractMention mention;
 		

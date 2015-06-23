@@ -81,10 +81,11 @@ public class CoreferantSet implements Serializable, Iterable<DoubleIntPair> {
 	}
 	
 	public int union(int prev, int curr, double score){
-		if(findHead(prev) == curr)		s_root[prev] = -1; 
-		if(s_confidence != null) 	s_confidence[curr] = score;
-		
-		s_root[curr] = prev;
+		if(prev != curr){
+			if(findHead(prev) == curr)		s_root[prev] = -1; 
+			if(s_confidence != null) 	s_confidence[curr] = score;
+			s_root[curr] = prev;
+		}
 		return findHead(prev);
 	}
 	

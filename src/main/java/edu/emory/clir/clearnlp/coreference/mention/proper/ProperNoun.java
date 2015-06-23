@@ -57,7 +57,7 @@ public class ProperNoun implements Serializable{
 		n_type = NumberType.valueOf(n);
 	}
 	
-	public EnglishMention toMention(int t_id, DEPTree tree, DEPNode node){
+	public EnglishMention toMention(int t_id,DEPTree tree, DEPNode node){
 		EnglishMention mention = new EnglishMention(t_id, tree, node);
 		mention.setEntityType(e_type);
 		mention.setGenderType(g_type);
