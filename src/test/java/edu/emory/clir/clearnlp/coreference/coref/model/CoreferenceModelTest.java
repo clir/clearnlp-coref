@@ -16,6 +16,7 @@
 package edu.emory.clir.clearnlp.coreference.coref.model;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -54,10 +55,9 @@ public class CoreferenceModelTest {
 		MentionConfiguration m_config = new MentionConfiguration(true, true, true);
 		CoreferenceTSVReader reader = new CoreferenceTSVReader(m_config, true, true, 0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);		
 		List<String> trn_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/train", ".cnlp", true),
-				 dev_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/test", ".cnlp", true);
-//		
-//		trn_filePaths.addAll(FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/development", ".cnlp", true));
-//		trn_filePaths.addAll(FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/test", ".cnlp", true));
+				 	dev_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/test", ".cnlp", true);
+		
+		trn_filePaths.addAll(FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/development", ".cnlp", true));
 		
 		CoreferenceComponent component = new CoreferenceComponent(labelCutoff, featureCutoff, average, alpha, rho, bias);
 		train(component, reader, trn_filePaths);
@@ -118,6 +118,21 @@ public class CoreferenceModelTest {
 			RECALL += evaluation.o2;
 			F1 += evaluation.o3;
 			System.out.println("DONE " + evaluation);
+			
+//			List<AbstractMention> metnions = document.o2;
+//			System.out.println("Keys:");
+//			for(List<Integer> cluster : document.o3.getClusterLists(false)){
+//				System.out.println(cluster);
+//				System.out.println(cluster.stream().map(index -> metnions.get(index).getWordFrom()).collect(Collectors.toList()));
+//			}
+//				
+//			System.out.println("Predictions:");
+//			for(List<Integer> cluster : prediction.getClusterLists(false)){
+//				System.out.println(cluster);
+//				System.out.println(cluster.stream().map(index -> metnions.get(index).getWordFrom()).collect(Collectors.toList()));
+//			}
+			
+			break;
 		}
 	}
 }

@@ -45,7 +45,7 @@ public class CoNLLCorpusFilter {
 	@Test
 	public void	 testCorrectCorpus(){
 		MentionConfiguration m_config = new MentionConfiguration(true, true, true);
-		CoreferenceTSVReader reader = new CoreferenceTSVReader(m_config, false, false, 0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
+		CoreferenceTSVReader reader = new CoreferenceTSVReader(m_config, true, false, 0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
 		List<String> trn_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/train", ".cnlp", true);
 		
 		trn_filePaths.addAll(FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/development", ".cnlp", true));
