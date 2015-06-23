@@ -25,6 +25,7 @@ import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
 import edu.emory.clir.clearnlp.coreference.type.AttributeType;
 import edu.emory.clir.clearnlp.coreference.type.FeatureType;
 import edu.emory.clir.clearnlp.coreference.type.PronounType;
+import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.constant.CharConst;
@@ -42,7 +43,7 @@ public class CoreferenceFeatureExtractor implements FeatureType{
 	
 	private StringBuilder s_builder = new StringBuilder();
 
-	public StringFeatureVector getFeatures(List<DEPTree> trees, AbstractMention mention1, DEPTree tree1, AbstractMention mention2, DEPTree tree2){
+	public StringFeatureVector getFeatures(List<DEPTree> trees, CoreferantSet bootstrapLinks, AbstractMention mention1, DEPTree tree1, AbstractMention mention2, DEPTree tree2){
 		StringFeatureVector vector = new StringFeatureVector();
 		int multiMentionIndex = getMultiMentionIndex(mention1, mention2);
 		
