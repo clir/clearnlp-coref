@@ -36,7 +36,6 @@ import edu.emory.clir.clearnlp.util.constant.CharConst;
  * @since 	Jun 9, 2015
  */
 public class CoreferenceFeatureExtractor implements FeatureType{
-
 	private ExactStringMatch exactString = new ExactStringMatch(true);
 	private RelaxedStringMatch relaxedString = new RelaxedStringMatch(true);
 	private PreciseConstructMatch preiseConstruct = new PreciseConstructMatch();
@@ -133,7 +132,8 @@ public class CoreferenceFeatureExtractor implements FeatureType{
 	}
 	
 	private String getStringLabel(int... strings){
-		s_builder.setLength(0);
+//		s_builder.setLength(0);
+		s_builder = new StringBuilder();
 		for(int string : strings){
 			s_builder.append(string);
 			s_builder.append(CharConst.HYPHEN);
@@ -142,7 +142,8 @@ public class CoreferenceFeatureExtractor implements FeatureType{
 	}
 	
 	private String getStringLabel(String... strings){
-		s_builder.setLength(0);
+//		s_builder.setLength(0);
+		s_builder = new StringBuilder();
 		for(String string : strings){
 			s_builder.append(string);
 			s_builder.append(CharConst.HYPHEN);
