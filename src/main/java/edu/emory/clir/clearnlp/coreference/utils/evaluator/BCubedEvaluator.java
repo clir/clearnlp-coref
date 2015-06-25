@@ -28,6 +28,14 @@ import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceDSUtils;
  */
 public class BCubedEvaluator extends AbstractEvaluator{
 	
+	public BCubedEvaluator() {
+		super();
+	}
+	
+	public BCubedEvaluator(boolean includeSingleton) {
+		super(includeSingleton);
+	}
+	
 	@Override
 	public double evaluatePrecision(CoreferantSet key, CoreferantSet prediction) {
 		return evaluatePrecision(null, key, prediction);

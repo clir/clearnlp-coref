@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.emory.clir.clearnlp.constituent.CTLibEn;
-import edu.emory.clir.clearnlp.coreference.dictionary.PathMention;
+import edu.emory.clir.clearnlp.coreference.dictionary.PathDictionary;
 import edu.emory.clir.clearnlp.coreference.mention.common.CommonNoun;
 import edu.emory.clir.clearnlp.coreference.type.NumberType;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
@@ -48,7 +48,7 @@ public class EnglishCommonNounDetector extends AbstractCommonNounDetector{
 		Map<String, CommonNoun> map = new HashMap<>();
 		
 		try {
-			InputStream dict = new FileInputStream(PathMention.ENG_COMMON_NOUN);
+			InputStream dict = new FileInputStream(PathDictionary.ENG_COMMON_NOUN);
 			
 			BufferedReader reader = new BufferedReader(new InputStreamReader(dict));
 			String line; String[] attr;

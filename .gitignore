@@ -6,3 +6,4 @@
 clearnlp-coref.iml
 /.settings/
 /src/test/resources/edu/emory/clir/clearnlp/visualization/
+/src/main/resources/edu/emory/clir/clearnlp/dictionary/wordnet/WordNet-3.0/ 

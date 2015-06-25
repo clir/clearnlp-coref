@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
+import edu.emory.clir.clearnlp.coreference.dictionary.PathDictionary;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.type.AttributeType;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
@@ -42,8 +42,8 @@ public class RuleBasedPleonasticIt
 	public RuleBasedPleonasticIt()
 	{
 		seasons			= DSUtils.toHashSet("summer", "autumn", "fall", "winter", "spring");
-		cognitiveVerbs	= DSUtils.createStringHashSet(IOUtils.createFileInputStream(PathSieve.COGNITIVE_VERBS));//only used in one thing might want to remove
-		cognitiveNouns	= DSUtils.createStringHashSet(IOUtils.createFileInputStream(PathSieve.COGNITIVE_NOUNS));
+		cognitiveVerbs	= DSUtils.createStringHashSet(IOUtils.createFileInputStream(PathDictionary.COGNITIVE_VERBS));//only used in one thing might want to remove
+		cognitiveNouns	= DSUtils.createStringHashSet(IOUtils.createFileInputStream(PathDictionary.COGNITIVE_NOUNS));
 		weatherTerms	= DSUtils.toHashSet("cloudy", "rainy", "snowy", "sleet", "rain", "snow", "thunder", "cold", "hot", "humid", "freezing", "sunny", 
 				"overcast", "hazy", "foggy", "hail", "windy", "sleet", "gusty", "drizzle", "drizzly", "damp", "stormy", "showering", "gust", "storm", 
 				"arid", "muggy", "raining", "snowing", "sleeting", "hailing", "drizzling", "storming", "gusting", "thundering");

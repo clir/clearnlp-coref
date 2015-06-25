@@ -92,10 +92,10 @@ public class CoreferenceComponent implements CoreferenceLabel{
 		
 		for(i = size - 1; i > 0; i--){
 			curr_mention = mentions.get(i);
-			curr_tree = (curr_mention.hasTree())? curr_mention.getTree() : null;
+			curr_tree = curr_mention.getTree();
 			for(j = i - 1; j >= 0; j--){
 				prev_mention = mentions.get(j);
-				prev_tree = (prev_mention.hasTree())? prev_mention.getTree() : null;		
+				prev_tree = prev_mention.getTree();		
 				
 				// create feature vector 
 				if(c_flag == CFlag.TRAIN){
@@ -120,6 +120,15 @@ public class CoreferenceComponent implements CoreferenceLabel{
 	// Training
 	public void initTrainer(){
 		if(trainer == null)	trainer = new AdaGradSVM(model, labelCutoff, featureCutoff, average, alpha, rho, bias);
+	}
+	
+	public void initTrainer(int iter){
+		if(trainer == null)	trainer = new AdaGradSVM(model, labelCutoff, featureCutoff, average, alpha, rho, bias);
+		while(iter-- > 0) trainModel();
+	}
+	
+	public void trainModel(){
+		trainer.train();
 	}
 	
 	public void trainModel(int iteration){
@@ -156,7 +165,6 @@ public class CoreferenceComponent implements CoreferenceLabel{
 	
 	public StringPrediction predictBest(List<DEPTree> trees, CoreferantSet bootstrapLinks, AbstractMention mention1, DEPTree tree1, AbstractMention mention2, DEPTree tree2){
 		StringFeatureVector vector = extractor.getFeatures(trees, bootstrapLinks, mention1, tree1, mention2, tree2); 
-		System.out.println(vector);
 		return model.predictBest(vector);
 	}
 	

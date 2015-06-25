@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
-import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
+import edu.emory.clir.clearnlp.coreference.dictionary.PathDictionary;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.type.AttributeType;
 import edu.emory.clir.clearnlp.coreference.type.EntityType;
@@ -32,7 +32,7 @@ public class SpeakerIdentification extends AbstractSieve{
 	}
 	
 	private Set<String> initReportingVerbs() {
-		InputStream in = IOUtils.createFileInputStream(PathSieve.REPORT_VERBS);
+		InputStream in = IOUtils.createFileInputStream(PathDictionary.REPORT_VERBS);
 		return DSUtils.createStringHashSet(in);
 	}
 	

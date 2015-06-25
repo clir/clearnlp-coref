@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import edu.emory.clir.clearnlp.coreference.dictionary.PathSieve;
+import edu.emory.clir.clearnlp.coreference.dictionary.PathDictionary;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.util.DSUtils;
 import edu.emory.clir.clearnlp.util.IOUtils;
@@ -25,7 +25,7 @@ public class StrictHeadMatch extends AbstractSieve {
 	}
 	
 	private Set<String> initStopWords(){
-		InputStream in = IOUtils.createFileInputStream(PathSieve.ENG_STOPWORDS);
+		InputStream in = IOUtils.createFileInputStream(PathDictionary.ENG_STOPWORDS);
 		return DSUtils.createStringHashSet(in);
 	}
 	

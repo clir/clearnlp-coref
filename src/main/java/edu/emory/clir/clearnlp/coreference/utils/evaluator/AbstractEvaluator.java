@@ -80,11 +80,23 @@ public abstract class AbstractEvaluator {
 	}
 	
 	// Stats
+	public double getAveragePrecision(){
+		return PrecisionSumSore/PrecisionCount;
+	}
+	
+	public double getAverageRecall(){
+		return RecallSumScore/RecallCount;
+	}
+	
+	public double getAverageF1Score(){
+		return evaluateF1Score(getAveragePrecision(), getAverageRecall());
+	}
+	
 	public String getEvaluationSummary(){
 		StringBuilder sb = new StringBuilder();
 		NumberFormat formatter = new DecimalFormat("#0.000");
-		double precision = PrecisionSumSore/PrecisionCount,
-			   recall = RecallSumScore/RecallCount; 
+		double precision = getAveragePrecision(),
+			   recall = getAverageRecall(); 
 		
 		sb.append("Evaluation document count: "); 	sb.append(DocCount);
 		sb.append("\nTotal mention count: "); 		sb.append(MentionCount);
