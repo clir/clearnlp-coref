@@ -21,7 +21,8 @@ package edu.emory.clir.clearnlp.coreference.type;
  * @since 	Jun 11, 2015
  */
 public interface FeatureType {
-	final int ExactString = 0,
+	final int 
+		ExactStringMatch = 0,
 		RelaxedString = 1,
 		SentenceOffset = 2,
 		TokenOffset = 3,
@@ -43,9 +44,30 @@ public interface FeatureType {
 		AppositionMatch = 20,
 		PredicateNomMatch = 21,
 		AcronymMatch = 22,
-		MultiMentionIndex = 23;
+		MultiMentionIndex = 23,
+		SynonymMatch = 24,
+		AntonymMatch = 25,
+		HypernymMatch = 26,
+		Boolean = 27,
+		SubTreePOSTag1 = 29,
+		SubTreePOSTag2 = 30,
+		SubTreeDEPlabel1 = 31,
+		SubTreeDEPlabel2 = 32,
+		Attributes1 = 33,
+		Attributes2 = 34,
+		SubTreeTokens1 = 35,
+		SubTreeTokens2 = 36,
+		XPronounPair = 37,
+		SubTreeTokenOverlap = 38,
+		ModifierSet1 = 39,
+		ModifierSet2 = 40;
 	
-	final String TRUE = "true",
-		   FALSE = "false",
-		   NULL = "null";
+	final String 
+		TRUE = "true",
+		FALSE = "false",
+		NULL = "null";
+	
+	final String 
+		HasQuote1 = "Quote1",
+		HasQuote2 = "Quote2";
 }
