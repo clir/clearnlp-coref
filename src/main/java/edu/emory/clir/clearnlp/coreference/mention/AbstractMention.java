@@ -34,6 +34,7 @@ import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.util.DSUtils;
 import edu.emory.clir.clearnlp.util.Joiner;
+import edu.emory.clir.clearnlp.util.StringUtils;
 import edu.emory.clir.clearnlp.util.constant.StringConst;
 
 /**
@@ -320,7 +321,17 @@ public abstract class AbstractMention implements Serializable {
 		return (hasSubTreeNodes())? Joiner.join(getSubTreeWordList(), " ") : null;
 	}
 	
+	public String getSubTreeWordSequence(boolean decapitalize){
+		return (hasSubTreeNodes())? Joiner.join(getSubTreeWordList(decapitalize), " ") : null;
+	}
+	
 	public List<String> getSubTreeWordList(){
+		return (hasSubTreeNodes())? getSubTreeNodes().stream().map(node -> node.getWordForm()).collect(Collectors.toList()) : null;
+	}
+	
+	public List<String> getSubTreeWordList(boolean decapitalize){
+		if(decapitalize)
+			return (hasSubTreeNodes())? getSubTreeNodes().stream().map(node -> node.getWordForm().toLowerCase()).collect(Collectors.toList()) : null;
 		return (hasSubTreeNodes())? getSubTreeNodes().stream().map(node -> node.getWordForm()).collect(Collectors.toList()) : null;
 	}
 	
