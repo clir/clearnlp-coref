@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import edu.emory.clir.clearnlp.coreference.utils.evaluator.BCubedEvaluator;
+import edu.emory.clir.clearnlp.coreference.utils.evaluator.CoreferenceBCubedEvaluator;
 import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 
 /**
@@ -30,7 +30,7 @@ import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 public class BCubedEvaluatorTest {
 	@Test
 	public void testRecall(){
-		BCubedEvaluator evaluator = new BCubedEvaluator();
+		CoreferenceBCubedEvaluator evaluator = new CoreferenceBCubedEvaluator();
 		CoreferantSet key = new CoreferantSet(10), prediction = new CoreferantSet(10);
 		
 		key.union(0, 1); key.union(1, 3);
@@ -48,7 +48,7 @@ public class BCubedEvaluatorTest {
 	
 	@Test
 	public void testPercision(){
-		BCubedEvaluator evaluator = new BCubedEvaluator();
+		CoreferenceBCubedEvaluator evaluator = new CoreferenceBCubedEvaluator();
 		CoreferantSet key = new CoreferantSet(10), prediction = new CoreferantSet(10);
 		
 		key.union(0, 1); key.union(1, 3);

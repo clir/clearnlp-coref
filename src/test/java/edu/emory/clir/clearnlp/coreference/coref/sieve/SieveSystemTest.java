@@ -34,7 +34,7 @@ import edu.emory.clir.clearnlp.coreference.sieve.RelaxedStringMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.SimplePronounMatch;
 import edu.emory.clir.clearnlp.coreference.sieve.SpeakerIdentification;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
-import edu.emory.clir.clearnlp.coreference.utils.evaluator.BCubedEvaluator;
+import edu.emory.clir.clearnlp.coreference.utils.evaluator.CoreferenceBCubedEvaluator;
 import edu.emory.clir.clearnlp.coreference.utils.reader.CoreferenceTSVReader;
 import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -72,7 +72,7 @@ public class SieveSystemTest {
 	
 	@Test
 	public void BCubedEval(){
-		BCubedEvaluator evaluator = new BCubedEvaluator();
+		CoreferenceBCubedEvaluator evaluator = new CoreferenceBCubedEvaluator();
 		MentionConfiguration m_config = new MentionConfiguration(false, true, true);
 		CoreferenceTSVReader reader = new CoreferenceTSVReader(m_config, true, false, 0, 1, 2, 3, 9, 4, 5, 6, -1, -1, 10);
 		List<String> test_filePaths = FileUtils.getFileList("/Users/HenryChen/Desktop/conll-13/test", ".cnlp", true);
