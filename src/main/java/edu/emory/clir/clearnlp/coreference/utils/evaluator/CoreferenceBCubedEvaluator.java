@@ -26,13 +26,13 @@ import edu.emory.clir.clearnlp.coreference.utils.util.CoreferenceDSUtils;
  * @version	1.0
  * @since 	Jun 15, 2015
  */
-public class BCubedEvaluator extends AbstractEvaluator{
+public class CoreferenceBCubedEvaluator extends AbstractCoreferenceEvaluator{
 	
-	public BCubedEvaluator() {
+	public CoreferenceBCubedEvaluator() {
 		super();
 	}
 	
-	public BCubedEvaluator(boolean includeSingleton) {
+	public CoreferenceBCubedEvaluator(boolean includeSingleton) {
 		super(includeSingleton);
 	}
 	

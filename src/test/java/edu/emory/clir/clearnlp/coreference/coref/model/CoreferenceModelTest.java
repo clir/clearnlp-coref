@@ -25,8 +25,8 @@ import edu.emory.clir.clearnlp.coreference.components.CoreferenceComponent;
 import edu.emory.clir.clearnlp.coreference.config.MentionConfiguration;
 import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
 import edu.emory.clir.clearnlp.coreference.utils.CoreferenceTestUtil;
-import edu.emory.clir.clearnlp.coreference.utils.evaluator.AbstractEvaluator;
-import edu.emory.clir.clearnlp.coreference.utils.evaluator.BCubedEvaluator;
+import edu.emory.clir.clearnlp.coreference.utils.evaluator.AbstractCoreferenceEvaluator;
+import edu.emory.clir.clearnlp.coreference.utils.evaluator.CoreferenceBCubedEvaluator;
 import edu.emory.clir.clearnlp.coreference.utils.reader.CoreferenceTSVReader;
 import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
@@ -68,7 +68,7 @@ public class CoreferenceModelTest {
 		CoreferenceComponent component = new CoreferenceComponent(labelCutoff, featureCutoff, average, alpha, rho, bias);
 		train(component, reader, trn_filePaths);
 		
-		BCubedEvaluator evaluator = new BCubedEvaluator();
+		CoreferenceBCubedEvaluator evaluator = new CoreferenceBCubedEvaluator();
 		develop(component, reader, dev_filePaths, DEV_THRESHOLD);
 		evaluate(component, reader, evaluator, test_filePaths);
 		
@@ -106,14 +106,14 @@ public class CoreferenceModelTest {
 		int iter = 0;
 		double prevScore = 0, currScore;
 		CoreferantSet prediction;
-		AbstractEvaluator evaluator;
+		AbstractCoreferenceEvaluator evaluator;
 		Triple<List<DEPTree>, List<AbstractMention>, CoreferantSet> document;
 		
 		while(true){
 			System.out.print("Iteration #" + iter++);
 			component.trainModel();
 			
-			evaluator = new BCubedEvaluator();
+			evaluator = new CoreferenceBCubedEvaluator();
 			System.out.print("... Evaluating...");
 			for(String filePath : dev_filePaths){
 				reader.open(IOUtils.createFileInputStream(filePath));			
@@ -133,7 +133,7 @@ public class CoreferenceModelTest {
 		System.out.println(".........\nDONE!");
 	}
 	
-	private void evaluate(CoreferenceComponent component, CoreferenceTSVReader reader, AbstractEvaluator evaluator, List<String> eval_filePaths){
+	private void evaluate(CoreferenceComponent component, CoreferenceTSVReader reader, AbstractCoreferenceEvaluator evaluator, List<String> eval_filePaths){
 		component.setFlag(CFlag.DECODE);
 		System.out.println("\nDECODING/EVALUATING...");
 		
