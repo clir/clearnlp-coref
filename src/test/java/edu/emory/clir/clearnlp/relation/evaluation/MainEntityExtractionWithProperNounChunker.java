@@ -16,6 +16,7 @@
 package edu.emory.clir.clearnlp.relation.evaluation;
 
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -23,7 +24,7 @@ import edu.emory.clir.clearnlp.collection.map.IntDoubleHashMap;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 import edu.emory.clir.clearnlp.relation.chunk.AbstractChucker;
 import edu.emory.clir.clearnlp.relation.chunk.EnglishProperNounChunker;
-import edu.emory.clir.clearnlp.relation.extract.DocumentMainEntityExtractor;
+import edu.emory.clir.clearnlp.relation.extract.MainEntityExtractor;
 import edu.emory.clir.clearnlp.relation.feature.MainEntityFeatureIndex;
 import edu.emory.clir.clearnlp.relation.structure.Corpus;
 import edu.emory.clir.clearnlp.relation.structure.Document;
@@ -31,7 +32,9 @@ import edu.emory.clir.clearnlp.relation.structure.Entity;
 import edu.emory.clir.clearnlp.relation.utils.RelationExtractionTestUtil;
 import edu.emory.clir.clearnlp.relation.utils.evaluation.AbstractRelationExtrationEvaluator;
 import edu.emory.clir.clearnlp.relation.utils.evaluation.MainEntityEvaluator;
+import edu.emory.clir.clearnlp.util.DSUtils;
 import edu.emory.clir.clearnlp.util.FileUtils;
+import edu.emory.clir.clearnlp.util.MathUtils;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -39,9 +42,10 @@ import edu.emory.clir.clearnlp.util.FileUtils;
  * @since 	Jul 9, 2015
  */
 public class MainEntityExtractionWithProperNounChunker {
-private static final String DIR_IN = "/Users/HenryChen/Desktop/NYTimes_Parsed";
+	private final Set<String> extactingNETags = DSUtils.toHashSet("ORG", "PERSON");
+	private static final String DIR_IN = "/Users/HenryChen/Desktop/NYTimes_Parsed";
 	
-	private static double CUTOFF = 0.45d, GAP = 0.10d;
+	private static double CUTOFF = 0.485d, GAP = 0.05d;
 	private static double FREQ_COUNT = 0.70d, ENTITY_CONFID = 0.05d, FIRST_APPEAR = 0.25d;
 	
 	private static IntDoubleHashMap getWeights(){
@@ -57,20 +61,30 @@ private static final String DIR_IN = "/Users/HenryChen/Desktop/NYTimes_Parsed";
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
 		List<String> l_filePaths = FileUtils.getFileList(DIR_IN, ".cnlp", true);
 		
-		AbstractChucker chunker = new EnglishProperNounChunker();
+		AbstractChucker chunker = new EnglishProperNounChunker(extactingNETags);
 		Corpus corpus = RelationExtractionTestUtil.loadCorpus(reader, l_filePaths, "NYTimes", true);
-		DocumentMainEntityExtractor extractor = new DocumentMainEntityExtractor(chunker, CUTOFF, GAP, getWeights());
-		AbstractRelationExtrationEvaluator evaluator = new MainEntityEvaluator(chunker);
+		MainEntityExtractor extractor = new MainEntityExtractor(chunker, CUTOFF, GAP, getWeights());
+		MainEntityEvaluator evaluator = new MainEntityEvaluator(chunker);
 		
 		List<Entity> keys;
+		int doc_count = 0;
 		for(Document document : corpus){
 			document.setMainEnities(extractor.getMainEntities(document));
 			keys = evaluator.generateKeysFromTitle(document);
-			
-			if(!document.getMainEntiies().isEmpty() && !keys.isEmpty()){
-				System.out.println(evaluator.getEvaluationTriple(keys, document.getMainEntiies()));
+
+			if(!document.getMainEntities().isEmpty()){
+				evaluator.evaluatePrecisionOnDocumentTitle(document.getTitle(), document.getMainEntities());
+				doc_count++;
 			}
+			
+//			if(!document.getMainEntities().isEmpty() && !keys.isEmpty()){
+//				System.out.println(evaluator.getEvaluationTriple(keys, document.getMainEntiies()));
+//			}
 		}	
-		System.out.println(evaluator.getEvaluationSummary());
+		System.out.println("==========");
+		System.out.println("Document count: " + doc_count);
+		System.out.println("Precision: " + evaluator.getAveragePrecision());
+		System.out.println("F1 Score: " + MathUtils.getF1(evaluator.getAveragePrecision(), (double)doc_count/corpus.getDocumentCount()));
+//		System.out.println(evaluator.getEvaluationSummary());
 	}
 }

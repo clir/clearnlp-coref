@@ -84,4 +84,22 @@ public class MainEntityEvaluator extends AbstractRelationExtrationEvaluator{
 		Set<String> key_wordForms = key.getAliasList().stream().map(a -> a.getStippedWordForm(true)).collect(Collectors.toSet());
 		return DSUtils.hasIntersection(key_wordForms, wordFroms);
 	}
+	
+	public double evaluatePrecisionOnDocumentTitle(String title, List<Entity> predictions){
+		int correct = 0;
+		
+		for(Entity prediction : predictions)
+			for(EntityAlias alias : prediction)
+				if(title.contains(alias.getStippedWordForm(false))){
+					correct++; break;
+				}
+		
+		double precision = (predictions.isEmpty())? 0d : (double)correct / predictions.size();
+		PrecisionCount++; PrecisionSumSore += precision;
+		return precision;
+	}
+	
+	public double evaluateRecallOnDocumentTitle(String title, List<Entity> predictions){
+		return 0d;
+	}
 }

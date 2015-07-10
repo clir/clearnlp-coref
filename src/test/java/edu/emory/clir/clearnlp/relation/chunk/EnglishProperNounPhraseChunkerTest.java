@@ -40,16 +40,16 @@ public class EnglishProperNounPhraseChunkerTest {
 	public void testChunker(){
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
 		List<String> l_filePaths = FileUtils.getFileList(DIR_IN, ".cnlp", true);
-		Corpus corpus = RelationExtractionTestUtil.loadCorpus(reader, l_filePaths, "NYTimes_Test", false);
+		Corpus corpus = RelationExtractionTestUtil.loadCorpus(reader, l_filePaths, "NYTimes_Test", true);
 		
 		Set<String> selectedNERTags = DSUtils.toHashSet("PERSON", "ORG", "LOC", "GPE");
 		AbstractChucker chunker = new EnglishProperNounChunker(selectedNERTags);
 		
-		int count = 5;
+		int count = 10;
 		for(Document document : corpus){
 			if(count-- <= 0) break;
 			
-			for(Chunk chunk : chunker.getChuncks(document.getTrees()))
+			for(Chunk chunk : chunker.getChunk(document.getTitleTree()))
 				System.out.println(chunk + " -> " + chunk.getStrippedWordForm(false));
 			System.out.println();
 		}

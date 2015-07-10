@@ -49,7 +49,6 @@ public class RelationExtractionTreeUtil {
 			
 			// Remove selected word forms & modifiers
 			if(ignoredWordForm.contains(node.getLowerSimplifiedWordForm()) 
-					|| node.getLabel().endsWith(DEPModSuffix)
 					|| POSLibEn.isAdjective(node.getPOSTag()))
 				l_subNodes.remove(i);
 		}

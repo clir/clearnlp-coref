@@ -37,6 +37,10 @@ public abstract class AbstractRelationExtrationEvaluator extends AbstractEvaluat
 	
 	protected AbstractChucker key_chunker;
 	
+	public AbstractRelationExtrationEvaluator(){
+		key_chunker = null;
+	}
+	
 	public AbstractRelationExtrationEvaluator(AbstractChucker chunker){
 		key_chunker = chunker;
 	}

@@ -50,10 +50,7 @@ public class EnglishProperNounChunker extends AbstractChucker {
 	
 	@Override
 	public List<Chunk> getChunk(DEPTree tree){
-		List<DEPNode> candidates = DSUtils.toArrayList(tree.toNodeArray()).stream()
-									.filter(p_chunkNode)					
-									.filter(n -> !ignorePOSTags.contains(n.getPOSTag()))
-									.collect(Collectors.toList());
+		List<DEPNode> candidates = getChunkNodeCandidates(tree);
 		
 		// Remove NE chunks
 		List<Chunk> chunks = NE_chunker.getChunk(tree);
@@ -61,6 +58,7 @@ public class EnglishProperNounChunker extends AbstractChucker {
 		
 		Chunk chunk;
 		DEPNode candidate; List<DEPNode> subNodes;
+		
 		while(!candidates.isEmpty()){
 			candidate = getSubTreeRoot(candidates.get(0));
 			subNodes = getSubTreeChunk(candidate, candidate.getSubNodeList());

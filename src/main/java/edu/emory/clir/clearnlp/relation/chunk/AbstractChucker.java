@@ -42,6 +42,15 @@ public abstract class AbstractChucker {
 	protected Function<DEPNode, String> f_chunkLable;
 	protected Predicate<DEPNode> p_chunkNode;
 	
+	protected final Predicate<DEPNode> p_defualtIgnoredNodes = new Predicate<DEPNode>() {
+		
+		@Override
+		public boolean test(DEPNode t) {
+			return !ignorePOSTags.contains(t.getPOSTag()) &&
+					!t.isLabel(DEPLibEn.DEP_COMPOUND);
+		}
+	};
+	
 	public AbstractChucker(TLanguage language){
 		l_language = language;
 		f_chunkLable = getLabelFunction();
@@ -55,10 +64,7 @@ public abstract class AbstractChucker {
 	}
 	
 	public List<Chunk> getChunk(DEPTree tree){
-		List<DEPNode> candidates = DSUtils.toArrayList(tree.toNodeArray()).stream()
-									.filter(p_chunkNode)					
-									.filter(n -> !ignorePOSTags.contains(n.getPOSTag()))
-									.collect(Collectors.toList());
+		List<DEPNode> candidates = getChunkNodeCandidates(tree);
 		List<Chunk> chunks = new ArrayList<>();
 		
 		DEPNode candidate; List<DEPNode> subNodes;
@@ -106,5 +112,9 @@ public abstract class AbstractChucker {
 		}
 		
 		return subNodes.subList(start+1, end);
+	}
+	
+	protected List<DEPNode> getChunkNodeCandidates(DEPTree tree){
+		return DSUtils.toArrayList(tree.toNodeArray()).stream().filter(p_defualtIgnoredNodes.and(p_chunkNode)).collect(Collectors.toList());
 	}
 }
