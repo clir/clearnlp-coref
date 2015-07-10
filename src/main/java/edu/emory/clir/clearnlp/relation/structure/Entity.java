@@ -22,8 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import edu.emory.clir.clearnlp.dependency.DEPNode;
-import edu.emory.clir.clearnlp.ner.NERLib;
-import edu.emory.clir.clearnlp.pos.POSLibEn;
+import edu.emory.clir.clearnlp.relation.utils.RelationExtractionTreeUtil;
 import edu.emory.clir.clearnlp.util.Joiner;
 import edu.emory.clir.clearnlp.util.constant.StringConst;
 
@@ -36,30 +35,35 @@ public class Entity implements Serializable, Iterable<EntityAlias>, Comparable<E
 	private static final long serialVersionUID = 6011313908928592982L;
 	public static final double w_alias = 0.8d;
 	
-	private String s_NERTag;
+	private String s_Tag;
 	private double d_confidence;
 	private List<EntityAlias> l_alias;
 	
-	public Entity(int sentenceId, DEPNode node){
+	public Entity(int sentenceId,  DEPNode head, List<DEPNode> nodes){
 		l_alias = new ArrayList<>();
-		set(sentenceId, node, NERLib.toNamedEntity(node.getNamedEntityTag()));
+		set(sentenceId, head, nodes, null);
 	}
 	
-	public void set(int sentenceId, DEPNode node, String NERTag){
-		l_alias.add(0, new EntityAlias(sentenceId, node, 1d));
-		s_NERTag = NERTag;
+	public Entity(int sentenceId,  DEPNode head, List<DEPNode> nodes, String tag){
+		l_alias = new ArrayList<>();
+		set(sentenceId, head, nodes, tag);
+	}
+	
+	public void set(int sentenceId, DEPNode head, List<DEPNode> nodes, String Tag){
+		l_alias.add(0, new EntityAlias(sentenceId, head, nodes, 1d));
+		s_Tag = Tag;
 	}
 	
 	public EntityAlias getFirstAlias(){
 		return l_alias.get(0);
 	}
 	
-	public DEPNode getNode(){
-		return l_alias.get(0).getNode();
+	public List<DEPNode> getNodes(){
+		return l_alias.get(0).getNodes();
 	}
 	
 	public String getNERTag(){
-		return s_NERTag;
+		return s_Tag;
 	}
 	
 	public int getCount(){
@@ -82,50 +86,36 @@ public class Entity implements Serializable, Iterable<EntityAlias>, Comparable<E
 		return l_alias;
 	}
 
-	public boolean addAlias(int sentenceId, DEPNode node){
+	public boolean addAlias(int sentenceId, Chunk chunk){
 		double aliasWeight;
 		for(EntityAlias alias : l_alias){
-			if( (aliasWeight = getAliasLiklihood(alias.getNode() , node)) > 0){
-				l_alias.add(new EntityAlias(sentenceId, node, aliasWeight));
+			if( (aliasWeight = getAliasLiklihood(alias.getNodes(), chunk.getChunkNodes())) > 0){
+				l_alias.add(new EntityAlias(sentenceId, chunk.getHeadNode(), chunk.getChunkNodes(), aliasWeight));
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	private double getAliasLiklihood(DEPNode alias, DEPNode node){
+	private double getAliasLiklihood(List<DEPNode> alias_nodes, List<DEPNode> curr_nodes){
 		String string1, string2;
-		List<DEPNode> l_nodes1 = alias.getSubNodeList(), l_nodes2 = node.getSubNodeList();
+		List<DEPNode> alias = new ArrayList<>(alias_nodes), nodes = new ArrayList<>(curr_nodes);
 		
 		// Match exact string
-		string1 = Joiner.join(l_nodes1.stream().map(n -> n.getWordForm()).collect(Collectors.toList()), StringConst.SPACE);
-		string2 = Joiner.join(l_nodes2.stream().map(n -> n.getWordForm()).collect(Collectors.toList()), StringConst.SPACE);
+		string1 = Joiner.join(alias.stream().map(n -> n.getWordForm()).collect(Collectors.toList()), StringConst.SPACE);
+		string2 = Joiner.join(nodes.stream().map(n -> n.getWordForm()).collect(Collectors.toList()), StringConst.SPACE);
 		if(string1.equals(string2)) return 1d;
 		
 		// Match match relaxed string
-		stripSubTree(l_nodes1, alias); stripSubTree(l_nodes2, node);
-		string1 = Joiner.join(l_nodes1.stream().map(n -> n.getWordForm()).collect(Collectors.toList()), StringConst.SPACE);
-		string2 = Joiner.join(l_nodes2.stream().map(n -> n.getWordForm()).collect(Collectors.toList()), StringConst.SPACE);
+		RelationExtractionTreeUtil.stripSubTree(alias); 
+		RelationExtractionTreeUtil.stripSubTree(nodes);
+		string1 = Joiner.join(alias.stream().map(n -> n.getWordForm()).collect(Collectors.toList()), StringConst.SPACE);
+		string2 = Joiner.join(nodes.stream().map(n -> n.getWordForm()).collect(Collectors.toList()), StringConst.SPACE);
 		if(string1.equals(string2)) return w_alias;
 		
 		return 0d;	
 	}
 	
-	private void stripSubTree(List<DEPNode> l_subNodes, DEPNode node){
-		removeSelectedDEPLabels(l_subNodes, node);
-		removeModifiers(l_subNodes, node);
-	}
-	
-	private void removeSelectedDEPLabels(List<DEPNode> l_subNodes, DEPNode node){
-		List<DEPNode> nodes = node.getDependentListByLabel(Document.ignoredDEPLabels);
-		if(nodes != null) for(DEPNode n : nodes) l_subNodes.removeAll(n.getSubNodeSet());
-	}
-	
-	private void removeModifiers(List<DEPNode> l_subNodes, DEPNode node){
-		List<DEPNode> modifiers = l_subNodes.stream().filter(n -> n.getLabel().endsWith(Document.DEPModSuffix) || POSLibEn.isAdjective(n.getPOSTag())).collect(Collectors.toList());
-		if(modifiers != null) for(DEPNode modifier : modifiers) l_subNodes.removeAll(modifier.getSubNodeSet());
-	}
-
 	@Override
 	public int compareTo(Entity o) {
 		return (int)Math.signum(getEntityConfidence() - o.getEntityConfidence());
@@ -133,33 +123,20 @@ public class Entity implements Serializable, Iterable<EntityAlias>, Comparable<E
 
 	@Override
 	public Iterator<EntityAlias> iterator() {
-		Iterator<EntityAlias> it = new Iterator<EntityAlias>() {
-			int i = 0, size = l_alias.size();
-			@Override
-			public EntityAlias next() {
-				return l_alias.get(i++);
-			}
-			
-			@Override
-			public boolean hasNext() {
-				return i < size;
-			}
-		};
-		return it;
+		return l_alias.iterator();
 	}
 	
 	@Override
 	public String toString(){
 		
-		DEPNode node = getNode();
-		List<DEPNode> subTree = node.getSubNodeList();
-		stripSubTree(subTree, node);
+		List<DEPNode> subTree = new ArrayList<>(getNodes());
+		RelationExtractionTreeUtil.stripSubTree(subTree);
 		
 		String word = Joiner.join(subTree.stream().map(n -> n.getWordForm()).collect(Collectors.toList()), StringConst.SPACE);
 		StringBuilder sb = new StringBuilder(word);
 		
 		sb.append(StringConst.LRB);
-		sb.append(s_NERTag);
+		sb.append(s_Tag);
 		sb.append(StringConst.RRB);
 		sb.append(StringConst.TAB);
 		sb.append(getCount());

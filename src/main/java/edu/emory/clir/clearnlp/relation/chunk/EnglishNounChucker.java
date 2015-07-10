@@ -15,12 +15,10 @@
  */
 package edu.emory.clir.clearnlp.relation.chunk;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
-import edu.emory.clir.clearnlp.dependency.DEPLibEn;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
-import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.pos.POSLibEn;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
@@ -36,12 +34,24 @@ public class EnglishNounChucker extends AbstractChucker{
 	}
 
 	@Override
-	public List<List<DEPNode>> getChunk(DEPTree tree) {
-		List<List<DEPNode>> list = new ArrayList<>();
-		
-		for(DEPNode node : tree)
-			if(node.getPOSTag().startsWith(POSLibEn.POS_NN) && !node.isLabel(DEPLibEn.DEP_COMPOUND))
-				list.add(node.getSubNodeList());
-		return list;
-	}	
+	protected Function<DEPNode, String> getLabelFunction() {
+		return new Function<DEPNode, String>(){
+
+			@Override
+			public String apply(DEPNode t) {
+				return t.getPOSTag();
+			}
+		};
+	}
+
+	@Override
+	protected Predicate<DEPNode> getChunkingNodePredicate() {
+		return new Predicate<DEPNode>(){
+
+			@Override
+			public boolean test(DEPNode t) {
+				return t.getPOSTag().startsWith(POSLibEn.POS_NN);
+			}
+		};
+	}
 }

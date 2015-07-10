@@ -13,15 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.relation.feature;
+package edu.emory.clir.clearnlp.relation.utils;
+
+import java.util.Collection;
+
+import edu.emory.clir.clearnlp.dependency.DEPLibEn;
+import edu.emory.clir.clearnlp.dependency.DEPNode;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	Jul 6, 2015
+ * @since 	Jul 8, 2015
  */
-public interface MainEntityFeatureIndex {
-	int FREQUENCY_COUNT = 0,
-		ENTITY_CONFIDENCE = 1,
-		FIRST_APPEARENCE_SENTENCE_ID = 2;	
+public class RelationExtracitonDSUtil {
+	public static DEPNode getSubTreeHeadNode(Collection<DEPNode> nodes){
+		for(DEPNode node : nodes)
+			if(!node.isLabel(DEPLibEn.DEP_COMPOUND))
+				return node;
+		return null;
+	}
 }

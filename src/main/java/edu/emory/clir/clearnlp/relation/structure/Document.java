@@ -22,11 +22,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import edu.emory.clir.clearnlp.dependency.DEPLibEn;
-import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
-import edu.emory.clir.clearnlp.ner.BILOU;
-import edu.emory.clir.clearnlp.ner.NERLib;
+import edu.emory.clir.clearnlp.relation.chunk.AbstractChucker;
 import edu.emory.clir.clearnlp.util.DSUtils;
 
 /**
@@ -35,17 +32,12 @@ import edu.emory.clir.clearnlp.util.DSUtils;
  * @since 	Jul 2, 2015
  */
 public class Document implements Serializable, Iterable<Entity>{
-	public static final String DEPModSuffix = "mod";
-	public static final String ignoredBILOUTag = BILOU.O.toString();
-	public static final Set<String> ignoredWordForm = DSUtils.toHashSet("—", "’s");
-	public static final Set<String> ignoredDEPLabels = DSUtils.toHashSet(DEPLibEn.DEP_APPOS, DEPLibEn.DEP_PUNCT, DEPLibEn.DEP_AUX, 
-																		 DEPLibEn.DEP_RELCL, DEPLibEn.DEP_PREP, DEPLibEn.DEP_POSS,
-																		 DEPLibEn.DEP_COMPOUND, DEPLibEn.DEP_DET, DEPLibEn.DEP_CASE);
 	public static final Set<String> extactingNETags = DSUtils.toHashSet("ORG", "PERSON");
 	
 	private static final long serialVersionUID = 8332364748967299712L;
 	
 	private String s_title;
+	private DEPTree t_title;
 	private double w_confidence;
 	private List<DEPTree> l_trees;
 	private List<Entity> l_entities;
@@ -56,13 +48,29 @@ public class Document implements Serializable, Iterable<Entity>{
 		l_trees = new ArrayList<>();
 	}
 	
+	public Document(String title, DEPTree titleTree){
+		s_title = title;
+		t_title = titleTree;
+		l_trees = new ArrayList<>();
+	}
+	
 	public Document(String title, List<DEPTree> trees){
 		s_title = title;
 		l_trees = trees;
 	}
 	
+	public Document(String title, DEPTree titleTree, List<DEPTree> trees){
+		s_title = title;
+		t_title = titleTree;
+		l_trees = trees;
+	}
+	
 	public String getTitle(){
 		return s_title;
+	}
+	
+	public DEPTree getTitleTree(){
+		return t_title;
 	}
 	
 	public double getConfidence(){
@@ -78,24 +86,23 @@ public class Document implements Serializable, Iterable<Entity>{
 	}
 	
 	public List<Entity> getEntities(){
-		return (l_entities == null)? extractEntities() : l_entities;
+		return l_entities;
+	}
+	
+	public List<Entity> getEntities(AbstractChucker chunker){
+		return extractEntities(chunker);
 	}
 	
 	public Entity getMostFrequentEntity(){
 		return Collections.max(l_entities);
 	}
-	
-	public List<Entity> getEntityRanks(){
-		Collections.sort(getEntities(), Collections.reverseOrder());
-		return l_entities;
-	}
-	
-	public List<Entity> getEntityRanks(int k){
-		return (k > l_entities.size())? getEntityRanks() : getEntityRanks().subList(0, k);
-	}
-	
+
 	public List<Entity> getMainEntiies(){
 		return l_mainEntities;
+	}
+	
+	public void setTitleTree(DEPTree tree){
+		t_title = tree;
 	}
 	
 	public void addTree(DEPTree tree){
@@ -114,39 +121,26 @@ public class Document implements Serializable, Iterable<Entity>{
 		l_mainEntities = entities;
 	}
 	
-	@SuppressWarnings("unused")
-	private boolean isNamedEntity(DEPNode node){
-		String NERTag = node.getNamedEntityTag(), DEPLabel = node.getLabel(), wordForm = node.getWordForm();
-		return !NERTag.equals(ignoredBILOUTag) && !DEPLabel.endsWith(DEPModSuffix) && !ignoredDEPLabels.contains(DEPLabel) && !ignoredWordForm.contains(wordForm); 
-	}
-	
-	private boolean isNamedEntity(DEPNode node, Set<String> NETags){
-		String NERTag = node.getNamedEntityTag(), DEPLabel = node.getLabel(), wordForm = node.getWordForm();
-		return !NERTag.equals(ignoredBILOUTag) && !DEPLabel.endsWith(DEPModSuffix) && !ignoredDEPLabels.contains(DEPLabel) && !ignoredWordForm.contains(wordForm) && NETags.contains(NERLib.toNamedEntity(NERTag)); 
-	}
-	
-	private List<Entity> extractEntities(){
-		DEPTree tree;
+	private List<Entity> extractEntities(AbstractChucker chunker){
+		List<Chunk> chunks;
 		int i, size = l_trees.size();
 		List<Entity> list = new ArrayList<>();
 		
 		boolean hasAlias;
 		for(i = 0; i < size; i++){
-			tree = l_trees.get(i);
-			for(DEPNode node : tree){							// iterate through all the nodes
-				if(isNamedEntity(node, extactingNETags)){		// check if the node has the desired NE tag
-					// check the node is an alias of another entity
-					hasAlias = false;
-					for(Entity entity : list){					
-						
-						if(entity.addAlias(i, node)){
-							hasAlias = true; break;
-						}
+			chunks = chunker.getChunk(l_trees.get(i));
+			
+			for(Chunk chunk : chunks){
+				hasAlias = false;
+				for(Entity entity : list){
+					if(entity.addAlias(i, chunk)){
+						hasAlias = true; break;
 					}
-					if(!hasAlias)	list.add(new Entity(i, node)); 					
 				}
+				if(!hasAlias)	list.add(new Entity(i, chunk.getHeadNode(), chunk.getChunkNodes(), chunk.getTag()));
 			}
 		}
+		Collections.sort(list, Collections.reverseOrder());
 		
 		l_entities = list;
 		return l_entities;
@@ -154,18 +148,6 @@ public class Document implements Serializable, Iterable<Entity>{
 
 	@Override
 	public Iterator<Entity> iterator() {
-		Iterator<Entity> it = new Iterator<Entity>() {
-			int i = 0, size = (l_entities == null)? 0 : l_entities.size();
-			@Override
-			public Entity next() {
-				return l_entities.get(i++);
-			}
-			
-			@Override
-			public boolean hasNext() {
-				return i < size;
-			}
-		};
-		return it;
+		return l_entities.iterator();
 	}
 }

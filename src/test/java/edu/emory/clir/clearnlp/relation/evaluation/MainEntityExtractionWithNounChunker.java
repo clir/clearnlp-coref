@@ -13,31 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.relation.extract;
+package edu.emory.clir.clearnlp.relation.evaluation;
 
 import java.util.List;
-import java.util.Set;
 
 import org.junit.Test;
 
 import edu.emory.clir.clearnlp.collection.map.IntDoubleHashMap;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 import edu.emory.clir.clearnlp.relation.chunk.AbstractChucker;
-import edu.emory.clir.clearnlp.relation.chunk.EnglishNamedEntityChunker;
+import edu.emory.clir.clearnlp.relation.chunk.EnglishNounChucker;
+import edu.emory.clir.clearnlp.relation.extract.DocumentMainEntityExtractor;
 import edu.emory.clir.clearnlp.relation.feature.MainEntityFeatureIndex;
 import edu.emory.clir.clearnlp.relation.structure.Corpus;
 import edu.emory.clir.clearnlp.relation.structure.Document;
+import edu.emory.clir.clearnlp.relation.structure.Entity;
 import edu.emory.clir.clearnlp.relation.utils.RelationExtractionTestUtil;
-import edu.emory.clir.clearnlp.util.DSUtils;
+import edu.emory.clir.clearnlp.relation.utils.evaluation.AbstractRelationExtrationEvaluator;
+import edu.emory.clir.clearnlp.relation.utils.evaluation.MainEntityEvaluator;
 import edu.emory.clir.clearnlp.util.FileUtils;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	Jul 6, 2015
+ * @since 	Jul 9, 2015
  */
-public class DocumentMainEntityExtractorTest {
-	private final Set<String> extactingNETags = DSUtils.toHashSet("ORG", "PERSON");
+public class MainEntityExtractionWithNounChunker {
 	private static final String DIR_IN = "/Users/HenryChen/Desktop/NYTimes_Parsed";
 	
 	private static double CUTOFF = 0.45d, GAP = 0.10d;
@@ -56,13 +57,20 @@ public class DocumentMainEntityExtractorTest {
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
 		List<String> l_filePaths = FileUtils.getFileList(DIR_IN, ".cnlp", true);
 		
-		AbstractChucker chunker = new EnglishNamedEntityChunker(extactingNETags);
+		AbstractChucker chunker = new EnglishNounChucker();
 		Corpus corpus = RelationExtractionTestUtil.loadCorpus(reader, l_filePaths, "NYTimes", true);
 		DocumentMainEntityExtractor extractor = new DocumentMainEntityExtractor(chunker, CUTOFF, GAP, getWeights());
-
+		AbstractRelationExtrationEvaluator evaluator = new MainEntityEvaluator(chunker);
+		
+		List<Entity> keys;
 		for(Document document : corpus){
 			document.setMainEnities(extractor.getMainEntities(document));
-			System.out.println(document.getMainEntiies());
+			keys = evaluator.generateKeysFromTitle(document);
+			
+			if(!document.getMainEntiies().isEmpty() && !keys.isEmpty()){
+				System.out.println(evaluator.getEvaluationTriple(keys, document.getMainEntiies()));
+			}
 		}	
+		System.out.println(evaluator.getEvaluationSummary());
 	}
 }

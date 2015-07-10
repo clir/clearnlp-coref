@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.relation.extract;
+package edu.emory.clir.clearnlp.relation.evaluation;
 
 import java.util.List;
 import java.util.Set;
@@ -24,19 +24,23 @@ import edu.emory.clir.clearnlp.collection.map.IntDoubleHashMap;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 import edu.emory.clir.clearnlp.relation.chunk.AbstractChucker;
 import edu.emory.clir.clearnlp.relation.chunk.EnglishNamedEntityChunker;
+import edu.emory.clir.clearnlp.relation.extract.DocumentMainEntityExtractor;
 import edu.emory.clir.clearnlp.relation.feature.MainEntityFeatureIndex;
 import edu.emory.clir.clearnlp.relation.structure.Corpus;
 import edu.emory.clir.clearnlp.relation.structure.Document;
+import edu.emory.clir.clearnlp.relation.structure.Entity;
 import edu.emory.clir.clearnlp.relation.utils.RelationExtractionTestUtil;
+import edu.emory.clir.clearnlp.relation.utils.evaluation.AbstractRelationExtrationEvaluator;
+import edu.emory.clir.clearnlp.relation.utils.evaluation.MainEntityEvaluator;
 import edu.emory.clir.clearnlp.util.DSUtils;
 import edu.emory.clir.clearnlp.util.FileUtils;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	Jul 6, 2015
+ * @since 	Jul 8, 2015
  */
-public class DocumentMainEntityExtractorTest {
+public class MainEnityExtractionWithNERChunker {
 	private final Set<String> extactingNETags = DSUtils.toHashSet("ORG", "PERSON");
 	private static final String DIR_IN = "/Users/HenryChen/Desktop/NYTimes_Parsed";
 	
@@ -59,10 +63,17 @@ public class DocumentMainEntityExtractorTest {
 		AbstractChucker chunker = new EnglishNamedEntityChunker(extactingNETags);
 		Corpus corpus = RelationExtractionTestUtil.loadCorpus(reader, l_filePaths, "NYTimes", true);
 		DocumentMainEntityExtractor extractor = new DocumentMainEntityExtractor(chunker, CUTOFF, GAP, getWeights());
-
+		AbstractRelationExtrationEvaluator evaluator = new MainEntityEvaluator(chunker);
+		
+		List<Entity> keys;
 		for(Document document : corpus){
 			document.setMainEnities(extractor.getMainEntities(document));
-			System.out.println(document.getMainEntiies());
+			keys = evaluator.generateKeysFromTitle(document);
+			
+			if(!document.getMainEntiies().isEmpty() && !keys.isEmpty()){
+				System.out.println(evaluator.getEvaluationTriple(keys, document.getMainEntiies()));
+			}
 		}	
+		System.out.println(evaluator.getEvaluationSummary());
 	}
 }

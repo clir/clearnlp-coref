@@ -16,9 +16,15 @@
 package edu.emory.clir.clearnlp.relation.structure;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import edu.emory.clir.clearnlp.collection.map.IntIntHashMap;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
+import edu.emory.clir.clearnlp.relation.utils.RelationExtractionTreeUtil;
+import edu.emory.clir.clearnlp.util.Joiner;
+import edu.emory.clir.clearnlp.util.StringUtils;
+import edu.emory.clir.clearnlp.util.constant.StringConst;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -29,17 +35,20 @@ public class EntityAlias implements Serializable{
 	private static final long serialVersionUID = -7908795263358761403L;
 	
 	private int i_sentenceId;
-	private DEPNode n_node;
+	private DEPNode n_head;
+	private List<DEPNode> n_nodes;
 	private double d_weight;
 	
-	public EntityAlias(int sentenceId, DEPNode node){
+	public EntityAlias(int sentenceId, DEPNode head, List<DEPNode> nodes){
 		i_sentenceId = sentenceId;
-		n_node = node;
+		n_head = head;
+		n_nodes = nodes;
 	}
 	
-	public EntityAlias(int sentenceId, DEPNode node, double weight){
+	public EntityAlias(int sentenceId, DEPNode head, List<DEPNode> nodes, double weight){
 		i_sentenceId = sentenceId;
-		n_node = node;
+		n_head = head;
+		n_nodes = nodes;
 		setWeight(weight);
 	}
 	
@@ -47,8 +56,27 @@ public class EntityAlias implements Serializable{
 		return i_sentenceId;
 	}
 	
-	public DEPNode getNode(){
-		return n_node;
+	public DEPNode getHeadNode(){
+		return n_head;
+	}
+	
+	public List<DEPNode> getNodes(){
+		return n_nodes;
+	}
+	
+	public String getWordForm(boolean decapitalize){
+		if(decapitalize)
+			return Joiner.join(n_nodes.stream().map(DEPNode::getLowerSimplifiedWordForm).collect(Collectors.toList()), StringConst.SPACE).trim();
+		return Joiner.join(n_nodes.stream().map(DEPNode::getWordForm).collect(Collectors.toList()), StringConst.SPACE).trim();
+	}
+	
+	public String getStippedWordForm(boolean decapitalize){
+		String wordForm;
+		List<DEPNode> nodes = RelationExtractionTreeUtil.stripSubTree(new ArrayList<>(n_nodes));
+
+		if(decapitalize) wordForm = Joiner.join( nodes.stream().map(DEPNode::getLowerSimplifiedWordForm).collect(Collectors.toList()), StringConst.SPACE).trim();
+		else			 wordForm = Joiner.join( nodes.stream().map(DEPNode::getWordForm).collect(Collectors.toList()), StringConst.SPACE).trim();
+		return StringUtils.collapsePunctuation(wordForm);
 	}
 	
 	public double getWeight(){
@@ -57,5 +85,10 @@ public class EntityAlias implements Serializable{
 	
 	public void setWeight(double weight){
 		d_weight= weight;
+	}
+	
+	@Override
+	public String toString(){
+		return i_sentenceId + StringConst.TAB + getWordForm(false) + StringConst.TAB + getWeight(); 
 	}
 }
