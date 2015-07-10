@@ -30,13 +30,13 @@ import edu.emory.clir.clearnlp.relation.structure.Entity;
  * @version	1.0
  * @since 	Jul 5, 2015
  */
-public class DocumentMainEntityExtractor implements MainEntityFeatureIndex{
+public class MainEntityExtractor implements MainEntityFeatureIndex{
 	private AbstractChucker d_chunker;
 	private double d_cutoffThreshold;
 	private double d_gapThreshold;
 	private IntDoubleHashMap m_weights;
 	
-	public DocumentMainEntityExtractor(AbstractChucker chunker, double cutoffThreshold, double gapThreshold, IntDoubleHashMap weights){
+	public MainEntityExtractor(AbstractChucker chunker, double cutoffThreshold, double gapThreshold, IntDoubleHashMap weights){
 		d_chunker = chunker;
 		d_cutoffThreshold = cutoffThreshold;
 		d_gapThreshold = gapThreshold;
@@ -45,6 +45,7 @@ public class DocumentMainEntityExtractor implements MainEntityFeatureIndex{
 	
 	public List<Entity> getMainEntities(Document document){
 		List<Entity> entities = new ArrayList<>(document.getEntities(d_chunker));
+		
 		int totalSentenceCount = document.getTreeCount(),
 			totalAliasCount = entities.stream().mapToInt(Entity::getCount).sum();
 		
@@ -74,10 +75,14 @@ public class DocumentMainEntityExtractor implements MainEntityFeatureIndex{
 	private double computeScore(Entity entity, int aliasCount, int SentenceCount){
 		double score = 0d;
 		
-		score += m_weights.get(FREQUENCY_COUNT) * ((double)entity.getCount() / aliasCount);
-		score += m_weights.get(ENTITY_CONFIDENCE) * entity.getAliasConfidence();
-		score += m_weights.get(FIRST_APPEARENCE_SENTENCE_ID) *  (1 - (double)entity.getFirstAlias().getSentenceId() / SentenceCount);
+		score += m_weights.get(FREQUENCY_COUNT) * logRescale(((double)entity.getCount() / aliasCount));
+		score += m_weights.get(ENTITY_CONFIDENCE) * logRescale(entity.getAliasConfidence());
+		score += m_weights.get(FIRST_APPEARENCE_SENTENCE_ID) * logRescale(( (1 - (double)entity.getFirstAlias().getSentenceId() / SentenceCount)));
 		
 		return score;
+	}
+	
+	private double logRescale(double score){
+		return Math.log(score + 1);
 	}
 }

@@ -24,7 +24,7 @@ import edu.emory.clir.clearnlp.collection.map.IntDoubleHashMap;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 import edu.emory.clir.clearnlp.relation.chunk.AbstractChucker;
 import edu.emory.clir.clearnlp.relation.chunk.EnglishNamedEntityChunker;
-import edu.emory.clir.clearnlp.relation.extract.DocumentMainEntityExtractor;
+import edu.emory.clir.clearnlp.relation.extract.MainEntityExtractor;
 import edu.emory.clir.clearnlp.relation.feature.MainEntityFeatureIndex;
 import edu.emory.clir.clearnlp.relation.structure.Corpus;
 import edu.emory.clir.clearnlp.relation.structure.Document;
@@ -62,7 +62,7 @@ public class MainEnityExtractionWithNERChunker {
 		
 		AbstractChucker chunker = new EnglishNamedEntityChunker(extactingNETags);
 		Corpus corpus = RelationExtractionTestUtil.loadCorpus(reader, l_filePaths, "NYTimes", true);
-		DocumentMainEntityExtractor extractor = new DocumentMainEntityExtractor(chunker, CUTOFF, GAP, getWeights());
+		MainEntityExtractor extractor = new MainEntityExtractor(chunker, CUTOFF, GAP, getWeights());
 		AbstractRelationExtrationEvaluator evaluator = new MainEntityEvaluator(chunker);
 		
 		List<Entity> keys;
@@ -70,8 +70,8 @@ public class MainEnityExtractionWithNERChunker {
 			document.setMainEnities(extractor.getMainEntities(document));
 			keys = evaluator.generateKeysFromTitle(document);
 			
-			if(!document.getMainEntiies().isEmpty() && !keys.isEmpty()){
-				System.out.println(evaluator.getEvaluationTriple(keys, document.getMainEntiies()));
+			if(!document.getMainEntities().isEmpty() && !keys.isEmpty()){
+				System.out.println(evaluator.getEvaluationTriple(keys, document.getMainEntities()));
 			}
 		}	
 		System.out.println(evaluator.getEvaluationSummary());

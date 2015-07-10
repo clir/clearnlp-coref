@@ -50,11 +50,11 @@ public abstract class AbstractEvaluator<T> {
 		
 	}
 	
-	// Evaluation helper functions
 	public double evaluateGMeasure(T key, T prediction){
 		return evaluateGMeasure(evaluatePrecision(key, prediction), evaluateRecall(key, prediction));
 	}
 	
+	// Evaluation helper functions
 	protected double evaluateF1Score(double precision, double recall){
 		return 2 * (precision * recall) / (precision + recall);
 	}

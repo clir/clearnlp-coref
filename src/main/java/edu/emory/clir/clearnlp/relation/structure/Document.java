@@ -97,7 +97,7 @@ public class Document implements Serializable, Iterable<Entity>{
 		return Collections.max(l_entities);
 	}
 
-	public List<Entity> getMainEntiies(){
+	public List<Entity> getMainEntities(){
 		return l_mainEntities;
 	}
 	

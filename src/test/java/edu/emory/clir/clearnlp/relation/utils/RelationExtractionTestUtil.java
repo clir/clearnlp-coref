@@ -68,7 +68,7 @@ public class RelationExtractionTestUtil {
 			}
 		}
 		
-		System.out.println("Courpus done initializing");
+		System.out.println("Courpus Done Initializing.");
 		return corpus;
 	}
 }
