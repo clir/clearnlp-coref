@@ -31,7 +31,10 @@ import edu.emory.clir.clearnlp.util.IOUtils;
  * @since 	Jul 6, 2015
  */
 public class RelationExtractionTestUtil {
-	public static Corpus loadCorpus(AbstractReader<DEPTree> reader, List<String> l_filePaths, String corpusName){
+	public static final String TITLE_EXT = ".title";
+	
+	public static Corpus loadCorpus(AbstractReader<DEPTree> reader, List<String> l_filePaths, String corpusName, boolean withTitleTree){
+		System.out.println("Loading Documents...");
 		DEPTree tree; List<DEPTree> trees;
 		
 		boolean existed; String fileName;
@@ -51,11 +54,21 @@ public class RelationExtractionTestUtil {
 					trees = new ArrayList<>();
 					while( ( tree = reader.next()) != null) trees.add(tree);
 					
-					corpus.addDocument(fileName, trees);
+					if(withTitleTree){
+						try {
+							reader.open(IOUtils.createFileInputStream(filePath + TITLE_EXT));
+							tree = reader.next();
+							reader.close();
+							corpus.addDocument(fileName, tree, trees);
+						} catch (Exception e) { e.printStackTrace(); }
+					}
+					else
+						corpus.addDocument(fileName, trees);
 				} catch (Exception e) { e.printStackTrace(); }
 			}
 		}
 		
+		System.out.println("Courpus done initializing");
 		return corpus;
 	}
 }

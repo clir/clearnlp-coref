@@ -15,13 +15,18 @@
  */
 package edu.emory.clir.clearnlp.relation.chunk;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
-import edu.emory.clir.clearnlp.dependency.DEPLibEn;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.pos.POSLibEn;
+import edu.emory.clir.clearnlp.relation.structure.Chunk;
+import edu.emory.clir.clearnlp.util.DSUtils;
 import edu.emory.clir.clearnlp.util.lang.TLanguage;
 
 /**
@@ -31,19 +36,63 @@ import edu.emory.clir.clearnlp.util.lang.TLanguage;
  */
 public class EnglishProperNounChunker extends AbstractChucker {
 
+	private EnglishNamedEntityChunker NE_chunker;
+	
 	public EnglishProperNounChunker(){
 		super(TLanguage.ENGLISH);
+		NE_chunker = new EnglishNamedEntityChunker();
+	}
+	
+	public EnglishProperNounChunker(Set<String> extactingNETags){
+		super(TLanguage.ENGLISH);
+		NE_chunker = new EnglishNamedEntityChunker(extactingNETags);
+	}
+	
+	@Override
+	public List<Chunk> getChunk(DEPTree tree){
+		List<DEPNode> candidates = DSUtils.toArrayList(tree.toNodeArray()).stream()
+									.filter(p_chunkNode)					
+									.filter(n -> !ignorePOSTags.contains(n.getPOSTag()))
+									.collect(Collectors.toList());
+		
+		// Remove NE chunks
+		List<Chunk> chunks = NE_chunker.getChunk(tree);
+		for(Chunk chunk : chunks)	candidates.removeAll(chunk.getChunkNodes());
+		
+		Chunk chunk;
+		DEPNode candidate; List<DEPNode> subNodes;
+		while(!candidates.isEmpty()){
+			candidate = getSubTreeRoot(candidates.get(0));
+			subNodes = getSubTreeChunk(candidate, candidate.getSubNodeList());
+			
+			chunk = new Chunk(f_chunkLable.apply(candidate), candidate, subNodes);
+			if(!chunk.getStrippedChunkNodes().isEmpty())	chunks.add(chunk);
+			candidates.removeAll(subNodes);
+		}
+		
+		Collections.sort(chunks);
+		return chunks;
+	}
+	
+	@Override
+	protected Function<DEPNode, String> getLabelFunction() {
+		return new Function<DEPNode, String>(){
+			
+			@Override
+			public String apply(DEPNode t) {
+				return t.getPOSTag();
+			}
+		};
 	}
 
 	@Override
-	public List<List<DEPNode>> getChunk(DEPTree tree) {
-		List<List<DEPNode>> list = new ArrayList<>();
-		
-		for(DEPNode node : tree)
-			if(node.getPOSTag().startsWith(POSLibEn.POS_NNP) && !node.isLabel(DEPLibEn.DEP_COMPOUND))
-				list.add(node.getSubNodeList());
-		return list;
+	protected Predicate<DEPNode> getChunkingNodePredicate() {
+		return new Predicate<DEPNode>(){
+
+			@Override
+			public boolean test(DEPNode t) {
+				return t.getPOSTag().startsWith(POSLibEn.POS_NNP);
+			}
+		};
 	}
-	
-	
 }

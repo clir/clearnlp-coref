@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.collection.map.IntDoubleHashMap;
+import edu.emory.clir.clearnlp.relation.chunk.AbstractChucker;
 import edu.emory.clir.clearnlp.relation.feature.MainEntityFeatureIndex;
 import edu.emory.clir.clearnlp.relation.structure.Document;
 import edu.emory.clir.clearnlp.relation.structure.Entity;
@@ -30,18 +31,20 @@ import edu.emory.clir.clearnlp.relation.structure.Entity;
  * @since 	Jul 5, 2015
  */
 public class DocumentMainEntityExtractor implements MainEntityFeatureIndex{
+	private AbstractChucker d_chunker;
 	private double d_cutoffThreshold;
 	private double d_gapThreshold;
 	private IntDoubleHashMap m_weights;
 	
-	public DocumentMainEntityExtractor(double cutoffThreshold, double gapThreshold, IntDoubleHashMap weights){
+	public DocumentMainEntityExtractor(AbstractChucker chunker, double cutoffThreshold, double gapThreshold, IntDoubleHashMap weights){
+		d_chunker = chunker;
 		d_cutoffThreshold = cutoffThreshold;
 		d_gapThreshold = gapThreshold;
 		m_weights = weights;
 	}
 	
 	public List<Entity> getMainEntities(Document document){
-		List<Entity> entities = new ArrayList<>(document.getEntities());
+		List<Entity> entities = new ArrayList<>(document.getEntities(d_chunker));
 		int totalSentenceCount = document.getTreeCount(),
 			totalAliasCount = entities.stream().mapToInt(Entity::getCount).sum();
 		
@@ -72,8 +75,8 @@ public class DocumentMainEntityExtractor implements MainEntityFeatureIndex{
 		double score = 0d;
 		
 		score += m_weights.get(FREQUENCY_COUNT) * ((double)entity.getCount() / aliasCount);
-		score += m_weights.get(EntityConfidence) * entity.getAliasConfidence();
-		score += m_weights.get(FirstApearSentenceId) *  (1 - (double)entity.getFirstAlias().getSentenceId() / SentenceCount);
+		score += m_weights.get(ENTITY_CONFIDENCE) * entity.getAliasConfidence();
+		score += m_weights.get(FIRST_APPEARENCE_SENTENCE_ID) *  (1 - (double)entity.getFirstAlias().getSentenceId() / SentenceCount);
 		
 		return score;
 	}

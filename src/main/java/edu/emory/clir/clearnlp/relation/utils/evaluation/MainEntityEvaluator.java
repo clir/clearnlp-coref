@@ -15,40 +15,73 @@
  */
 package edu.emory.clir.clearnlp.relation.utils.evaluation;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-import edu.emory.clir.clearnlp.coreference.utils.evaluator.AbstractEvaluator;
+import edu.emory.clir.clearnlp.relation.chunk.AbstractChucker;
 import edu.emory.clir.clearnlp.relation.structure.Entity;
+import edu.emory.clir.clearnlp.relation.structure.EntityAlias;
+import edu.emory.clir.clearnlp.util.DSUtils;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
  * @since 	Jul 7, 2015
  */
-public class MainEntityEvaluator extends AbstractEvaluator<List<Entity>>{
+public class MainEntityEvaluator extends AbstractRelationExtrationEvaluator{
 
-	@Override
-	public double evaluatePrecision(List<Entity> key, List<Entity> prediction) {
-		int correct = 0;
-		
-		for(Entity e_key : key)
-			if(matchAnyPredictions(e_key, prediction))	correct++;
-		return (double)correct / prediction.size();
+	public MainEntityEvaluator() {
+		super(null);
+	}
+	
+	public MainEntityEvaluator(AbstractChucker chunker) {
+		super(chunker);
 	}
 
 	@Override
-	public double evaluateRecall(List<Entity> key, List<Entity> prediction) {
-		double recall =  (double)key.size() / prediction.size();
+	public double evaluatePrecision(List<Entity> keys, List<Entity> predictions) {
+		int correct = 0;
+		
+		String word;
+		Set<String> prediction_wordFroms = new HashSet<>();
+		for(Entity prediction : predictions)
+			for(EntityAlias alias : prediction.getAliasList()){
+				word = alias.getStippedWordForm(true);
+				if(!word.isEmpty()) prediction_wordFroms.add(word);
+			}
+		
+		for(Entity e_key : keys)
+			if(matchAnyPredictions(e_key, prediction_wordFroms))	correct++;
+		
+		double precision = (double)correct / predictions.size();
+		PrecisionCount++; PrecisionSumSore += precision;
+		return precision;
+	}
+
+	@Override
+	public double evaluateRecall(List<Entity> keys, List<Entity> predictions) {
+		int correct = 0;
+		
+		String word;
+		Set<String> prediction_wordFroms = new HashSet<>();
+		for(Entity prediction : predictions)
+			for(EntityAlias alias : prediction.getAliasList()){
+				word = alias.getStippedWordForm(true);
+				if(!word.isEmpty()) prediction_wordFroms.add(word);
+			}
+		
+		for(Entity e_key : keys)
+			if(matchAnyPredictions(e_key, prediction_wordFroms))	correct++;
+		
+		double recall =  (double)correct / keys.size();
 		RecallCount++; RecallSumScore += recall;
 		return recall;
 	}
 	
-	private boolean matchAnyPredictions(Entity key, List<Entity> predictions){
-		String key_wordForm = key.getFirstAlias().getNode().getWordForm();
-		
-		for(Entity prediction : predictions)
-			if(prediction.getFirstAlias().getNode().getWordForm().equals(key_wordForm))
-				return true;
-		return false;
+	private boolean matchAnyPredictions(Entity key, Set<String> wordFroms){
+		Set<String> key_wordForms = key.getAliasList().stream().map(a -> a.getStippedWordForm(true)).collect(Collectors.toSet());
+		return DSUtils.hasIntersection(key_wordForms, wordFroms);
 	}
 }
