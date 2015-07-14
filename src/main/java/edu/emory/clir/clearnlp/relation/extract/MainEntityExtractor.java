@@ -30,20 +30,20 @@ import edu.emory.clir.clearnlp.relation.structure.Entity;
  * @version	1.0
  * @since 	Jul 5, 2015
  */
-public class MainEntityExtractor implements MainEntityFeatureIndex{
-	private AbstractChucker d_chunker;
+public class MainEntityExtractor extends AbstractMainEntityExtractor implements MainEntityFeatureIndex{
 	private double d_cutoffThreshold;
 	private double d_gapThreshold;
 	private IntDoubleHashMap m_weights;
 	
 	public MainEntityExtractor(AbstractChucker chunker, double cutoffThreshold, double gapThreshold, IntDoubleHashMap weights){
-		d_chunker = chunker;
+		super(chunker);
 		d_cutoffThreshold = cutoffThreshold;
 		d_gapThreshold = gapThreshold;
 		m_weights = weights;
 	}
 	
-	public List<Entity> getMainEntities(Document document){
+	@Override
+	protected List<Entity> getMainEntities(Document document){
 		List<Entity> entities = new ArrayList<>(document.getEntities(d_chunker));
 		
 		int totalSentenceCount = document.getTreeCount(),
@@ -68,8 +68,13 @@ public class MainEntityExtractor implements MainEntityFeatureIndex{
 				break;
 			}
 		}
-
 		return entities;
+	}
+	
+	@Override
+	public List<Entity> getNonMainEntities(Document document) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	private double computeScore(Entity entity, int aliasCount, int SentenceCount){
