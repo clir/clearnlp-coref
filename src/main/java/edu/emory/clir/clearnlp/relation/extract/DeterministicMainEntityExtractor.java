@@ -83,11 +83,8 @@ public class DeterministicMainEntityExtractor extends AbstractMainEntityExtracto
 		
 		// Generate confidence array
 		int i, mainEntityCount = l_mainEntities.size(), entityCount = l_entities.size();
-		
-		double[] entityConfidences = new double[entityCount];
+		double[] mainEntityConfidences = new double[mainEntityCount], entityConfidences = new double[entityCount];
 		for(i = 0; i < entityCount; i++) entityConfidences[i] = l_entities.get(i).getEntityConfidence();
-		
-		double[] mainEntityConfidences = new double[mainEntityCount];
 		for(i = 0; i < mainEntityCount; i++) mainEntityConfidences[i] = l_mainEntities.get(i).getEntityConfidence();
 		
 		// Initialize variables

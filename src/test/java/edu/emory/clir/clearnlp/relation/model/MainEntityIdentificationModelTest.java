@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.relation.statistics;
+package edu.emory.clir.clearnlp.relation.model;
 
-import java.io.PrintWriter;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.Test;
 
+import edu.emory.clir.clearnlp.component.utils.CFlag;
 import edu.emory.clir.clearnlp.reader.TSVReader;
+import edu.emory.clir.clearnlp.relation.component.entity.MainEntityIdentificationComponent;
 import edu.emory.clir.clearnlp.relation.extract.AbstractMainEntityExtractor;
 import edu.emory.clir.clearnlp.relation.extract.DeterministicMainEntityExtractor;
 import edu.emory.clir.clearnlp.relation.structure.Corpus;
@@ -30,40 +29,59 @@ import edu.emory.clir.clearnlp.relation.structure.Document;
 import edu.emory.clir.clearnlp.relation.structure.Entity;
 import edu.emory.clir.clearnlp.relation.utils.RelationExtractionTestUtil;
 import edu.emory.clir.clearnlp.util.FileUtils;
-import edu.emory.clir.clearnlp.util.IOUtils;
-import edu.emory.clir.clearnlp.util.Joiner;
-import edu.emory.clir.clearnlp.util.constant.StringConst;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	Jul 16, 2015
+ * @since 	Jul 17, 2015
  */
-public class EntityConfidenceStatistics {
+public class MainEntityIdentificationModelTest {
+	public static final int iter = 10;
+	public static final int labelCutoff = 0;
+	public static final int featureCutoff = 0;
+	public static final boolean average = true;
+	public static final double alpha = 0.1;
+	public static final double rho = 0.1;
+	public static final double bias = 0;
+	
 	private static final String DIR_IN = "/Users/HenryChen/Desktop/NYTimes_Parsed";
-	private static final String OUT = "/Users/HenryChen/Desktop/data.out";
 	
 	@Test
-	public void getStatistics(){
+	public void modelExperiment(){
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
 		List<String> l_filePaths = FileUtils.getFileList(DIR_IN, ".cnlp", true);
 		
 		Corpus corpus = RelationExtractionTestUtil.loadCorpus(reader, l_filePaths, "NYTimes", false);
 		AbstractMainEntityExtractor extractor = new DeterministicMainEntityExtractor();
-
-		List<Entity> l_entities;
-		PrintWriter writer = new PrintWriter(IOUtils.createBufferedPrintStream(OUT));
+		
+		
+		// Bootstrapping seed documents for training.
+		List<Entity> l_mainEntities;
+		Corpus trnCorpus = new Corpus("NYTimes_Train"), devCorpus = new Corpus("NYTimes_Development");
 		for(Document document : corpus){
-			extractor.getMainEntities(document, true);
-			l_entities = document.getEntities();
+			l_mainEntities = extractor.getMainEntities(document, false);
 			
-			Collections.sort(l_entities, Collections.reverseOrder());
-			if(!document.getMainEntities().isEmpty()){
-				writer.println(
-						Joiner.join(l_entities.stream().map(Entity::getEntityConfidence).collect(Collectors.toList()), StringConst.TAB)
-				);
+			if(!l_mainEntities.isEmpty()){
+				document.setMainEnities(l_mainEntities);
+				document.setNonMainEnities(extractor.getNonMainEntities(document));
+				trnCorpus.addDocument(document);
 			}
-		}	
-		writer.close();
+			else
+				devCorpus.addDocument(document);
+		}
+		
+		MainEntityIdentificationComponent component = new MainEntityIdentificationComponent(labelCutoff, featureCutoff, average, alpha, rho, bias);
+		// Training
+		component.setFlag(CFlag.TRAIN);
+		for(Document document : trnCorpus)	component.train(document);
+		component.initTrainer();
+		component.trainModel();
+		
+		// Decoding
+		component.setFlag(CFlag.DECODE);
+		for(Document document : devCorpus){
+			l_mainEntities = component.decode(document);
+			document.setMainEnities(l_mainEntities);
+		}
 	}
 }

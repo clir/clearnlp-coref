@@ -15,11 +15,20 @@
  */
 package edu.emory.clir.clearnlp.relation.component.entity;
 
+import edu.emory.clir.clearnlp.classification.vector.StringFeatureVector;
+import edu.emory.clir.clearnlp.relation.structure.Entity;
+
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
  * @since 	Jul 15, 2015
  */
 public class MainEntityIdentificationFeatureExtractor {
-
+	public StringFeatureVector getVector(Entity entity){
+		StringFeatureVector vector = new StringFeatureVector();
+		
+		
+		
+		return vector;
+	}
 }

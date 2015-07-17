@@ -68,6 +68,10 @@ public class Corpus implements Serializable, Iterable<Document>{
 		return l_documents;
 	}
 	
+	public void addDocument(Document document){
+		l_documents.add(document);
+	}
+	
 	public void addDocument(String fileName, List<DEPTree> trees){
 		Document document = new Document(fileName);
 		document.addTrees(trees);

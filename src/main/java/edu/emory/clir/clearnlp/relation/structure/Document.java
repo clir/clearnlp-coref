@@ -42,6 +42,7 @@ public class Document implements Serializable, Iterable<Entity>{
 	private List<DEPTree> l_trees;
 	private List<Entity> l_entities;
 	private List<Entity> l_mainEntities;
+	private List<Entity> l_nonMainEntities;
 	
 	public Document(String title){
 		s_title = title;
@@ -101,6 +102,10 @@ public class Document implements Serializable, Iterable<Entity>{
 		return l_mainEntities;
 	}
 	
+	public List<Entity> getNonMainEntities(){
+		return l_nonMainEntities;
+	}
+	
 	public void setTitleTree(DEPTree tree){
 		t_title = tree;
 	}
@@ -119,6 +124,10 @@ public class Document implements Serializable, Iterable<Entity>{
 	
 	public void setMainEnities(List<Entity> entities){
 		l_mainEntities = entities;
+	}
+	
+	public void setNonMainEnities(List<Entity> entities){
+		l_nonMainEntities = entities;
 	}
 	
 	private List<Entity> extractEntities(AbstractChucker chunker){
