@@ -33,8 +33,10 @@ public abstract class AbstractMainEntityExtractor {
 		d_chunker = chunker;
 	}
 	
+	abstract public List<Entity> setEntityConfidence(Document document);
 	abstract public List<Entity> getNonMainEntities(Document document);
 	abstract protected List<Entity> getMainEntities(Document document);
+	
 	
 	public List<Entity> getMainEntities(Document document, boolean setEntity2Document){
 		List<Entity> l_mainEntiies = getMainEntities(document);

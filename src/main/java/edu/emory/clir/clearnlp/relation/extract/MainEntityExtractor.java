@@ -43,15 +43,21 @@ public class MainEntityExtractor extends AbstractMainEntityExtractor implements 
 	}
 	
 	@Override
-	protected List<Entity> getMainEntities(Document document){
+	public List<Entity> setEntityConfidence(Document document) {
 		List<Entity> entities = new ArrayList<>(document.getEntities(d_chunker));
 		
 		int totalSentenceCount = document.getTreeCount(),
-			totalAliasCount = entities.stream().mapToInt(Entity::getCount).sum();
-		
-		for(Entity entity : entities){
+				totalAliasCount = entities.stream().mapToInt(Entity::getCount).sum();
+		for(Entity entity : entities)
 			entity.setEntityConfidence(computeScore(entity, totalAliasCount, totalSentenceCount));
-		}
+		
+		Collections.sort(entities, Collections.reverseOrder());
+		return entities;
+	}
+	
+	@Override
+	protected List<Entity> getMainEntities(Document document){
+		List<Entity> entities = setEntityConfidence(document);
 		
 		double score, gap;
 		Collections.sort(entities, Collections.reverseOrder());

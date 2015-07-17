@@ -32,7 +32,13 @@ import edu.emory.clir.clearnlp.util.MathUtils;
  * @since 	Jul 14, 2015
  */
 public class DeterministicMainEntityExtractor extends AbstractMainEntityExtractor{
-	private final double d_cutoffThreshold = 0.49d;
+	/*
+	 * Deterministic Main Entity Extractor
+	 * 		gives ~80% precision 
+	 * 		out of ~10% documents in a corpus
+	 */
+
+	private final double d_cutoffThreshold = 0.49d, d_lowCutoffAlpha = 1.5d;
 	private final double d_frequencyCount = 0.785d, d_entityConfidence = 0.125d, d_firstAppearance = 0.315d;
 
 	public DeterministicMainEntityExtractor(){
@@ -48,16 +54,22 @@ public class DeterministicMainEntityExtractor extends AbstractMainEntityExtracto
 	}
 	
 	@Override
-	protected List<Entity> getMainEntities(Document document){
+	public List<Entity> setEntityConfidence(Document document) {
 		List<Entity> entities = new ArrayList<>(document.getEntities(d_chunker));
 		
 		int totalSentenceCount = document.getTreeCount(),
-			totalAliasCount = entities.stream().mapToInt(Entity::getCount).sum();
-		
+				totalAliasCount = entities.stream().mapToInt(Entity::getCount).sum();
 		for(Entity entity : entities)
 			entity.setEntityConfidence(computeScore(entity, totalAliasCount, totalSentenceCount));
 		
 		Collections.sort(entities, Collections.reverseOrder());
+		return entities;
+	}
+	
+	@Override
+	protected List<Entity> getMainEntities(Document document){
+		List<Entity> entities = setEntityConfidence(document);
+		
 		for(int i = 0; i < entities.size(); i++)
 			if(entities.get(i).getEntityConfidence() < d_cutoffThreshold)
 				return entities.subList(0, i);
@@ -70,18 +82,30 @@ public class DeterministicMainEntityExtractor extends AbstractMainEntityExtracto
 				l_mainEntities = (document.getMainEntities() == null)? getMainEntities(document) : document.getMainEntities();
 		
 		// Generate confidence array
-		int i, entityCount = l_entities.size();
+		int i, mainEntityCount = l_mainEntities.size(), entityCount = l_entities.size();
+		
 		double[] entityConfidences = new double[entityCount];
 		for(i = 0; i < entityCount; i++) entityConfidences[i] = l_entities.get(i).getEntityConfidence();
-				
+		
+		double[] mainEntityConfidences = new double[mainEntityCount];
+		for(i = 0; i < mainEntityCount; i++) mainEntityConfidences[i] = l_mainEntities.get(i).getEntityConfidence();
+		
 		// Initialize variables
 		int topK = l_mainEntities.size(), lowK = topK;
-		double entityConfidenceMean = MathUtils.average(entityConfidences),
+		double 	mainEntityConfidenceMean = MathUtils.average(mainEntityConfidences),
+				entityConfidenceMean = MathUtils.average(entityConfidences),
+				meanDifference = mainEntityConfidenceMean - entityConfidenceMean,
 				entityConfidenceSD = MathUtils.stdev(entityConfidences),
 				mainEntityPercentage = (double) l_mainEntities.size() / l_entities.size();
 		
+		double lowCutoff = d_lowCutoffAlpha * (mainEntityConfidenceMean / entityConfidenceMean)
+											* (meanDifference / entityConfidenceSD - 1)
+											* (mainEntityPercentage / (1 - mainEntityPercentage) * mainEntityConfidenceMean);
 		
-		
+		for(i = entityCount - 1; i >= topK; i++)
+			if(l_entities.get(i).getEntityConfidence() > lowCutoff){
+				lowK = i + 1; break;
+			}
 		return l_entities.subList(lowK, entityCount);
 	}
 	
