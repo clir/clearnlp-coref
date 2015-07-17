@@ -15,12 +15,11 @@
  */
 package edu.emory.clir.clearnlp.relation.parameter;
 
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-
-import org.junit.Test;
 
 import edu.emory.clir.clearnlp.collection.map.IntDoubleHashMap;
 import edu.emory.clir.clearnlp.collection.pair.ObjectDoublePair;
@@ -44,20 +43,46 @@ import edu.emory.clir.clearnlp.util.constant.StringConst;
  * @version	1.0
  * @since 	Jul 10, 2015
  */
-public class MainEntityExtractorParamenterSearch {
-	private final Set<String> extactingNETags = DSUtils.toHashSet("ORG", "PERSON");
-	private static final String DIR_IN = "/Users/HenryChen/Desktop/NYTimes_Parsed";
+public class MainEntityExtractorParamenterSearch implements Runnable{
+	private static final Set<String> extactingNETags = DSUtils.toHashSet("ORG", "PERSON");
+//	private static final String DIR_IN = "/Users/HenryChen/Desktop/NYTimes_Parsed";
+	private static final String DIR_IN = "/home/henryyhc/corpus/NYTimes_Parsed";
 	
-	private static double CUTOFF = 0.485d, GAP = 0.05d;
-	private static double FREQ_COUNT = 0.70d, ENTITY_CONFID = 0.05d, FIRST_APPEAR = 0.25d;
+	private double CUTOFF, GAP;
+	private double FREQ_COUNT_INIT, ENTITY_CONFID_INIT, FIRST_APPEAR_INIT;
+	private double FREQ_COUNT, ENTITY_CONFID, FIRST_APPEAR;
+	private double FREQ_COUNT_CAP, ENTITY_CONFID_CAP, FIRST_APPEAR_CAP, PARA_INCREMENT;
+	private List<ObjectDoublePair<Double[]>> precisionRecords, F1Records;
 	
-	private static final double CUTOFF_INCREMENT = 0.10d, GAP_INCREMENT = 0.05d, PARA_INCREMENT = 0.10d; 
-	private static final double CUTOFF_CAP = 0.80d, GAP_CAP = 0.20d, PARA_CAP = 1d;
+	private PrintStream out;
 	
-	private static List<ObjectDoublePair<Double[]>> precisionRecords = new ArrayList<>(), F1Records = new ArrayList<>();
+	public MainEntityExtractorParamenterSearch(double cutoff, double gap, PrintStream out, double frequencyInit, double frequencyCap,
+																							double entityInit, double entityCap,
+																							double appearInit, double appearCap,
+																							double parameterIncre){
+		CUTOFF = cutoff; GAP = gap;
+		FREQ_COUNT_INIT = frequencyInit;
+		FREQ_COUNT_CAP = frequencyCap;
+		ENTITY_CONFID_INIT = entityInit;
+		ENTITY_CONFID_CAP = entityCap;
+		FIRST_APPEAR_INIT = appearInit;
+		FIRST_APPEAR_CAP = appearCap;
+		PARA_INCREMENT = parameterIncre;
+		
+		precisionRecords = new ArrayList<>();
+		F1Records = new ArrayList<>();
+		
+		this.out = out;
+	}
 	
-	@Test
-	public void search(){
+	@Override
+	public void run() {
+		try {
+			search(out);
+		} catch (Exception e) { e.printStackTrace(); }
+	}
+	
+	private void search(PrintStream out){
 		int intanceCount = 1;
 		MainEntityExtractor extractor = null;
 		MainEntityEvaluator evaluator = null;
@@ -65,40 +90,32 @@ public class MainEntityExtractorParamenterSearch {
 		
 		Corpus corpus = initCorpus(false, chunker);
 		
-//		for(CUTOFF = CUTOFF_INCREMENT; CUTOFF <= CUTOFF_CAP; CUTOFF+=CUTOFF_INCREMENT)
-//			for(GAP = GAP_INCREMENT; GAP <= GAP_CAP; GAP+=GAP_INCREMENT)
-				for(FREQ_COUNT = PARA_INCREMENT; FREQ_COUNT <= PARA_CAP; FREQ_COUNT+=PARA_INCREMENT)
-					for(ENTITY_CONFID = PARA_INCREMENT; ENTITY_CONFID <= PARA_CAP; ENTITY_CONFID+=PARA_INCREMENT)
-						for(FIRST_APPEAR = PARA_INCREMENT; FIRST_APPEAR <= PARA_CAP; FIRST_APPEAR+=PARA_INCREMENT){
-							System.out.print("Instance #" + intanceCount++ + "... ");
-							System.out.println(evaluate(corpus, chunker, extractor, evaluator));
-						}
+		for(FREQ_COUNT = FREQ_COUNT_INIT; FREQ_COUNT <= FREQ_COUNT_CAP; FREQ_COUNT+=PARA_INCREMENT)
+			for(ENTITY_CONFID = ENTITY_CONFID_INIT; ENTITY_CONFID <= ENTITY_CONFID_CAP; ENTITY_CONFID+=PARA_INCREMENT)
+				for(FIRST_APPEAR = FIRST_APPEAR_INIT; FIRST_APPEAR <= FIRST_APPEAR_CAP; FIRST_APPEAR+=PARA_INCREMENT){
+					System.out.println("Instance #" + intanceCount++ + "... " + evaluate(corpus, chunker, extractor, evaluator) + 
+							"\nParameters: " + CUTOFF + " " + GAP + " " + FREQ_COUNT + " " + ENTITY_CONFID + " " + FIRST_APPEAR);
+				}
 		
-		Collections.sort(precisionRecords, Collections.reverseOrder());
-		Collections.sort(F1Records, Collections.reverseOrder());
-		
-		if(intanceCount > 100){
-			precisionRecords = precisionRecords.subList(0, 100);
-			F1Records = F1Records.subList(0, 100);
-		}
-		
-		System.out.println("\n Precision records");
+		PrintWriter writer = new PrintWriter(out);		
+		writer.println("Precision records");
 		for(ObjectDoublePair<Double[]> instance : precisionRecords)
-			System.out.println(instance.d + StringConst.TAB + Joiner.join(instance.o, StringConst.SPACE));
+			writer.println(instance.d + StringConst.TAB + Joiner.join(instance.o, StringConst.SPACE));
 		
-		System.out.println("\n F1 records");
+		writer.println("\nF1 records");
 		for(ObjectDoublePair<Double[]> instance : F1Records)
-			System.out.println(instance.d + StringConst.TAB + Joiner.join(instance.o, StringConst.SPACE));
+			writer.println(instance.d + StringConst.TAB + Joiner.join(instance.o, StringConst.SPACE));		
+		writer.close();
 	}
 	
-	private static double evaluate(Corpus corpus, AbstractChucker chunker, MainEntityExtractor extractor, MainEntityEvaluator evaluator){
+	private double evaluate(Corpus corpus, AbstractChucker chunker, MainEntityExtractor extractor, MainEntityEvaluator evaluator){
 		evaluator = new MainEntityEvaluator();
 		extractor = new MainEntityExtractor(chunker, CUTOFF, GAP, getWeights(FREQ_COUNT, ENTITY_CONFID, FIRST_APPEAR));
 		
 		int doc_count = 0;
 		for(Document document : corpus){
 			document.setMainEnities(null);	
-			document.setMainEnities(extractor.getMainEntities(document));
+			extractor.getMainEntities(document, true);
 			
 			if(!document.getMainEntities().isEmpty()){
 				doc_count++;
@@ -112,7 +129,7 @@ public class MainEntityExtractorParamenterSearch {
 		return precision;
 	}
 	
-	private static Corpus initCorpus(boolean withTitleTree, AbstractChucker chunker){
+	private Corpus initCorpus(boolean withTitleTree, AbstractChucker chunker){
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
 		List<String> l_filePaths = FileUtils.getFileList(DIR_IN, ".cnlp", true);
 		
@@ -121,7 +138,7 @@ public class MainEntityExtractorParamenterSearch {
 		return corpus;
 	}
 	
-	private static void logInstance(double precision, double DocF1Score){
+	private void logInstance(double precision, double DocF1Score){
 		Double[] parameters = new Double[5];
 		parameters[0] = CUTOFF; parameters[1] = GAP;
 		parameters[2] = FREQ_COUNT; parameters[3] = ENTITY_CONFID; parameters[4] = FIRST_APPEAR;
@@ -130,7 +147,7 @@ public class MainEntityExtractorParamenterSearch {
 		F1Records.add(new ObjectDoublePair<Double[]>(parameters, DocF1Score));
 	}
 	
-	private static IntDoubleHashMap getWeights(double freqencyCount, double entityConfidence, double firstAppearance){
+	private IntDoubleHashMap getWeights(double freqencyCount, double entityConfidence, double firstAppearance){
 		IntDoubleHashMap weights = new IntDoubleHashMap();
 		weights.put(MainEntityFeatureIndex.FREQUENCY_COUNT, freqencyCount);
 		weights.put(MainEntityFeatureIndex.ENTITY_CONFIDENCE, entityConfidence);

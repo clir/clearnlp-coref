@@ -67,7 +67,7 @@ public class MainEnityExtractionWithNERChunker {
 		
 		List<Entity> keys;
 		for(Document document : corpus){
-			document.setMainEnities(extractor.getMainEntities(document));
+			extractor.getMainEntities(document, true);
 			keys = evaluator.generateKeysFromTitle(document);
 			
 			if(!document.getMainEntities().isEmpty() && !keys.isEmpty()){

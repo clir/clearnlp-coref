@@ -28,9 +28,7 @@ import edu.emory.clir.clearnlp.relation.extract.MainEntityExtractor;
 import edu.emory.clir.clearnlp.relation.feature.MainEntityFeatureIndex;
 import edu.emory.clir.clearnlp.relation.structure.Corpus;
 import edu.emory.clir.clearnlp.relation.structure.Document;
-import edu.emory.clir.clearnlp.relation.structure.Entity;
 import edu.emory.clir.clearnlp.relation.utils.RelationExtractionTestUtil;
-import edu.emory.clir.clearnlp.relation.utils.evaluation.AbstractRelationExtrationEvaluator;
 import edu.emory.clir.clearnlp.relation.utils.evaluation.MainEntityEvaluator;
 import edu.emory.clir.clearnlp.util.DSUtils;
 import edu.emory.clir.clearnlp.util.FileUtils;
@@ -42,11 +40,11 @@ import edu.emory.clir.clearnlp.util.MathUtils;
  * @since 	Jul 9, 2015
  */
 public class MainEntityExtractionWithProperNounChunker {
-	private final Set<String> extactingNETags = DSUtils.toHashSet("ORG", "PERSON");
+	private final Set<String> extactingNETags = DSUtils.toHashSet("ORG", "PERSON", "LOC", "GPE");
 	private static final String DIR_IN = "/Users/HenryChen/Desktop/NYTimes_Parsed";
 	
-	private static double CUTOFF = 0.485d, GAP = 0.05d;
-	private static double FREQ_COUNT = 0.70d, ENTITY_CONFID = 0.05d, FIRST_APPEAR = 0.25d;
+	private static double CUTOFF = 0.490d, GAP = 0.05d;
+	private static double FREQ_COUNT = 0.785d, ENTITY_CONFID = 0.125d, FIRST_APPEAR = 0.315d;
 	
 	private static IntDoubleHashMap getWeights(){
 		IntDoubleHashMap weights = new IntDoubleHashMap();
@@ -66,25 +64,19 @@ public class MainEntityExtractionWithProperNounChunker {
 		MainEntityExtractor extractor = new MainEntityExtractor(chunker, CUTOFF, GAP, getWeights());
 		MainEntityEvaluator evaluator = new MainEntityEvaluator(chunker);
 		
-		List<Entity> keys;
 		int doc_count = 0;
 		for(Document document : corpus){
-			document.setMainEnities(extractor.getMainEntities(document));
-			keys = evaluator.generateKeysFromTitle(document);
+			extractor.getMainEntities(document, true);
 
 			if(!document.getMainEntities().isEmpty()){
 				evaluator.evaluatePrecisionOnDocumentTitle(document.getTitle(), document.getMainEntities());
+				System.out.println(document.getMainEntities().size() + "/" + document.getEntities().size());
 				doc_count++;
 			}
-			
-//			if(!document.getMainEntities().isEmpty() && !keys.isEmpty()){
-//				System.out.println(evaluator.getEvaluationTriple(keys, document.getMainEntiies()));
-//			}
 		}	
 		System.out.println("==========");
-		System.out.println("Document count: " + doc_count);
+		System.out.println("Document count: " + doc_count + "/" + corpus.getDocumentCount());
 		System.out.println("Precision: " + evaluator.getAveragePrecision());
 		System.out.println("F1 Score: " + MathUtils.getF1(evaluator.getAveragePrecision(), (double)doc_count/corpus.getDocumentCount()));
-//		System.out.println(evaluator.getEvaluationSummary());
 	}
 }
