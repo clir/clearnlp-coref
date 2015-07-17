@@ -16,6 +16,7 @@
 package edu.emory.clir.clearnlp.relation.component.entity;
 
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.emory.clir.clearnlp.classification.instance.StringInstance;
@@ -23,14 +24,9 @@ import edu.emory.clir.clearnlp.classification.model.StringModel;
 import edu.emory.clir.clearnlp.classification.prediction.StringPrediction;
 import edu.emory.clir.clearnlp.classification.trainer.AbstractOnlineTrainer;
 import edu.emory.clir.clearnlp.classification.trainer.AdaGradLR;
-import edu.emory.clir.clearnlp.classification.trainer.AdaGradSVM;
-import edu.emory.clir.clearnlp.classification.vector.StringFeatureVector;
-import edu.emory.clir.clearnlp.collection.triple.Triple;
 import edu.emory.clir.clearnlp.component.utils.CFlag;
-import edu.emory.clir.clearnlp.coreference.components.CoreferenceFeatureExtractor;
-import edu.emory.clir.clearnlp.coreference.mention.AbstractMention;
-import edu.emory.clir.clearnlp.coreference.utils.structures.CoreferantSet;
-import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.relation.structure.Document;
+import edu.emory.clir.clearnlp.relation.structure.Entity;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -38,6 +34,8 @@ import edu.emory.clir.clearnlp.dependency.DEPTree;
  * @since 	Jul 15, 2015
  */
 public class MainEntityIdentificationComponent {
+	private static String TRUE = "true", FALSE = "false";
+	
 	private CFlag c_flag;
 	
 	private StringModel model;
@@ -77,7 +75,32 @@ public class MainEntityIdentificationComponent {
 	}
 	
 	// Process
-	
+	private List<Entity> process(Document document){
+		switch(c_flag){
+			case TRAIN:
+				List<Entity> l_mainEntities = document.getMainEntities(),
+							l_nonMainEntities = document.getNonMainEntities();
+				
+				for(Entity mainEntity : l_mainEntities)	model.addInstance(new StringInstance(TRUE, extractor.getVector(mainEntity)));
+				for(Entity nonMainEnitty : l_nonMainEntities) model.addInstance(new StringInstance(FALSE, extractor.getVector(nonMainEnitty)));
+				return l_mainEntities;
+				
+			case DECODE:
+				StringPrediction prediction;
+				List<Entity> entities = new ArrayList<>();
+				
+				for(Entity entity : document.getEntities()){
+					prediction = model.predictBest(extractor.getVector(entity));
+					if(prediction.getLabel().equals(TRUE))
+						entities.add(entity);
+				}
+				return entities;
+				
+			default:
+				break;
+		}
+		return null;
+	}
 	
 	// Training
 	public void initTrainer(){
@@ -98,6 +121,17 @@ public class MainEntityIdentificationComponent {
 			System.out.println("Iteration #" + i);
 			trainer.train();
 		}
+	}
+	
+	public void train(Document document){
+		if(c_flag == CFlag.TRAIN) process(document);
+		else throw new IllegalStateException("Component is not set to train.");
+	}
+	
+	// Decoding
+	public List<Entity> decode(Document document){
+		if(c_flag == CFlag.DECODE) return process(document);
+		else throw new IllegalStateException("Component is not set to decode.");
 	}
 		
 	// Model handling
