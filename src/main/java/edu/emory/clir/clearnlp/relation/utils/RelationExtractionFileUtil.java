@@ -30,7 +30,7 @@ import edu.emory.clir.clearnlp.util.IOUtils;
  * @version	1.0
  * @since 	Jul 6, 2015
  */
-public class RelationExtractionTestUtil {
+public class RelationExtractionFileUtil {
 	public static final String TITLE_EXT = ".title";
 	
 	public static Corpus loadCorpus(AbstractReader<DEPTree> reader, List<String> l_filePaths, String corpusName, boolean withTitleTree){

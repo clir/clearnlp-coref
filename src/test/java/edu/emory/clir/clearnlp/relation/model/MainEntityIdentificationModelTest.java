@@ -15,10 +15,16 @@
  */
 package edu.emory.clir.clearnlp.relation.model;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+import edu.emory.clir.clearnlp.classification.vector.AbstractWeightVector;
+import edu.emory.clir.clearnlp.collection.pair.Pair;
+import edu.emory.clir.clearnlp.collection.triple.Triple;
 import edu.emory.clir.clearnlp.component.utils.CFlag;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 import edu.emory.clir.clearnlp.relation.component.entity.MainEntityIdentificationComponent;
@@ -27,8 +33,10 @@ import edu.emory.clir.clearnlp.relation.extract.DeterministicMainEntityExtractor
 import edu.emory.clir.clearnlp.relation.structure.Corpus;
 import edu.emory.clir.clearnlp.relation.structure.Document;
 import edu.emory.clir.clearnlp.relation.structure.Entity;
-import edu.emory.clir.clearnlp.relation.utils.RelationExtractionTestUtil;
+import edu.emory.clir.clearnlp.relation.utils.RelationExtractionFileUtil;
+import edu.emory.clir.clearnlp.relation.utils.evaluation.MainEntityEvaluator;
 import edu.emory.clir.clearnlp.util.FileUtils;
+import edu.emory.clir.clearnlp.util.constant.StringConst;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -36,22 +44,88 @@ import edu.emory.clir.clearnlp.util.FileUtils;
  * @since 	Jul 17, 2015
  */
 public class MainEntityIdentificationModelTest {
-	public static final int iter = 10;
+	/* alpha(0.01) : learning rate, rho(0.1) : regularizaiton, bias(0) */
 	public static final int labelCutoff = 0;
 	public static final int featureCutoff = 0;
 	public static final boolean average = true;
-	public static final double alpha = 0.1;
-	public static final double rho = 0.1;
+	public static final double alpha = 0.01;
+	public static final double rho = 0.01;
 	public static final double bias = 0;
 	
+	public static final double DEV_THRESHOLD = 0.00035;
+	
 	private static final String DIR_IN = "/Users/HenryChen/Desktop/NYTimes_Parsed";
+	private static final String DIR_SEED = "/Users/HenryChen/Desktop/NYTimes_Seed";
 	
 	@Test
-	public void modelExperiment(){
+	public void trainModel_withSeed(){
+		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
+		List<String> l_filePaths = FileUtils.getFileList(DIR_SEED, ".cnlp", true);
+		
+		int totalMainEntity = 0, totalNonMainEntity = 0, totalEntity = 0;
+		Corpus seedCorpus = RelationExtractionFileUtil.loadCorpus(reader, l_filePaths, "NYTimes_Seed", false);
+		AbstractMainEntityExtractor extractor = new DeterministicMainEntityExtractor();
+		for(Document document : seedCorpus){
+			extractor.getMainEntities(document, true);
+			extractor.getNonMainEntities(document, true);
+			
+			totalEntity += document.getEntities().size();
+			totalMainEntity += document.getMainEntities().size();
+			totalNonMainEntity += document.getNonMainEntities().size();
+		}
+		System.out.println("(+): " + totalMainEntity + ", (-): " + totalNonMainEntity + ", Total: " + totalEntity);
+		
+		List<Entity> l_mainEntities;
+		MainEntityIdentificationComponent component = new MainEntityIdentificationComponent(labelCutoff, featureCutoff, average, alpha, rho, bias);
+
+		// Training
+		component.setFlag(CFlag.TRAIN);
+		for(Document document : seedCorpus)	component.train(document);
+		
+		System.out.println(StringConst.NEW_LINE + "Initializing trainer");
+		component.initTrainer();
+		System.out.println(component.getTrainer().trainerInfoFull());
+		
+		// Developing
+		int iterCount = 0;
+		double current = 0d, previous = 0d;
+		MainEntityEvaluator evaluator = null;
+		Pair<Triple<Double, Double, Double>, AbstractWeightVector> best = new Pair<>(new Triple<>(0d, 0d, 0d), null);
+		
+		component.setFlag(CFlag.DECODE);
+		System.out.println(StringConst.NEW_LINE + "Developing");
+		do{
+			previous = current;
+			System.out.print("Iteration " + iterCount++ + " ...");
+			
+			component.trainModel();
+					
+			evaluator = new MainEntityEvaluator();
+			for(Document document : seedCorpus){
+				l_mainEntities = component.decode(document);
+				evaluator.evaluatePrecisionOnDocumentTitle(document.getTitle(), l_mainEntities);
+				evaluator.evaluateRecall(document.getMainEntities(), l_mainEntities);
+			}
+			System.out.println(evaluator.getAverageTriple());
+			
+			current = evaluator.getAverageF1Score();
+			if(current > best.o1.o3)	best.set(evaluator.getAverageTriple(), component.getModel().getWeightVector());		
+		} while(Math.abs(current - previous) > DEV_THRESHOLD);
+		
+		NumberFormat formatter = new DecimalFormat("#0.00");
+		System.out.println("\nHighest result:");
+		System.out.println("Precision:\t" + formatter.format(best.o1.o1 * 100) + "%");
+		System.out.println("Recall:\t\t" + formatter.format(best.o1.o2 * 100) + "%");
+		System.out.println("F1 score:\t" + formatter.format(best.o1.o3 * 100) + "%");
+	}
+	
+	@Test
+	@Ignore
+	public void trainModel(){
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
 		List<String> l_filePaths = FileUtils.getFileList(DIR_IN, ".cnlp", true);
 		
-		Corpus corpus = RelationExtractionTestUtil.loadCorpus(reader, l_filePaths, "NYTimes", false);
+		Corpus corpus = RelationExtractionFileUtil.loadCorpus(reader, l_filePaths, "NYTimes", false);
 		AbstractMainEntityExtractor extractor = new DeterministicMainEntityExtractor();
 		
 		
@@ -63,7 +137,7 @@ public class MainEntityIdentificationModelTest {
 			
 			if(!l_mainEntities.isEmpty()){
 				document.setMainEnities(l_mainEntities);
-				document.setNonMainEnities(extractor.getNonMainEntities(document));
+				extractor.getNonMainEntities(document, true);
 				trnCorpus.addDocument(document);
 			}
 			else
@@ -75,7 +149,25 @@ public class MainEntityIdentificationModelTest {
 		component.setFlag(CFlag.TRAIN);
 		for(Document document : trnCorpus)	component.train(document);
 		component.initTrainer();
-		component.trainModel();
+		component.trainModel(10);
+		
+		// Developing
+		double currentPrecision = 0d, previousPrecision = 0d;
+		MainEntityEvaluator evaluator = null;
+		
+		do{
+			component.trainModel();
+			if(evaluator != null) previousPrecision = currentPrecision;
+			
+			evaluator = new MainEntityEvaluator();
+			for(Document document : trnCorpus){
+				l_mainEntities = component.decode(document);
+				evaluator.evaluatePrecisionOnDocumentTitle(document.getTitle(), l_mainEntities);
+			}
+			currentPrecision = evaluator.getAveragePrecision();
+			
+		} while(Math.abs(currentPrecision - previousPrecision) <= DEV_THRESHOLD);
+		
 		
 		// Decoding
 		component.setFlag(CFlag.DECODE);

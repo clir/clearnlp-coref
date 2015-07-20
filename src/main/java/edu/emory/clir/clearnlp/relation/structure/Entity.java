@@ -62,7 +62,7 @@ public class Entity implements Serializable, Iterable<EntityAlias>, Comparable<E
 		return l_alias.get(0).getNodes();
 	}
 	
-	public String getNERTag(){
+	public String getTag(){
 		return s_Tag;
 	}
 	

@@ -25,6 +25,7 @@ import edu.emory.clir.clearnlp.relation.structure.Document;
 import edu.emory.clir.clearnlp.relation.structure.Entity;
 import edu.emory.clir.clearnlp.util.DSUtils;
 import edu.emory.clir.clearnlp.util.MathUtils;
+import edu.emory.clir.clearnlp.util.constant.StringConst;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -38,7 +39,7 @@ public class DeterministicMainEntityExtractor extends AbstractMainEntityExtracto
 	 * 		out of ~10% documents in a corpus
 	 */
 
-	private final double d_cutoffThreshold = 0.49d, d_lowCutoffAlpha = 1.5d;
+	private final double d_cutoffThreshold = 0.49d, d_lowCutoffAlpha = 1.9d;
 	private final double d_frequencyCount = 0.785d, d_entityConfidence = 0.125d, d_firstAppearance = 0.315d;
 
 	public DeterministicMainEntityExtractor(){
@@ -99,10 +100,13 @@ public class DeterministicMainEntityExtractor extends AbstractMainEntityExtracto
 											* (meanDifference / entityConfidenceSD - 1)
 											* (mainEntityPercentage / (1 - mainEntityPercentage) * mainEntityConfidenceMean);
 		
-		for(i = entityCount - 1; i >= topK; i++)
+		
+		for(i = entityCount - 1; i >= topK; i--){
 			if(l_entities.get(i).getEntityConfidence() > lowCutoff){
 				lowK = i + 1; break;
 			}
+		}
+		
 		return l_entities.subList(lowK, entityCount);
 	}
 	

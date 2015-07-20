@@ -80,6 +80,10 @@ public abstract class AbstractEvaluator<T> {
 		return evaluateF1Score(getAveragePrecision(), getAverageRecall());
 	}
 	
+	public Triple<Double, Double, Double> getAverageTriple(){
+		return new Triple<>(getAveragePrecision(), getAverageRecall(), getAverageF1Score());
+	}
+	
 	public String getEvaluationSummary(){
 		StringBuilder sb = new StringBuilder();
 		NumberFormat formatter = new DecimalFormat("#0.000");

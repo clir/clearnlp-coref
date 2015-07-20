@@ -13,20 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.clir.clearnlp.relation.statistics;
+package edu.emory.clir.clearnlp.relation.corpus;
 
+import java.io.File;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
+import edu.emory.clir.clearnlp.dependency.DEPNode;
+import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 import edu.emory.clir.clearnlp.relation.extract.AbstractMainEntityExtractor;
 import edu.emory.clir.clearnlp.relation.extract.DeterministicMainEntityExtractor;
 import edu.emory.clir.clearnlp.relation.structure.Corpus;
 import edu.emory.clir.clearnlp.relation.structure.Document;
-import edu.emory.clir.clearnlp.relation.structure.Entity;
 import edu.emory.clir.clearnlp.relation.utils.RelationExtractionFileUtil;
 import edu.emory.clir.clearnlp.util.FileUtils;
 import edu.emory.clir.clearnlp.util.IOUtils;
@@ -34,50 +35,41 @@ import edu.emory.clir.clearnlp.util.IOUtils;
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
  * @version	1.0
- * @since 	Jul 15, 2015
+ * @since 	Jul 18, 2015
  */
-public class EntityConfidenceDistribution {
+public class CorpusFilter {
 	private static final String DIR_IN = "/Users/HenryChen/Desktop/NYTimes_Parsed";
-	private static final String OUT = "/Users/HenryChen/Desktop/data.out";
+	private static final String DIR_OUT = "/Users/HenryChen/Desktop/NYTimes_Seed";
 	
 	@Test
-	public void getDistribution(){
+	public void filter(){
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
 		List<String> l_filePaths = FileUtils.getFileList(DIR_IN, ".cnlp", true);
 		
 		Corpus corpus = RelationExtractionFileUtil.loadCorpus(reader, l_filePaths, "NYTimes", false);
 		AbstractMainEntityExtractor extractor = new DeterministicMainEntityExtractor();
 
-		List<Entity> l_entities;
-		List<List<Entity>> l_entityRanks_overCorpus = new ArrayList<>();
+		// Clean up directory
+		for(String filePath : FileUtils.getFileList(DIR_OUT, ".cnlp", true))
+			new File(filePath).delete();
 		
-		int i; Entity entity;
+		// Export seed files
+		PrintWriter writer; String filePath_out; 
 		for(Document document : corpus){
 			extractor.getMainEntities(document, true);
-			l_entities = document.getEntities();
 			
 			if(!document.getMainEntities().isEmpty()){
-				for(i = 0; i < l_entities.size(); i++){
-					entity = l_entities.get(i);
-					if(l_entityRanks_overCorpus.size() <= i)
-						l_entityRanks_overCorpus.add(new ArrayList<>());
-					l_entityRanks_overCorpus.get(i).add(entity);
+				filePath_out = DIR_OUT + "/" + document.getTitle();
+				
+				writer = new PrintWriter(IOUtils.createBufferedPrintStream(filePath_out));
+				for(DEPTree tree : document.getTrees()){
+					for(DEPNode node : tree)
+						writer.println(node.toStringNER());
+					writer.println();
 				}
+				writer.close();
 			}
 		}	
-		
-		List<Double> l_avgRankConfidence = new ArrayList<>(l_entityRanks_overCorpus.size());
-		for(List<Entity> entities : l_entityRanks_overCorpus)
-			l_avgRankConfidence.add( entities.stream().mapToDouble(Entity::getEntityConfidence).average().getAsDouble() );
-		for(double avgConfidence : l_avgRankConfidence) System.out.println(avgConfidence);
-		System.out.println();
-		
-		List<Double> l_entityConfidences = new ArrayList<>();
-		for(List<Entity> entities : l_entityRanks_overCorpus)
-			for(Entity e : entities) l_entityConfidences.add(e.getEntityConfidence());
-		
-		PrintWriter writer = new PrintWriter(IOUtils.createBufferedPrintStream(OUT));
-		for(double confidence : l_entityConfidences) writer.println(confidence);
-		writer.close();
 	}
+
 }

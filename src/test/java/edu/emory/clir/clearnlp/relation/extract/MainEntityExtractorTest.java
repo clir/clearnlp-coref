@@ -27,7 +27,7 @@ import edu.emory.clir.clearnlp.relation.chunk.EnglishNamedEntityChunker;
 import edu.emory.clir.clearnlp.relation.feature.MainEntityFeatureIndex;
 import edu.emory.clir.clearnlp.relation.structure.Corpus;
 import edu.emory.clir.clearnlp.relation.structure.Document;
-import edu.emory.clir.clearnlp.relation.utils.RelationExtractionTestUtil;
+import edu.emory.clir.clearnlp.relation.utils.RelationExtractionFileUtil;
 import edu.emory.clir.clearnlp.util.DSUtils;
 import edu.emory.clir.clearnlp.util.FileUtils;
 
@@ -57,7 +57,7 @@ public class MainEntityExtractorTest {
 		List<String> l_filePaths = FileUtils.getFileList(DIR_IN, ".cnlp", true);
 		
 		AbstractChucker chunker = new EnglishNamedEntityChunker(extactingNETags);
-		Corpus corpus = RelationExtractionTestUtil.loadCorpus(reader, l_filePaths, "NYTimes", true);
+		Corpus corpus = RelationExtractionFileUtil.loadCorpus(reader, l_filePaths, "NYTimes", true);
 		MainEntityExtractor extractor = new MainEntityExtractor(chunker, CUTOFF, GAP, getWeights());
 
 		for(Document document : corpus){

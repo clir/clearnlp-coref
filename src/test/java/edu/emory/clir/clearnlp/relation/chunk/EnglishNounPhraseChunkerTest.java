@@ -23,7 +23,7 @@ import edu.emory.clir.clearnlp.reader.TSVReader;
 import edu.emory.clir.clearnlp.relation.structure.Chunk;
 import edu.emory.clir.clearnlp.relation.structure.Corpus;
 import edu.emory.clir.clearnlp.relation.structure.Document;
-import edu.emory.clir.clearnlp.relation.utils.RelationExtractionTestUtil;
+import edu.emory.clir.clearnlp.relation.utils.RelationExtractionFileUtil;
 import edu.emory.clir.clearnlp.util.FileUtils;
 
 /**
@@ -38,7 +38,7 @@ public class EnglishNounPhraseChunkerTest {
 	public void testChunker(){
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
 		List<String> l_filePaths = FileUtils.getFileList(DIR_IN, ".cnlp", true);
-		Corpus corpus = RelationExtractionTestUtil.loadCorpus(reader, l_filePaths, "NYTimes_Test", false);
+		Corpus corpus = RelationExtractionFileUtil.loadCorpus(reader, l_filePaths, "NYTimes_Test", false);
 		
 		AbstractChucker chunker = new EnglishNounChucker();
 		

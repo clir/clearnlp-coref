@@ -20,11 +20,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import edu.emory.clir.clearnlp.dependency.DEPTree;
 import edu.emory.clir.clearnlp.relation.chunk.AbstractChucker;
-import edu.emory.clir.clearnlp.util.DSUtils;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})
@@ -32,8 +30,6 @@ import edu.emory.clir.clearnlp.util.DSUtils;
  * @since 	Jul 2, 2015
  */
 public class Document implements Serializable, Iterable<Entity>{
-	public static final Set<String> extactingNETags = DSUtils.toHashSet("ORG", "PERSON");
-	
 	private static final long serialVersionUID = 8332364748967299712L;
 	
 	private String s_title;
@@ -76,6 +72,10 @@ public class Document implements Serializable, Iterable<Entity>{
 	
 	public double getConfidence(){
 		return w_confidence;
+	}
+	
+	public DEPTree getTree(int tree_id){
+		return (tree_id < l_trees.size())? l_trees.get(tree_id) : null;
 	}
 	
 	public List<DEPTree> getTrees(){

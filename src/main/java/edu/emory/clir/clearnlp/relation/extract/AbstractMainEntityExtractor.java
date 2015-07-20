@@ -34,9 +34,14 @@ public abstract class AbstractMainEntityExtractor {
 	}
 	
 	abstract public List<Entity> setEntityConfidence(Document document);
-	abstract public List<Entity> getNonMainEntities(Document document);
+	abstract protected List<Entity> getNonMainEntities(Document document);
 	abstract protected List<Entity> getMainEntities(Document document);
 	
+	public List<Entity> getNonMainEntities(Document document, boolean setEntity2Document){
+		List<Entity> l_nonMainEntiies = getNonMainEntities(document);
+		if(setEntity2Document) document.setNonMainEnities(l_nonMainEntiies);
+		return l_nonMainEntiies;
+	}
 	
 	public List<Entity> getMainEntities(Document document, boolean setEntity2Document){
 		List<Entity> l_mainEntiies = getMainEntities(document);

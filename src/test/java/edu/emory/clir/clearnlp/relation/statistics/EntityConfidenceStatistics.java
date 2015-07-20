@@ -28,7 +28,7 @@ import edu.emory.clir.clearnlp.relation.extract.DeterministicMainEntityExtractor
 import edu.emory.clir.clearnlp.relation.structure.Corpus;
 import edu.emory.clir.clearnlp.relation.structure.Document;
 import edu.emory.clir.clearnlp.relation.structure.Entity;
-import edu.emory.clir.clearnlp.relation.utils.RelationExtractionTestUtil;
+import edu.emory.clir.clearnlp.relation.utils.RelationExtractionFileUtil;
 import edu.emory.clir.clearnlp.util.FileUtils;
 import edu.emory.clir.clearnlp.util.IOUtils;
 import edu.emory.clir.clearnlp.util.Joiner;
@@ -48,7 +48,7 @@ public class EntityConfidenceStatistics {
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
 		List<String> l_filePaths = FileUtils.getFileList(DIR_IN, ".cnlp", true);
 		
-		Corpus corpus = RelationExtractionTestUtil.loadCorpus(reader, l_filePaths, "NYTimes", false);
+		Corpus corpus = RelationExtractionFileUtil.loadCorpus(reader, l_filePaths, "NYTimes", false);
 		AbstractMainEntityExtractor extractor = new DeterministicMainEntityExtractor();
 
 		List<Entity> l_entities;

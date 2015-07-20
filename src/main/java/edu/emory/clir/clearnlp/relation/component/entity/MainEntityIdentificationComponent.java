@@ -23,7 +23,7 @@ import edu.emory.clir.clearnlp.classification.instance.StringInstance;
 import edu.emory.clir.clearnlp.classification.model.StringModel;
 import edu.emory.clir.clearnlp.classification.prediction.StringPrediction;
 import edu.emory.clir.clearnlp.classification.trainer.AbstractOnlineTrainer;
-import edu.emory.clir.clearnlp.classification.trainer.AdaGradLR;
+import edu.emory.clir.clearnlp.classification.trainer.AdaGradSVM;
 import edu.emory.clir.clearnlp.component.utils.CFlag;
 import edu.emory.clir.clearnlp.relation.structure.Document;
 import edu.emory.clir.clearnlp.relation.structure.Entity;
@@ -47,6 +47,7 @@ public class MainEntityIdentificationComponent {
 	private int labelCutoff, featureCutoff;
 	private double alpha, rho, bias;
 	
+	/* alpha(0.01) : learning rate, rho(0.1) : regularizaiton, bias(0) */
 	public MainEntityIdentificationComponent(int labelCutoff, int featureCutoff, boolean average, double alpha, double rho, double bias){
 		setFlag(CFlag.TRAIN);
 		
@@ -81,8 +82,10 @@ public class MainEntityIdentificationComponent {
 				List<Entity> l_mainEntities = document.getMainEntities(),
 							l_nonMainEntities = document.getNonMainEntities();
 				
-				for(Entity mainEntity : l_mainEntities)	model.addInstance(new StringInstance(TRUE, extractor.getVector(mainEntity)));
-				for(Entity nonMainEnitty : l_nonMainEntities) model.addInstance(new StringInstance(FALSE, extractor.getVector(nonMainEnitty)));
+				for(Entity mainEntity : l_mainEntities)	
+					model.addInstance(new StringInstance(TRUE, extractor.getVector(document, mainEntity)));
+				for(Entity nonMainEnitty : l_nonMainEntities) 
+					model.addInstance(new StringInstance(FALSE, extractor.getVector(document, nonMainEnitty)));
 				return l_mainEntities;
 				
 			case DECODE:
@@ -90,9 +93,8 @@ public class MainEntityIdentificationComponent {
 				List<Entity> entities = new ArrayList<>();
 				
 				for(Entity entity : document.getEntities()){
-					prediction = model.predictBest(extractor.getVector(entity));
-					if(prediction.getLabel().equals(TRUE))
-						entities.add(entity);
+					prediction = model.predictBest(extractor.getVector(document, entity));
+					if(prediction.getLabel().equals(TRUE))	entities.add(entity);
 				}
 				return entities;
 				
@@ -104,11 +106,11 @@ public class MainEntityIdentificationComponent {
 	
 	// Training
 	public void initTrainer(){
-		if(trainer == null)	trainer = new AdaGradLR(model, labelCutoff, featureCutoff, average, alpha, rho, bias);
+		if(trainer == null)	trainer = new AdaGradSVM(model, labelCutoff, featureCutoff, average, alpha, rho, bias);
 	}
 		
 	public void initTrainer(int iter){
-		if(trainer == null)	trainer = new AdaGradLR(model, labelCutoff, featureCutoff, average, alpha, rho, bias);
+		if(trainer == null)	trainer = new AdaGradSVM(model, labelCutoff, featureCutoff, average, alpha, rho, bias);
 		while(iter-- > 0) trainModel();
 	}
 		

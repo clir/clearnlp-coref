@@ -26,7 +26,7 @@ import edu.emory.clir.clearnlp.relation.chunk.EnglishNamedEntityChunker;
 import edu.emory.clir.clearnlp.relation.structure.Corpus;
 import edu.emory.clir.clearnlp.relation.structure.Document;
 import edu.emory.clir.clearnlp.relation.structure.Entity;
-import edu.emory.clir.clearnlp.relation.utils.RelationExtractionTestUtil;
+import edu.emory.clir.clearnlp.relation.utils.RelationExtractionFileUtil;
 import edu.emory.clir.clearnlp.relation.utils.evaluation.AbstractRelationExtrationEvaluator;
 import edu.emory.clir.clearnlp.relation.utils.evaluation.MainEntityEvaluator;
 import edu.emory.clir.clearnlp.util.DSUtils;
@@ -44,7 +44,7 @@ private static final String DIR_IN = "/Users/HenryChen/Desktop/NYTimes_Dummy";
 	public void testMainEntityEvaluator(){
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
 		List<String> l_filePaths = FileUtils.getFileList(DIR_IN, ".cnlp", true);
-		Corpus corpus = RelationExtractionTestUtil.loadCorpus(reader, l_filePaths, "NYTimes_Dummy", true);
+		Corpus corpus = RelationExtractionFileUtil.loadCorpus(reader, l_filePaths, "NYTimes_Dummy", true);
 		
 		final Set<String> extactingNETags = DSUtils.toHashSet("ORG", "PERSON");
 		AbstractChucker chunker = new EnglishNamedEntityChunker(extactingNETags);
