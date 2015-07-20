@@ -15,6 +15,7 @@
  */
 package edu.emory.clir.clearnlp.relation.model;
 
+import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
@@ -36,6 +37,7 @@ import edu.emory.clir.clearnlp.relation.structure.Entity;
 import edu.emory.clir.clearnlp.relation.utils.RelationExtractionFileUtil;
 import edu.emory.clir.clearnlp.relation.utils.evaluation.MainEntityEvaluator;
 import edu.emory.clir.clearnlp.util.FileUtils;
+import edu.emory.clir.clearnlp.util.IOUtils;
 import edu.emory.clir.clearnlp.util.constant.StringConst;
 
 /**
@@ -57,7 +59,10 @@ public class MainEntityIdentificationModelTest {
 	private static final String DIR_IN = "/Users/HenryChen/Desktop/NYTimes_Parsed";
 	private static final String DIR_SEED = "/Users/HenryChen/Desktop/NYTimes_Seed";
 	
+	private static final String DATA_OUT = "/Users/HenryChen/Desktop/mainEntity_prediction.out";
+	
 	@Test
+	@Ignore
 	public void trainModel_withSeed(){
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
 		List<String> l_filePaths = FileUtils.getFileList(DIR_SEED, ".cnlp", true);
@@ -120,7 +125,7 @@ public class MainEntityIdentificationModelTest {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void trainModel(){
 		TSVReader reader = new TSVReader(0, 1, 2, 3, 7, 4, 5, 6, -1, -1);
 		List<String> l_filePaths = FileUtils.getFileList(DIR_IN, ".cnlp", true);
@@ -131,6 +136,7 @@ public class MainEntityIdentificationModelTest {
 		
 		// Bootstrapping seed documents for training.
 		List<Entity> l_mainEntities;
+		int totalMainEntity = 0, totalNonMainEntity = 0, totalEntity = 0;
 		Corpus trnCorpus = new Corpus("NYTimes_Train"), devCorpus = new Corpus("NYTimes_Development");
 		for(Document document : corpus){
 			l_mainEntities = extractor.getMainEntities(document, false);
@@ -139,41 +145,74 @@ public class MainEntityIdentificationModelTest {
 				document.setMainEnities(l_mainEntities);
 				extractor.getNonMainEntities(document, true);
 				trnCorpus.addDocument(document);
+				
+				totalEntity += document.getEntities().size();
+				totalMainEntity += document.getMainEntities().size();
+				totalNonMainEntity += document.getNonMainEntities().size();
 			}
 			else
 				devCorpus.addDocument(document);
 		}
+		System.out.println("(+): " + totalMainEntity + ", (-): " + totalNonMainEntity + ", Total: " + totalEntity);
 		
 		MainEntityIdentificationComponent component = new MainEntityIdentificationComponent(labelCutoff, featureCutoff, average, alpha, rho, bias);
 		// Training
 		component.setFlag(CFlag.TRAIN);
 		for(Document document : trnCorpus)	component.train(document);
+		
+		System.out.println(StringConst.NEW_LINE + "Initializing trainer");
 		component.initTrainer();
-		component.trainModel(10);
+		System.out.println(component.getTrainer().trainerInfoFull());
 		
 		// Developing
-		double currentPrecision = 0d, previousPrecision = 0d;
+		int iterCount = 0;
+		double current = 0d, previous = 0d;
 		MainEntityEvaluator evaluator = null;
-		
+		Pair<Triple<Double, Double, Double>, AbstractWeightVector> best = new Pair<>(new Triple<>(0d, 0d, 0d), null);
+				
+		component.setFlag(CFlag.DECODE);
+		System.out.println(StringConst.NEW_LINE + "Developing");
 		do{
+			previous = current;
+			System.out.print("Iteration " + iterCount++ + " ...");
+					
 			component.trainModel();
-			if(evaluator != null) previousPrecision = currentPrecision;
-			
+							
 			evaluator = new MainEntityEvaluator();
 			for(Document document : trnCorpus){
 				l_mainEntities = component.decode(document);
 				evaluator.evaluatePrecisionOnDocumentTitle(document.getTitle(), l_mainEntities);
+				evaluator.evaluateRecall(document.getMainEntities(), l_mainEntities);
 			}
-			currentPrecision = evaluator.getAveragePrecision();
-			
-		} while(Math.abs(currentPrecision - previousPrecision) <= DEV_THRESHOLD);
+			System.out.println(evaluator.getAverageTriple());
+					
+			current = evaluator.getAverageF1Score();
+			if(current > best.o1.o3)	best.set(evaluator.getAverageTriple(), component.getModel().getWeightVector());		
+		} while(Math.abs(current - previous) > DEV_THRESHOLD);
 		
+		NumberFormat formatter = new DecimalFormat("#0.00");
+		System.out.println("\nHighest result:");
+		System.out.println("Precision:\t" + formatter.format(best.o1.o1 * 100) + "%");
+		System.out.println("Recall:\t\t" + formatter.format(best.o1.o2 * 100) + "%");
+		System.out.println("F1 score:\t" + formatter.format(best.o1.o3 * 100) + "%");
 		
 		// Decoding
-		component.setFlag(CFlag.DECODE);
+		System.out.println("\nDecoding");
+		evaluator = new MainEntityEvaluator();
+		component.getModel().setWeightVector(best.o2);
+		PrintWriter writer = new PrintWriter(IOUtils.createBufferedPrintStream(DATA_OUT));
+		
 		for(Document document : devCorpus){
 			l_mainEntities = component.decode(document);
 			document.setMainEnities(l_mainEntities);
+			evaluator.evaluatePrecisionOnDocumentTitle(document.getTitle(), l_mainEntities);
+			
+			writer.println(document.getTitle());
+			writer.println(document.getMainEntities());
+			writer.println();
 		}
+		writer.close();
+		
+		System.out.println("Precision: " + formatter.format(evaluator.getAveragePrecision() * 100) + "%");
 	}
 }

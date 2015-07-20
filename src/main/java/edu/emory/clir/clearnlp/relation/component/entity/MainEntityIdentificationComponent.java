@@ -25,6 +25,7 @@ import edu.emory.clir.clearnlp.classification.prediction.StringPrediction;
 import edu.emory.clir.clearnlp.classification.trainer.AbstractOnlineTrainer;
 import edu.emory.clir.clearnlp.classification.trainer.AdaGradSVM;
 import edu.emory.clir.clearnlp.component.utils.CFlag;
+import edu.emory.clir.clearnlp.relation.feature.MainEntityComponentLabel;
 import edu.emory.clir.clearnlp.relation.structure.Document;
 import edu.emory.clir.clearnlp.relation.structure.Entity;
 
@@ -33,11 +34,9 @@ import edu.emory.clir.clearnlp.relation.structure.Entity;
  * @version	1.0
  * @since 	Jul 15, 2015
  */
-public class MainEntityIdentificationComponent {
-	private static String TRUE = "true", FALSE = "false";
+public class MainEntityIdentificationComponent implements MainEntityComponentLabel{	
 	
 	private CFlag c_flag;
-	
 	private StringModel model;
 	private AbstractOnlineTrainer trainer;
 	private MainEntityIdentificationFeatureExtractor extractor;

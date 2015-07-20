@@ -22,6 +22,7 @@ import edu.emory.clir.clearnlp.classification.vector.StringFeatureVector;
 import edu.emory.clir.clearnlp.dependency.DEPLibEn;
 import edu.emory.clir.clearnlp.dependency.DEPNode;
 import edu.emory.clir.clearnlp.dependency.DEPTree;
+import edu.emory.clir.clearnlp.relation.feature.MainEntityComponentLabel;
 import edu.emory.clir.clearnlp.relation.feature.MainEntityFeatureIndex;
 import edu.emory.clir.clearnlp.relation.structure.Document;
 import edu.emory.clir.clearnlp.relation.structure.Entity;
@@ -36,14 +37,10 @@ import edu.emory.clir.clearnlp.util.constant.StringConst;
  * @version	1.0
  * @since 	Jul 15, 2015
  */
-public class MainEntityIdentificationFeatureExtractor implements MainEntityFeatureIndex{
+public class MainEntityIdentificationFeatureExtractor implements MainEntityFeatureIndex, MainEntityComponentLabel{
 	private final String MOD_SUFFIX = "mod";
 	private final boolean DECAPITALIZE = true;
-	private final String HYPHEN = StringConst.HYPHEN;
-	private final String TRUE = "true", FALSE = "false";
-	private final Set<String> ignoredDEPLabels = DSUtils.toHashSet(DEPLibEn.DEP_APPOS, DEPLibEn.DEP_RELCL, DEPLibEn.DEP_POSS);
-	
-	private final AbstractTokenizer d_tokenizer = new EnglishTokenizer(); 
+	private final Set<String> ignoredDEPLabels = DSUtils.toHashSet(DEPLibEn.DEP_APPOS, DEPLibEn.DEP_RELCL, DEPLibEn.DEP_POSS); 
 	
 	public StringFeatureVector getVector(Document document, Entity entity){
 		String wordForm; DEPTree tree;

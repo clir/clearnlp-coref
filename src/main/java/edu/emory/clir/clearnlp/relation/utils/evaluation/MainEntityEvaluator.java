@@ -98,8 +98,4 @@ public class MainEntityEvaluator extends AbstractRelationExtrationEvaluator{
 		PrecisionCount++; PrecisionSumSore += precision;
 		return precision;
 	}
-	
-	public double evaluateRecallOnDocumentTitle(String title, List<Entity> predictions){
-		return 0d;
-	}
 }

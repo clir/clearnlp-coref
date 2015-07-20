@@ -24,7 +24,7 @@ import edu.emory.clir.clearnlp.collection.map.IntDoubleHashMap;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 import edu.emory.clir.clearnlp.relation.chunk.AbstractChucker;
 import edu.emory.clir.clearnlp.relation.chunk.EnglishProperNounChunker;
-import edu.emory.clir.clearnlp.relation.extract.MainEntityExtractor;
+import edu.emory.clir.clearnlp.relation.extract.WeightedMainEntityExtractor;
 import edu.emory.clir.clearnlp.relation.feature.MainEntityFeatureIndex;
 import edu.emory.clir.clearnlp.relation.structure.Corpus;
 import edu.emory.clir.clearnlp.relation.structure.Document;
@@ -61,7 +61,7 @@ public class MainEntityExtractionWithProperNounChunker {
 		
 		AbstractChucker chunker = new EnglishProperNounChunker(extactingNETags);
 		Corpus corpus = RelationExtractionFileUtil.loadCorpus(reader, l_filePaths, "NYTimes", true);
-		MainEntityExtractor extractor = new MainEntityExtractor(chunker, CUTOFF, GAP, getWeights());
+		WeightedMainEntityExtractor extractor = new WeightedMainEntityExtractor(chunker, CUTOFF, GAP, getWeights());
 		MainEntityEvaluator evaluator = new MainEntityEvaluator(chunker);
 		
 		int doc_count = 0;

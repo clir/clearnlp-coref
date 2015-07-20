@@ -58,7 +58,7 @@ public class MainEntityExtractorTest {
 		
 		AbstractChucker chunker = new EnglishNamedEntityChunker(extactingNETags);
 		Corpus corpus = RelationExtractionFileUtil.loadCorpus(reader, l_filePaths, "NYTimes", true);
-		MainEntityExtractor extractor = new MainEntityExtractor(chunker, CUTOFF, GAP, getWeights());
+		WeightedMainEntityExtractor extractor = new WeightedMainEntityExtractor(chunker, CUTOFF, GAP, getWeights());
 
 		for(Document document : corpus){
 			document.setMainEnities(extractor.getMainEntities(document));

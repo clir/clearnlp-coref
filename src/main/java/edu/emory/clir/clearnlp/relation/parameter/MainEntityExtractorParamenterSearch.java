@@ -26,7 +26,7 @@ import edu.emory.clir.clearnlp.collection.pair.ObjectDoublePair;
 import edu.emory.clir.clearnlp.reader.TSVReader;
 import edu.emory.clir.clearnlp.relation.chunk.AbstractChucker;
 import edu.emory.clir.clearnlp.relation.chunk.EnglishProperNounChunker;
-import edu.emory.clir.clearnlp.relation.extract.MainEntityExtractor;
+import edu.emory.clir.clearnlp.relation.extract.WeightedMainEntityExtractor;
 import edu.emory.clir.clearnlp.relation.feature.MainEntityFeatureIndex;
 import edu.emory.clir.clearnlp.relation.structure.Corpus;
 import edu.emory.clir.clearnlp.relation.structure.Document;
@@ -84,7 +84,7 @@ public class MainEntityExtractorParamenterSearch implements Runnable{
 	
 	private void search(PrintStream out){
 		int intanceCount = 1;
-		MainEntityExtractor extractor = null;
+		WeightedMainEntityExtractor extractor = null;
 		MainEntityEvaluator evaluator = null;
 		AbstractChucker chunker = new EnglishProperNounChunker(extactingNETags);
 		
@@ -108,9 +108,9 @@ public class MainEntityExtractorParamenterSearch implements Runnable{
 		writer.close();
 	}
 	
-	private double evaluate(Corpus corpus, AbstractChucker chunker, MainEntityExtractor extractor, MainEntityEvaluator evaluator){
+	private double evaluate(Corpus corpus, AbstractChucker chunker, WeightedMainEntityExtractor extractor, MainEntityEvaluator evaluator){
 		evaluator = new MainEntityEvaluator();
-		extractor = new MainEntityExtractor(chunker, CUTOFF, GAP, getWeights(FREQ_COUNT, ENTITY_CONFID, FIRST_APPEAR));
+		extractor = new WeightedMainEntityExtractor(chunker, CUTOFF, GAP, getWeights(FREQ_COUNT, ENTITY_CONFID, FIRST_APPEAR));
 		
 		int doc_count = 0;
 		for(Document document : corpus){

@@ -30,12 +30,12 @@ import edu.emory.clir.clearnlp.relation.structure.Entity;
  * @version	1.0
  * @since 	Jul 5, 2015
  */
-public class MainEntityExtractor extends AbstractMainEntityExtractor implements MainEntityFeatureIndex{
+public class WeightedMainEntityExtractor extends AbstractMainEntityExtractor implements MainEntityFeatureIndex{
 	private double d_cutoffThreshold;
 	private double d_gapThreshold;
 	private IntDoubleHashMap m_weights;
 	
-	public MainEntityExtractor(AbstractChucker chunker, double cutoffThreshold, double gapThreshold, IntDoubleHashMap weights){
+	public WeightedMainEntityExtractor(AbstractChucker chunker, double cutoffThreshold, double gapThreshold, IntDoubleHashMap weights){
 		super(chunker);
 		d_cutoffThreshold = cutoffThreshold;
 		d_gapThreshold = gapThreshold;
