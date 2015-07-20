@@ -38,7 +38,7 @@ public class DeterministicMainEntityExtractor extends AbstractMainEntityExtracto
 	 * 		out of ~10% documents in a corpus
 	 */
 
-	private final double d_cutoffThreshold = 0.49d, d_lowCutoffAlpha = 1.78d;
+	private final double d_cutoffThreshold = 0.49d, d_lowCutoffAlpha = 1.79d;
 	private final double d_frequencyCount = 0.785d, d_entityConfidence = 0.125d, d_firstAppearance = 0.315d;
 
 	public DeterministicMainEntityExtractor(){
@@ -118,7 +118,6 @@ public class DeterministicMainEntityExtractor extends AbstractMainEntityExtracto
 	}
 	
 	private double logRescale(double score){
-//		return score;
 		return Math.log(score + 1);
 	}
 }
