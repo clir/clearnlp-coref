@@ -62,6 +62,16 @@ public class Document implements Serializable, Iterable<Entity>{
 		l_trees = trees;
 	}
 	
+	public Document(Document document){
+		s_title = document.getTitle();
+		t_title = document.getTitleTree();
+		w_confidence = document.getConfidence();
+		l_trees =  new ArrayList<>(document.getTrees());
+		l_entities =  new ArrayList<>(document.getEntities());
+		l_mainEntities =  new ArrayList<>(document.getMainEntities());
+		l_nonMainEntities =  new ArrayList<>(document.getNonMainEntities());
+	}
+	
 	public String getTitle(){
 		return s_title;
 	}

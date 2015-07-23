@@ -51,7 +51,7 @@ public class SieveSystemTest {
 	public void testAllSieves(){
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadMentionDectors(true, false, true);
+		config.loadMentionDetectors(true, false, true);
 		config.loadDefaultSieves(false, true, true, false, true, true, true, true);
 		/* ************* */
 		
@@ -63,7 +63,7 @@ public class SieveSystemTest {
 	public void testSelectedSieves(){
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadMentionDectors(true, true, true);
+		config.loadMentionDetectors(true, true, true);
 		config.mountSieves(new SpeakerIdentification(), new ExactStringMatch(), new RelaxedStringMatch(), new SimplePronounMatch());
 		/* ************* */
 		

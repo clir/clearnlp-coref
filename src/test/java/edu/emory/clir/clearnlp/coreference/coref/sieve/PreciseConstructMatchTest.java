@@ -40,7 +40,7 @@ public class PreciseConstructMatchTest {
 	@Test
 	public void testPreciseConstructMatch(){
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadDefaultMentionDectors();
+		config.loadDefaultMentionDetectors();
 		config.mountSieves(new PreciseConstructMatch());
 
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config); 

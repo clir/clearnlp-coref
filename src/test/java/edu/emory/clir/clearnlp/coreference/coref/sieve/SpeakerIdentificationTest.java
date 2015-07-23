@@ -42,7 +42,7 @@ public class SpeakerIdentificationTest {
 	@Test
 	public void testSpeakerIdentification() throws IOException{
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadDefaultMentionDectors();
+		config.loadDefaultMentionDetectors();
 		config.mountSieves(new SpeakerIdentification());
 		
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config); 

@@ -24,6 +24,7 @@ import edu.emory.clir.clearnlp.classification.model.StringModel;
 import edu.emory.clir.clearnlp.classification.prediction.StringPrediction;
 import edu.emory.clir.clearnlp.classification.trainer.AbstractOnlineTrainer;
 import edu.emory.clir.clearnlp.classification.trainer.AdaGradSVM;
+import edu.emory.clir.clearnlp.collection.pair.Pair;
 import edu.emory.clir.clearnlp.component.utils.CFlag;
 import edu.emory.clir.clearnlp.relation.feature.MainEntityComponentLabel;
 import edu.emory.clir.clearnlp.relation.structure.Document;
@@ -75,7 +76,7 @@ public class MainEntityIdentificationComponent implements MainEntityComponentLab
 	}
 	
 	// Process
-	private List<Entity> process(Document document){
+	private Pair<List<Entity>, List<Entity>> process(Document document){
 		switch(c_flag){
 			case TRAIN:
 				List<Entity> l_mainEntities = document.getMainEntities(),
@@ -85,17 +86,18 @@ public class MainEntityIdentificationComponent implements MainEntityComponentLab
 					model.addInstance(new StringInstance(TRUE, extractor.getVector(document, mainEntity)));
 				for(Entity nonMainEnitty : l_nonMainEntities) 
 					model.addInstance(new StringInstance(FALSE, extractor.getVector(document, nonMainEnitty)));
-				return l_mainEntities;
+				return new Pair<>(l_mainEntities, l_nonMainEntities);
 				
 			case DECODE:
 				StringPrediction prediction;
-				List<Entity> entities = new ArrayList<>();
+				List<Entity> mainEntities = new ArrayList<>(), nonMainEntities = new ArrayList<>();
 				
 				for(Entity entity : document.getEntities()){
 					prediction = model.predictBest(extractor.getVector(document, entity));
-					if(prediction.getLabel().equals(TRUE))	entities.add(entity);
+					if(prediction.getLabel().equals(TRUE))			mainEntities.add(entity);
+					else if(prediction.getLabel().equals(FALSE)) 	nonMainEntities.add(entity);
 				}
-				return entities;
+				return new Pair<>(mainEntities, nonMainEntities);
 				
 			default:
 				break;
@@ -130,7 +132,7 @@ public class MainEntityIdentificationComponent implements MainEntityComponentLab
 	}
 	
 	// Decoding
-	public List<Entity> decode(Document document){
+	public Pair<List<Entity>, List<Entity>> decode(Document document){
 		if(c_flag == CFlag.DECODE) return process(document);
 		else throw new IllegalStateException("Component is not set to decode.");
 	}

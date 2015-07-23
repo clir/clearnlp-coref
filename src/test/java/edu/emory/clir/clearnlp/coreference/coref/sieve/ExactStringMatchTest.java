@@ -23,7 +23,7 @@ public class ExactStringMatchTest
 	@Test
 	public void testExactStringMatch() throws IOException{
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadDefaultMentionDectors();
+		config.loadDefaultMentionDetectors();
 		config.mountSieves(new ExactStringMatch(true));
 		
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config); 

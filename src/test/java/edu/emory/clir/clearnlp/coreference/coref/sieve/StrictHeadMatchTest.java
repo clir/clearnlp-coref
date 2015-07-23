@@ -41,7 +41,7 @@ public class StrictHeadMatchTest {
 	@Test
 	public void testStrictHeadMatch() throws IOException{
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadDefaultMentionDectors();
+		config.loadDefaultMentionDetectors();
 		config.mountSieves(new StrictHeadMatch());
 		
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config); 

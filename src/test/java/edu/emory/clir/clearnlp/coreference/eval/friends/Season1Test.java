@@ -56,7 +56,7 @@ public class Season1Test {
 		
 		/* Coref Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadDefaultMentionDectors();
+		config.loadDefaultMentionDetectors();
 		config.loadDefaultSieves(true, true, true, true, true, false, false, false);
 		/* ************* */
 		

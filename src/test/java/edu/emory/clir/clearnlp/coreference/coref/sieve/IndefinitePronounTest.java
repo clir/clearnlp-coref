@@ -29,7 +29,7 @@ public class IndefinitePronounTest
     public void IndefinitePronounTest()
     {
         SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-        config.loadDefaultMentionDectors();
+        config.loadDefaultMentionDetectors();
         config.mountSieves(new IndefinitePronounMatch());
         AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
 

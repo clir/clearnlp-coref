@@ -27,10 +27,7 @@ import edu.emory.clir.clearnlp.relation.feature.MainEntityFeatureIndex;
 import edu.emory.clir.clearnlp.relation.structure.Document;
 import edu.emory.clir.clearnlp.relation.structure.Entity;
 import edu.emory.clir.clearnlp.relation.structure.EntityAlias;
-import edu.emory.clir.clearnlp.tokenization.AbstractTokenizer;
-import edu.emory.clir.clearnlp.tokenization.EnglishTokenizer;
 import edu.emory.clir.clearnlp.util.DSUtils;
-import edu.emory.clir.clearnlp.util.constant.StringConst;
 
 /**
  * @author 	Yu-Hsin(Henry) Chen ({@code yu-hsin.chen@emory.edu})

@@ -45,7 +45,7 @@ public class EnglishNounPhraseChunkerTest {
 		int count = 10;
 		for(Document document : corpus){
 			System.out.println(document.getTitle());
-			for(Chunk chunk : chunker.getChuncks(document.getTrees()))
+			for(Chunk chunk : chunker.getChunks(document.getTrees()))
 				System.out.println(chunk + " -> " + chunk.getStrippedWordForm(true));
 			System.out.println();
 			

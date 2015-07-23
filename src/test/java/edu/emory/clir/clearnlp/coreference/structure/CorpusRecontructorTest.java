@@ -56,7 +56,7 @@ public class CorpusRecontructorTest {
 		
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadMentionDectors(true, true, true);
+		config.loadMentionDetectors(true, true, true);
 		config.mountSieves(new SpeakerIdentification(), new ExactStringMatch(), new RelaxedStringMatch(), new SimplePronounMatch());
 		/* ************* */
 		

@@ -48,7 +48,7 @@ public class EnglishNamedEntityChunkerTest {
 		int count = 1;
 		for(Document document : corpus){
 			if(count-- <= 0) break;
-			for(Chunk chunk : chunker.getChuncks(document.getTrees()))
+			for(Chunk chunk : chunker.getChunks(document.getTrees()))
 				System.out.println(chunk);
 			System.out.println();			
 		}

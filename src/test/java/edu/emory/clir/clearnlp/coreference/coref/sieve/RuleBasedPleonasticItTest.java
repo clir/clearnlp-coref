@@ -36,7 +36,7 @@ public class RuleBasedPleonasticItTest
 	public void test()
 	{
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadDefaultMentionDectors();
+		config.loadDefaultMentionDetectors();
 		config.loadDefaultSieves(false);
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
 

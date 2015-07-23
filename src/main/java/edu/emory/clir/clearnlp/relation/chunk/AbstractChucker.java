@@ -78,7 +78,7 @@ public abstract class AbstractChucker {
 		return chunks;
 	}
 	
-	public List<Chunk> getChuncks(List<DEPTree> trees){
+	public List<Chunk> getChunks(List<DEPTree> trees){
 		List<Chunk> list = new ArrayList<>();
 		for(DEPTree tree : trees) list.addAll(getChunk(tree));
 		return list;

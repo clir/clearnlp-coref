@@ -107,7 +107,7 @@ public class MainEntityIdentificationModelTest {
 					
 			evaluator = new MainEntityEvaluator();
 			for(Document document : seedCorpus){
-				l_mainEntities = component.decode(document);
+				l_mainEntities = component.decode(document).o1;
 				evaluator.evaluatePrecisionOnDocumentTitle(document.getTitle(), l_mainEntities);
 				evaluator.evaluateRecall(document.getMainEntities(), l_mainEntities);
 			}
@@ -180,7 +180,7 @@ public class MainEntityIdentificationModelTest {
 							
 			evaluator = new MainEntityEvaluator();
 			for(Document document : trnCorpus){
-				l_mainEntities = component.decode(document);
+				l_mainEntities = component.decode(document).o1;
 				evaluator.evaluatePrecisionOnDocumentTitle(document.getTitle(), l_mainEntities);
 				evaluator.evaluateRecall(document.getMainEntities(), l_mainEntities);
 			}
@@ -203,7 +203,7 @@ public class MainEntityIdentificationModelTest {
 		PrintWriter writer = new PrintWriter(IOUtils.createBufferedPrintStream(DATA_OUT));
 		
 		for(Document document : devCorpus){
-			l_mainEntities = component.decode(document);
+			l_mainEntities = component.decode(document).o1;
 			document.setMainEnities(l_mainEntities);
 			evaluator.evaluatePrecisionOnDocumentTitle(document.getTitle(), l_mainEntities);
 			

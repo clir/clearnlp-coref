@@ -64,6 +64,13 @@ public class Corpus implements Serializable, Iterable<Document>{
 		return l_documents.size();
 	}
 	
+	public Document getDocument(String title){
+		for(Document document : l_documents)
+			if(document.getTitle().equals(title))
+				return document;
+		return null;
+	}
+	
 	public List<Document> getDocuments(){
 		return l_documents;
 	}

@@ -41,7 +41,7 @@ public class RelaxedStringMatchTest {
 	@Test
 	public void testRelaxedStringMatch() throws IOException{
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadDefaultMentionDectors();
+		config.loadDefaultMentionDetectors();
 		config.mountSieves(new RelaxedStringMatch(true));
 		
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config); 

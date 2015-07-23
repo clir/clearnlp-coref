@@ -54,7 +54,7 @@ public class CorpusReconstructor {
 		
 		/* Coref Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadMentionDectors(true, true, true);
+		config.loadMentionDetectors(true, true, true);
 		config.loadDefaultSieves(true, true, true, true, true, true, true, true);
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
 		/* ************* */

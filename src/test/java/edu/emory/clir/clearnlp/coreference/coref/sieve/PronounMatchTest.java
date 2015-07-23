@@ -54,7 +54,7 @@ public class PronounMatchTest {
 	public void testAdjunctDomain(){
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadDefaultMentionDectors();
+		config.loadDefaultMentionDetectors();
 		config.mountSieves(new PreciseConstructMatch());
 		/* ************* */
 		

@@ -42,7 +42,7 @@ public class SimplePronounMatchTest {
 	public void test(){
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadMentionDectors(true, true, true);
+		config.loadMentionDetectors(true, true, true);
 		config.mountSieves(new SimplePronounMatch());
 		/* ************* */
 		

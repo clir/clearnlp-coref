@@ -34,11 +34,11 @@ public abstract class AbstractCorefConfiguration {
 		return mention_config;
 	}
 	
-	public void  loadDefaultMentionDectors(){
-		loadMentionDectors(true, true, true);
+	public void  loadDefaultMentionDetectors(){
+		loadMentionDetectors(true, true, true);
 	}
 	
-	public void  loadMentionDectors(boolean pronoun, boolean common, boolean proper){
+	public void  loadMentionDetectors(boolean pronoun, boolean common, boolean proper){
 		mention_config = new MentionConfiguration(pronoun, common, proper);
 	}
 }

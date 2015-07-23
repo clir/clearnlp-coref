@@ -57,7 +57,7 @@ public class SieveSystemTest {
 	public void corefTest() throws IOException{
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadDefaultMentionDectors();
+		config.loadDefaultMentionDetectors();
 		config.loadDefaultSieves(true);
 		/* ************* */
 		
@@ -79,7 +79,7 @@ public class SieveSystemTest {
 		
 		/* Configuration */
 		SieveSystemCongiuration config = new SieveSystemCongiuration(TLanguage.ENGLISH);
-		config.loadMentionDectors(false, true, true);
+		config.loadMentionDetectors(false, true, true);
 //		config.loadDefaultSieves(true);
 		config.mountSieves(new SpeakerIdentification(), new ExactStringMatch(true), new RelaxedStringMatch(true), new SimplePronounMatch());
 		AbstractCoreferenceResolution coref = new SieveSystemCoreferenceResolution(config);
